@@ -88,6 +88,18 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.Twitter.2.1.0\lib\net45\Microsoft.Owin.Security.Twitter.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="mysql.data.entity.EF6, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Data.Entities.6.8.3.0\lib\net45\mysql.data.entity.EF6.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Web, Version=6.8.3.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\MySql.Web.6.8.3\lib\net45\MySql.Web.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -169,44 +181,45 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
-    <Content Include="Content\bootstrap.min.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\Site.css" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Scripts\jquery-2.0.3.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.js" />
-    <Content Include="Scripts\jquery-2.0.3.min.map" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.7.1.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Public\Content\bootstrap-theme.css" />
+    <Content Include="Public\Content\bootstrap-theme.min.css" />
+    <Content Include="Public\Content\bootstrap.css" />
+    <Content Include="Public\Content\bootstrap.min.css" />
+    <Content Include="Public\Content\Site.css" />
+    <Content Include="Public\Fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Public\Icons\favicon.ico" />
+    <Content Include="Public\Scripts\bootstrap.js" />
+    <Content Include="Public\Scripts\bootstrap.min.js" />
+    <None Include="Public\Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Public\Scripts\jquery-2.0.3.js" />
+    <Content Include="Public\Scripts\jquery-2.0.3.min.js" />
+    <None Include="Public\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Public\Scripts\jquery.validate.js" />
+    <Content Include="Public\Scripts\jquery.validate.min.js" />
+    <Content Include="Public\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Public\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Public\Scripts\modernizr-2.7.1.js" />
+    <Content Include="Public\Scripts\respond.js" />
+    <Content Include="Public\Scripts\respond.min.js" />
+    <Content Include="Public\Scripts\_references.js" />
+    <Content Include="Public\Fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Public\Fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Public\Fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Public\Scripts\jquery-2.0.3.min.map" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -236,7 +249,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
+      <Project>{23e7b49e-f7ba-4e8c-9bb6-85ca56d887d0}</Project>
+      <Name>UDG.Colloquium.DL</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

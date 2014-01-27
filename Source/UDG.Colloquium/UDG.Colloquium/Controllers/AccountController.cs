@@ -8,11 +8,13 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
+using UDG.Colloquium.DL;
 using UDG.Colloquium.Models;
 
 namespace UDG.Colloquium.Controllers
 {
     [Authorize]
+    [RoutePrefix("Account")]
     public class AccountController : Controller
     {
         public AccountController()
@@ -30,6 +32,7 @@ namespace UDG.Colloquium.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
+        [Route("Login")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -41,6 +44,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("Login")]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
@@ -64,6 +68,7 @@ namespace UDG.Colloquium.Controllers
         //
         // GET: /Account/Register
         [AllowAnonymous]
+        [Route("Register")]
         public ActionResult Register()
         {
             return View();
@@ -74,12 +79,13 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("Register")]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
-                var result = await UserManager.CreateAsync(user, model.Password);
+                var user = new ApplicationUser() { UserName = model.UserName};
+                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
@@ -99,23 +105,18 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/Disassociate
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Disassociate")]
         public async Task<ActionResult> Disassociate(string loginProvider, string providerKey)
         {
-            ManageMessageId? message = null;
+            ManageMessageId? message;
             IdentityResult result = await UserManager.RemoveLoginAsync(User.Identity.GetUserId(), new UserLoginInfo(loginProvider, providerKey));
-            if (result.Succeeded)
-            {
-                message = ManageMessageId.RemoveLoginSuccess;
-            }
-            else
-            {
-                message = ManageMessageId.Error;
-            }
+            message = result.Succeeded ? ManageMessageId.RemoveLoginSuccess : ManageMessageId.Error;
             return RedirectToAction("Manage", new { Message = message });
         }
 
         //
         // GET: /Account/Manage
+        [Route("Manage")]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -133,6 +134,7 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Manage")]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
             bool hasPassword = HasPassword();
@@ -185,6 +187,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("ExternalLogin")]
         public ActionResult ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
@@ -222,6 +225,7 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("LinkLogin")]
         public ActionResult LinkLogin(string provider)
         {
             // Request a redirect to the external login provider to link a login for the current user
@@ -230,6 +234,7 @@ namespace UDG.Colloquium.Controllers
 
         //
         // GET: /Account/LinkLoginCallback
+        [Route("LinkLoginCallback")]
         public async Task<ActionResult> LinkLoginCallback()
         {
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
@@ -250,6 +255,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
+        [Route("ExternalLoginConfirmation")]
         public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
         {
             if (User.Identity.IsAuthenticated)
@@ -287,6 +293,7 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("LogOff")]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -296,6 +303,7 @@ namespace UDG.Colloquium.Controllers
         //
         // GET: /Account/ExternalLoginFailure
         [AllowAnonymous]
+        [Route("ExternalLoginFailure")]
         public ActionResult ExternalLoginFailure()
         {
             return View();

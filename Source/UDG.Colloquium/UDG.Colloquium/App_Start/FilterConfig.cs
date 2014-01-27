@@ -1,7 +1,6 @@
-﻿using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace UDG.Colloquium
+namespace UDG.Colloquium.App_Start
 {
     public class FilterConfig
     {
