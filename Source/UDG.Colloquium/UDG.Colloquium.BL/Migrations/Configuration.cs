@@ -1,19 +1,16 @@
-namespace UDG.Colloquium.DL.Migrations
-{
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
+using System.Data.Entity.Migrations;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<UDG.Colloquium.DL.ApplicationDbContext>
+namespace UDG.Colloquium.BL.Migrations
+{
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "UDG.Colloquium.DL.ApplicationDbContext";
+            ContextKey = "UDG.Colloquium.BL.ApplicationDbContext";
         }
 
-        protected override void Seed(UDG.Colloquium.DL.ApplicationDbContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

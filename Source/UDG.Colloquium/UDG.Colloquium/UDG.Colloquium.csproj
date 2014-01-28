@@ -251,9 +251,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
+    <ProjectReference Include="..\UDG.Colloquium.BL\UDG.Colloquium.BL.csproj">
       <Project>{23e7b49e-f7ba-4e8c-9bb6-85ca56d887d0}</Project>
-      <Name>UDG.Colloquium.DL</Name>
+      <Name>UDG.Colloquium.BL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

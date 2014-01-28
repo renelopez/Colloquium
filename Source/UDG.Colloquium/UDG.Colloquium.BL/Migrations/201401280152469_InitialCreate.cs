@@ -1,4 +1,4 @@
-namespace UDG.Colloquium.DL.Migrations
+namespace UDG.Colloquium.BL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
@@ -8,7 +8,7 @@ namespace UDG.Colloquium.DL.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.AspNetRoles",
+                "dbo.Roles",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
@@ -17,7 +17,7 @@ namespace UDG.Colloquium.DL.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.AspNetUsers",
+                "dbo.Users",
                 c => new
                     {
                         Id = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
@@ -29,7 +29,7 @@ namespace UDG.Colloquium.DL.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.AspNetUserClaims",
+                "dbo.UserClaims",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
@@ -38,11 +38,11 @@ namespace UDG.Colloquium.DL.Migrations
                         User_Id = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.User_Id, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.User_Id, cascadeDelete: true)
                 .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.AspNetUserLogins",
+                "dbo.UserLogins",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
@@ -50,19 +50,19 @@ namespace UDG.Colloquium.DL.Migrations
                         ProviderKey = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => new { t.UserId, t.LoginProvider, t.ProviderKey })
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
             CreateTable(
-                "dbo.AspNetUserRoles",
+                "dbo.UserRoles",
                 c => new
                     {
                         UserId = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
                         RoleId = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
                     })
                 .PrimaryKey(t => new { t.UserId, t.RoleId })
-                .ForeignKey("dbo.AspNetRoles", t => t.RoleId, cascadeDelete: true)
-                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.RoleId)
                 .Index(t => t.UserId);
             
@@ -70,19 +70,19 @@ namespace UDG.Colloquium.DL.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.AspNetUserClaims", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropIndex("dbo.AspNetUserClaims", new[] { "User_Id" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
-            DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
-            DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
-            DropTable("dbo.AspNetUserRoles");
-            DropTable("dbo.AspNetUserLogins");
-            DropTable("dbo.AspNetUserClaims");
-            DropTable("dbo.AspNetUsers");
-            DropTable("dbo.AspNetRoles");
+            DropForeignKey("dbo.UserClaims", "User_Id", "dbo.Users");
+            DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
+            DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
+            DropIndex("dbo.UserClaims", new[] { "User_Id" });
+            DropIndex("dbo.UserRoles", new[] { "UserId" });
+            DropIndex("dbo.UserRoles", new[] { "RoleId" });
+            DropIndex("dbo.UserLogins", new[] { "UserId" });
+            DropTable("dbo.UserRoles");
+            DropTable("dbo.UserLogins");
+            DropTable("dbo.UserClaims");
+            DropTable("dbo.Users");
+            DropTable("dbo.Roles");
         }
     }
 }
