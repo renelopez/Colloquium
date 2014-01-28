@@ -43,6 +43,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Elmah">
+      <HintPath>..\packages\elmah.corelibrary.1.2.2\lib\Elmah.dll</HintPath>
+    </Reference>
+    <Reference Include="Elmah.Mvc">
+      <HintPath>..\packages\Elmah.MVC.2.1.1\lib\net40\Elmah.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.dll</HintPath>
@@ -50,6 +56,16 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.AspNet, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Glimpse.AspNet.1.7.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Core">
+      <HintPath>..\packages\Glimpse.1.8.1\lib\net45\Glimpse.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Glimpse.Mvc5">
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.2\lib\net45\Glimpse.Mvc5.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -184,6 +200,7 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -217,6 +234,9 @@
     <Content Include="Public\Fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Public\Fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Public\Scripts\jquery-2.0.3.min.map" />
+    <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -239,6 +259,7 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -250,6 +271,10 @@
     <ProjectReference Include="..\UDG.Colloquium.BL\UDG.Colloquium.BL.csproj">
       <Project>{23e7b49e-f7ba-4e8c-9bb6-85ca56d887d0}</Project>
       <Name>UDG.Colloquium.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
+      <Project>{7265B8A6-AD45-4174-BD20-8E65FD39D500}</Project>
+      <Name>UDG.Colloquium.DL</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

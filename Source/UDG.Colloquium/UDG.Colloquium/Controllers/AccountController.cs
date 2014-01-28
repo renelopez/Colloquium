@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using Antlr.Runtime.Misc;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using UDG.Colloquium.BL;
+using UDG.Colloquium.DL;
 using UDG.Colloquium.Models;
 
 namespace UDG.Colloquium.Controllers
@@ -12,12 +14,12 @@ namespace UDG.Colloquium.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController(UserManager<ApplicationUser> userManager)
+        public AccountController(SecurityManager<ApplicationUser> securityManager)
         {
-            UserManager = userManager;
+            SecurityManager = securityManager;
         }
 
-        public UserManager<ApplicationUser> UserManager { get; private set; }
+        public SecurityManager<ApplicationUser> SecurityManager { get; set; }
 
         //
         // GET: /Account/Login
@@ -37,7 +39,7 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
+                var user = await SecurityManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
@@ -60,18 +62,18 @@ namespace UDG.Colloquium.Controllers
         {
             return View();
         }
-
+        
         //
         // POST: /Account/Register
-        [HttpPost]
         [AllowAnonymous]
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser() { UserName = model.UserName};
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                IdentityResult result = await SecurityManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
@@ -115,7 +117,7 @@ namespace UDG.Colloquium.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    IdentityResult result = await SecurityManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
@@ -137,7 +139,7 @@ namespace UDG.Colloquium.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    IdentityResult result = await SecurityManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                     if (result.Succeeded)
                     {
                         return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
@@ -164,10 +166,10 @@ namespace UDG.Colloquium.Controllers
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && UserManager != null)
+            if (disposing && SecurityManager != null)
             {
-                UserManager.Dispose();
-                UserManager = null;
+                SecurityManager.Dispose();
+                SecurityManager = null;
             }
             base.Dispose(disposing);
         }
@@ -184,7 +186,7 @@ namespace UDG.Colloquium.Controllers
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await SecurityManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
@@ -198,7 +200,7 @@ namespace UDG.Colloquium.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(User.Identity.GetUserId());
+            var user = SecurityManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
                 return user.PasswordHash != null;
