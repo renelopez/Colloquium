@@ -10,7 +10,7 @@ namespace UDG.Colloquium.BL
         
     }
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class SecurityDbContext : IdentityDbContext<ApplicationUser>
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace UDG.Colloquium.BL
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
         }
 
-        public ApplicationDbContext()
+        public SecurityDbContext()
             : base("DefaultConnection")
         {
         }

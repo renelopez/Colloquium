@@ -5,6 +5,7 @@ using System.Web.Optimization;
 using System.Web.Routing;
 using MySql.Data.Entity;
 using UDG.Colloquium.App_Start;
+using UDG.Colloquium.BL;
 
 namespace UDG.Colloquium
 {
@@ -14,6 +15,7 @@ namespace UDG.Colloquium
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+            UnityConfig.RegisterComponents();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 

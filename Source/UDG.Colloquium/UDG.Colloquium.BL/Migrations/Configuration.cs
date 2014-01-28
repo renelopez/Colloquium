@@ -2,7 +2,7 @@ using System.Data.Entity.Migrations;
 
 namespace UDG.Colloquium.BL.Migrations
 {
-    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<SecurityDbContext>
     {
         public Configuration()
         {
@@ -10,7 +10,7 @@ namespace UDG.Colloquium.BL.Migrations
             ContextKey = "UDG.Colloquium.BL.ApplicationDbContext";
         }
 
-        protected override void Seed(ApplicationDbContext context)
+        protected override void Seed(SecurityDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
