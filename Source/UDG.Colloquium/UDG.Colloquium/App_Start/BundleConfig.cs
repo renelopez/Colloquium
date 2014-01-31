@@ -8,7 +8,8 @@ namespace UDG.Colloquium.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Public/Scripts/jquery-{version}.js"));
+                        "~/Public/Scripts/jquery-{version}.js",
+                        "~/Public/Scripts/toastr.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Public/Scripts/jquery.validate*"));
@@ -24,7 +25,8 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Public/Content/bootstrap.css",
-                      "~/Public/Content/site.css"));
+                      "~/Public/Content/site.css",
+                      "~/Public/Content/toastr.css"));
         }
     }
 }

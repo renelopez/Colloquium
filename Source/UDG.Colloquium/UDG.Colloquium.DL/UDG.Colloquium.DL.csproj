@@ -66,10 +66,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Custom\ApplicationRole.cs" />
+    <Compile Include="Custom\ApplicationRoleStore.cs" />
+    <Compile Include="Custom\ApplicationUser.cs" />
+    <Compile Include="Custom\ApplicationUserStore.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201401281923596_InitialCreate.cs" />
-    <Compile Include="Migrations\201401281923596_InitialCreate.Designer.cs">
-      <DependentUpon>201401281923596_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201401300228469_InitialCreate.cs" />
+    <Compile Include="Migrations\201401300228469_InitialCreate.Designer.cs">
+      <DependentUpon>201401300228469_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -81,8 +85,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201401281923596_InitialCreate.resx">
-      <DependentUpon>201401281923596_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201401300228469_InitialCreate.resx">
+      <DependentUpon>201401300228469_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

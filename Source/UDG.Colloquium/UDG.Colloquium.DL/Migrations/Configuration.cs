@@ -7,14 +7,14 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<SecurityDbContext<IdentityUser>>
+    internal sealed class Configuration : DbMigrationsConfiguration<SecurityDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(SecurityDbContext<IdentityUser> context)
+        protected override void Seed(SecurityDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 

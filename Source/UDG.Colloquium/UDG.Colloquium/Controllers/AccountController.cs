@@ -1,12 +1,12 @@
-﻿using Antlr.Runtime.Misc;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using UDG.Colloquium.BL;
-using UDG.Colloquium.DL;
+using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.Models;
 
 namespace UDG.Colloquium.Controllers
@@ -14,12 +14,12 @@ namespace UDG.Colloquium.Controllers
     [Authorize]
     public class AccountController : Controller
     {
-        public AccountController(SecurityManager<ApplicationUser> securityManager)
+        public AccountController(SecurityManager securityManager)
         {
             SecurityManager = securityManager;
         }
 
-        public SecurityManager<ApplicationUser> SecurityManager { get; set; }
+        public SecurityManager SecurityManager { get; set; }
 
         //
         // GET: /Account/Login
@@ -39,7 +39,8 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = await SecurityManager.FindAsync(model.UserName, model.Password);
+                
+                var user = await SecurityManager.UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
                     await SignInAsync(user, model.RememberMe);
@@ -57,7 +58,7 @@ namespace UDG.Colloquium.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Register()
         {
             return View();
@@ -65,23 +66,24 @@ namespace UDG.Colloquium.Controllers
         
         //
         // POST: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName};
-                IdentityResult result = await SecurityManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+
+               var user = new ApplicationUser() { UserName = model.UserName};
+                IdentityResult resultAccount = await SecurityManager.UserManager.CreateAsync(user, model.Password);
+                if (resultAccount.Succeeded)
                 {
                     await SignInAsync(user, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    AddErrors(result);
+                    AddErrors(resultAccount);
                 }
             }
 
@@ -91,14 +93,9 @@ namespace UDG.Colloquium.Controllers
 
         //
         // GET: /Account/Manage
-        public ActionResult Manage(ManageMessageId? message)
+        [Authorize(Roles = "Administrator,Student")]
+        public ActionResult Manage()
         {
-            ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
             ViewBag.HasLocalPassword = HasPassword();
             ViewBag.ReturnUrl = Url.Action("Manage");
             return View();
@@ -108,6 +105,7 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/Manage
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Student")]
         public async Task<ActionResult> Manage(ManageUserViewModel model)
         {
             bool hasPassword = HasPassword();
@@ -117,10 +115,12 @@ namespace UDG.Colloquium.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await SecurityManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    IdentityResult result = await SecurityManager.UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.ChangePasswordSuccess });
+                        AddMessages("info", "Old Password:" + model.OldPassword, "New Password:" + model.NewPassword);
+                        AddMessages("success", "Password was changed succesfully");
+                        return RedirectToAction("Manage");
                     }
                     else
                     {
@@ -139,10 +139,13 @@ namespace UDG.Colloquium.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await SecurityManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    IdentityResult result = await SecurityManager.UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
                     if (result.Succeeded)
                     {
-                        return RedirectToAction("Manage", new { Message = ManageMessageId.SetPasswordSuccess });
+
+                        AddMessages("info","Old Password:"+ model.OldPassword,"New Password:" + model.NewPassword);
+                        AddMessages("success","Password was changed succesfully");
+                        return RedirectToAction("Manage");
                     }
                     else
                     {
@@ -158,6 +161,7 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator,Student")]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -168,7 +172,7 @@ namespace UDG.Colloquium.Controllers
         {
             if (disposing && SecurityManager != null)
             {
-                SecurityManager.Dispose();
+                SecurityManager.UserManager.Dispose();
                 SecurityManager = null;
             }
             base.Dispose(disposing);
@@ -186,21 +190,31 @@ namespace UDG.Colloquium.Controllers
         private async Task SignInAsync(ApplicationUser user, bool isPersistent)
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await SecurityManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            var identity = await SecurityManager.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
         private void AddErrors(IdentityResult result)
         {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
+            TempData["error"] = result.Errors;
+        }
+        private void AddErrors(string error)
+        {
+            TempData["error"] = error;
+        }
+
+        private void AddMessages(string type,params string[] messages)
+        {
+            TempData[type] = messages;
+        }
+        private void AddMessages(string type,string message)
+        {
+            TempData[type] = message;
         }
 
         private bool HasPassword()
         {
-            var user = SecurityManager.FindById(User.Identity.GetUserId());
+            var user = SecurityManager.UserManager.FindById(User.Identity.GetUserId());
             if (user != null)
             {
                 return user.PasswordHash != null;

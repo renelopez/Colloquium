@@ -1,0 +1,68 @@
+﻿@using System.Collections
+<script type="text/javascript">
+
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "positionClass": "toast-top-right",
+        "onclick": null,
+        "showDuration": "300",
+        "hideDuration": "1000",
+        "timeOut": "5000",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    }
+</script>
+
+@if (TempData.Keys.Count > 0)
+{
+    foreach (var key in TempData.Keys)
+    {
+        switch (key)
+        {
+            case "success":
+                <script type="text/javascript">
+                        (function () { toastr.success('@TempData[key]'); })();
+                </script>
+                break;
+            case "info":
+                if (TempData[key] is IEnumerable)
+                {
+                    foreach (var info in TempData[key] as IEnumerable)
+                    {
+                        <script type="text/javascript">
+                                (function() { toastr.info('@info'); })();
+                        </script>
+                    }
+                }
+                else
+                {
+                    <script type="text/javascript">
+                             (function () { toastr.info('@TempData[key]'); })();
+                    </script>
+                }
+                break;
+            case "error":
+                if (TempData[key] is IEnumerable)
+                {
+                    foreach (var error in TempData[key] as IEnumerable)
+                    {
+                        <script type="text/javascript">
+                                (function() { toastr.error('@error'); })();
+                        </script>
+                    }
+                }
+                else
+                {
+                    <script type="text/javascript">
+                             (function () { toastr.error('@TempData[key]'); })();
+                    </script>
+                }
+                break;
+        }
+
+    }
+}
