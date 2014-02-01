@@ -7,12 +7,13 @@ using System.Web;
 using System.Web.Mvc;
 using UDG.Colloquium.BL;
 using UDG.Colloquium.DL.Custom;
+using UDG.Colloquium.Helpers;
 using UDG.Colloquium.Models;
 
 namespace UDG.Colloquium.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         public AccountController(SecurityManager securityManager)
         {
@@ -168,17 +169,36 @@ namespace UDG.Colloquium.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [Authorize(Roles="Administrator")]
+        public async Task<ActionResult> ManageUsers()
+        {
+            try
+            {
+                var users = await SecurityManager.GetUsersAsync();
+                foreach (var user in users)
+                {
+                    Console.WriteLine(user.UserName);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.InnerException);
+            }
+            return View();
+        }
+
+
         protected override void Dispose(bool disposing)
         {
-            if (disposing && SecurityManager != null)
+            if (disposing && SecurityManager.UserManager != null)
             {
                 SecurityManager.UserManager.Dispose();
+                SecurityManager.UserManager = null;
                 SecurityManager = null;
             }
             base.Dispose(disposing);
         }
 
-        #region Helpers
         private IAuthenticationManager AuthenticationManager
         {
             get
@@ -194,24 +214,6 @@ namespace UDG.Colloquium.Controllers
             AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
         }
 
-        private void AddErrors(IdentityResult result)
-        {
-            TempData["error"] = result.Errors;
-        }
-        private void AddErrors(string error)
-        {
-            TempData["error"] = error;
-        }
-
-        private void AddMessages(string type,params string[] messages)
-        {
-            TempData[type] = messages;
-        }
-        private void AddMessages(string type,string message)
-        {
-            TempData[type] = message;
-        }
-
         private bool HasPassword()
         {
             var user = SecurityManager.UserManager.FindById(User.Identity.GetUserId());
@@ -221,26 +223,5 @@ namespace UDG.Colloquium.Controllers
             }
             return false;
         }
-
-        public enum ManageMessageId
-        {
-            ChangePasswordSuccess,
-            SetPasswordSuccess,
-            RemoveLoginSuccess,
-            Error
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            else
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-        #endregion
     }
 }

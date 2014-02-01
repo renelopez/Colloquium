@@ -2,6 +2,7 @@
 using Microsoft.AspNet.Identity.EntityFramework;
 using MySql.Data.Entity;
 using UDG.Colloquium.DL.Custom;
+using UDG.Colloquium.DL.Repositories;
 
 namespace UDG.Colloquium.DL
 {
