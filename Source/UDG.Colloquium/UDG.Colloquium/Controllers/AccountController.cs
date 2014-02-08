@@ -172,19 +172,9 @@ namespace UDG.Colloquium.Controllers
         [Authorize(Roles="Administrator")]
         public async Task<ActionResult> ManageUsers()
         {
-            try
-            {
-                var users = await SecurityManager.GetUsersAsync();
-                foreach (var user in users)
-                {
-                    Console.WriteLine(user.UserName);
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine(ex.InnerException);
-            }
-            return View();
+           
+            var usersWithRoles = await SecurityManager.GetUsersWithRolesAsync();
+            return View(usersWithRoles);
         }
 
 

@@ -223,7 +223,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Public\Content\toastr.css" />
+    <Content Include="Public\Content\toastr.css">
+      <DependentUpon>toastr.less</DependentUpon>
+    </Content>
     <Content Include="Public\Content\toastr.min.css" />
     <Content Include="Global.asax" />
     <Content Include="Public\Content\bootstrap-theme.css" />
@@ -239,6 +241,9 @@
     <Content Include="Public\Content\toastr.less" />
     <Content Include="Public\Scripts\bootstrap.js" />
     <Content Include="Public\Scripts\bootstrap.min.js" />
+    <Content Include="Public\Content\toastr.css.map">
+      <DependentUpon>toastr.css</DependentUpon>
+    </Content>
     <None Include="Public\Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Public\Scripts\jquery-2.0.3.js" />
     <Content Include="Public\Scripts\jquery-2.0.3.min.js" />
@@ -278,6 +283,7 @@
     <Content Include="Public\Scripts\jquery-2.0.3.min.map" />
     <Content Include="Public\Scripts\toastr.min.js.map" />
     <Content Include="Views\Shared\_ToastrPartial.cshtml" />
+    <Content Include="Views\Account\ManageUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

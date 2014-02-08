@@ -1,6 +1,7 @@
 using System.Data.Entity;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Practices.Unity;
 using UDG.Colloquium.BL;
 using UDG.Colloquium.DL;
@@ -22,7 +23,7 @@ namespace UDG.Colloquium
             // e.g. container.RegisterType<ITestService, TestService>();
             // 
             // General Manager
-            container.RegisterType<SecurityManager>(new HierarchicalLifetimeManager(),(new InjectionConstructor((typeof(UserManager<ApplicationUser>)),((typeof(RoleManager<ApplicationRole>))),((typeof(BaseUnitOfWork))))));
+            container.RegisterType<SecurityManager>(new HierarchicalLifetimeManager(),(new InjectionConstructor((typeof(UserManager<ApplicationUser>)),((typeof(RoleManager<ApplicationRole>))),((typeof(IUnitOfWork<IdentityDbContext>))))));
 
             // Registering Manager and Store for Users.
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager(),new InjectionConstructor(typeof(IUserStore<ApplicationUser>)));
@@ -31,8 +32,10 @@ namespace UDG.Colloquium
             // Registering Manager and Store for Roles.
             container.RegisterType<RoleManager<ApplicationRole>>(new HierarchicalLifetimeManager(),new InjectionConstructor(typeof(IRoleStore<ApplicationRole>)));
             container.RegisterType<IRoleStore<ApplicationRole>, ApplicationRoleStore>(new HierarchicalLifetimeManager());
-            container.RegisterType<BaseUnitOfWork, UnitOfWork>();
-            container.RegisterType<DbContext, SecurityDbContext>();
+            container.RegisterType<IUnitOfWork<IdentityDbContext>, SecurityUnitOfWork>(new HierarchicalLifetimeManager());
+
+            // Registering Contexts.
+            container.RegisterType<IdentityDbContext, SecurityDbContext>();
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
     }

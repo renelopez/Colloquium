@@ -1,0 +1,50 @@
+﻿@using UDG.Colloquium.BL.ViewModels
+@model IEnumerable<UserRolesViewModel>
+
+@{
+    ViewBag.Title = "ManageUsers";
+}
+
+<h2>ManageUsers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            
+            @{
+                var item1 = item;
+            }
+            @Html.DisplayFor(modelItem => item1.UserName)
+        </td>
+        @foreach (var role in item.Roles)
+        {
+            <tr>
+                <td>
+                    
+                    @{
+                        var role1 = role;
+                    }
+                    @Html.DisplayFor(roleItem => role1.Role.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
+                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
+                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
+                </td>
+            </tr>
+        }
+    </tr>
+}
+
+</table>

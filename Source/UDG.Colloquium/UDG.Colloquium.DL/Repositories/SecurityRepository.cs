@@ -11,7 +11,8 @@ namespace UDG.Colloquium.DL.Repositories
 {
     public class SecurityRepository:GenericRepository<ApplicationUser>
     {
-        public SecurityRepository(SecurityDbContext context):base(context)
+        public SecurityRepository(IdentityDbContext context)
+            : base(context)
         {
 
         }
