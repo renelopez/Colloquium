@@ -19,8 +19,8 @@ namespace UDG.Colloquium.BL
         public UserManager<ApplicationUser> UserManager { get; set; }
         public RoleManager<ApplicationRole> RoleManager { get; set; }
 
-        public IUnitOfWork<IdentityDbContext> UnitOfWork { get; set; }
-        public SecurityManager(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager,IUnitOfWork<IdentityDbContext> unitOfWork)
+        public ISecurityUnitOfWork<IdentityDbContext,ApplicationUser,ApplicationRole> UnitOfWork { get; set; }
+        public SecurityManager(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager,ISecurityUnitOfWork<IdentityDbContext,ApplicationUser,ApplicationRole> unitOfWork)
         {
             UserManager = userManager;
             RoleManager = roleManager;
@@ -57,20 +57,23 @@ namespace UDG.Colloquium.BL
             return userNames;
         }
 
-        public async Task<IEnumerable<UserRolesViewModel>> GetUsersWithRolesAsync()
-        {
-            Mapper.CreateMap<ApplicationUser, UserRolesViewModel>()
-                .ForMember(a=>a.UserName,opt=>opt.MapFrom(src=>src.UserName))
-                .ForMember(a => a.Roles, opt => opt.MapFrom(src => src.Roles));
-            var users = await GetUsersAsync();
-            var usersWithRoles = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserRolesViewModel>>(users);
-            return usersWithRoles;
-        }
-
         public async Task<IdentityResult> CreateUserAsync(RegisterViewModel model)
         {
             var user = new ApplicationUser {UserName = model.UserName};
             return await UserManager.CreateAsync(user, model.Password);
+        }
+
+        public async Task<UserRolesViewModel> GetUserRolesAsync(string id)
+        {
+            var userRoles = await UserManager.GetRolesAsync(id);
+            var roles = await UnitOfWork.ApplicationRoleRepository.GetAsync();
+            var userViewModel = new UserRolesViewModel
+            {
+                Id = id,
+                UserRoles = userRoles,
+                Roles = roles.Select(item => item.Name).ToList()
+            };
+            return userViewModel;
         }
 
 

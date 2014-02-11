@@ -176,6 +176,12 @@ namespace UDG.Colloquium.Controllers
             return View(usersWithRoles);
         }
 
+        public async Task<ActionResult> EditRoles(string id)
+        {
+            var userRole = await SecurityManager.GetUserRolesAsync(id);
+            return View(userRole);
+        }
+
 
         protected override void Dispose(bool disposing)
         {

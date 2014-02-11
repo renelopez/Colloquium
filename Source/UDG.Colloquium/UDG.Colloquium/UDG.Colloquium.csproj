@@ -292,6 +292,7 @@
     <Content Include="Views\Shared\_ToastrPartial.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
     <Content Include="Scripts\toastr.min.js.map" />
+    <Content Include="Views\Account\EditRoles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

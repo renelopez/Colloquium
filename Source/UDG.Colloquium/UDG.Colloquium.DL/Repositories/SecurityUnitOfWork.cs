@@ -6,11 +6,12 @@ using UDG.Colloquium.DL.Custom;
 
 namespace UDG.Colloquium.DL.Repositories
 {
-    public class SecurityUnitOfWork: IUnitOfWork<IdentityDbContext>, IDisposable
+    public class SecurityUnitOfWork: ISecurityUnitOfWork<IdentityDbContext,ApplicationUser,ApplicationRole>, IDisposable
     {
         private readonly IdentityDbContext _context;
         private bool _disposed;
         private GenericRepository<ApplicationUser> _applicationUserRepository;
+        private GenericRepository<ApplicationRole> _applicationRoleRepository;
 
         public SecurityUnitOfWork(IdentityDbContext context)
         {
@@ -24,6 +25,16 @@ namespace UDG.Colloquium.DL.Repositories
                        (_applicationUserRepository = new GenericRepository<ApplicationUser>(_context));
             }
             set { _applicationUserRepository=value; }
+        }
+
+        public GenericRepository<ApplicationRole> ApplicationRoleRepository
+        {
+            get
+            {
+                return _applicationRoleRepository ??
+                       (_applicationRoleRepository = new GenericRepository<ApplicationRole>(_context));
+            }
+            set { _applicationRoleRepository = value; }
         }
 
         public void Dispose()
