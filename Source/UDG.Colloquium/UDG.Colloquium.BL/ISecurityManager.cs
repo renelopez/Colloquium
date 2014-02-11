@@ -14,6 +14,7 @@ namespace UDG.Colloquium.BL
         Task<IEnumerable<TU>> GetUsersAsync();
         Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync();
         Task<IdentityResult> CreateUserAsync(RegisterViewModel model);
-        Task<UserRolesViewModel> GetUserRolesAsync(string id);
+        Task<UserRolesViewModel> GetUserRolesAsync(string id, string userName);
+        Task<IEnumerable<RoleNamesViewModel>> GetRolesAsync();
     }
 }

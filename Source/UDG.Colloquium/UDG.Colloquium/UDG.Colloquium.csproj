@@ -249,6 +249,7 @@
     <None Include="Scripts\jquery-2.0.3.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\colloquium.js" />
     <Content Include="Scripts\jquery-2.0.3.js" />
     <Content Include="Scripts\jquery-2.0.3.min.js" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
@@ -292,7 +293,9 @@
     <Content Include="Views\Shared\_ToastrPartial.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
     <Content Include="Scripts\toastr.min.js.map" />
-    <Content Include="Views\Account\EditRoles.cshtml" />
+    <Content Include="Views\Account\EditUserRoles.cshtml" />
+    <Content Include="Views\Account\ManageRoles.cshtml" />
+    <Content Include="Views\Account\CreateRole.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

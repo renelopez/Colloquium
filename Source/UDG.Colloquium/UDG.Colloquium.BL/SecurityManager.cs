@@ -19,8 +19,8 @@ namespace UDG.Colloquium.BL
         public UserManager<ApplicationUser> UserManager { get; set; }
         public RoleManager<ApplicationRole> RoleManager { get; set; }
 
-        public ISecurityUnitOfWork<IdentityDbContext,ApplicationUser,ApplicationRole> UnitOfWork { get; set; }
-        public SecurityManager(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager,ISecurityUnitOfWork<IdentityDbContext,ApplicationUser,ApplicationRole> unitOfWork)
+        public ISecurityUnitOfWork<ApplicationUser,ApplicationRole> UnitOfWork { get; set; }
+        public SecurityManager(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager,ISecurityUnitOfWork<ApplicationUser,ApplicationRole> unitOfWork)
         {
             UserManager = userManager;
             RoleManager = roleManager;
@@ -63,17 +63,28 @@ namespace UDG.Colloquium.BL
             return await UserManager.CreateAsync(user, model.Password);
         }
 
-        public async Task<UserRolesViewModel> GetUserRolesAsync(string id)
+        public async Task<UserRolesViewModel> GetUserRolesAsync(string id, string userName)
         {
             var userRoles = await UserManager.GetRolesAsync(id);
             var roles = await UnitOfWork.ApplicationRoleRepository.GetAsync();
             var userViewModel = new UserRolesViewModel
             {
                 Id = id,
+                UserName=userName,
                 UserRoles = userRoles,
                 Roles = roles.Select(item => item.Name).ToList()
             };
             return userViewModel;
+        }
+
+        public async Task<IEnumerable<RoleNamesViewModel>> GetRolesAsync()
+        {
+            Mapper.CreateMap<ApplicationRole, RoleNamesViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Name));
+            var roles = await UnitOfWork.ApplicationRoleRepository.GetAsync();
+            var rolesList = Mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<RoleNamesViewModel>>(roles);
+            return rolesList;
         }
 
 

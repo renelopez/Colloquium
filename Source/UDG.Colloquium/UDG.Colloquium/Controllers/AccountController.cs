@@ -176,10 +176,44 @@ namespace UDG.Colloquium.Controllers
             return View(usersWithRoles);
         }
 
-        public async Task<ActionResult> EditRoles(string id)
+        public async Task<ActionResult> EditUserRoles(string id,string userName)
         {
-            var userRole = await SecurityManager.GetUserRolesAsync(id);
+            var userRole = await SecurityManager.GetUserRolesAsync(id,userName);
             return View(userRole);
+        }
+
+        public async Task<ActionResult> ManageRoles()
+        {
+            var roles = await SecurityManager.GetRolesAsync();
+            return View(roles);
+
+        }
+
+        public ActionResult CreateRole()
+        {
+            ViewBag.ReturnUrl = Url.Action("CreateRole");
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> CreateRole(RoleNamesViewModel roleNamesViewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                IdentityResult result = await SecurityManager.CreateRoleAsync(roleNamesViewModel.RoleName);
+                if (result.Succeeded)
+                {
+                    AddMessages("info", "Following role was created:"+roleNamesViewModel.RoleName);
+                    AddMessages("success", "Role was created succesfully");
+                    return RedirectToAction("ManageRoles");
+                }
+                else
+                {
+                    AddErrors(result);
+                }
+            }
+            return View(roleNamesViewModel);
         }
 
 

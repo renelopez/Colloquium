@@ -29,7 +29,7 @@
                 </script>
                 break;
             case "info":
-                if (TempData[key] is IEnumerable)
+                if (TempData[key] is Array)
                 {
                     foreach (var info in TempData[key] as IEnumerable)
                     {
@@ -46,7 +46,7 @@
                 }
                 break;
             case "error":
-                if (TempData[key] is IEnumerable)
+                if (TempData[key] is Array)
                 {
                     foreach (var error in TempData[key] as IEnumerable)
                     {

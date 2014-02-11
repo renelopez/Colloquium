@@ -1,0 +1,64 @@
+﻿@model UDG.Colloquium.BL.ViewModels.RoleNamesViewModel
+
+@{
+    ViewBag.Title = "CreateRole";
+}
+
+<h2>CreateRole</h2>
+<h4>RoleNamesViewModel</h4>
+<hr />
+
+@using (Html.BeginForm("CreateRole", "Account", FormMethod.Post, new {id="CreateRoleForm",role = "form" })) 
+{
+    @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class="form-group">
+            @Html.LabelFor(model => model.RoleName, new { @class = "control-label" })
+            @Html.TextBoxFor(model => model.RoleName,new {@class="form-control"})
+            @Html.ValidationMessageFor(model => model.RoleName)
+        </div>
+        <div class="form-group">
+                <input id="submitRole" type="submit" value="Create" class="btn btn-default" />
+        </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "ManageRoles")
+</div>
+
+<div class="modal fade" id="roleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Create Role Confirmation</h4>
+            </div>
+            <div class="modal-body">
+                <p id="modalMessage">Are you sure that you want to create the role:</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function() {
+             addModalRole();
+        });
+
+        function addModalRole() {
+            var submitRoleButton = document.getElementById("submitRole");
+            submitRoleButton.onclick = function() {
+                var submitTextBox = document.getElementById("RoleName").value;
+                var modalMessage = document.getElementById("modalMessage");
+                modalMessage.innerHTML = modalMessage.innerHTML + submitTextBox + "?";
+                $('#role').modal('show')
+            };
+        }
+    </script>
+}

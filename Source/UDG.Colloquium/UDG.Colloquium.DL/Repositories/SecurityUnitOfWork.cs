@@ -6,7 +6,7 @@ using UDG.Colloquium.DL.Custom;
 
 namespace UDG.Colloquium.DL.Repositories
 {
-    public class SecurityUnitOfWork: ISecurityUnitOfWork<IdentityDbContext,ApplicationUser,ApplicationRole>, IDisposable
+    public class SecurityUnitOfWork: ISecurityUnitOfWork<ApplicationUser,ApplicationRole>, IDisposable
     {
         private readonly IdentityDbContext _context;
         private bool _disposed;

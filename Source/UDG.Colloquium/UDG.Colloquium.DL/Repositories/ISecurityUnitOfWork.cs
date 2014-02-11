@@ -5,7 +5,7 @@ using UDG.Colloquium.DL.Custom;
 
 namespace UDG.Colloquium.DL.Repositories
 {
-    public interface ISecurityUnitOfWork<TD,TU,TR> where TD:DbContext where TU : class where TR : class
+    public interface ISecurityUnitOfWork<TU,TR> where TU : class where TR : class
     {
         void Dispose(bool disposing);
         Task<int> SaveAsync();
