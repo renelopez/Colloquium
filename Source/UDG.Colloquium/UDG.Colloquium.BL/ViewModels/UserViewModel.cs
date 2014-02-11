@@ -13,4 +13,10 @@ namespace UDG.Colloquium.BL.ViewModels
         public string UserName { get; set; }
         public ICollection<IdentityUserRole> Roles { get; set; }
     }
+
+    public class UserNamesViewModel
+    {
+        public string Id { get; set; }
+        public string UserName { get; set; }
+    }
 }

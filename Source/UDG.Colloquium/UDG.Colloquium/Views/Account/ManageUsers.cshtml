@@ -1,5 +1,5 @@
 ﻿@using UDG.Colloquium.BL.ViewModels
-@model IEnumerable<UserRolesViewModel>
+@model IEnumerable<UserNamesViewModel>
 
 @{
     ViewBag.Title = "ManageUsers";
@@ -10,40 +10,27 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table class="table table-hover">
     <tr>
+        <th>
+            Username
+        </th>
         <th>
             
         </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var user in Model)
+{
     <tr>
         <td>
-            
-            @{
-                var item1 = item;
-            }
-            @Html.DisplayFor(modelItem => item1.UserName)
+            @Html.DisplayFor(modelItem => user.UserName)
         </td>
-        @foreach (var role in item.Roles)
-        {
-            <tr>
-                <td>
-                    
-                    @{
-                        var role1 = role;
-                    }
-                    @Html.DisplayFor(roleItem => role1.Role.Name)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Details", "Details", new {/* id=item.PrimaryKey */}) |
-                    @Html.ActionLink("Delete", "Delete", new {/* id=item.PrimaryKey */})
-                </td>
-            </tr>
-        }
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=user.Id  }) |
+            @Html.ActionLink("Details", "Details", new { id = user.Id }) |
+            @Html.ActionLink("Delete", "Delete", new {id=user.Id})
+        </td>
     </tr>
 }
 

@@ -14,7 +14,7 @@ using UDG.Colloquium.DL.Repositories;
 
 namespace UDG.Colloquium.BL
 {
-    public class SecurityManager
+    public class SecurityManager : ISecurityManager<ApplicationUser,ApplicationRole>
     {
         public UserManager<ApplicationUser> UserManager { get; set; }
         public RoleManager<ApplicationRole> RoleManager { get; set; }
@@ -47,6 +47,16 @@ namespace UDG.Colloquium.BL
             return users;
         }
 
+        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync()
+        {
+            Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
+            var users = await GetUsersAsync();
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
+            return userNames;
+        }
+
         public async Task<IEnumerable<UserRolesViewModel>> GetUsersWithRolesAsync()
         {
             Mapper.CreateMap<ApplicationUser, UserRolesViewModel>()
@@ -56,5 +66,13 @@ namespace UDG.Colloquium.BL
             var usersWithRoles = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserRolesViewModel>>(users);
             return usersWithRoles;
         }
+
+        public async Task<IdentityResult> CreateUserAsync(RegisterViewModel model)
+        {
+            var user = new ApplicationUser {UserName = model.UserName};
+            return await UserManager.CreateAsync(user, model.Password);
+        }
+
+
     }
 }

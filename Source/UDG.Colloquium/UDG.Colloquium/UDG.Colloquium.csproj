@@ -57,15 +57,17 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.0.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.AspNet, Version=1.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Glimpse.AspNet, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Glimpse.AspNet.1.7.0\lib\net45\Glimpse.AspNet.dll</HintPath>
+      <HintPath>..\packages\Glimpse.AspNet.1.8.0\lib\net45\Glimpse.AspNet.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Core">
-      <HintPath>..\packages\Glimpse.1.8.1\lib\net45\Glimpse.Core.dll</HintPath>
+    <Reference Include="Glimpse.Core, Version=1.8.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Glimpse.1.8.2\lib\net45\Glimpse.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Glimpse.Mvc5">
-      <HintPath>..\packages\Glimpse.Mvc5.1.5.2\lib\net45\Glimpse.Mvc5.dll</HintPath>
+    <Reference Include="Glimpse.Mvc5, Version=1.5.3.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Glimpse.Mvc5.1.5.3\lib\net45\Glimpse.Mvc5.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -124,8 +126,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\MySql.Web.6.8.3\lib\net45\MySql.Web.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.5.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -219,45 +222,50 @@
     </Compile>
     <Compile Include="Helpers\BaseController.cs" />
     <Compile Include="Helpers\Constants.cs" />
-    <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Public\Content\toastr.css">
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\toastr.css">
       <DependentUpon>toastr.less</DependentUpon>
     </Content>
-    <Content Include="Public\Content\toastr.min.css" />
+    <Content Include="Content\toastr.min.css" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Public\Content\bootstrap-theme.css" />
-    <Content Include="Public\Content\bootstrap-theme.min.css" />
-    <Content Include="Public\Content\bootstrap.css" />
-    <Content Include="Public\Content\bootstrap.min.css" />
-    <Content Include="Public\Content\Site.css" />
-    <Content Include="Public\Fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="Public\Icons\favicon.ico" />
-    <Content Include="Public\Fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Public\Fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="Public\Fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="Public\Content\toastr.less" />
-    <Content Include="Public\Scripts\bootstrap.js" />
-    <Content Include="Public\Scripts\bootstrap.min.js" />
-    <Content Include="Public\Content\toastr.css.map">
+    <Content Include="Content\Site.css" />
+    <Content Include="Icons\favicon.ico" />
+    <Content Include="Content\toastr.less" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\toastr.css.map">
       <DependentUpon>toastr.css</DependentUpon>
     </Content>
-    <None Include="Public\Scripts\jquery-2.0.3.intellisense.js" />
-    <Content Include="Public\Scripts\jquery-2.0.3.js" />
-    <Content Include="Public\Scripts\jquery-2.0.3.min.js" />
-    <None Include="Public\Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Public\Scripts\jquery.validate.js" />
-    <Content Include="Public\Scripts\jquery.validate.min.js" />
-    <Content Include="Public\Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Public\Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Public\Scripts\modernizr-2.7.1.js" />
-    <Content Include="Public\Scripts\respond.js" />
-    <Content Include="Public\Scripts\respond.min.js" />
-    <Content Include="Public\Scripts\toastr.js" />
-    <Content Include="Public\Scripts\toastr.min.js" />
-    <Content Include="Public\Scripts\_references.js" />
+    <None Include="Scripts\jquery-2.0.3.intellisense.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery-2.0.3.js" />
+    <Content Include="Scripts\jquery-2.0.3.min.js" />
+    <None Include="Scripts\jquery-2.1.0.intellisense.js" />
+    <Content Include="Scripts\jquery-2.1.0.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\modernizr-2.7.1.js" />
+    <Content Include="Scripts\respond.js" />
+    <Content Include="Scripts\respond.min.js" />
+    <Content Include="Scripts\toastr.js" />
+    <Content Include="Scripts\toastr.min.js" />
+    <Content Include="Scripts\_references.js" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -280,13 +288,14 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Public\Scripts\jquery-2.0.3.min.map" />
-    <Content Include="Public\Scripts\toastr.min.js.map" />
+    <Content Include="Scripts\jquery-2.0.3.min.map" />
     <Content Include="Views\Shared\_ToastrPartial.cshtml" />
     <Content Include="Views\Account\ManageUsers.cshtml" />
+    <Content Include="Scripts\toastr.min.js.map" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -6,21 +6,21 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using UDG.Colloquium.BL;
+using UDG.Colloquium.BL.ViewModels;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.Helpers;
-using UDG.Colloquium.Models;
 
 namespace UDG.Colloquium.Controllers
 {
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController(SecurityManager securityManager)
+        public AccountController(ISecurityManager<ApplicationUser,ApplicationRole> securityManager)
         {
             SecurityManager = securityManager;
         }
 
-        public SecurityManager SecurityManager { get; set; }
+        public ISecurityManager<ApplicationUser,ApplicationRole> SecurityManager { get; set; }
 
         //
         // GET: /Account/Login
@@ -59,7 +59,7 @@ namespace UDG.Colloquium.Controllers
 
         //
         // GET: /Account/Register
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         public ActionResult Register()
         {
             return View();
@@ -67,19 +67,18 @@ namespace UDG.Colloquium.Controllers
         
         //
         // POST: /Account/Register
-        [Authorize(Roles = "Administrator")]
+        //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
-
-               var user = new ApplicationUser() { UserName = model.UserName};
-                IdentityResult resultAccount = await SecurityManager.UserManager.CreateAsync(user, model.Password);
+                var resultAccount = await SecurityManager.CreateUserAsync(model);
                 if (resultAccount.Succeeded)
                 {
-                    await SignInAsync(user, isPersistent: false);
+                    var createdUser = await SecurityManager.UserManager.FindByNameAsync(model.UserName);
+                    await SignInAsync(createdUser, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -169,11 +168,11 @@ namespace UDG.Colloquium.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        [Authorize(Roles="Administrator")]
+        //[Authorize(Roles="Administrator")]
+        [Authorize]
         public async Task<ActionResult> ManageUsers()
         {
-           
-            var usersWithRoles = await SecurityManager.GetUsersWithRolesAsync();
+            var usersWithRoles = await SecurityManager.GetUserNamesAsync();
             return View(usersWithRoles);
         }
 
