@@ -87,6 +87,38 @@ namespace UDG.Colloquium.BL
             return rolesList;
         }
 
+        public async Task<List<IdentityResult>> RemoveUsersFromRoleAsync(string roleName)
+        {
+            List<IdentityResult> results = null;
+            if (await RoleManager.RoleExistsAsync(roleName))
+            {
+                var users =await
+                    UnitOfWork.ApplicationUserRepository.GetAsync(
+                        filter: usr => usr.Roles.Any(role => role.Role.Name == roleName));
+                var applicationUsers = users as IList<ApplicationUser> ?? users.ToList();
+                if (applicationUsers.Any())
+                {
+                    foreach (var user in applicationUsers)
+                    {
+                        results.Add(await UserManager.RemoveFromRoleAsync(user.Id, roleName));
+                    }
+
+                }
+            }
+            
+            return results;
+        }
+
+        public async void RemoveRoleAsync(string roleId,string roleName)
+        {
+            if (await RoleManager.RoleExistsAsync(roleName))
+            {
+                UnitOfWork.ApplicationRoleRepository.DeleteByIdAsync(roleId);
+            }
+        }
+
+
+
 
     }
 }

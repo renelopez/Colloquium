@@ -9,6 +9,7 @@
 <p>
     @Html.ActionLink("Create New Role", "CreateRole")
 </p>
+@PageHelpers.Modal("Role Deletion Confirmation","Are you sure you want to delete the following role:")
 <table class="table">
     <tr>
         <th>
@@ -24,9 +25,10 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id,roleName=item.RoleName }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id,roleName=item.RoleName })
+            @Html.ActionLink("Delete", "DeleteRole", new { id = item.Id, roleName = item.RoleName }, new { id=""+@item.RoleName+"",onclick="confirmModal(event,'"+@item.RoleName+"');" })
         </td>
     </tr>
 }
-
 </table>
+
+@PageHelpers.ModalConfirmationLink()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
@@ -9,6 +10,7 @@ using UDG.Colloquium.BL;
 using UDG.Colloquium.BL.ViewModels;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.Helpers;
+using WebGrease.Css.Extensions;
 
 namespace UDG.Colloquium.Controllers
 {
@@ -216,6 +218,22 @@ namespace UDG.Colloquium.Controllers
             return View(roleNamesViewModel);
         }
 
+        public async Task<ActionResult> DeleteRole(string id, string roleName)
+        {
+            var result = await SecurityManager.RemoveUsersFromRoleAsync(roleName);
+            if (result != null)
+            {
+                if (result.Any(res => !res.Succeeded))
+                {
+                    result.Where(res => !res.Succeeded).ForEach(AddErrors);
+                }
+            }
+                AddMessages("success", "Users for role:" + roleName + " were succesfully unassigned.");
+                SecurityManager.RemoveRoleAsync(id, roleName);
+                AddMessages("success", "Role:" + roleName + " was succesfully unassigned.");
+
+            return RedirectToAction("ManageRoles");
+        }
 
         protected override void Dispose(bool disposing)
         {

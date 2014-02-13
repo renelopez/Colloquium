@@ -16,5 +16,7 @@ namespace UDG.Colloquium.BL
         Task<IdentityResult> CreateUserAsync(RegisterViewModel model);
         Task<UserRolesViewModel> GetUserRolesAsync(string id, string userName);
         Task<IEnumerable<RoleNamesViewModel>> GetRolesAsync();
+        Task<List<IdentityResult>> RemoveUsersFromRoleAsync(string roleName);
+        void RemoveRoleAsync(string roleId,string roleName);
     }
 }
