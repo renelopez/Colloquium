@@ -5,41 +5,25 @@
 }
 
 <h2>EditRoles</h2>
+<h4>Current roles asigned to user:@Model.UserName</h4>
+<hr />
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm("EditUserRoles", "Account", FormMethod.Post, new { id = "EditUserRoleForm", role = "form" }))
 {
     @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.Id)
 
-    <div class="form-horizontal" role="form">
-        <h4>Current roles asigned to user:@Model.UserName</h4>
-        <hr />
-        @Html.ValidationSummary(true)
-        @Html.HiddenFor(model => model.Id)
-
-        <div class="form-group">
-            @foreach (var role in Model.Roles)
-            {
-                <label class="checkbox col-md-2">
-                    @if (Model.UserRoles.Contains(role))
-                    {
-                        <input type="checkbox" id="role" value="@role" checked/>@role
-                    }
-                    else
-                    {
-                        <input type="checkbox" id="role" value="@role"/>@role
-                    }
-                </label>
-                <div class="col-md-10"></div>
-            }
-        </div>
+    <table class="table table-hover">
+            <tr>
+                <th>Assigned</th>
+                <th>Role Name</th>
+            </tr>
+                @Html.EditorFor(model => model.UserRoles)
+    </table>
 
         <div class="form-group">
-            <div class="col-md-12">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
-    </div>
 }
 
 <div>

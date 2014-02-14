@@ -1,4 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 
 namespace UDG.Colloquium.Helpers
@@ -12,6 +14,11 @@ namespace UDG.Colloquium.Helpers
         protected void AddErrors(string error)
         {
             TempData["error"] = error;
+        }
+
+        protected void AddErrors(List<IdentityResult> errors)
+        {
+            TempData["error"] = errors;
         }
 
         protected void AddMessages(string type, params string[] messages)

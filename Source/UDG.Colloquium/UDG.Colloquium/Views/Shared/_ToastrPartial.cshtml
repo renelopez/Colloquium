@@ -1,4 +1,5 @@
 ﻿@using System.Collections
+@using Microsoft.AspNet.Identity
 <script type="text/javascript">
 
     toastr.options = {
@@ -52,6 +53,15 @@
                     {
                         <script type="text/javascript">
                                 (function() { toastr.error('@error'); })();
+                        </script>
+                    }
+                }
+                else if (TempData[key] is List<IdentityResult>)
+                {
+                    foreach (var error in (TempData[key] as List<IdentityResult>).SelectMany(identityError => identityError.Errors))
+                    {
+                        <script type="text/javascript">
+                            (function() { toastr.error('@error'); })();
                         </script>
                     }
                 }

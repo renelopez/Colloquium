@@ -52,7 +52,7 @@ namespace UDG.Colloquium.DL.Repositories
             _disposed = true;
         }
 
-        public async Task<int> SaveAsync()
+        public async Task<int> SaveChangesAsync()
         {
            return await _context.SaveChangesAsync();
         }

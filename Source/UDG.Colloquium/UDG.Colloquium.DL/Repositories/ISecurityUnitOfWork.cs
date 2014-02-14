@@ -8,7 +8,7 @@ namespace UDG.Colloquium.DL.Repositories
     public interface ISecurityUnitOfWork<TU,TR> where TU : class where TR : class
     {
         void Dispose(bool disposing);
-        Task<int> SaveAsync();
+        Task<int> SaveChangesAsync();
         GenericRepository<TU> ApplicationUserRepository { get; set; }
         GenericRepository<TR> ApplicationRoleRepository { get; set; }
     }

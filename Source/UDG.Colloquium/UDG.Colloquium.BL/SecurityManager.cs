@@ -71,9 +71,15 @@ namespace UDG.Colloquium.BL
             {
                 Id = id,
                 UserName=userName,
-                UserRoles = userRoles,
-                Roles = roles.Select(item => item.Name).ToList()
+                UserRoles = new List<SelectedRolesViewModel>()
             };
+            foreach (var role in roles)
+            {
+                userViewModel.UserRoles.Add(userRoles.Contains(role.Name)
+                    ? new SelectedRolesViewModel() {RoleName = role.Name, Selected = true}
+                    : new SelectedRolesViewModel() {RoleName = role.Name});
+            }
+
             return userViewModel;
         }
 
@@ -109,16 +115,11 @@ namespace UDG.Colloquium.BL
             return results;
         }
 
-        public async void RemoveRoleAsync(string roleId,string roleName)
+        public async Task<int> RemoveRoleAsync(string roleId,string roleName)
         {
-            if (await RoleManager.RoleExistsAsync(roleName))
-            {
-                UnitOfWork.ApplicationRoleRepository.DeleteByIdAsync(roleId);
-            }
+            if (!await RoleManager.RoleExistsAsync(roleName)) return -1;
+            UnitOfWork.ApplicationRoleRepository.DeleteByIdAsync(roleId);
+            return await UnitOfWork.SaveChangesAsync();
         }
-
-
-
-
     }
 }

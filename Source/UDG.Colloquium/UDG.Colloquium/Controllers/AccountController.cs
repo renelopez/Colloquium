@@ -184,6 +184,13 @@ namespace UDG.Colloquium.Controllers
             return View(userRole);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> EditUserRoles(UserRolesViewModel userRolesViewModel)
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public async Task<ActionResult> ManageRoles()
         {
             var roles = await SecurityManager.GetRolesAsync();
@@ -220,18 +227,33 @@ namespace UDG.Colloquium.Controllers
 
         public async Task<ActionResult> DeleteRole(string id, string roleName)
         {
+            // Removing users asigned to that role.
             var result = await SecurityManager.RemoveUsersFromRoleAsync(roleName);
+
+            // If there are some errors.Print them out.
             if (result != null)
             {
                 if (result.Any(res => !res.Succeeded))
                 {
-                    result.Where(res => !res.Succeeded).ForEach(AddErrors);
+                    var errors=result.Where(res => !res.Succeeded).ToList();
+                    AddErrors(errors);
                 }
             }
-                AddMessages("success", "Users for role:" + roleName + " were succesfully unassigned.");
-                SecurityManager.RemoveRoleAsync(id, roleName);
-                AddMessages("success", "Role:" + roleName + " was succesfully unassigned.");
 
+            // Removing the role.
+            AddMessages("success", "Users for role:" + roleName + " were succesfully unassigned.");
+            var recordsAffected=await SecurityManager.RemoveRoleAsync(id, roleName);
+
+            // If records were affected show message to the page.
+            if (recordsAffected > 0)
+            {
+                AddMessages("success", "The " + roleName + " role was succesfully removed.");
+            }
+
+            else
+            {
+                AddErrors("An error happened while removing the role.");
+            }
             return RedirectToAction("ManageRoles");
         }
 
