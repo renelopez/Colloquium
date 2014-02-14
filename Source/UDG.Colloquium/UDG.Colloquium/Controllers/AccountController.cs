@@ -17,12 +17,12 @@ namespace UDG.Colloquium.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController(ISecurityManager<ApplicationUser,ApplicationRole> securityManager)
+        public AccountController(ISecurityManager<ApplicationUser, ApplicationRole> securityManager)
         {
             SecurityManager = securityManager;
         }
 
-        public ISecurityManager<ApplicationUser,ApplicationRole> SecurityManager { get; set; }
+        public ISecurityManager<ApplicationUser, ApplicationRole> SecurityManager { get; set; }
 
         //
         // GET: /Account/Login
@@ -42,7 +42,7 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-                
+
                 var user = await SecurityManager.UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
@@ -66,7 +66,7 @@ namespace UDG.Colloquium.Controllers
         {
             return View();
         }
-        
+
         //
         // POST: /Account/Register
         //[Authorize(Roles = "Administrator")]
@@ -145,8 +145,8 @@ namespace UDG.Colloquium.Controllers
                     if (result.Succeeded)
                     {
 
-                        AddMessages("info","Old Password:"+ model.OldPassword,"New Password:" + model.NewPassword);
-                        AddMessages("success","Password was changed succesfully");
+                        AddMessages("info", "Old Password:" + model.OldPassword, "New Password:" + model.NewPassword);
+                        AddMessages("success", "Password was changed succesfully");
                         return RedirectToAction("Manage");
                     }
                     else
@@ -178,9 +178,9 @@ namespace UDG.Colloquium.Controllers
             return View(usersWithRoles);
         }
 
-        public async Task<ActionResult> EditUserRoles(string id,string userName)
+        public async Task<ActionResult> EditUserRoles(string id, string userName)
         {
-            var userRole = await SecurityManager.GetUserRolesAsync(id,userName);
+            var userRole = await SecurityManager.GetUserRolesAsync(id, userName);
             return View(userRole);
         }
 
@@ -188,7 +188,56 @@ namespace UDG.Colloquium.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> EditUserRoles(UserRolesViewModel userRolesViewModel)
         {
-            return RedirectToAction("Index", "Home");
+            var success = new List<string>();
+            var failed =new List<IdentityResult>();
+            foreach (var selectedRole in userRolesViewModel.UserRoles)
+            {
+                if (selectedRole.Selected)
+                {
+                    if (!await SecurityManager.UserManager.IsInRoleAsync(userRolesViewModel.Id, selectedRole.RoleName))
+                    {
+                        IdentityResult result =
+                            await
+                                SecurityManager.UserManager.AddToRoleAsync(userRolesViewModel.Id, selectedRole.RoleName);
+                        if (result.Succeeded)
+                        {
+                            success.Add("The role " + selectedRole.RoleName + " was assigned to the user " +
+                                        userRolesViewModel.UserName);
+                        }
+                        else
+                        {
+                            failed.Add(result);
+                        }
+                    }
+                }
+                else
+                {
+                    if (await SecurityManager.UserManager.IsInRoleAsync(userRolesViewModel.Id, selectedRole.RoleName))
+                    {
+                        IdentityResult result =
+                           await
+                               SecurityManager.UserManager.RemoveFromRoleAsync(userRolesViewModel.Id, selectedRole.RoleName);
+                        if (result.Succeeded)
+                        {
+                            success.Add("The role " + selectedRole.RoleName + " was removed to the user " +
+                                        userRolesViewModel.UserName);
+                        }
+                        else
+                        {
+                            failed.Add(result);
+                        }
+                    }
+                }
+            }
+            if (success.Count > 0)
+            {
+                AddMessages("info",success);
+            }
+            if (failed.Count > 0)
+            {
+                AddErrors(failed);
+            }
+            return View("EditUserRoles",userRolesViewModel);
         }
 
         public async Task<ActionResult> ManageRoles()
@@ -213,7 +262,7 @@ namespace UDG.Colloquium.Controllers
                 IdentityResult result = await SecurityManager.CreateRoleAsync(roleNamesViewModel.RoleName);
                 if (result.Succeeded)
                 {
-                    AddMessages("info", "Following role was created:"+roleNamesViewModel.RoleName);
+                    AddMessages("info", "Following role was created:" + roleNamesViewModel.RoleName);
                     AddMessages("success", "Role was created succesfully");
                     return RedirectToAction("ManageRoles");
                 }
@@ -227,6 +276,9 @@ namespace UDG.Colloquium.Controllers
 
         public async Task<ActionResult> DeleteRole(string id, string roleName)
         {
+            var successList=new List<string>();
+            var errorList = new List<IdentityResult>();
+
             // Removing users asigned to that role.
             var result = await SecurityManager.RemoveUsersFromRoleAsync(roleName);
 
@@ -235,24 +287,33 @@ namespace UDG.Colloquium.Controllers
             {
                 if (result.Any(res => !res.Succeeded))
                 {
-                    var errors=result.Where(res => !res.Succeeded).ToList();
-                    AddErrors(errors);
+                    var errors = result.Where(res => !res.Succeeded).ToList();
+                    errorList.AddRange(errors);
                 }
             }
 
             // Removing the role.
-            AddMessages("success", "Users for role:" + roleName + " were succesfully unassigned.");
-            var recordsAffected=await SecurityManager.RemoveRoleAsync(id, roleName);
+            successList.Add("Users for role:" + roleName + " were succesfully unassigned.");
+            var recordsAffected = await SecurityManager.RemoveRoleAsync(id, roleName);
 
             // If records were affected show message to the page.
             if (recordsAffected > 0)
             {
-                AddMessages("success", "The " + roleName + " role was succesfully removed.");
+                successList.Add("The " + roleName + " role was succesfully removed.");
             }
 
             else
             {
-                AddErrors("An error happened while removing the role.");
+                errorList.Add(new IdentityResult("An error happened while removing the role."));
+            }
+
+            if (successList.Count > 0)
+            {
+                AddMessages("info",successList);
+            }
+            if (errorList.Count > 0)
+            {
+                AddErrors(errorList);
             }
             return RedirectToAction("ManageRoles");
         }

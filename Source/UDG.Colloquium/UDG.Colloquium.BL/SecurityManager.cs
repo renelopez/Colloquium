@@ -95,7 +95,7 @@ namespace UDG.Colloquium.BL
 
         public async Task<List<IdentityResult>> RemoveUsersFromRoleAsync(string roleName)
         {
-            List<IdentityResult> results = null;
+            var results = new List<IdentityResult>();
             if (await RoleManager.RoleExistsAsync(roleName))
             {
                 var users =await

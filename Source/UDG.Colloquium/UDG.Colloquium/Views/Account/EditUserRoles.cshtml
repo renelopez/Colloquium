@@ -12,6 +12,7 @@
 {
     @Html.AntiForgeryToken()
     @Html.HiddenFor(model => model.Id)
+    @Html.HiddenFor(model => model.UserName)
 
     <table class="table table-hover">
             <tr>

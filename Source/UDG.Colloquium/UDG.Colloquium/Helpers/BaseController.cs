@@ -30,6 +30,11 @@ namespace UDG.Colloquium.Helpers
             TempData[type] = message;
         }
 
+        protected void AddMessages(string type,List<string> messages)
+        {
+            TempData[type] = messages;
+        }
+
         protected ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))

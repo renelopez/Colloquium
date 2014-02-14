@@ -39,6 +39,15 @@
                         </script>
                     }
                 }
+                else if (TempData[key] is List<string>)
+                {
+                    foreach (var info in TempData[key] as IEnumerable)
+                    {
+                        <script type="text/javascript">
+                                (function() { toastr.info('@info'); })();
+                        </script>
+                    }
+                }
                 else
                 {
                     <script type="text/javascript">
