@@ -21,11 +21,14 @@
 @helper ModalConfirmation(string submitButtonId,string formId,string valueToConfirmId){    
     <script type="text/javascript">
         (function() {
-            $("#@submitButtonId").click(function () {
-                var submitTextBox = document.getElementById("@valueToConfirmId").value;
-                var modalMessage = document.getElementById("modalMessage");
-                modalMessage.innerHTML = modalMessage.innerHTML + submitTextBox + "?";
-                $('#roleModal').modal('show');
+            $("#@formId").submit(function (event) {
+                if($(this).valid()){
+                    event.preventDefault();
+                    var submitTextBox = document.getElementById("@valueToConfirmId").value;
+                    var modalMessage = document.getElementById("modalMessage");
+                    modalMessage.innerHTML = modalMessage.innerHTML + submitTextBox + "?";
+                    $('#roleModal').modal('show');
+                }
             });
 
             $("#closeModal").click(function() {

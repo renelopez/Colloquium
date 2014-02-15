@@ -57,6 +57,16 @@ namespace UDG.Colloquium.BL
             return userNames;
         }
 
+        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName)
+        {
+            Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
+            var users = await UnitOfWork.ApplicationUserRepository.GetAsync(filter:usr=>usr.UserName.Contains(userName));
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
+            return userNames;
+        }
+
         public async Task<IdentityResult> CreateUserAsync(RegisterViewModel model)
         {
             var user = new ApplicationUser {UserName = model.UserName};

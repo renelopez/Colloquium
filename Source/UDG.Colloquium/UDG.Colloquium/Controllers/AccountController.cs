@@ -49,10 +49,7 @@ namespace UDG.Colloquium.Controllers
                     await SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
-                else
-                {
-                    ModelState.AddModelError("", "Invalid username or password.");
-                }
+                ModelState.AddModelError("", "Invalid username or password.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -83,10 +80,7 @@ namespace UDG.Colloquium.Controllers
                     await SignInAsync(createdUser, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
-                else
-                {
-                    AddErrors(resultAccount);
-                }
+                AddErrors(resultAccount);
             }
 
             // If we got this far, something failed, redisplay form
@@ -163,7 +157,7 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/LogOff
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Authorize(Roles = "Administrator,Student")]
+        [Authorize]
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut();
@@ -172,9 +166,17 @@ namespace UDG.Colloquium.Controllers
 
         //[Authorize(Roles="Administrator")]
         [Authorize]
-        public async Task<ActionResult> ManageUsers()
+        public async Task<ActionResult> ManageUsers(string userName)
         {
-            var usersWithRoles = await SecurityManager.GetUserNamesAsync();
+            IEnumerable<UserNamesViewModel> usersWithRoles;
+            if (userName == null)
+            {
+                usersWithRoles = await SecurityManager.GetUserNamesAsync();
+            }
+            else
+            {
+                usersWithRoles = await SecurityManager.GetUserNamesAsync(userName);
+            }
             return View(usersWithRoles);
         }
 
@@ -290,10 +292,12 @@ namespace UDG.Colloquium.Controllers
                     var errors = result.Where(res => !res.Succeeded).ToList();
                     errorList.AddRange(errors);
                 }
+                else
+                {
+                    successList.Add("Users for role:" + roleName + " were succesfully unassigned.");
+                }
             }
-
             // Removing the role.
-            successList.Add("Users for role:" + roleName + " were succesfully unassigned.");
             var recordsAffected = await SecurityManager.RemoveRoleAsync(id, roleName);
 
             // If records were affected show message to the page.
