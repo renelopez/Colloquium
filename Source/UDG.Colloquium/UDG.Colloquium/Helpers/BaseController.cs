@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using PagedList;
 
 namespace UDG.Colloquium.Helpers
 {
@@ -45,6 +48,42 @@ namespace UDG.Colloquium.Helpers
             {
                 return RedirectToAction("Index", "Home");
             }
+        }
+
+        protected PartialViewResult RenderTable<T,TU>(string sortOrder,string currentFilter,string filter,int? page,int pageSize,IEnumerable<T> model,string partialViewName, Func<T, TU> orderby)
+        {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParam = sortOrder == "Name_desc" ? "" : "Name_desc";
+
+
+            if (filter != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                filter = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = filter;
+
+
+
+            switch (sortOrder)
+            {
+                case "Name_desc":
+                    model = model.OrderByDescending(orderby);
+                    break;
+                default:
+                    model = model.OrderBy(orderby);
+                    break;
+
+            }
+            ViewBag.PageSize = pageSize;
+            var pageNumber = page ?? 1;
+
+            return PartialView(partialViewName, model.ToPagedList(pageNumber, pageSize));
+            
         }
 	}
 }

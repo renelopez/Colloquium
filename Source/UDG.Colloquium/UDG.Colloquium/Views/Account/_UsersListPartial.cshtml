@@ -1,0 +1,47 @@
+﻿@using PagedList.Mvc
+@using UDG.Colloquium.BL.ViewModels
+@model PagedList.IPagedList<UserNamesViewModel>
+<div id="mainTable">
+    <p>
+        @using (Ajax.BeginForm("_SearchUsers", "Account", FormMethod.Post, new AjaxOptions { UpdateTargetId = "mainTable" }, new { role = "search", @class = "form-inline", id = "formUsers" }))
+        {
+            <div class="form-group">
+                <input type="text" name="userName" value="@ViewBag.CurrentFilter" class="form-control" placeholder="Search Username">
+                <input type="hidden" name="pageSize" value="@ViewBag.PageSize" />
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        }
+    </p>
+    <table id="tableUsers" class="table table-hover">
+        <tr>
+            <th>
+                @Ajax.ActionLink("UserName", "_SearchUsers", new { sortOrder = ViewBag.NameSortParam, currentFilter = ViewBag.CurrentFilter, pageSize = ViewBag.PageSize }, new AjaxOptions { UpdateTargetId = "mainTable" })
+            </th>
+            <th>
+                @Html.ActionLink("Create New", "Create")
+            </th>
+        </tr>
+
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => user.UserName)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = user.Id, userName = user.UserName }) |
+                    @Html.ActionLink("Roles", "EditUserRoles", new { id = user.Id, userName = user.UserName }) |
+                    @Html.ActionLink("Details", "Details", new { id = user.Id, userName = user.UserName }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = user.Id, userName = user.UserName })
+                </td>
+            </tr>
+        }
+    </table>
+
+
+    Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, page => Url.Action("_SearchUsers",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter, pageSize = ViewBag.PageSize }), PagedListRenderOptions.EnableUnobtrusiveAjaxReplacing(new AjaxOptions { UpdateTargetId = "mainTable" }))
+</div>

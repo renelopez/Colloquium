@@ -1,50 +1,10 @@
 ﻿@using UDG.Colloquium.BL.ViewModels
-@model IEnumerable<UserNamesViewModel>
-
+@model PagedList.IPagedList<UserNamesViewModel>
 @{
     ViewBag.Title = "ManageUsers";
 }
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<h2>Manage Users</h2>
 
-    <h2>Manage Users</h2>
-   
-<p>
-    
-</p>
-<p>
-    @using (Html.BeginForm("ManageUsers", "Account", FormMethod.Post, new { role = "search", @class = "form-inline" }))
-    {
-        <div class="form-group">
-            <input type="text" name="userName" class="form-control" placeholder="Search Username">
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-default">Submit</button>
-        </div>
-    }
-</p>
-
-<table id="tableUsers" class="table table-hover">
-    <tr>
-        <th>
-            Username
-        </th>
-        <th>
-            @Html.ActionLink("Create New", "Create")
-        </th>
-    </tr>
-
-@foreach (var user in Model)
-{
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => user.UserName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=user.Id,userName=user.UserName  }) |
-            @Html.ActionLink("Roles", "EditUserRoles", new { id = user.Id,userName=user.UserName }) |
-            @Html.ActionLink("Details", "Details", new { id = user.Id, userName = user.UserName }) |
-            @Html.ActionLink("Delete", "Delete", new { id = user.Id, userName = user.UserName })
-        </td>
-    </tr>
-}
-
-</table>
+<p></p>
+@Html.Partial("_UsersListPartial",Model)

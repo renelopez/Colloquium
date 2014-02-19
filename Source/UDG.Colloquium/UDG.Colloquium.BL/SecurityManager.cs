@@ -56,6 +56,16 @@ namespace UDG.Colloquium.BL
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
             return userNames;
         }
+        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(int pageIndex, int pageSize)
+        {
+            Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
+            var users = await GetUsersAsync();
+            users = users.Skip(pageIndex).Take(pageSize);
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
+            return userNames;
+        }
 
         public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName)
         {
@@ -63,6 +73,16 @@ namespace UDG.Colloquium.BL
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
             var users = await UnitOfWork.ApplicationUserRepository.GetAsync(filter:usr=>usr.UserName.Contains(userName));
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
+            return userNames;
+        }
+
+        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName, int pageIndex, int pageSize)
+        {
+            Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
+            var users = await UnitOfWork.ApplicationUserRepository.GetAsync(filter: usr => usr.UserName.Contains(userName), page: pageIndex, pageSize: pageSize);
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
             return userNames;
         }

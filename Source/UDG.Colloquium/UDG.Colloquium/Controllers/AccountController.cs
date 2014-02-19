@@ -6,6 +6,7 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using PagedList;
 using UDG.Colloquium.BL;
 using UDG.Colloquium.BL.ViewModels;
 using UDG.Colloquium.DL.Custom;
@@ -166,18 +167,32 @@ namespace UDG.Colloquium.Controllers
 
         //[Authorize(Roles="Administrator")]
         [Authorize]
-        public async Task<ActionResult> ManageUsers(string userName)
+        public async Task<ActionResult> ManageUsers()
+        {
+            const int pageSize = 5;
+            ViewBag.PageSize = pageSize;
+            ViewBag.NameSortParam = "Name_desc";
+            var usersWithRoles = await SecurityManager.GetUserNamesAsync();
+            return View(usersWithRoles.OrderBy(usr=>usr.UserName).ToPagedList(1,pageSize));
+        }
+
+        [Authorize]
+        public async Task<ActionResult> _SearchUsers(string sortOrder,string currentFilter,string userName,int? page,int pageSize)
         {
             IEnumerable<UserNamesViewModel> usersWithRoles;
-            if (userName == null)
+
+            if (String.IsNullOrEmpty(userName))
             {
+
                 usersWithRoles = await SecurityManager.GetUserNamesAsync();
             }
             else
             {
                 usersWithRoles = await SecurityManager.GetUserNamesAsync(userName);
             }
-            return View(usersWithRoles);
+
+            return RenderTable(sortOrder, currentFilter, userName, page, pageSize, usersWithRoles, "_UsersListPartial",
+                usr => usr.UserName);
         }
 
         public async Task<ActionResult> EditUserRoles(string id, string userName)
