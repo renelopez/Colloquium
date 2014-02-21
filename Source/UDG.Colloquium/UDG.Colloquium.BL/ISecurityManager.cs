@@ -11,15 +11,15 @@ namespace UDG.Colloquium.BL
         UserManager<TU> UserManager { get; set; }
         RoleManager<TR> RoleManager { get; set; }
         Task<IdentityResult> CreateRoleAsync(string roleName);
-        Task<IEnumerable<TU>> GetUsersAsync();
-        Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync();
-        Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName);
+        Task<IEnumerable<TU>> GetAllUsersAsync();
+        Task<IEnumerable<UserNamesViewModel>> GetAllUserNamesAsync();
+        Task<IEnumerable<UserNamesViewModel>> FindUserNameAsync(string userName);
         Task<IdentityResult> CreateUserAsync(RegisterViewModel model);
         Task<UserRolesViewModel> GetUserRolesAsync(string id, string userName);
         Task<IEnumerable<RoleNamesViewModel>> GetRolesAsync();
         Task<List<IdentityResult>> RemoveUsersFromRoleAsync(string roleName);
         Task<int> RemoveRoleAsync(string roleId, string roleName);
-        Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName, int pageIndex, int pageSize);
-        Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<UserNamesViewModel>> FindUserNamePagedAsync(string userName, int pageIndex, int pageSize);
+        Task<IEnumerable<UserNamesViewModel>> GetUserNamesPagedAsync(int pageIndex, int pageSize);
     }
 }

@@ -172,7 +172,7 @@ namespace UDG.Colloquium.Controllers
             const int pageSize = 5;
             ViewBag.PageSize = pageSize;
             ViewBag.NameSortParam = "Name_desc";
-            var usersWithRoles = await SecurityManager.GetUserNamesAsync();
+            var usersWithRoles = await SecurityManager.GetAllUserNamesAsync();
             return View(usersWithRoles.OrderBy(usr=>usr.UserName).ToPagedList(1,pageSize));
         }
 
@@ -184,11 +184,11 @@ namespace UDG.Colloquium.Controllers
             if (String.IsNullOrEmpty(userName))
             {
 
-                usersWithRoles = await SecurityManager.GetUserNamesAsync();
+                usersWithRoles = await SecurityManager.GetAllUserNamesAsync();
             }
             else
             {
-                usersWithRoles = await SecurityManager.GetUserNamesAsync(userName);
+                usersWithRoles = await SecurityManager.FindUserNameAsync(userName);
             }
 
             return RenderTable(sortOrder, currentFilter, userName, page, pageSize, usersWithRoles, "_UsersListPartial",

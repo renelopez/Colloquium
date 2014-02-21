@@ -41,33 +41,33 @@ namespace UDG.Colloquium.BL
             return roleResult;
         }
 
-        public async Task<IEnumerable<ApplicationUser>> GetUsersAsync()
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
         {
             var users = await UnitOfWork.ApplicationUserRepository.GetAsync();
             return users;
         }
 
-        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync()
+        public async Task<IEnumerable<UserNamesViewModel>> GetAllUserNamesAsync()
         {
             Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
-            var users = await GetUsersAsync();
+            var users = await GetAllUsersAsync();
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
             return userNames;
         }
-        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(int pageIndex, int pageSize)
+        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesPagedAsync(int pageIndex, int pageSize)
         {
             Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
-            var users = await GetUsersAsync();
+            var users = await GetAllUsersAsync();
             users = users.Skip(pageIndex).Take(pageSize);
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesViewModel>>(users);
             return userNames;
         }
 
-        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName)
+        public async Task<IEnumerable<UserNamesViewModel>> FindUserNameAsync(string userName)
         {
             Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
@@ -77,7 +77,7 @@ namespace UDG.Colloquium.BL
             return userNames;
         }
 
-        public async Task<IEnumerable<UserNamesViewModel>> GetUserNamesAsync(string userName, int pageIndex, int pageSize)
+        public async Task<IEnumerable<UserNamesViewModel>> FindUserNamePagedAsync(string userName, int pageIndex, int pageSize)
         {
             Mapper.CreateMap<ApplicationUser, UserNamesViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))

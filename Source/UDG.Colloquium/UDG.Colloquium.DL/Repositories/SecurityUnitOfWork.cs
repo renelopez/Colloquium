@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 using UDG.Colloquium.DL.Custom;
@@ -43,7 +42,7 @@ namespace UDG.Colloquium.DL.Repositories
             GC.SuppressFinalize(this);
         }
 
-        public void Dispose(bool disposing)
+        public virtual void Dispose(bool disposing)
         {
             if (!_disposed && disposing)
             {
