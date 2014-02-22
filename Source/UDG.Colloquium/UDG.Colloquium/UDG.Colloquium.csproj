@@ -324,6 +324,7 @@
     <Content Include="Views\Shared\EditorTemplates\Enum-radio.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
+    <Content Include="Views\Account\_CompanyCatalogPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\views\" />

@@ -103,34 +103,57 @@ namespace UDG.Colloquium.BL.ViewModels
         public string Nacionality { get; set; }
 
         public ICollection<WorkViewModel> Works { get; set; }
+
     }
 
     public class WorkViewModel
     {
         [Display(Name = "WorkPosition")]
-        [Required]
         public string WorkPosition { get; set; }
 
         [Display(Name = "WorkDescription")]
-        [Required]
         public string WorkDescription { get; set; }
 
         [Display(Name = "Salary")]
-        [Required]
         public double WorkSalary { get; set; }
 
         [Display(Name = "Schema")]
-        [Required]
         public SchemaType SalarySchema { get; set; }
 
         [Display(Name = "Begin Date")]
         [DataType(DataType.Date)]
-        [Required]
         public DateTime WorkBeginDate { get; set; }
 
         [Display(Name = "End Date")]
         [DataType(DataType.Date)]
-        [Required]
         public DateTime WorkEndDate { get; set; }
+
+        public CompanyViewModel Company { get; set; }
+    }
+
+    public class CompanyViewModel
+    {
+        [Display(Name = "Company Id")]
+        public int CompanyId { get; set; }
+
+        [Display(Name = "Company Name")]
+        public string CompanyName { get; set; }
+
+        [Display(Name = "Corporate Name")]
+        public string CompanyCorporateName { get; set; }
+
+        [Display(Name = "Company Description")]
+        public string CompanyDescription { get; set; }
+
+        [Display(Name = "Company Address")]
+        public string CompanyAddress { get; set; }
+
+        [Display(Name = "Company Phone Number")]
+        public string CompanyPhoneNumber { get; set; }
+
+        public IEnumerator GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

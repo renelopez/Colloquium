@@ -88,6 +88,53 @@ namespace UDG.Colloquium.Controllers
             return View(model);
         }
 
+        public PartialViewResult Companies()
+        {
+            var companies=new List<CompanyViewModel>
+            {
+                new CompanyViewModel
+                {
+                    CompanyId = 1,
+                    CompanyName = "Unosquare",
+                    CompanyAddress = "Americas23443",
+                    CompanyCorporateName = "Tacsa",
+                    CompanyDescription = "Apesta",
+                    CompanyPhoneNumber = "34313343"
+                },
+                new CompanyViewModel
+                {
+                    CompanyId = 2,
+                    CompanyName = "Tata",
+                    CompanyAddress = "Iteso",
+                    CompanyCorporateName = "Tacsa",
+                    CompanyDescription = "Apesta 100",
+                    CompanyPhoneNumber = "34313343"
+                },
+                new CompanyViewModel
+                {
+                    CompanyId = 3,
+                    CompanyName = "HP",
+                    CompanyAddress = "Iteso",
+                    CompanyCorporateName = "Tacsa",
+                    CompanyDescription = "Apesta",
+                    CompanyPhoneNumber = "34313343"
+                },
+                new CompanyViewModel
+                {
+                    CompanyId = 4,
+                    CompanyName = "Oracle",
+                    CompanyAddress = "Puerta de Hierro",
+                    CompanyCorporateName = "Oracle",
+                    CompanyDescription = "Esta mejor",
+                    CompanyPhoneNumber = "34313343"
+                }
+
+                
+            };
+
+            return PartialView("_CompanyCatalogPartial", companies);
+        }
+
         //
         // GET: /Account/Manage
         [Authorize(Roles = "Administrator,Student")]

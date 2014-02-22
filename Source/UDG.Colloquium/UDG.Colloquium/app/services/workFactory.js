@@ -18,7 +18,9 @@
             getWorks: getWorks,
             postWork: postWork,
             deleteWork: deleteWork,
-            deleteSelectedWork:deleteSelectedWork
+            deleteSelectedWork: deleteSelectedWork,
+            showCompanyForm: showCompanyForm,
+            hideCompanyForm: hideCompanyForm
         };
 
         return service;
@@ -38,6 +40,14 @@
         function deleteSelectedWork(work) {
             works.splice(works.indexOf(work), 1);
             work = null;
+        }
+
+        function showCompanyForm(work) {
+            works[works.indexOf(work)].companyFormVisible = true;
+        }
+
+        function hideCompanyForm(work) {
+            works[works.indexOf(work)].companyFormVisible = false;
         }
 
 

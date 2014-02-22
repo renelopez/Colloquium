@@ -18,7 +18,9 @@
         vm.addWork = addWork;
         vm.deleteWork = deleteWork;
         vm.removeSelectedItem = removeSelectedItem;
-
+        vm.showCompanyForm = showCompanyForm;
+        vm.hideCompanyForm = hideCompanyForm;
+        vm.companyFormVisible = false;
 
         function addWork() {
             workFactory.postWork({
@@ -27,7 +29,9 @@
                 workSalary: vm.workSalary,
                 workSalarySchema: vm.workSalarySchema,
                 workBeginDate: vm.workBeginDate,
-                workEndDate:vm.workEndDate
+                workEndDate: vm.workEndDate,
+                company: vm.company,
+                companyFormVisible:vm.companyFormVisible
             });
         }
 
@@ -38,6 +42,15 @@
         function removeSelectedItem(index) {
             var selectedItemToDelete = vm.works[index];
             workFactory.deleteSelectedWork(selectedItemToDelete);
+        }
+
+        function showCompanyForm(index) {
+            var selectedWorkToShowCompanyForm = vm.works[index];
+            workFactory.showCompanyForm(selectedWorkToShowCompanyForm);
+        }
+        function hideCompanyForm(index) {
+            var selectedWorkToHideCompanyForm = vm.works[index];
+            workFactory.hideCompanyForm(selectedWorkToHideCompanyForm);
         }
 
         vm.addWork();
