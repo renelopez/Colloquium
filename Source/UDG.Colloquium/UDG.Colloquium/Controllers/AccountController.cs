@@ -214,19 +214,10 @@ namespace UDG.Colloquium.Controllers
 
         //[Authorize(Roles="Administrator")]
         [Authorize]
-        public async Task<ActionResult> ManageUsers()
-        {
-            const int pageSize = 5;
-            ViewBag.PageSize = pageSize;
-            ViewBag.NameSortParam = "Name_desc";
-            var usersWithRoles = await SecurityManager.GetAllUserNamesAsync();
-            return View(usersWithRoles.OrderBy(usr=>usr.UserName).ToPagedList(1,pageSize));
-        }
-
-        [Authorize]
-        public async Task<ActionResult> _SearchUsers(string sortOrder,string currentFilter,string userName,int? page,int pageSize)
+        public async Task<ActionResult> ManageUsers(string userName,int page=1)
         {
             IEnumerable<UserNamesViewModel> usersWithRoles;
+
 
             if (String.IsNullOrEmpty(userName))
             {
@@ -238,8 +229,11 @@ namespace UDG.Colloquium.Controllers
                 usersWithRoles = await SecurityManager.FindUserNameAsync(userName);
             }
 
-            return RenderTable(sortOrder, currentFilter, userName, page, pageSize, usersWithRoles, "_UsersListPartial",
-                usr => usr.UserName);
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("_UsersListPartial", usersWithRoles.ToPagedList(page,1));
+            }
+            return View(usersWithRoles.ToPagedList(page,1));
         }
 
         public async Task<ActionResult> EditUserRoles(string id, string userName)
