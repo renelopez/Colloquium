@@ -231,9 +231,9 @@ namespace UDG.Colloquium.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_UsersListPartial", usersWithRoles.ToPagedList(page,1));
+                return PartialView("_UsersListPartial", usersWithRoles.ToPagedList(page,5));
             }
-            return View(usersWithRoles.ToPagedList(page,1));
+            return View(usersWithRoles.ToPagedList(page,5));
         }
 
         public async Task<ActionResult> EditUserRoles(string id, string userName)

@@ -8,10 +8,12 @@ namespace UDG.Colloquium.App_Start
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "~/Scripts/jquery-{version}.js",
-                        "~/Scripts/jquery.unobtrusive-ajax.js",
-                        "~/Scripts/toastr.js",
-                        "~/Scripts/colloquium.js"));
+                "~/Scripts/jquery-{version}.js",
+                "~/Scripts/jquery.unobtrusive*",
+                "~/Scripts/toastr.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/custom/colloquiumList").Include(
+                        "~/Scripts/colloquiumList.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -29,11 +31,20 @@ namespace UDG.Colloquium.App_Start
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
                       "~/Content/toastr.css"));
+
+            bundles.Add(new StyleBundle("~/Content/PageList").Include(
+                "~/Content/PagedList.css"));
+
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-animate.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular/works").Include(
+                "~/app/modules/workModule.js",
+                "~/app/services/workFactory.js",
+                "~/app/controllers/workController.js"));
         }
     }
 }

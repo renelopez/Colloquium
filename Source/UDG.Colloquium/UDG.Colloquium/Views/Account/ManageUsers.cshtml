@@ -3,7 +3,12 @@
 @{
     ViewBag.Title = "ManageUsers";
 }
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@section styles
+{
+    @Styles.Render("~/Content/PageList")
+}
+
 <h2>Manage Users</h2>
 
 <form action="@Url.Action("ManageUsers")" method="get" role="search" class="form-inline" id="formUsers" data-colloquium-ajax="true" data-colloquium-target="#usersList">
@@ -17,3 +22,8 @@
 
 <p></p>
 @Html.Partial("_UsersListPartial",Model)
+
+@section scripts
+{
+    @Scripts.Render("~/bundles/custom/colloquiumList")
+}

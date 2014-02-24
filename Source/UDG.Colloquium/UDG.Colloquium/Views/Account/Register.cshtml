@@ -203,9 +203,6 @@
 }
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/angular")
-    <script src="@Url.Content("~/app/modules/workModule.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/app/services/workFactory.js")" type="text/javascript"></script>
-    <script src="@Url.Content("~/app/controllers/workController.js")" type="text/javascript"></script>
+    @Scripts.Render("~/bundles/angular/works")
 }

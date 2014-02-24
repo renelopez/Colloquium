@@ -23,8 +23,9 @@
     function getPage() {
         $a = $(this);
 
-        var options = {            
+        var options = {
             url: $a.attr("href"),
+            data: $("form").serialize(),
             type:"get"
         };
 

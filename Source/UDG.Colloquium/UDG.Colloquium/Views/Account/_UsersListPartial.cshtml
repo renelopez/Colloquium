@@ -4,7 +4,9 @@
     <table id="tableUsers" class="table table-hover">
         <tr>
             <th>
-                @Html.ActionLink("UserName", "_SearchUsers")
+                <div class="orderLink">
+                          <a href="@Url.Action("ManageUsers")">UserName</a>
+                 </div>
             </th>
             <th>
                 @Html.ActionLink("Create New", "Create")
@@ -30,6 +32,6 @@
     <div class="pagedList" data-colloquium-target="#usersList">
         Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
         @Html.PagedListPager(Model, page => Url.Action("ManageUsers",
-        new { page }), PagedListRenderOptions.MinimalWithItemCountText)
+        new { page }), PagedListRenderOptions.Classic)
     </div>
 </div>
