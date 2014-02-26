@@ -214,7 +214,7 @@ namespace UDG.Colloquium.Controllers
 
         //[Authorize(Roles="Administrator")]
         [Authorize]
-        public async Task<ActionResult> ManageUsers(string userName,int page=1)
+        public async Task<ActionResult> ManageUsers(string userName,int page=1,string order="asc")
         {
             IEnumerable<UserNamesViewModel> usersWithRoles;
 
@@ -231,8 +231,20 @@ namespace UDG.Colloquium.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                return PartialView("_UsersListPartial", usersWithRoles.ToPagedList(page,5));
+                ViewBag.Order = order=="asc"?"desc":"asc";
+                switch (order)
+                {
+                    case "desc":
+                        usersWithRoles = usersWithRoles.OrderByDescending(usr => usr.UserName);
+                        break;
+                    default:
+                        usersWithRoles = usersWithRoles.OrderBy(usr => usr.UserName);
+                        break;
+                }
+
+                return PartialView("_UsersListPartial", usersWithRoles.ToPagedList(page, 5));
             }
+
             return View(usersWithRoles.ToPagedList(page,5));
         }
 

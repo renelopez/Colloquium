@@ -1,6 +1,6 @@
 ﻿@model IEnumerable<UDG.Colloquium.BL.ViewModels.CompanyViewModel>
 
 <label class="col-md-2 control-label">Choose Company:</label>
-    <div class="col-md-10">
-        @Html.DropDownList("Works[{{$index}}].Company.CompanyId", new SelectList(Model, "CompanyId", "CompanyName"), string.Empty, new { @class = "form-control" })
-    </div>
+    <div class="col-md-3" ng-click="work.hideCompanyForm($index)">
+    @Html.DropDownList("Works[{{$index}}].Company.CompanyId", new SelectList(Model, "CompanyId", "CompanyName"), string.Empty, new { @class = "form-control" ,id="Works[{{$index}}].Company.CompanyId" })
+</div>

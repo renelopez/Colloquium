@@ -47,6 +47,9 @@
         function showCompanyForm(index) {
             var selectedWorkToShowCompanyForm = vm.works[index];
             workFactory.showCompanyForm(selectedWorkToShowCompanyForm);
+            var companyDropDown = angular.element("#Works\\[" + index + "\\]\\.Company\\.CompanyId");
+            companyDropDown.prop("selectedIndex", 0);
+
         }
         function hideCompanyForm(index) {
             var selectedWorkToHideCompanyForm = vm.works[index];

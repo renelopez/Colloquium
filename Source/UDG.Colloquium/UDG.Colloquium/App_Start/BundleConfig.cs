@@ -29,6 +29,7 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
+                      "~/Content/animate.css",
                       "~/Content/site.css",
                       "~/Content/toastr.css"));
 

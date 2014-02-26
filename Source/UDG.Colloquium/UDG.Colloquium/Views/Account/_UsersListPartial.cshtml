@@ -4,8 +4,8 @@
     <table id="tableUsers" class="table table-hover">
         <tr>
             <th>
-                <div class="orderLink">
-                          <a href="@Url.Action("ManageUsers")">UserName</a>
+                <div class="orderLink" data-colloquium-target="#usersList">
+                    <a href="@Url.Action("ManageUsers",new{order=ViewBag.Order})" >UserName</a>
                  </div>
             </th>
             <th>
