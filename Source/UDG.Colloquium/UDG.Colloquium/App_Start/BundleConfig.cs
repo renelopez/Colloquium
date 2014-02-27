@@ -15,6 +15,9 @@ namespace UDG.Colloquium.App_Start
             bundles.Add(new ScriptBundle("~/bundles/custom/colloquiumList").Include(
                         "~/Scripts/colloquiumList.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/custom/colloquiumCore").Include(
+                        "~/Scripts/colloquium.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
@@ -43,7 +46,7 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/angular-animate.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular/main").Include(
-                "~/app/app.js"));
+                "~/Scripts/colloquium.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular/register").Include(
                 "~/app/modules/registerModule.js",

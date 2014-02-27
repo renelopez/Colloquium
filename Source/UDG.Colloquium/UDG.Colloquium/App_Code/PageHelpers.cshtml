@@ -47,26 +47,3 @@
         })();
     </script>
 }
-
-@helper ModalConfirmationLink()
-{
-    <script type="text/javascript">
-        function confirmModal(event, linkId) {
-            event.preventDefault();
-            var modalMessage = document.getElementById("modalMessage");
-            modalMessage.innerHTML = modalMessage.innerHTML + linkId + "?";
-            $('#roleModal').modal('show');
-
-            $("#closeModal").click(function () {
-                var clearedModalMessage = modalMessage.innerHTML.split(':')[0] + ":";
-                modalMessage.innerHTML = clearedModalMessage;
-            });
-
-            $("#confirmModal").click(function () {
-                var linkUrl = document.getElementById(linkId).getAttribute("href");
-                window.location.href = linkUrl;
-            });
-        }
-        
-    </script>
-}

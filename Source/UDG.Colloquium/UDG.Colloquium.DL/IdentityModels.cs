@@ -7,7 +7,7 @@ using UDG.Colloquium.DL.Repositories;
 namespace UDG.Colloquium.DL
 {
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class SecurityDbContext : IdentityDbContext
+    public class ColloquiumDbContext : IdentityDbContext
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -23,7 +23,7 @@ namespace UDG.Colloquium.DL
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
         }
 
-        public SecurityDbContext()
+        public ColloquiumDbContext()
             : base("DefaultConnection")
         {
         }

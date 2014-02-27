@@ -25,10 +25,12 @@
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.Id,roleName=item.RoleName }) |
-            @Html.ActionLink("Delete", "DeleteRole", new { id = item.Id, roleName = item.RoleName }, new { id=""+@item.RoleName+"",onclick="confirmModal(event,'"+@item.RoleName+"');" })
+            @Html.ActionLink("Delete", "DeleteRole", new { id = item.Id, roleName = item.RoleName }, new { id=""+@item.RoleName+"",@class="modalActionLink" })
         </td>
     </tr>
 }
 </table>
 
-@PageHelpers.ModalConfirmationLink()
+@section scripts{
+    @Scripts.Render("~/bundles/custom/colloquiumCore")
+}

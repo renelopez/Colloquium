@@ -78,8 +78,8 @@
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
-    <Compile Include="Repositories\ISecurityUnitOfWork.cs" />
-    <Compile Include="Repositories\SecurityUnitOfWork.cs" />
+    <Compile Include="Repositories\IUnitOfWork.cs" />
+    <Compile Include="Repositories\ColloquiumUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
