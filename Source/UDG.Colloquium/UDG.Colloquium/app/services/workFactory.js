@@ -8,7 +8,7 @@
     // Inject the dependencies. 
     // Point to the factory definition function.
     // TODO: replace app with your module name
-    angular.module('workModule').factory(serviceId, [workFactory]);
+    angular.module('registerModule').factory(serviceId, [workFactory]);
 
     function workFactory() {
         // Define the functions and properties to reveal.
@@ -17,8 +17,8 @@
         var service = {
             getWorks: getWorks,
             postWork: postWork,
-            deleteWork: deleteWork,
-            deleteSelectedWork: deleteSelectedWork,
+            removeLastWork: removeLastWork,
+            removeSelectedWork: removeSelectedWork,
             showCompanyForm: showCompanyForm,
             hideCompanyForm: hideCompanyForm
         };
@@ -33,11 +33,11 @@
             works.push(work);
         }
 
-        function deleteWork() {
+        function removeLastWork() {
             works.pop();
         }
 
-        function deleteSelectedWork(work) {
+        function removeSelectedWork(work) {
             works.splice(works.indexOf(work), 1);
             work = null;
         }

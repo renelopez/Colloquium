@@ -7,17 +7,18 @@
     // Define the controller on the module.
     // Inject the dependencies. 
     // Point to the controller definition function.
-    angular.module('workModule').controller(controllerId,
+    angular.module('registerModule').controller(controllerId,
         ['$scope','workFactory', workController]);
 
     function workController($scope,workFactory) {
         // Using 'Controller As' syntax, so we assign this to the vm variable (for viewmodel).
         var vm = this;
+
         // Bindable properties and functions are placed on vm.
         vm.works = workFactory.getWorks();
         vm.addWork = addWork;
-        vm.deleteWork = deleteWork;
-        vm.removeSelectedItem = removeSelectedItem;
+        vm.removeLastWork = removeLastWork;
+        vm.removeSelectedWork = removeSelectedWork;
         vm.showCompanyForm = showCompanyForm;
         vm.hideCompanyForm = hideCompanyForm;
         vm.companyFormVisible = false;
@@ -35,13 +36,13 @@
             });
         }
 
-        function deleteWork() {
-            workFactory.deleteWork();
+        function removeLastWork() {
+            workFactory.removeLastWork();
         }
 
-        function removeSelectedItem(index) {
-            var selectedItemToDelete = vm.works[index];
-            workFactory.deleteSelectedWork(selectedItemToDelete);
+        function removeSelectedWork(index) {
+            var selectedWorkToDelete = vm.works[index];
+            workFactory.removeSelectedWork(selectedWorkToDelete);
         }
 
         function showCompanyForm(index) {

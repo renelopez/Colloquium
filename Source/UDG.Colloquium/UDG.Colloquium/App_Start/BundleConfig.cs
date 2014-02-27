@@ -42,10 +42,15 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/angular-route.js",
                 "~/Scripts/angular-animate.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular/works").Include(
-                "~/app/modules/workModule.js",
+            bundles.Add(new ScriptBundle("~/bundles/angular/main").Include(
+                "~/app/app.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular/register").Include(
+                "~/app/modules/registerModule.js",
                 "~/app/services/workFactory.js",
-                "~/app/controllers/workController.js"));
+                "~/app/controllers/workController.js",
+                "~/app/services/contactFactory.js",
+                "~/app/controllers/contactController.js"));
         }
     }
 }

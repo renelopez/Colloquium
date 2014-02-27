@@ -3,213 +3,266 @@
     ViewBag.Title = "Register User";
 }
 
-<h2>@ViewBag.Title.</h2>
+<div ng-app="app">
+    <h2>@ViewBag.Title.</h2>
 
-<ul class="nav nav-tabs">
-    <li class="active"><a href="#account" data-toggle="tab">Account Info</a></li>
-    <li><a href="#personalInfo" data-toggle="tab">Personal Details</a></li>
-    <li><a href="#workInfo" data-toggle="tab">Work Details</a></li>
-</ul>
-<hr />
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#account" data-toggle="tab">Account Info</a></li>
+        <li><a href="#personalInfo" data-toggle="tab">Personal Details</a></li>
+        <li><a href="#workInfo" data-toggle="tab">Work Details</a></li>
+        <li><a href="#contactInfo" data-toggle="tab">Contact Details</a></li>
+    </ul>
+    <hr />
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-{
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary()
-    <div class="tab-content">
-        @* /*****Account Section Form******* *@
+    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary()
+        <div class="tab-content">
+            @* /*****Account Section Form******* *@
 
-        <div class="tab-pane fade in active" id="account">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Please enter a username and password for your account</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+            <div class="tab-pane fade in active" id="account">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Please enter a username and password for your account</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                </div>
+            </div>
+
+            @* /*****Personal Details Section Form******* *@
+            <div class="tab-pane fade" id="personalInfo">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Please enter the following personal information details</div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.MiddleName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(m => m.BirthDate, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.BirthPlace, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.BirthPlace, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(m => m.Sex, "Enum-radio", new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Nacionality, new { @class = "col-md-2 control-label" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(m => m.Nacionality, new { @class = "form-control" })
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                </div>
+            </div>
+
+            @* /*****Work Details Section Form******* *@
+            <div class="tab-pane fade" id="workInfo" ng-controller="workController as work">
+                <div class="panel panel-primary repeat-animation" ng-repeat="workItem in work.works">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10">
+                                Please enter information about your current or previous work.
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" ng-click="work.removeSelectedWork($index)" class="btn btn-danger pull-right">Remove Work</button>
+                            </div>
                         </div>
                     </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Work Position:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="workItem.workPosition" name="Works[{{$index}}].WorkPosition" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Work Description:</label>
+                            <div class="col-md-10">
+                                <textarea ng-model="workItem.workDescription" name="Works[{{$index}}].WorkDescription" class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Salary:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="workItem.workSalary" name="Works[{{$index}}].WorkSalary" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Salary Schema:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="workItem.workSalarySchema" name="Works[{{$index}}].SalarySchema" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Begin Date:</label>
+                            <div class="col-md-10">
+                                <input type="date" ng-model="workItem.workBeginDate" name="Works[{{$index}}].WorkBeginDate" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">End Date:</label>
+                            <div class="col-md-10">
+                                <input type="date" ng-model="workItem.workEndDate" name="Works[{{$index}}].WorkEndDate" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            @Html.Action("Companies")
+                            <div class="col-md-7">
+                                <button class="btn btn-default" type="button" ng-click="work.showCompanyForm($index)">Add new company</button>
+                            </div>
+                        </div>
+                        <div id="companyFormContainer" ng-show="workItem.companyFormVisible" class="show-hide-animation">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Company Name:</label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="workItem.company.companyName" name="Works[{{$index}}].Company.CompanyName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Company Corporate Name:</label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="workItem.company.companyCorporateName" name="Works[{{$index}}].Company.CompanyCorporateName" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Company Description:</label>
+                                <div class="col-md-8">
+                                    <textarea ng-model="workItem.company.companyDescription" name="Works[{{$index}}].Company.CompanyDescription" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Company Address:</label>
+                                <div class="col-md-8">
+                                    <input type="text" ng-model="workItem.company.companyAddress" name="Works[{{$index}}].Company.CompanyAddress" class="form-control" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">Company Phone Number:</label>
+                                <div class="col-md-8">
+                                    <input type="tel" ng-model="workItem.company.companyPhoneNumber" name="Works[{{$index}}].Company.CompanyPhoneNumber" class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-default" ng-click="work.addWork()">
+                        <span class=" glyphicon glyphicon-plus"></span> Add Work
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="work.removeLastWork()">
+                        <span class=" glyphicon glyphicon-minus"></span> Delete Work
+                    </button>
+                </div>
+            </div>
+
+            @* /*****Contact Details Section Form******* *@
+            <div class="tab-pane fade" id="contactInfo" ng-controller="contactController as contact">
+                <div class="panel panel-primary repeat-animation" ng-repeat="contactItem in contact.contacts">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-10">
+                                Please enter information about all of your available contacts.
+                            </div>
+                            <div class="col-md-2">
+                                <button type="button" ng-click="contact.removeSelectedContact($index)" class="btn btn-danger pull-right">Remove Contact</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Contact Phone:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="contactItem.contactPhoneNumber" name="Contacts[{{$index}}].ContactPhoneNumber" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Contact Address:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="contactItem.contactAddress" name="Contacts[{{$index}}].ContactAddress" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Contact Email:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="contactItem.email" name="Contacts[{{$index}}].ContactEmail" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Contact Type:</label>
+                            <div class="col-md-10">
+                                <input type="text" ng-model="contactItem.contactType" name="Contacts[{{$index}}].ContactType" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <button type="button" class="btn btn-default" ng-click="contact.addContact()">
+                        <span class=" glyphicon glyphicon-plus"></span> Add Contact
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="contact.removeLastContact()">
+                        <span class=" glyphicon glyphicon-minus"></span> Delete Contact
+                    </button>
                 </div>
             </div>
         </div>
 
-        @* /*****Personal Details Section Form******* *@
-        <div class="tab-pane fade" id="personalInfo">
-            <div class="panel panel-primary">
-                <div class="panel-heading">Please enter the following personal information details</div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.MiddleName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(m => m.BirthDate, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.BirthPlace, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.BirthPlace, new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(m => m.Sex, "Enum-radio", new { @class = "form-control" })
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.LabelFor(m => m.Nacionality, new { @class = "col-md-2 control-label" })
-                        <div class="col-md-10">
-                            @Html.TextBoxFor(m => m.Nacionality, new { @class = "form-control" })
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @* /*****Work Details Section Form******* *@
-        <div class="tab-pane fade" id="workInfo" ng-app="workModule" ng-controller="workController as work">
-            <div class="panel panel-primary repeat-animation" ng-repeat="workItem in work.works">
-                <div class="panel-heading">
-                    <div class="row">
-                        <div class="col-md-10">
-                            Please enter information about your current or previous work.
-                        </div>
-                        <div class="col-md-2">
-                            <button type="button" ng-click="work.removeSelectedItem($index)" class="btn btn-danger pull-right">Remove Work</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Work Position:</label>
-                        <div class="col-md-10">
-                            <input type="text" ng-model="workItem.workPosition" name="Works[{{$index}}].WorkPosition" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Work Description:</label>
-                        <div class="col-md-10">
-                            <input type="text" ng-model="workItem.workDescription" name="Works[{{$index}}].WorkDescription" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Salary:</label>
-                        <div class="col-md-10">
-                            <input type="text" ng-model="workItem.workSalary" name="Works[{{$index}}].WorkSalary" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Salary Schema:</label>
-                        <div class="col-md-10">
-                            <input type="text" ng-model="workItem.workSalarySchema" name="Works[{{$index}}].SalarySchema" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">Begin Date:</label>
-                        <div class="col-md-10">
-                            <input type="date" ng-model="workItem.workBeginDate" name="Works[{{$index}}].WorkBeginDate" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-md-2 control-label">End Date:</label>
-                        <div class="col-md-10">
-                            <input type="date" ng-model="workItem.workEndDate" name="Works[{{$index}}].WorkEndDate" class="form-control" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        @Html.Action("Companies")
-                        <div class="col-md-7">
-                            <button class="btn btn-default" type="button" ng-click="work.showCompanyForm($index)">Add new company</button>
-                        </div>
-                    </div>
-                    <div id="companyFormContainer" ng-show="workItem.companyFormVisible">
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Company Name:</label>
-                            <div class="col-md-8">
-                                <input type="date" ng-model="workItem.company.companyName" name="Works[{{$index}}].Company.CompanyName" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Company Corporate Name:</label>
-                            <div class="col-md-8">
-                                <input type="date" ng-model="workItem.company.companyCorporateName" name="Works[{{$index}}].Company.CompanyCorporateName" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Company Description:</label>
-                            <div class="col-md-8">
-                                <input type="date" ng-model="workItem.company.companyCorporateName" name="Works[{{$index}}].Company.CompanyCorporateName" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Company Address:</label>
-                            <div class="col-md-8">
-                                <input type="date" ng-model="workItem.company.companyAddress" name="Works[{{$index}}].Company.CompanyAddress" class="form-control" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-2 control-label">Company Phone Number:</label>
-                            <div class="col-md-8">
-                                <input type="date" ng-model="workItem.company.companyPhoneNumber" name="Works[{{$index}}].Company.CompanyPhoneNumber" class="form-control" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group col-md-12">
-                <button type="button" class="btn btn-default" ng-click="work.addWork()">
-                    <span class=" glyphicon glyphicon-plus"></span> Add Work
+        <div class="form-group">
+            <div class="col-md-10">
+                <button id="submitButton" type="submit" class="btn btn-default" value="Register">
+                    <span class="glyphicon glyphicon-ok"></span><strong> Register</strong>
                 </button>
-                <button type="button" class="btn btn-default" ng-click="work.deleteWork()">
-                    <span class=" glyphicon glyphicon-minus"></span> Delete Work
+                <button id="resetButton" type="reset" class="btn btn-default" value="Reset">
+                    <span class="glyphicon glyphicon-remove"></span><strong> Reset</strong>
                 </button>
             </div>
         </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-10">
-            <button id="submitButton" type="submit" class="btn btn-default" value="Register">
-                <span class="glyphicon glyphicon-ok"></span><strong> Register</strong>
-            </button>
-            <button id="resetButton" type="reset" class="btn btn-default" value="Reset">
-                <span class="glyphicon glyphicon-remove"></span><strong> Reset</strong>
-            </button>
-        </div>
-    </div>
-}
-
+    }
+</div>
 @section Scripts {
     @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/angular/works")
+    @Scripts.Render("~/bundles/angular/main")
+    @Scripts.Render("~/bundles/angular/register")
 }

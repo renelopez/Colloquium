@@ -232,8 +232,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\controllers\contactController.js" />
     <Content Include="app\controllers\workController.js" />
-    <Content Include="app\modules\workModule.js" />
+    <Content Include="app\modules\registerModule.js" />
+    <Content Include="app\services\contactFactory.js" />
     <Content Include="app\services\workFactory.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\bootstrap-theme.css" />

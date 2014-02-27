@@ -103,6 +103,7 @@ namespace UDG.Colloquium.BL.ViewModels
         public string Nacionality { get; set; }
 
         public ICollection<WorkViewModel> Works { get; set; }
+        public ICollection<ContactViewModel> Contacts { get; set; }
 
     }
 
@@ -151,9 +152,22 @@ namespace UDG.Colloquium.BL.ViewModels
         [Display(Name = "Company Phone Number")]
         public string CompanyPhoneNumber { get; set; }
 
-        public IEnumerator GetEnumerator()
-        {
-            throw new NotImplementedException();
-        }
+    }
+
+    public class ContactViewModel
+    {
+        [Display(Name="Contact Phone Number")]
+        public string ContactPhoneNumber { get; set; }
+
+        [Display(Name = "Contact Address")]
+        public string ContactAddress { get; set; }
+
+        [Display(Name ="Contact Email")]
+        public string ContactEmail { get; set; }
+
+        [Display(Name="Contact Type")]
+        public string ContactType { get; set; }
+
+
     }
 }

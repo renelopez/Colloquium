@@ -8,10 +8,10 @@
     var app = angular.module('app', [
         // Angular modules 
         'ngAnimate',        // animations
-        'ngRoute'           // routing
+        'ngRoute'   ,        // routing
 
         // Custom modules 
-
+        'registerModule'
         // 3rd Party Modules
         
     ]);

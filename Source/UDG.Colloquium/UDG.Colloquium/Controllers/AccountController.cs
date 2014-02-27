@@ -12,6 +12,7 @@ using UDG.Colloquium.BL.ViewModels;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.Helpers;
 using WebGrease.Css.Extensions;
+using System.Globalization;
 
 namespace UDG.Colloquium.Controllers
 {
@@ -133,6 +134,17 @@ namespace UDG.Colloquium.Controllers
             };
 
             return PartialView("_CompanyCatalogPartial", companies);
+        }
+
+        public async Task<JsonResult> IsUserAvailable(string userName)
+        {
+            if (await SecurityManager.UserManager.FindByNameAsync(userName)==null)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            string unavailableUserMessage = String.Format(CultureInfo.InvariantCulture, "{0} is not available.", userName);
+            return Json(unavailableUserMessage, JsonRequestBehavior.AllowGet);
         }
 
         //
