@@ -138,7 +138,8 @@ namespace UDG.Colloquium.Controllers
 
         public async Task<JsonResult> IsUserAvailable(string userName)
         {
-            if (await SecurityManager.UserManager.FindByNameAsync(userName)==null)
+            var user= await SecurityManager.UserManager.FindByNameAsync(userName);
+            if (user==null)
             {
                 return Json(true, JsonRequestBehavior.AllowGet);
             }

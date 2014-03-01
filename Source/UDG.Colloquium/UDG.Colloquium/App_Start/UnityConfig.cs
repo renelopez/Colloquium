@@ -26,7 +26,7 @@ namespace UDG.Colloquium
             
             // e.g. container.RegisterType<ITestService, TestService>();
             // General Manager
-            container.RegisterType<ISecurityManager<ApplicationUser, ApplicationRole>, SecurityManager>(new HierarchicalLifetimeManager(), (new InjectionConstructor((typeof(UserManager<ApplicationUser>)), ((typeof(RoleManager<ApplicationRole>))), ((typeof(ISecurityUnitOfWork<ApplicationUser, ApplicationRole>))))));
+            container.RegisterType<ISecurityManager<ApplicationUser, ApplicationRole>, SecurityManager>(new HierarchicalLifetimeManager(), (new InjectionConstructor((typeof(UserManager<ApplicationUser>)), ((typeof(RoleManager<ApplicationRole>))), ((typeof(IUnitOfWork<ApplicationUser, ApplicationRole>))))));
 
             // Registering Manager and Store for Users.
             container.RegisterType<UserManager<ApplicationUser>>(new HierarchicalLifetimeManager(), new InjectionConstructor(typeof(IUserStore<ApplicationUser>)));
@@ -37,7 +37,7 @@ namespace UDG.Colloquium
             container.RegisterType<IRoleStore<ApplicationRole>, ApplicationRoleStore>(new HierarchicalLifetimeManager());
 
             // Registering Security Unit Of Work.
-            container.RegisterType<ISecurityUnitOfWork<ApplicationUser, ApplicationRole>, ColloquiumUnitOfWork>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUnitOfWork<ApplicationUser, ApplicationRole>, ColloquiumUnitOfWork>(new HierarchicalLifetimeManager());
 
             // Registering Contexts.
             container.RegisterType<IdentityDbContext, ColloquiumDbContext>(new HierarchicalLifetimeManager());

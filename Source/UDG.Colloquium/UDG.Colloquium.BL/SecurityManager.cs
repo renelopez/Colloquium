@@ -19,8 +19,8 @@ namespace UDG.Colloquium.BL
         public UserManager<ApplicationUser> UserManager { get; set; }
         public RoleManager<ApplicationRole> RoleManager { get; set; }
 
-        public ISecurityUnitOfWork<ApplicationUser,ApplicationRole> UnitOfWork { get; set; }
-        public SecurityManager(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager,ISecurityUnitOfWork<ApplicationUser,ApplicationRole> unitOfWork)
+        public IUnitOfWork<ApplicationUser,ApplicationRole> UnitOfWork { get; set; }
+        public SecurityManager(UserManager<ApplicationUser> userManager,RoleManager<ApplicationRole> roleManager,IUnitOfWork<ApplicationUser,ApplicationRole> unitOfWork)
         {
             UserManager = userManager;
             RoleManager = roleManager;

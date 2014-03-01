@@ -4,7 +4,6 @@
     $(".body-content").on("click", ".pagedList a", getPage);
     $(".body-content").on("click", ".orderLink a", getOrderedPage);
 
-
     function ajaxFormSubmit() {
         var $form = $(this);
         

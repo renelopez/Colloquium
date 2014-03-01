@@ -46,7 +46,7 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/angular-animate.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular/main").Include(
-                "~/Scripts/colloquium.js"));
+                "~/app/app.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular/register").Include(
                 "~/app/modules/registerModule.js",

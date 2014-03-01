@@ -25,11 +25,12 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">Please enter a username and password for your account</div>
                     <div class="panel-body">
-                        <div class="form-group">
-                            @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                            <div class="col-md-10">
-                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                            </div>
+                        <div class="form-group" id="userNameSection">
+                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    <span id="feedback"></span>
+                                </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
@@ -265,4 +266,5 @@
     @Scripts.Render("~/bundles/angular")
     @Scripts.Render("~/bundles/angular/main")
     @Scripts.Render("~/bundles/angular/register")
+    @Scripts.Render("~/bundles/custom/colloquiumCore")
 }
