@@ -28,6 +28,22 @@ namespace UDG.Colloquium.DL.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+
+            if (!context.Roles.Any(rol => rol.Name == "Administrator"))
+            {
+                context.Roles.AddOrUpdate(new IdentityRole { Name = "Administrator" });
+            }
+
+            if (!context.Users.Any(usr => usr.UserName == "renelopez"))
+            {
+                context.Users.AddOrUpdate(new IdentityUser { UserName = "renelopez" });
+            }
+
+            var user = context.Users.FirstOrDefault(usr => usr.UserName == "renelopez");
+            if (user == null || user.Roles.Any(usr => usr.Role.Name == "Administrator")) return;
+            var role = context.Roles.First(rol => rol.Name == "Administrator");
+            user.Roles.Add(new IdentityUserRole { Role = role, RoleId = role.Id, User = user, UserId = user.Id });
+            context.SaveChanges();
         }
     }
 }
