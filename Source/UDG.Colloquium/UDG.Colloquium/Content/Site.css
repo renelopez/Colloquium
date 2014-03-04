@@ -85,5 +85,45 @@ input[type="checkbox"].input-validation-error {
     animation: fadeInDown 0.5s;
 }
 
+.idle-refresh-animation {
+    visibility: hidden
+}
+
+.refresh-animation {
+    visibility: visible;
+    -webkit-animation-name: rotateThis;
+    -moz-animation-name: rotateThis;
+    -o-animation-name: rotateThis;
+    animation-name: rotateThis;
+    -webkit-animation-duration: .5s;
+    -moz-animation-duration: .5s;
+    -o-animation-duration: .5s;
+    animation-duration: .5s;
+    -webkit-animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -ms-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-timing-function: linear;
+    -o-animation-timing-function: linear;
+    animation-timing-function: linear;
+}
+
+
+@-moz-keyframes rotateThis {
+	from { -moz-transform: scale( 1 ) rotate( 0deg );     }
+	to   { -moz-transform: scale( 1 ) rotate( 360deg ); }
+}
+
+@-webkit-keyframes rotateThis {
+	from { -webkit-transform: scale( 1 ) rotate( 0deg );  }
+	to   { -webkit-transform: scale( 1 ) rotate( 360deg ); }
+}
+
+@keyframes rotateThis {
+	from { transform: scale( 1 ) rotate( 0deg );   }
+	to   { transform: scale( 1 ) rotate( 360deg ); }
+}
 
 

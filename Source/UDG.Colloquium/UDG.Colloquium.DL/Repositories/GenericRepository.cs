@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace UDG.Colloquium.DL.Repositories
 {
-    public class GenericRepository<TEntity> where TEntity:class
+    public class GenericRepository<TEntity> : IRepository<TEntity> where TEntity:class
     {
         private readonly DbContext _context;
         private readonly DbSet<TEntity> _dbSet; 

@@ -26,11 +26,18 @@
                     <div class="panel-heading">Please enter a username and password for your account</div>
                     <div class="panel-body">
                         <div class="form-group" id="userNameSection">
-                                @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
-                                <div class="col-md-10">
-                                    @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
-                                    <span id="feedback"></span>
+                            <label class="col-md-2 control-label">Username</label>
+                            <div class="col-md-10">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-8">
+                                        <span class="glyphicon glyphicon-refresh idle-refresh-animation" id="refresh"></span>
+                                        <label class="control-label" for="UserName">&nbsp;</label>
+                                    </div>
                                 </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })

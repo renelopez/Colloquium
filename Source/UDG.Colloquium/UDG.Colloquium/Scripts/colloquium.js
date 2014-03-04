@@ -50,29 +50,36 @@
     };
 
     function checkUserAvailability() {
+
+        var $refreshSpan = $("#refresh");
+        var animateClass = "refresh-animation";
+        var idleClass = "idle-refresh-animation";
+        $refreshSpan.removeClass(idleClass);
+        $refreshSpan.addClass(animateClass);
+
+
+
         var $inputUserName = $(this);
-        var $labelUserName=$("label[for='UserName']")
-        var $spanUserName = $("#feedback");
+        var $labelUserName = $("label[for='UserName']");
         var $userSection = $("#userNameSection");
     
         var options = {
-            url: "/Account/IsUserAvailable",
-            data: {userName:$inputUserName.val()}
+            url: "/Account/IsUserAvailable/"+$inputUserName.val(),
+            data: null
         };
 
         $.ajax(options).done(function (data) {
+            $refreshSpan.removeClass(animateClass);
+            $refreshSpan.addClass(idleClass);
             if (data == true) {
-                $userSection.removeClass("has-error has-success has-feedback");
-                $spanUserName.removeClass();
-                $spanUserName.addClass("glyphicon glyphicon-ok form-control-feedback")
-                $userSection.addClass("has-success has-feedback");
+                $userSection.removeClass("has-error has-success");
+                $userSection.addClass("has-success");
+                $labelUserName.html($inputUserName.val()+" is available.");
             }
             else {
-                $userSection.removeClass("has-error has-success has-feedback");
-                $spanUserName.removeClass();
-                $spanUserName.addClass("glyphicon glyphicon-remove form-control-feedback")
-                $userSection.addClass("has-error has-feedback");
-                $labelUserName.html(data);
+                $userSection.removeClass("has-error has-success");
+                $userSection.addClass("has-error");
+                $labelUserName.html($inputUserName.val() + " is not available.");
             }
 
         });

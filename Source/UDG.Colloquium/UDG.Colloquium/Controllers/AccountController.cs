@@ -11,8 +11,6 @@ using UDG.Colloquium.BL;
 using UDG.Colloquium.BL.ViewModels;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.Helpers;
-using WebGrease.Css.Extensions;
-using System.Globalization;
 
 namespace UDG.Colloquium.Controllers
 {
@@ -136,6 +134,7 @@ namespace UDG.Colloquium.Controllers
             return PartialView("_CompanyCatalogPartial", companies);
         }
 
+        [Route("Account/IsUserAvailable/{userName}")]
         public async Task<JsonResult> IsUserAvailable(string userName)
         {
             var user= await SecurityManager.UserManager.FindByNameAsync(userName);
@@ -143,9 +142,7 @@ namespace UDG.Colloquium.Controllers
             {
                 return Json(true, JsonRequestBehavior.AllowGet);
             }
-
-            string unavailableUserMessage = String.Format(CultureInfo.InvariantCulture, "{0} is not available.", userName);
-            return Json(unavailableUserMessage, JsonRequestBehavior.AllowGet);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
         //

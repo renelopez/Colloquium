@@ -9,15 +9,15 @@ namespace UDG.Colloquium.DL.Repositories
     {
         private readonly IdentityDbContext _context;
         private bool _disposed;
-        private GenericRepository<ApplicationUser> _applicationUserRepository;
-        private GenericRepository<ApplicationRole> _applicationRoleRepository;
+        private IRepository<ApplicationUser> _applicationUserRepository;
+        private IRepository<ApplicationRole> _applicationRoleRepository;
 
         public ColloquiumUnitOfWork(IdentityDbContext context)
         {
             _context = context;
         }
 
-        public GenericRepository<ApplicationUser> ApplicationUserRepository
+        public IRepository<ApplicationUser> ApplicationUserRepository
         {
             get {
                 return _applicationUserRepository ??
@@ -26,7 +26,7 @@ namespace UDG.Colloquium.DL.Repositories
             set { _applicationUserRepository=value; }
         }
 
-        public GenericRepository<ApplicationRole> ApplicationRoleRepository
+        public IRepository<ApplicationRole> ApplicationRoleRepository
         {
             get
             {
