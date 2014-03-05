@@ -37,7 +37,7 @@ namespace UDG.Colloquium
             container.RegisterType<IRoleStore<ApplicationRole>, ApplicationRoleStore>(new HierarchicalLifetimeManager());
 
             // Registering Security Unit Of Work.
-            container.RegisterType<IUnitOfWork<ApplicationUser, ApplicationRole>, ColloquiumUnitOfWork>(new HierarchicalLifetimeManager());
+            container.RegisterType<IUnitOfWork<ApplicationUser, ApplicationRole>, ColloquiumUnitOfWork<ApplicationUser, ApplicationRole>>(new HierarchicalLifetimeManager());
 
             // Registering Contexts.
             container.RegisterType<IdentityDbContext, ColloquiumDbContext>(new HierarchicalLifetimeManager());
