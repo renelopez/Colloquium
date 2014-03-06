@@ -1,37 +1,36 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
-using UDG.Colloquium.DL.Custom;
 
 namespace UDG.Colloquium.DL.Repositories
 {
-    public class ColloquiumUnitOfWork: IUnitOfWork<ApplicationUser,ApplicationRole>, IDisposable
+    public class ColloquiumUnitOfWork<TU, TR> :IDisposable, IUnitOfWork<TU,TR> where TU : class where TR : class 
     {
         private readonly IdentityDbContext _context;
         private bool _disposed;
-        private IRepository<ApplicationUser> _applicationUserRepository;
-        private IRepository<ApplicationRole> _applicationRoleRepository;
+        private IRepository<TU> _applicationUserRepository;
+        private IRepository<TR> _applicationRoleRepository;
 
         public ColloquiumUnitOfWork(IdentityDbContext context)
         {
             _context = context;
         }
 
-        public IRepository<ApplicationUser> ApplicationUserRepository
+        public IRepository<TU> ApplicationUserRepository
         {
             get {
                 return _applicationUserRepository ??
-                       (_applicationUserRepository = new GenericRepository<ApplicationUser>(_context));
+                       (_applicationUserRepository = new GenericRepository<TU>(_context));
             }
             set { _applicationUserRepository=value; }
         }
 
-        public IRepository<ApplicationRole> ApplicationRoleRepository
+        public IRepository<TR> ApplicationRoleRepository
         {
             get
             {
                 return _applicationRoleRepository ??
-                       (_applicationRoleRepository = new GenericRepository<ApplicationRole>(_context));
+                       (_applicationRoleRepository = new GenericRepository<TR>(_context));
             }
             set { _applicationRoleRepository = value; }
         }

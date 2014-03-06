@@ -110,11 +110,14 @@ namespace UDG.Colloquium.BL.ViewModels
     public class WorkViewModel
     {
         [Display(Name = "WorkPosition")]
+        [MaxLength(30)]
         public string WorkPosition { get; set; }
 
+        [MaxLength(100)]
         [Display(Name = "WorkDescription")]
         public string WorkDescription { get; set; }
-
+        
+        [DataType(DataType.Currency)]
         [Display(Name = "Salary")]
         public double WorkSalary { get; set; }
 
@@ -122,11 +125,11 @@ namespace UDG.Colloquium.BL.ViewModels
         public SchemaType SalarySchema { get; set; }
 
         [Display(Name = "Begin Date")]
-        [DataType(DataType.Date)]
+        [RegularExpression(@"^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$")]
         public DateTime WorkBeginDate { get; set; }
 
         [Display(Name = "End Date")]
-        [DataType(DataType.Date)]
+        [RegularExpression(@"^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$")]
         public DateTime WorkEndDate { get; set; }
 
         public CompanyViewModel Company { get; set; }
@@ -137,18 +140,24 @@ namespace UDG.Colloquium.BL.ViewModels
         [Display(Name = "Company Id")]
         public int CompanyId { get; set; }
 
+        [MaxLength(30)]
         [Display(Name = "Company Name")]
         public string CompanyName { get; set; }
 
+        [MaxLength(30)]
         [Display(Name = "Corporate Name")]
         public string CompanyCorporateName { get; set; }
 
+        [DataType(DataType.MultilineText)]
         [Display(Name = "Company Description")]
         public string CompanyDescription { get; set; }
 
+        [MaxLength(50)]
         [Display(Name = "Company Address")]
         public string CompanyAddress { get; set; }
 
+        [MaxLength(30)]
+        [DataType(DataType.PhoneNumber)]
         [Display(Name = "Company Phone Number")]
         public string CompanyPhoneNumber { get; set; }
 
@@ -156,12 +165,16 @@ namespace UDG.Colloquium.BL.ViewModels
 
     public class ContactViewModel
     {
+        [MaxLength(30)]
+        [DataType(DataType.PhoneNumber)]
         [Display(Name="Contact Phone Number")]
         public string ContactPhoneNumber { get; set; }
 
+        [MaxLength(40)]
         [Display(Name = "Contact Address")]
         public string ContactAddress { get; set; }
 
+        [DataType(DataType.EmailAddress)]
         [Display(Name ="Contact Email")]
         public string ContactEmail { get; set; }
 

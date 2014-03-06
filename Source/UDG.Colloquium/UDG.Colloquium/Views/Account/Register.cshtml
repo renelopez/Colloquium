@@ -123,19 +123,19 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Work Position:</label>
                             <div class="col-md-10">
-                                <input type="text" ng-model="workItem.workPosition" name="Works[{{$index}}].WorkPosition" class="form-control" />
+                                <input type="text" data-val="true" data-val-length-max="30" ng-model="workItem.workPosition" name="Works[{{$index}}].WorkPosition" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Work Description:</label>
                             <div class="col-md-10">
-                                <textarea ng-model="workItem.workDescription" name="Works[{{$index}}].WorkDescription" class="form-control"></textarea>
+                                <textarea data-val="true" data-val-length-max="100" ng-model="workItem.workDescription" name="Works[{{$index}}].WorkDescription" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Salary:</label>
                             <div class="col-md-10">
-                                <input type="text" ng-model="workItem.workSalary" name="Works[{{$index}}].WorkSalary" class="form-control" />
+                                <input type="number" data-val="true" data-val-number="true" ng-model="workItem.workSalary" name="Works[{{$index}}].WorkSalary" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
@@ -147,13 +147,13 @@
                         <div class="form-group">
                             <label class="col-md-2 control-label">Begin Date:</label>
                             <div class="col-md-10">
-                                <input type="date" ng-model="workItem.workBeginDate" name="Works[{{$index}}].WorkBeginDate" class="form-control" />
+                                <input type="date" data-val="true" data-val-regex-pattern="^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$" ng-model="workItem.workBeginDate" name="Works[{{$index}}].WorkBeginDate" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">End Date:</label>
                             <div class="col-md-10">
-                                <input type="date" ng-model="workItem.workEndDate" name="Works[{{$index}}].WorkEndDate" class="form-control" />
+                                <input type="date" data-val="true" data-val-regex-pattern="^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$" ng-model="workItem.workEndDate" name="Works[{{$index}}].WorkEndDate" class="form-control" />
                             </div>
                         </div>
                         <div class="form-group">
