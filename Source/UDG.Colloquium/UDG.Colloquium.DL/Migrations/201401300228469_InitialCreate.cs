@@ -43,18 +43,6 @@ namespace UDG.Colloquium.DL.Migrations
                 .Index(t => t.User_Id);
             
             CreateTable(
-                "dbo.UserLogins",
-                c => new
-                    {
-                        UserId = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
-                        LoginProvider = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
-                        ProviderKey = c.String(nullable: false, maxLength: 128, unicode: false, storeType: "nvarchar"),
-                    })
-                .PrimaryKey(t => new { t.UserId, t.LoginProvider, t.ProviderKey })
-                .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
-                .Index(t => t.UserId);
-            
-            CreateTable(
                 "dbo.UserRoles",
                 c => new
                     {
@@ -73,14 +61,11 @@ namespace UDG.Colloquium.DL.Migrations
         {
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
-            DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserClaims", "User_Id", "dbo.Users");
             DropIndex("dbo.UserRoles", new[] { "UserId" });
             DropIndex("dbo.UserRoles", new[] { "RoleId" });
-            DropIndex("dbo.UserLogins", new[] { "UserId" });
             DropIndex("dbo.UserClaims", new[] { "User_Id" });
             DropTable("dbo.UserRoles");
-            DropTable("dbo.UserLogins");
             DropTable("dbo.UserClaims");
             DropTable("dbo.Users");
             DropTable("dbo.Roles");

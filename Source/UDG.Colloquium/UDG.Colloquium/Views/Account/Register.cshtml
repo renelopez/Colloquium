@@ -17,7 +17,7 @@
     @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
     {
         @Html.AntiForgeryToken()
-        @Html.ValidationSummary()
+        @*@Html.ValidationSummary()*@
         <div class="tab-content">
             @* /*****Account Section Form******* *@
 
@@ -31,6 +31,7 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         @Html.TextBoxFor(m => m.UserName, new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(m => m.UserName)
                                     </div>
                                     <div class="col-md-8">
                                         <span class="glyphicon glyphicon-refresh idle-refresh-animation" id="refresh"></span>
@@ -49,6 +50,7 @@
                             @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m=>m.Password)
                             </div>
                         </div>
                     </div>
@@ -64,42 +66,49 @@
                             @Html.LabelFor(m => m.LastName, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.LastName)
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.MiddleName, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.MiddleName)
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.FirstName)
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.EditorFor(m => m.BirthDate, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.BirthDate)
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.BirthPlace, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.BirthPlace, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.BirthPlace)
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.Sex, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.EditorFor(m => m.Sex, "Enum-radio", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Sex)
                             </div>
                         </div>
                         <div class="form-group">
                             @Html.LabelFor(m => m.Nacionality, new { @class = "col-md-2 control-label" })
                             <div class="col-md-10">
                                 @Html.TextBoxFor(m => m.Nacionality, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(m => m.Nacionality)
                             </div>
                         </div>
                     </div>
@@ -124,36 +133,42 @@
                             <label class="col-md-2 control-label">Work Position:</label>
                             <div class="col-md-10">
                                 <input type="text" data-val="true" data-val-length-max="30" ng-model="workItem.workPosition" name="Works[{{$index}}].WorkPosition" class="form-control" />
+                                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkPosition" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Work Description:</label>
                             <div class="col-md-10">
                                 <textarea data-val="true" data-val-length-max="100" ng-model="workItem.workDescription" name="Works[{{$index}}].WorkDescription" class="form-control"></textarea>
+                                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkDescription" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Salary:</label>
                             <div class="col-md-10">
                                 <input type="number" data-val="true" data-val-number="true" ng-model="workItem.workSalary" name="Works[{{$index}}].WorkSalary" class="form-control" />
+                                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkSalary" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Salary Schema:</label>
                             <div class="col-md-10">
                                 <input type="text" ng-model="workItem.workSalarySchema" name="Works[{{$index}}].SalarySchema" class="form-control" />
+                                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].SalarySchema" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Begin Date:</label>
                             <div class="col-md-10">
                                 <input type="date" data-val="true" data-val-regex-pattern="^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$" ng-model="workItem.workBeginDate" name="Works[{{$index}}].WorkBeginDate" class="form-control" />
+                                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkBeginDate" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">End Date:</label>
                             <div class="col-md-10">
                                 <input type="date" data-val="true" data-val-regex-pattern="^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$" ng-model="workItem.workEndDate" name="Works[{{$index}}].WorkEndDate" class="form-control" />
+                                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkEndDate" data-valmsg-replace="true"></span>
                             </div>
                         </div>
                         <div class="form-group">

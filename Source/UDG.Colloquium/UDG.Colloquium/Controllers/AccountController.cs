@@ -370,7 +370,7 @@ namespace UDG.Colloquium.Controllers
                     var errors = result.Where(res => !res.Succeeded).ToList();
                     errorList.AddRange(errors);
                 }
-                else
+                else if(result.Any(res => res.Succeeded))
                 {
                     successList.Add("Users for role:" + roleName + " were succesfully unassigned.");
                 }

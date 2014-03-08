@@ -1,4 +1,6 @@
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using UDG.Colloquium.DL.Custom;
 
 namespace UDG.Colloquium.DL.Migrations
 {
@@ -31,12 +33,12 @@ namespace UDG.Colloquium.DL.Migrations
 
             if (!context.Roles.Any(rol => rol.Name == "Administrator"))
             {
-                context.Roles.AddOrUpdate(new IdentityRole { Name = "Administrator" });
+                context.Roles.AddOrUpdate(new ApplicationRole() { Name = "Administrator" });
             }
 
             if (!context.Users.Any(usr => usr.UserName == "renelopez"))
             {
-                context.Users.AddOrUpdate(new IdentityUser { UserName = "renelopez" });
+                context.Users.AddOrUpdate(new ApplicationUser() { UserName = "renelopez",PasswordHash = new PasswordHasher().HashPassword("adminadmin")});
             }
 
             var user = context.Users.FirstOrDefault(usr => usr.UserName == "renelopez");
