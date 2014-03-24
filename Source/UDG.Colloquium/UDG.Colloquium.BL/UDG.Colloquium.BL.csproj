@@ -54,16 +54,48 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.0\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.0.0\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin">
+      <HintPath>..\packages\Microsoft.Owin.2.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ISecurityManager.cs" />
+    <Compile Include="Entities\Identity\CompanyDao.cs" />
+    <Compile Include="Entities\Identity\ContactDao.cs" />
+    <Compile Include="Entities\Identity\GenreDao.cs" />
+    <Compile Include="Entities\Identity\LoginDao.cs" />
+    <Compile Include="Entities\Identity\ManageUserDao.cs" />
+    <Compile Include="Entities\Identity\RegisterDao.cs" />
+    <Compile Include="Entities\Identity\SchemaTypeDao.cs" />
+    <Compile Include="Entities\Identity\SelectedRolesDao.cs" />
+    <Compile Include="Entities\Identity\UserDao.cs" />
+    <Compile Include="Entities\Identity\UserNamesDao.cs" />
+    <Compile Include="Entities\Identity\UserRolesDao.cs" />
+    <Compile Include="Entities\Identity\WorkDao.cs" />
+    <Compile Include="Managers\SecurityRoleManager.cs" />
+    <Compile Include="Managers\SecurityUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SecurityManager.cs" />
-    <Compile Include="ViewModels\AccountViewModels.cs" />
-    <Compile Include="ViewModels\UserViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">

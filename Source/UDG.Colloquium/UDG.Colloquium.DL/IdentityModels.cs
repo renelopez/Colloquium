@@ -1,31 +1,32 @@
 ﻿using System.Data.Entity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MySql.Data.Entity;
 using UDG.Colloquium.DL.Custom;
+using UDG.Colloquium.DL.Custom.Roles;
+using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Repositories;
 
 namespace UDG.Colloquium.DL
 {
-    [DbConfigurationType(typeof(MySqlEFConfiguration))]
-    public class ColloquiumDbContext : IdentityDbContext
+    public class ColloquiumDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int,ApplicationUserLogin,ApplicationUserRole,ApplicationUserClaim>
     {
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.Entity<IdentityUser>().ToTable("Users");
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
-
-            modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
-            modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
-            modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
-
-            modelBuilder.Entity<IdentityRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
+            modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
+            modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
+            modelBuilder.Entity<ApplicationUserRole>().ToTable("UserRoles");
         }
 
         public ColloquiumDbContext()
-            : base("DefaultConnection")
+            : base("ColloquiumConnection")
         {
+        }
+
+        public static ColloquiumDbContext Create()
+        {
+            return new ColloquiumDbContext();
         }
     }
 }

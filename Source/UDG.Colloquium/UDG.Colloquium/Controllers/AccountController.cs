@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using UDG.Colloquium.App_Start;
 using UDG.Colloquium.BL;
-using UDG.Colloquium.BL.ViewModels;
+using UDG.Colloquium.BL.Managers;
+using UDG.Colloquium.BL.Entities;
+using UDG.Colloquium.BL.Entities.Identity;
 using UDG.Colloquium.DL.Custom;
+using UDG.Colloquium.DL.Custom.Roles;
+using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.Helpers;
 
 namespace UDG.Colloquium.Controllers
@@ -17,12 +24,55 @@ namespace UDG.Colloquium.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController(ISecurityManager<ApplicationUser, ApplicationRole> securityManager)
+        public AccountController()
         {
-            SecurityManager = securityManager;
         }
 
-        public ISecurityManager<ApplicationUser, ApplicationRole> SecurityManager { get; set; }
+        public AccountController(SecurityUserManager userManager,SecurityRoleManager roleManager)
+        {
+            UserManager = userManager;
+            RoleManager = roleManager;
+        }
+
+        private SecurityUserManager _userManager;
+        public SecurityUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<SecurityUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+        private SecurityRoleManager _roleManager;
+        public SecurityRoleManager RoleManager
+        {
+            get
+            {
+                return _roleManager ?? HttpContext.GetOwinContext().Get<SecurityRoleManager>();
+            }
+            private set
+            {
+                _roleManager = value;
+            }
+        }
+
+        private SignInHelper _helper;
+
+        private SignInHelper  SignInHelper
+        {
+            get
+            {
+                if (_helper == null)
+                {
+                    _helper = new SignInHelper(UserManager, AuthenticationManager);
+                }
+                return _helper;
+            }
+        }
 
         //
         // GET: /Account/Login
@@ -38,15 +88,15 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(LoginDao model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
 
-                var user = await SecurityManager.UserManager.FindAsync(model.UserName, model.Password);
+                var user = await UserManager.FindAsync(model.UserName, model.Password);
                 if (user != null)
                 {
-                    await SignInAsync(user, model.RememberMe);
+                    await SignInHelper.SignInAsync(user, model.RememberMe);
                     return RedirectToLocal(returnUrl);
                 }
                 ModelState.AddModelError("", "Invalid username or password.");
@@ -69,15 +119,15 @@ namespace UDG.Colloquium.Controllers
         //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(RegisterDao model)
         {
             if (ModelState.IsValid)
             {
-                var resultAccount = await SecurityManager.CreateUserAsync(model);
+                var resultAccount = await UserManager.CreateUserAsync(model);
                 if (resultAccount.Succeeded)
                 {
-                    var createdUser = await SecurityManager.UserManager.FindByNameAsync(model.UserName);
-                    await SignInAsync(createdUser, isPersistent: false);
+                    var createdUser = await UserManager.FindByNameAsync(model.UserName);
+                    await SignInHelper.SignInAsync(createdUser, isPersistent: false);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(resultAccount);
@@ -89,9 +139,9 @@ namespace UDG.Colloquium.Controllers
 
         public PartialViewResult Companies()
         {
-            var companies=new List<CompanyViewModel>
+            var companies=new List<CompanyDao>
             {
-                new CompanyViewModel
+                new CompanyDao
                 {
                     CompanyId = 1,
                     CompanyName = "Unosquare",
@@ -100,7 +150,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyViewModel
+                new CompanyDao
                 {
                     CompanyId = 2,
                     CompanyName = "Tata",
@@ -109,7 +159,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta 100",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyViewModel
+                new CompanyDao
                 {
                     CompanyId = 3,
                     CompanyName = "HP",
@@ -118,7 +168,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyViewModel
+                new CompanyDao
                 {
                     CompanyId = 4,
                     CompanyName = "Oracle",
@@ -137,7 +187,7 @@ namespace UDG.Colloquium.Controllers
         [Route("Account/IsUserAvailable/{userName}")]
         public async Task<JsonResult> IsUserAvailable(string userName)
         {
-            var user= await SecurityManager.UserManager.FindByNameAsync(userName);
+            var user= await UserManager.FindByNameAsync(userName);
             if (user==null)
             {
                 return Json(true, JsonRequestBehavior.AllowGet);
@@ -160,7 +210,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Student")]
-        public async Task<ActionResult> Manage(ManageUserViewModel model)
+        public async Task<ActionResult> Manage(ManageUserDao model)
         {
             bool hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
@@ -169,7 +219,7 @@ namespace UDG.Colloquium.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await SecurityManager.UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
+                    IdentityResult result = await UserManager.ChangePasswordAsync(Convert.ToInt32(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
                     if (result.Succeeded)
                     {
                         AddMessages("info", "Old Password:" + model.OldPassword, "New Password:" + model.NewPassword);
@@ -193,7 +243,7 @@ namespace UDG.Colloquium.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await SecurityManager.UserManager.AddPasswordAsync(User.Identity.GetUserId(), model.NewPassword);
+                    IdentityResult result = await UserManager.AddPasswordAsync(Convert.ToInt32(User.Identity.GetUserId()), model.NewPassword);
                     if (result.Succeeded)
                     {
 
@@ -226,17 +276,17 @@ namespace UDG.Colloquium.Controllers
         [Authorize]
         public async Task<ActionResult> ManageUsers(string userName,int page=1,string order="asc")
         {
-            IEnumerable<UserNamesViewModel> usersWithRoles;
+            IEnumerable<UserNamesDao> usersWithRoles;
 
 
             if (String.IsNullOrEmpty(userName))
             {
 
-                usersWithRoles = await SecurityManager.GetAllUserNamesAsync();
+                usersWithRoles = await UserManager.GetAllUserNamesAsync();
             }
             else
             {
-                usersWithRoles = await SecurityManager.FindUserNameAsync(userName);
+                usersWithRoles = await UserManager.FindUserNameAsync(userName);
             }
 
             if (Request.IsAjaxRequest())
@@ -258,31 +308,45 @@ namespace UDG.Colloquium.Controllers
             return View(usersWithRoles.ToPagedList(page,5));
         }
 
-        public async Task<ActionResult> EditUserRoles(string id, string userName)
+        public async Task<ActionResult> EditUserRoles(int id, string userName)
         {
-            var userRole = await SecurityManager.GetUserRolesAsync(id, userName);
-            return View(userRole);
+            var userRoles = await UserManager.GetRolesAsync(id);
+            var allRoles = await RoleManager.Roles.ToListAsync();
+            var userViewModel = new UserRolesDao
+            {
+                Id = id,
+                UserName = userName,
+                UserRoles = new List<SelectedRolesDao>()
+            };
+            foreach (var role in allRoles)
+            {
+                userViewModel.UserRoles.Add(userRoles.Contains(role.Name)
+                    ? new SelectedRolesDao() { RoleName = role.Name, Selected = true }
+                    : new SelectedRolesDao() { RoleName = role.Name });
+            }
+
+            return View(userViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditUserRoles(UserRolesViewModel userRolesViewModel)
+        public async Task<ActionResult> EditUserRoles(UserRolesDao userRolesDao)
         {
             var success = new List<string>();
             var failed =new List<IdentityResult>();
-            foreach (var selectedRole in userRolesViewModel.UserRoles)
+            foreach (var selectedRole in userRolesDao.UserRoles)
             {
                 if (selectedRole.Selected)
                 {
-                    if (!await SecurityManager.UserManager.IsInRoleAsync(userRolesViewModel.Id, selectedRole.RoleName))
+                    if (!await UserManager.IsInRoleAsync(userRolesDao.Id, selectedRole.RoleName))
                     {
                         IdentityResult result =
                             await
-                                SecurityManager.UserManager.AddToRoleAsync(userRolesViewModel.Id, selectedRole.RoleName);
+                                UserManager.AddToRoleAsync(userRolesDao.Id, selectedRole.RoleName);
                         if (result.Succeeded)
                         {
                             success.Add("The role " + selectedRole.RoleName + " was assigned to the user " +
-                                        userRolesViewModel.UserName);
+                                        userRolesDao.UserName);
                         }
                         else
                         {
@@ -292,15 +356,15 @@ namespace UDG.Colloquium.Controllers
                 }
                 else
                 {
-                    if (await SecurityManager.UserManager.IsInRoleAsync(userRolesViewModel.Id, selectedRole.RoleName))
+                    if (await UserManager.IsInRoleAsync(userRolesDao.Id, selectedRole.RoleName))
                     {
                         IdentityResult result =
                            await
-                               SecurityManager.UserManager.RemoveFromRoleAsync(userRolesViewModel.Id, selectedRole.RoleName);
+                               UserManager.RemoveFromRoleAsync(userRolesDao.Id, selectedRole.RoleName);
                         if (result.Succeeded)
                         {
                             success.Add("The role " + selectedRole.RoleName + " was removed to the user " +
-                                        userRolesViewModel.UserName);
+                                        userRolesDao.UserName);
                         }
                         else
                         {
@@ -317,12 +381,12 @@ namespace UDG.Colloquium.Controllers
             {
                 AddErrors(failed);
             }
-            return View("EditUserRoles",userRolesViewModel);
+            return View("EditUserRoles",userRolesDao);
         }
 
         public async Task<ActionResult> ManageRoles()
         {
-            var roles = await SecurityManager.GetRolesAsync();
+            var roles = await RoleManager.GetRolesAsync();
             return View(roles);
 
         }
@@ -335,14 +399,14 @@ namespace UDG.Colloquium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRole(RoleNamesViewModel roleNamesViewModel)
+        public async Task<ActionResult> CreateRole(RoleNamesDao roleNamesDao)
         {
             if (ModelState.IsValid)
             {
-                IdentityResult result = await SecurityManager.CreateRoleAsync(roleNamesViewModel.RoleName);
+                IdentityResult result = await RoleManager.CreateRoleAsync(roleNamesDao.RoleName);
                 if (result.Succeeded)
                 {
-                    AddMessages("info", "Following role was created:" + roleNamesViewModel.RoleName);
+                    AddMessages("info", "Following role was created:" + roleNamesDao.RoleName);
                     AddMessages("success", "Role was created succesfully");
                     return RedirectToAction("ManageRoles");
                 }
@@ -351,62 +415,32 @@ namespace UDG.Colloquium.Controllers
                     AddErrors(result);
                 }
             }
-            return View(roleNamesViewModel);
+            return View(roleNamesDao);
         }
 
-        public async Task<ActionResult> DeleteRole(string id, string roleName)
+        public async Task<ActionResult> DeleteRole(int id, string roleName)
         {
-            var successList=new List<string>();
-            var errorList = new List<IdentityResult>();
-
-            // Removing users asigned to that role.
-            var result = await SecurityManager.RemoveUsersFromRoleAsync(roleName);
-
-            // If there are some errors.Print them out.
-            if (result != null)
+            IdentityResult result = await RoleManager.RemoveRoleAsync(roleName);
+            if (result.Succeeded)
             {
-                if (result.Any(res => !res.Succeeded))
-                {
-                    var errors = result.Where(res => !res.Succeeded).ToList();
-                    errorList.AddRange(errors);
-                }
-                else if(result.Any(res => res.Succeeded))
-                {
-                    successList.Add("Users for role:" + roleName + " were succesfully unassigned.");
-                }
+                AddMessages("info", "Following role was deleted:" + roleName);
             }
-            // Removing the role.
-            var recordsAffected = await SecurityManager.RemoveRoleAsync(id, roleName);
-
-            // If records were affected show message to the page.
-            if (recordsAffected > 0)
-            {
-                successList.Add("The " + roleName + " role was succesfully removed.");
-            }
-
             else
             {
-                errorList.Add(new IdentityResult("An error happened while removing the role."));
-            }
-
-            if (successList.Count > 0)
-            {
-                AddMessages("info",successList);
-            }
-            if (errorList.Count > 0)
-            {
-                AddErrors(errorList);
+                AddErrors(result);
             }
             return RedirectToAction("ManageRoles");
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (disposing && SecurityManager.UserManager != null)
+            if (disposing && UserManager != null &&RoleManager!=null)
             {
-                SecurityManager.UserManager.Dispose();
-                SecurityManager.UserManager = null;
-                SecurityManager = null;
+                UserManager.Dispose();
+                UserManager = null;
+                RoleManager.Dispose();
+                RoleManager = null;
+                
             }
             base.Dispose(disposing);
         }
@@ -419,16 +453,9 @@ namespace UDG.Colloquium.Controllers
             }
         }
 
-        private async Task SignInAsync(ApplicationUser user, bool isPersistent)
-        {
-            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
-            var identity = await SecurityManager.UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
-            AuthenticationManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
-        }
-
         private bool HasPassword()
         {
-            var user = SecurityManager.UserManager.FindById(User.Identity.GetUserId());
+            var user = UserManager.FindById(Convert.ToInt32(User.Identity.GetUserId()));
             if (user != null)
             {
                 return user.PasswordHash != null;

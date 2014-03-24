@@ -1,6 +1,7 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using UDG.Colloquium.DL.Custom;
+using UDG.Colloquium.DL.Custom.Roles;
+using UDG.Colloquium.DL.Custom.Users;
 
 namespace UDG.Colloquium.DL.Migrations
 {
@@ -9,43 +10,46 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ColloquiumDbContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<UDG.Colloquium.DL.ColloquiumDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ColloquiumDbContext context)
+        protected override void Seed(UDG.Colloquium.DL.ColloquiumDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
+            var userManager=new UserManager<ApplicationUser, int>(new ApplicationUserStore(context));
+            var roleManager = new RoleManager<ApplicationRole, int>(new ApplicationRoleStore(context));
+            const string name = "renelopezcano";
+            const string password = "renerene";
+            const string roleName = "Administrator";
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
-
-            if (!context.Roles.Any(rol => rol.Name == "Administrator"))
+            //Create Role Admin if it does not exist
+            var role = roleManager.FindByName(roleName);
+            if (role == null)
             {
-                context.Roles.AddOrUpdate(new ApplicationRole() { Name = "Administrator" });
+                role = new ApplicationRole(roleName);
+                var roleresult = roleManager.Create(role);
             }
 
-            if (!context.Users.Any(usr => usr.UserName == "renelopez"))
+            var user = userManager.FindByName(name);
+            if (user == null)
             {
-                context.Users.AddOrUpdate(new ApplicationUser() { UserName = "renelopez",PasswordHash = new PasswordHasher().HashPassword("adminadmin")});
+                user = new ApplicationUser { UserName = name, Email = name };
+                var result = userManager.Create(user, password);
+                result = userManager.SetLockoutEnabled(user.Id, false);
             }
 
-            var user = context.Users.FirstOrDefault(usr => usr.UserName == "renelopez");
-            if (user == null || user.Roles.Any(usr => usr.Role.Name == "Administrator")) return;
-            var role = context.Roles.First(rol => rol.Name == "Administrator");
-            user.Roles.Add(new IdentityUserRole { Role = role, RoleId = role.Id, User = user, UserId = user.Id });
-            context.SaveChanges();
+            // Add user admin to Role Admin if not already added
+            var rolesForUser = userManager.GetRoles(user.Id);
+            if (!rolesForUser.Contains(role.Name))
+            {
+                var result = userManager.AddToRole(user.Id, role.Name);
+            }
+
+            userManager.Dispose();
+            roleManager.Dispose();
         }
     }
 }
