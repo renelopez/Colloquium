@@ -26,7 +26,6 @@ namespace UDG.Colloquium.BL.Managers
         public static SecurityRoleManager Create(IdentityFactoryOptions<SecurityRoleManager> options, IOwinContext context)
         {
             var manager = new SecurityRoleManager(new ApplicationRoleStore(context.Get<ColloquiumDbContext>()));
-            
             return manager;
         }
 

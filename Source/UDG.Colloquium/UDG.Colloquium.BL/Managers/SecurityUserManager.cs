@@ -18,6 +18,27 @@ namespace UDG.Colloquium.BL.Managers
         {
         }
 
+        public static SecurityUserManager Create(IdentityFactoryOptions<SecurityUserManager> options, IOwinContext context)
+        {
+            var manager = new SecurityUserManager(new ApplicationUserStore(context.Get<ColloquiumDbContext>()));
+            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
+            {
+                AllowOnlyAlphanumericUserNames = false,
+                RequireUniqueEmail = false
+            };
+            manager.PasswordValidator = new PasswordValidator
+            {
+                RequiredLength = 6,
+                RequireNonLetterOrDigit = false
+            };
+            var dataProtectionProvider = options.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("PasswordReset"));
+            }
+            return manager;
+        }
+
         public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
         {
             var users = await Users.ToListAsync();
@@ -68,27 +89,6 @@ namespace UDG.Colloquium.BL.Managers
         {
             var user = new ApplicationUser { UserName = model.UserName };
             return await CreateAsync(user, model.Password);
-        }
-
-        public static SecurityUserManager Create(IdentityFactoryOptions<SecurityUserManager> options, IOwinContext context)
-        {
-            var manager = new SecurityUserManager(new ApplicationUserStore(context.Get<ColloquiumDbContext>()));
-            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
-            {
-                AllowOnlyAlphanumericUserNames = false,
-                RequireUniqueEmail = true
-            };
-            manager.PasswordValidator = new PasswordValidator()
-            {
-                RequiredLength = 6,
-                RequireNonLetterOrDigit = true
-            };
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("PasswordReset"));
-            }
-            return manager;
         }
     }
 }
