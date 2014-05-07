@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Register
 {
-    public class CompanyDao
+    public class CompanyVm
     {
         [Display(Name = "Company Id")]
         public int CompanyId { get; set; }

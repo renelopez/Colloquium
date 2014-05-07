@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Register
 {
-    public class RegisterDao
+    public class RegisterVm
     {
         [Required]
         [Display(Name = "User name")]
@@ -44,14 +44,14 @@ namespace UDG.Colloquium.BL.Entities.Identity
 
         [Display(Name = "Sex")]
         [Required]
-        public GenreDao Sex { get; set; }
+        public GenreDVm Sex { get; set; }
 
         [Display(Name = "Nacionality")]
         [Required]
         public string Nacionality { get; set; }
 
         public ICollection<WorkDao> Works { get; set; }
-        public ICollection<ContactDao> Contacts { get; set; }
+        public ICollection<ContactVm> Contacts { get; set; }
 
     }
 }

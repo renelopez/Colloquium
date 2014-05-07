@@ -6,16 +6,23 @@ using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using UDG.Colloquium.BL.Entities.Identity;
 using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Users;
+using UDG.Colloquium.DL.Repositories;
 
 namespace UDG.Colloquium.BL.Managers
 {
     public class SecurityUserManager:UserManager<ApplicationUser,int>
     {
-        public SecurityUserManager(IUserStore<ApplicationUser, int> store) : base(store)
+        public IUnitOfWork UnitOfWork { get; set; }
+        public SecurityUserManager(IUserStore<ApplicationUser, int> store,IUnitOfWork unitOfWork) : base(store)
         {
+            this.UnitOfWork = unitOfWork;
+        }
+
+        private SecurityUserManager(IUserStore<ApplicationUser, int> store) : base(store)
+        {
+                
         }
 
         public static SecurityUserManager Create(IdentityFactoryOptions<SecurityUserManager> options, IOwinContext context)

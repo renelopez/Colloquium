@@ -9,7 +9,6 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
-using UDG.Colloquium.BL.Entities.Identity;
 using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;

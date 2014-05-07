@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Management
 {
-    public class ManageUserDao
+    public class ManageUserVm
     {
         [Required]
         [DataType(DataType.Password)]

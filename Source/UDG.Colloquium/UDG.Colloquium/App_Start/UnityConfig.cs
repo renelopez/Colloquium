@@ -1,18 +1,11 @@
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Infrastructure.DependencyResolution;
 using System.Linq;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Practices.Unity;
-using UDG.Colloquium.BL;
-using UDG.Colloquium.DL;
-using UDG.Colloquium.DL.Custom;
-using UDG.Colloquium.DL.Custom.Roles;
-using UDG.Colloquium.DL.Custom.Users;
-using UDG.Colloquium.DL.Repositories;
+using UDG.Colloquium.BL.Configuration.DI;
+using UDG.Colloquium.Configuration.DI;
 using Unity.Mvc5;
 
 namespace UDG.Colloquium
@@ -21,13 +14,16 @@ namespace UDG.Colloquium
     {
         public static void RegisterComponents()
         {
-			//var container = new UnityContainer();
+			var container = new UnityContainer();
             
             // register all your components with the container here
             // it is NOT necessary to register your controllers
             
             // e.g. container.RegisterType<ITestService, TestService>();
-           // DependencyResolver.SetResolver(new UnityDependencyResolver(container));
+            new WebDIConfiguration().Configure(container);
+            new BusinessDIConfiguration().Configure(container);
+
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 
           //  DbConfiguration.Loaded += (s, e) =>
           //      e.AddDependencyResolver(new UnityDbDependencyResolver(container), overrideConfigFile: false);

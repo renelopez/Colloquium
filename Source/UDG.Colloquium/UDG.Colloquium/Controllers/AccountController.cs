@@ -12,12 +12,13 @@ using PagedList;
 using UDG.Colloquium.App_Start;
 using UDG.Colloquium.BL;
 using UDG.Colloquium.BL.Managers;
-using UDG.Colloquium.BL.Entities;
-using UDG.Colloquium.BL.Entities.Identity;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.Helpers;
+using UDG.Colloquium.ViewModels.Account;
+using UDG.Colloquium.ViewModels.Account.Management;
+using UDG.Colloquium.ViewModels.Account.Register;
 
 namespace UDG.Colloquium.Controllers
 {
@@ -88,7 +89,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginDao model, string returnUrl)
+        public async Task<ActionResult> Login(LoginVm model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -119,7 +120,7 @@ namespace UDG.Colloquium.Controllers
         //[Authorize(Roles = "Administrator")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterDao model)
+        public async Task<ActionResult> Register(RegisterVm model)
         {
             if (ModelState.IsValid)
             {
@@ -139,9 +140,9 @@ namespace UDG.Colloquium.Controllers
 
         public PartialViewResult Companies()
         {
-            var companies=new List<CompanyDao>
+            var companies=new List<CompanyVm>
             {
-                new CompanyDao
+                new CompanyVm
                 {
                     CompanyId = 1,
                     CompanyName = "Unosquare",
@@ -150,7 +151,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyDao
+                new CompanyVm
                 {
                     CompanyId = 2,
                     CompanyName = "Tata",
@@ -159,7 +160,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta 100",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyDao
+                new CompanyVm
                 {
                     CompanyId = 3,
                     CompanyName = "HP",
@@ -168,7 +169,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyDao
+                new CompanyVm
                 {
                     CompanyId = 4,
                     CompanyName = "Oracle",
@@ -210,7 +211,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Student")]
-        public async Task<ActionResult> Manage(ManageUserDao model)
+        public async Task<ActionResult> Manage(ManageUserVm model)
         {
             bool hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Register
 {
-    public class ContactDao
+    public class ContactVm
     {
         [MaxLength(30)]
         [DataType(DataType.PhoneNumber)]

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Register
 {
     public class WorkDao
     {
@@ -18,7 +18,7 @@ namespace UDG.Colloquium.BL.Entities.Identity
         public double WorkSalary { get; set; }
 
         [Display(Name = "Schema")]
-        public SchemaTypeDao SalarySchema { get; set; }
+        public SchemaTypeVm SalarySchema { get; set; }
 
         [Display(Name = "Begin Date")]
         [RegularExpression(@"^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$")]
@@ -28,6 +28,6 @@ namespace UDG.Colloquium.BL.Entities.Identity
         [RegularExpression(@"^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$")]
         public DateTime WorkEndDate { get; set; }
 
-        public CompanyDao Company { get; set; }
+        public CompanyVm Company { get; set; }
     }
 }

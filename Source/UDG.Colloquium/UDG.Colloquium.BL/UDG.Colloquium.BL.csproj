@@ -69,6 +69,13 @@
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Unity, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.0.1304.1\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -81,18 +88,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Identity\CompanyDao.cs" />
-    <Compile Include="Entities\Identity\ContactDao.cs" />
-    <Compile Include="Entities\Identity\GenreDao.cs" />
-    <Compile Include="Entities\Identity\LoginDao.cs" />
-    <Compile Include="Entities\Identity\ManageUserDao.cs" />
-    <Compile Include="Entities\Identity\RegisterDao.cs" />
-    <Compile Include="Entities\Identity\SchemaTypeDao.cs" />
-    <Compile Include="Entities\Identity\SelectedRolesDao.cs" />
-    <Compile Include="Entities\Identity\UserDao.cs" />
-    <Compile Include="Entities\Identity\UserNamesDao.cs" />
-    <Compile Include="Entities\Identity\UserRolesDao.cs" />
-    <Compile Include="Entities\Identity\WorkDao.cs" />
+    <Compile Include="Configuration\DI\BusinessDIConfiguration.cs" />
     <Compile Include="Managers\SecurityRoleManager.cs" />
     <Compile Include="Managers\SecurityUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,9 +98,15 @@
       <Project>{7265b8a6-ad45-4174-bd20-8e65fd39d500}</Project>
       <Name>UDG.Colloquium.DL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UDG.Colloquium.Infrastructure\UDG.Colloquium.Infrastructure.csproj">
+      <Project>{581d521e-3f87-4895-ae98-cf72c2736e57}</Project>
+      <Name>UDG.Colloquium.Infrastructure</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
+    <Folder Include="Configuration\Mappings\" />
+    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

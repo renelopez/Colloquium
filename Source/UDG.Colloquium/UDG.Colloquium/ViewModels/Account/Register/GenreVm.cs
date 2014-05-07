@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Register
 {
-    public enum GenreDao
+    public enum GenreDVm
     {
         [Display(Name="Male")]
         Male,

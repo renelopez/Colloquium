@@ -212,6 +212,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Configuration\DI\WebDIConfiguration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -222,6 +223,18 @@
     <Compile Include="Helpers\BaseController.cs" />
     <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\Register\CompanyVm.cs" />
+    <Compile Include="ViewModels\Account\Register\ContactVm.cs" />
+    <Compile Include="ViewModels\Account\Register\GenreVm.cs" />
+    <Compile Include="ViewModels\Account\Register\LoginVm.cs" />
+    <Compile Include="ViewModels\Account\Management\ManageUserVm.cs" />
+    <Compile Include="ViewModels\Account\Register\RegisterVm.cs" />
+    <Compile Include="ViewModels\Account\Register\SchemaTypeVm.cs" />
+    <Compile Include="ViewModels\Account\Management\SelectedRolesDao.cs" />
+    <Compile Include="ViewModels\Account\Management\UserDao.cs" />
+    <Compile Include="ViewModels\Account\Register\UserNamesDao.cs" />
+    <Compile Include="ViewModels\Account\Management\UserRolesDao.cs" />
+    <Compile Include="ViewModels\Account\Register\WorkDao.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
@@ -328,7 +341,7 @@
   <ItemGroup>
     <Folder Include="app\views\" />
     <Folder Include="App_Data\" />
-    <Folder Include="ViewModels\" />
+    <Folder Include="Configuration\Mappings\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
@@ -339,9 +352,9 @@
       <Project>{23e7b49e-f7ba-4e8c-9bb6-85ca56d887d0}</Project>
       <Name>UDG.Colloquium.BL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
-      <Project>{7265B8A6-AD45-4174-BD20-8E65FD39D500}</Project>
-      <Name>UDG.Colloquium.DL</Name>
+    <ProjectReference Include="..\UDG.Colloquium.Infrastructure\UDG.Colloquium.Infrastructure.csproj">
+      <Project>{581d521e-3f87-4895-ae98-cf72c2736e57}</Project>
+      <Name>UDG.Colloquium.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

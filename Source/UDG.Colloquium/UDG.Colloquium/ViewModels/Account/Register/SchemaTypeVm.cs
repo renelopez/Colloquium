@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Register
 {
-    public enum SchemaTypeDao
+    public enum SchemaTypeVm
     {
         [Display(Name = "Base Salary")]
         BaseSalary,

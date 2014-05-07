@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace UDG.Colloquium.BL.Entities.Identity
+namespace UDG.Colloquium.ViewModels.Account.Management
 {
     public class UserRolesDao
     {
