@@ -1,6 +1,5 @@
 ﻿using System;
 using Autofac;
-using UDG.Colloquium.Infrastructure;
 
 namespace UDG.Colloquium.BL.Configuration.DI
 {

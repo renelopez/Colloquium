@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.ViewModels.Account.Register
+namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
     public enum GenreDVm
     {

@@ -11,14 +11,15 @@ using System.Web.Mvc;
 using PagedList;
 using UDG.Colloquium.App_Start;
 using UDG.Colloquium.BL;
+using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.BL.Managers;
+using UDG.Colloquium.BL.ViewModels.Account.Management;
+using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.Helpers;
 using UDG.Colloquium.ViewModels.Account;
-using UDG.Colloquium.ViewModels.Account.Management;
-using UDG.Colloquium.ViewModels.Account.Register;
 
 namespace UDG.Colloquium.Controllers
 {
@@ -317,13 +318,13 @@ namespace UDG.Colloquium.Controllers
             {
                 Id = id,
                 UserName = userName,
-                UserRoles = new List<SelectedRolesDao>()
+                UserRoles = new List<SelectedRolesVm>()
             };
             foreach (var role in allRoles)
             {
                 userViewModel.UserRoles.Add(userRoles.Contains(role.Name)
-                    ? new SelectedRolesDao() { RoleName = role.Name, Selected = true }
-                    : new SelectedRolesDao() { RoleName = role.Name });
+                    ? new SelectedRolesVm() { RoleName = role.Name, Selected = true }
+                    : new SelectedRolesVm() { RoleName = role.Name });
             }
 
             return View(userViewModel);

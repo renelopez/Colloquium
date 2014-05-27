@@ -1,4 +1,4 @@
-﻿namespace UDG.Colloquium.ViewModels.Account.Register
+﻿namespace UDG.Colloquium.BL.Entities.Account
 {
     public class UserNamesDao
     {

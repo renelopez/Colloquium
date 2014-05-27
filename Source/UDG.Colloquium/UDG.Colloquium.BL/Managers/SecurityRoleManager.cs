@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
@@ -30,9 +31,6 @@ namespace UDG.Colloquium.BL.Managers
 
         public async Task<IEnumerable<RoleNamesDao>> GetRolesAsync()
         {
-            Mapper.CreateMap<ApplicationRole, RoleNamesDao>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Name));
             var roles = await Roles.ToListAsync();
             var rolesList = Mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<RoleNamesDao>>(roles);
             return rolesList;

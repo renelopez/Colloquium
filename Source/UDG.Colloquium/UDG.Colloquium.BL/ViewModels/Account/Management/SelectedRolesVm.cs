@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.ViewModels.Account.Management
+namespace UDG.Colloquium.BL.ViewModels.Account.Management
 {
-    public class SelectedRolesDao
+    public class SelectedRolesVm
     {
         public bool Selected { get; set; }
 

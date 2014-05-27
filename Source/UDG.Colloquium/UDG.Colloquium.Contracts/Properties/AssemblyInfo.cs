@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("UDG.Colloquium.Infrastructure")]
+[assembly: AssemblyTitle("UDG.Colloquium.Contracts")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Unosquare")]
-[assembly: AssemblyProduct("UDG.Colloquium.Infrastructure")]
+[assembly: AssemblyProduct("UDG.Colloquium.Contracts")]
 [assembly: AssemblyCopyright("Copyright © Unosquare 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c5dea1e7-7cbb-4ecc-aa72-6f9eaeda8327")]
+[assembly: Guid("38c028c0-c44e-4e97-b3e7-5ca368ea2feb")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UDG.Colloquium.ViewModels.Account.Management
+namespace UDG.Colloquium.BL.ViewModels.Account.Management
 {
     public class ManageUserVm
     {

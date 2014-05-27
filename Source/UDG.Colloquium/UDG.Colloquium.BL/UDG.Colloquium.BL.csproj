@@ -83,24 +83,33 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\DI\BusinessDIModule.cs" />
+    <Compile Include="Configuration\Mappings\Initializer\AutoMapperBusinessConfiguration.cs" />
+    <Compile Include="Configuration\Mappings\Profiles\RoleProfile.cs" />
+    <Compile Include="Configuration\Mappings\Profiles\UserNameProfile.cs" />
+    <Compile Include="Entities\Account\RoleNamesDao.cs" />
+    <Compile Include="Entities\Account\UserNamesDao.cs" />
+    <Compile Include="Entities\Account\UserRolesDao.cs" />
+    <Compile Include="Entities\Account\WorkDao.cs" />
     <Compile Include="Managers\SecurityRoleManager.cs" />
     <Compile Include="Managers\SecurityUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\Account\Management\ManageUserVm.cs" />
+    <Compile Include="ViewModels\Account\Management\SelectedRolesVm.cs" />
+    <Compile Include="ViewModels\Account\Register\CompanyVm.cs" />
+    <Compile Include="ViewModels\Account\Register\ContactVm.cs" />
+    <Compile Include="ViewModels\Account\Register\GenreVm.cs" />
+    <Compile Include="ViewModels\Account\Register\LoginVm.cs" />
+    <Compile Include="ViewModels\Account\Register\RegisterVm.cs" />
+    <Compile Include="ViewModels\Account\Register\SchemaTypeVm.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
       <Project>{7265b8a6-ad45-4174-bd20-8e65fd39d500}</Project>
       <Name>UDG.Colloquium.DL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UDG.Colloquium.Infrastructure\UDG.Colloquium.Infrastructure.csproj">
-      <Project>{581d521e-3f87-4895-ae98-cf72c2736e57}</Project>
-      <Name>UDG.Colloquium.Infrastructure</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
-    <Folder Include="Configuration\Mappings\" />
-    <Folder Include="Entities\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

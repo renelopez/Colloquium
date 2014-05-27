@@ -6,6 +6,8 @@ using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
+using UDG.Colloquium.BL.Entities.Account;
+using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Repositories;
@@ -54,18 +56,12 @@ namespace UDG.Colloquium.BL.Managers
 
         public async Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync()
         {
-            Mapper.CreateMap<ApplicationUser, UserNamesDao>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
             var users = await GetAllUsersAsync();
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
             return userNames;
         }
         public async Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync(int pageIndex, int pageSize)
         {
-            Mapper.CreateMap<ApplicationUser, UserNamesDao>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
             var users = await GetAllUsersAsync();
             users = users.Skip(pageIndex).Take(pageSize);
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
@@ -74,9 +70,6 @@ namespace UDG.Colloquium.BL.Managers
 
         public async Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName)
         {
-            Mapper.CreateMap<ApplicationUser, UserNamesDao>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
             var users = await Users.Where(usr => usr.UserName.Contains(userName)).ToListAsync();
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
             return userNames;
@@ -84,15 +77,12 @@ namespace UDG.Colloquium.BL.Managers
 
         public async Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName, int pageIndex, int pageSize)
         {
-            Mapper.CreateMap<ApplicationUser, UserNamesDao>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
             var users = await Users.Where(usr => usr.UserName.Contains(userName)).Take(pageIndex).Skip(pageSize).ToListAsync();;
             var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
             return userNames;
         }
 
-        public async Task<IdentityResult> CreateUserAsync(RegisterDao model)
+        public async Task<IdentityResult> CreateUserAsync(RegisterVm model)
         {
             var user = new ApplicationUser { UserName = model.UserName };
             return await CreateAsync(user, model.Password);
