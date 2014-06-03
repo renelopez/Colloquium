@@ -2,8 +2,6 @@
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using UDG.Colloquium.BL.Managers;
-using UDG.Colloquium.DL;
 
 namespace UDG.Colloquium.App_Start
 {

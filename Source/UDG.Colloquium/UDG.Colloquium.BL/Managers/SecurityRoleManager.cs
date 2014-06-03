@@ -57,5 +57,10 @@ namespace UDG.Colloquium.BL.Managers
             return roleResult;
         }
 
+        public void Clean()
+        {
+            Dispose();
+        }
+
     }
 }

@@ -9,17 +9,12 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
-using UDG.Colloquium.App_Start;
-using UDG.Colloquium.BL;
 using UDG.Colloquium.BL.Entities.Account;
+using UDG.Colloquium.BL.Helpers;
 using UDG.Colloquium.BL.Managers;
 using UDG.Colloquium.BL.ViewModels.Account.Management;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
-using UDG.Colloquium.DL.Custom;
-using UDG.Colloquium.DL.Custom.Roles;
-using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.Helpers;
-using UDG.Colloquium.ViewModels.Account;
 
 namespace UDG.Colloquium.Controllers
 {
@@ -62,17 +57,16 @@ namespace UDG.Colloquium.Controllers
             }
         }
 
-        private SignInHelper _helper;
-
-        private SignInHelper  SignInHelper
+        private SecurityUserRoleManager _userRoleManager;
+        public SecurityUserRoleManager UserRoleManager
         {
             get
             {
-                if (_helper == null)
-                {
-                    _helper = new SignInHelper(UserManager, AuthenticationManager);
-                }
-                return _helper;
+                return _userRoleManager ?? HttpContext.GetOwinContext().Get<SecurityUserRoleManager>();
+            }
+            private set
+            {
+                _userRoleManager = value;
             }
         }
 
@@ -94,14 +88,11 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-
-                var user = await UserManager.FindAsync(model.UserName, model.Password);
-                if (user != null)
+                if (!await UserManager.TryLogin(model, AuthenticationManager))
                 {
-                    await SignInHelper.SignInAsync(user, model.RememberMe);
+                    ModelState.AddModelError("", "Invalid username or password.");
                     return RedirectToLocal(returnUrl);
                 }
-                ModelState.AddModelError("", "Invalid username or password.");
             }
 
             // If we got this far, something failed, redisplay form
@@ -128,8 +119,7 @@ namespace UDG.Colloquium.Controllers
                 var resultAccount = await UserManager.CreateUserAsync(model);
                 if (resultAccount.Succeeded)
                 {
-                    var createdUser = await UserManager.FindByNameAsync(model.UserName);
-                    await SignInHelper.SignInAsync(createdUser, isPersistent: false);
+                    UserManager.SignInCreatedUser(model.UserName,AuthenticationManager);
                     return RedirectToAction("Index", "Home");
                 }
                 AddErrors(resultAccount);
@@ -189,7 +179,7 @@ namespace UDG.Colloquium.Controllers
         [Route("Account/IsUserAvailable/{userName}")]
         public async Task<JsonResult> IsUserAvailable(string userName)
         {
-            var user= await UserManager.FindByNameAsync(userName);
+            var user= await UserManager.FindUserNameAsync(userName);
             if (user==null)
             {
                 return Json(true, JsonRequestBehavior.AllowGet);
@@ -221,7 +211,10 @@ namespace UDG.Colloquium.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.ChangePasswordAsync(Convert.ToInt32(User.Identity.GetUserId()), model.OldPassword, model.NewPassword);
+                    IdentityResult result =
+                        await
+                            UserManager.ChangePassword(Convert.ToInt32(User.Identity.GetUserId()), model.OldPassword,
+                                model.NewPassword);
                     if (result.Succeeded)
                     {
                         AddMessages("info", "Old Password:" + model.OldPassword, "New Password:" + model.NewPassword);
@@ -245,7 +238,7 @@ namespace UDG.Colloquium.Controllers
 
                 if (ModelState.IsValid)
                 {
-                    IdentityResult result = await UserManager.AddPasswordAsync(Convert.ToInt32(User.Identity.GetUserId()), model.NewPassword);
+                    IdentityResult result = await UserManager.AddPassword(Convert.ToInt32(User.Identity.GetUserId()), model.NewPassword);
                     if (result.Succeeded)
                     {
 
@@ -312,20 +305,7 @@ namespace UDG.Colloquium.Controllers
 
         public async Task<ActionResult> EditUserRoles(int id, string userName)
         {
-            var userRoles = await UserManager.GetRolesAsync(id);
-            var allRoles = await RoleManager.Roles.ToListAsync();
-            var userViewModel = new UserRolesDao
-            {
-                Id = id,
-                UserName = userName,
-                UserRoles = new List<SelectedRolesVm>()
-            };
-            foreach (var role in allRoles)
-            {
-                userViewModel.UserRoles.Add(userRoles.Contains(role.Name)
-                    ? new SelectedRolesVm() { RoleName = role.Name, Selected = true }
-                    : new SelectedRolesVm() { RoleName = role.Name });
-            }
+            var userViewModel = await UserRoleManager.GetUserRolesDao(id, userName);
 
             return View(userViewModel);
         }
@@ -340,11 +320,11 @@ namespace UDG.Colloquium.Controllers
             {
                 if (selectedRole.Selected)
                 {
-                    if (!await UserManager.IsInRoleAsync(userRolesDao.Id, selectedRole.RoleName))
+                    if (!await UserManager.IsInRole(userRolesDao.Id, selectedRole.RoleName))
                     {
                         IdentityResult result =
                             await
-                                UserManager.AddToRoleAsync(userRolesDao.Id, selectedRole.RoleName);
+                                UserManager.AddToRole(userRolesDao.Id, selectedRole.RoleName);
                         if (result.Succeeded)
                         {
                             success.Add("The role " + selectedRole.RoleName + " was assigned to the user " +
@@ -358,11 +338,11 @@ namespace UDG.Colloquium.Controllers
                 }
                 else
                 {
-                    if (await UserManager.IsInRoleAsync(userRolesDao.Id, selectedRole.RoleName))
+                    if (await UserManager.IsInRole(userRolesDao.Id, selectedRole.RoleName))
                     {
                         IdentityResult result =
                            await
-                               UserManager.RemoveFromRoleAsync(userRolesDao.Id, selectedRole.RoleName);
+                               UserManager.RemoveFromRole(userRolesDao.Id, selectedRole.RoleName);
                         if (result.Succeeded)
                         {
                             success.Add("The role " + selectedRole.RoleName + " was removed to the user " +
@@ -438,9 +418,9 @@ namespace UDG.Colloquium.Controllers
         {
             if (disposing && UserManager != null &&RoleManager!=null)
             {
-                UserManager.Dispose();
+                UserManager.Clean();
                 UserManager = null;
-                RoleManager.Dispose();
+                RoleManager.Clean();
                 RoleManager = null;
                 
             }
@@ -457,12 +437,7 @@ namespace UDG.Colloquium.Controllers
 
         private bool HasPassword()
         {
-            var user = UserManager.FindById(Convert.ToInt32(User.Identity.GetUserId()));
-            if (user != null)
-            {
-                return user.PasswordHash != null;
-            }
-            return false;
+            return UserManager.HasPassword(Convert.ToInt32(User.Identity.GetUserId()));
         }
     }
 }
