@@ -63,6 +63,7 @@
     <Compile Include="Custom\Users\ApplicationUserClaim.cs" />
     <Compile Include="Custom\Users\ApplicationUserLogin.cs" />
     <Compile Include="Custom\Users\ApplicationUserRole.cs" />
+    <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Migrations\201403240226068_InitialCreate.cs" />
     <Compile Include="Migrations\201403240226068_InitialCreate.Designer.cs">

@@ -1,35 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
+using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
-using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
+using UDG.Colloquium.DL.Repositories;
 
-namespace UDG.Colloquium.BL.Managers
+namespace UDG.Colloquium.BL.Managers.Identity
 {
-    public class SecurityRoleManager:RoleManager<ApplicationRole,int>
+    public class SecurityRoleManager:RoleManager<ApplicationRole,int>, ISecurityRoleManager
     {
-        public SecurityRoleManager(IRoleStore<ApplicationRole, int> store) : base(store)
+        public IUnitOfWork UnitOfWork { get; set; }
+        public IRoleStore<ApplicationRole, int> RoleStore { get; set; }
+        public SecurityRoleManager(IRoleStore<ApplicationRole, int> roleStore, IUnitOfWork unitOfWork)
+            : base(roleStore)
         {
-
+            RoleStore = roleStore;
+            UnitOfWork = unitOfWork;
         }
 
-        public static SecurityRoleManager Create(IdentityFactoryOptions<SecurityRoleManager> options, IOwinContext context)
-        {
-            var manager = new SecurityRoleManager(new ApplicationRoleStore(context.Get<ColloquiumDbContext>()));
-            return manager;
-        }
-
-        public async Task<IEnumerable<RoleNamesDao>> GetRolesAsync()
+        public async Task<IEnumerable<RoleNamesDao>> GetAllRolesAsync()
         {
             var roles = await Roles.ToListAsync();
             var rolesList = Mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<RoleNamesDao>>(roles);

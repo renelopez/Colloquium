@@ -9,9 +9,10 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
-using UDG.Colloquium.BL.Helpers;
 using UDG.Colloquium.BL.Managers;
+using UDG.Colloquium.BL.Managers.Identity;
 using UDG.Colloquium.BL.ViewModels.Account.Management;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.Helpers;
@@ -21,53 +22,13 @@ namespace UDG.Colloquium.Controllers
     [Authorize]
     public class AccountController : BaseController
     {
-        public AccountController()
-        {
-        }
+        public ISecurityUserManager UserManager { get; set; }
+        public ISecurityRoleManager RoleManager { get; set; }
 
-        public AccountController(SecurityUserManager userManager,SecurityRoleManager roleManager)
+        public AccountController(ISecurityUserManager userManager,ISecurityRoleManager roleManager)
         {
             UserManager = userManager;
             RoleManager = roleManager;
-        }
-
-        private SecurityUserManager _userManager;
-        public SecurityUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<SecurityUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
-
-        private SecurityRoleManager _roleManager;
-        public SecurityRoleManager RoleManager
-        {
-            get
-            {
-                return _roleManager ?? HttpContext.GetOwinContext().Get<SecurityRoleManager>();
-            }
-            private set
-            {
-                _roleManager = value;
-            }
-        }
-
-        private SecurityUserRoleManager _userRoleManager;
-        public SecurityUserRoleManager UserRoleManager
-        {
-            get
-            {
-                return _userRoleManager ?? HttpContext.GetOwinContext().Get<SecurityUserRoleManager>();
-            }
-            private set
-            {
-                _userRoleManager = value;
-            }
         }
 
         //
@@ -88,15 +49,16 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (!await UserManager.TryLogin(model, AuthenticationManager))
+                if (await UserManager.TryLogin(model, AuthenticationManager))
                 {
-                    ModelState.AddModelError("", "Invalid username or password.");
                     return RedirectToLocal(returnUrl);
                 }
+                ModelState.AddModelError("", "Invalid username or password.");
             }
 
             // If we got this far, something failed, redisplay form
             return View(model);
+            
         }
 
         //
@@ -305,8 +267,20 @@ namespace UDG.Colloquium.Controllers
 
         public async Task<ActionResult> EditUserRoles(int id, string userName)
         {
-            var userViewModel = await UserRoleManager.GetUserRolesDao(id, userName);
-
+            var userRoles = await UserManager.GetRolesAssignedToUserAsync(id);
+            var allRoles = await RoleManager.GetAllRolesAsync();
+            var userViewModel = new UserRolesDao
+            {
+                Id = id,
+                UserName = userName,
+                UserRoles = new List<SelectedRolesVm>()
+            };
+            foreach (var role in allRoles)
+            {
+                userViewModel.UserRoles.Add(userRoles.Contains(role.RoleName)
+                    ? new SelectedRolesVm() { RoleName = role.RoleName, Selected = true }
+                    : new SelectedRolesVm() { RoleName = role.RoleName });
+            }
             return View(userViewModel);
         }
 
@@ -368,7 +342,7 @@ namespace UDG.Colloquium.Controllers
 
         public async Task<ActionResult> ManageRoles()
         {
-            var roles = await RoleManager.GetRolesAsync();
+            var roles = await RoleManager.GetAllRolesAsync();
             return View(roles);
 
         }

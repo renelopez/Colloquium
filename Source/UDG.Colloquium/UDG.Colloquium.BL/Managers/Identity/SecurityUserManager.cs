@@ -1,72 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Security.Principal;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
-using UDG.Colloquium.BL.Helpers;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
-using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Repositories;
 
-namespace UDG.Colloquium.BL.Managers
+namespace UDG.Colloquium.BL.Managers.Identity
 {
-    public class SecurityUserManager:UserManager<ApplicationUser,int>
+    public class SecurityUserManager:UserManager<ApplicationUser,int>, ISecurityUserManager
     {
         public IUnitOfWork UnitOfWork { get; set; }
-        public SecurityUserManager(IUserStore<ApplicationUser, int> store,IUnitOfWork unitOfWork) : base(store)
+        public IUserStore<ApplicationUser,int> UserStore { get; set; }
+        public SecurityUserManager(IUserStore<ApplicationUser, int> userStore, IUnitOfWork unitOfWork)
+            : base(userStore)
         {
-            this.UnitOfWork = unitOfWork;
+            UnitOfWork = unitOfWork;
+            UserStore = userStore;
+            InitializeSettings();
         }
 
-        private SignInHelper _helper;
-
-        private SignInHelper SignInHelper
+        public void InitializeSettings()
         {
-            get
-            {
-                if (_helper == null)
-                {
-                    _helper = new SignInHelper(this);
-                }
-                return _helper;
-            }
-        }
-
-
-        private SecurityUserManager(IUserStore<ApplicationUser, int> store) : base(store)
-        {
-                
-        }
-
-        public static SecurityUserManager Create(IdentityFactoryOptions<SecurityUserManager> options, IOwinContext context)
-        {
-            var manager = new SecurityUserManager(new ApplicationUserStore(context.Get<ColloquiumDbContext>()));
-            manager.UserValidator = new UserValidator<ApplicationUser, int>(manager)
+            UserValidator = new UserValidator<ApplicationUser, int>(this)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = false
             };
-            manager.PasswordValidator = new PasswordValidator
+            PasswordValidator = new PasswordValidator()
             {
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false
             };
-            var dataProtectionProvider = options.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                manager.UserTokenProvider = new DataProtectorTokenProvider<ApplicationUser, int>(dataProtectionProvider.Create("PasswordReset"));
-            }
-            return manager;
         }
-
+    
         public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()
         {
             var users = await Users.ToListAsync();
@@ -111,7 +83,7 @@ namespace UDG.Colloquium.BL.Managers
             var user = await FindAsync(model.UserName, model.Password);
             if (user != null)
             {
-                await SignInHelper.SignInAsync(authManager,user, model.RememberMe);
+                await SignInAsync(authManager,user, model.RememberMe);
                 return true;
             }
             return false;
@@ -120,7 +92,7 @@ namespace UDG.Colloquium.BL.Managers
         public async void SignInCreatedUser(string userName, IAuthenticationManager authManager)
         {
             var createdUser = await FindByNameAsync(userName);
-            await SignInHelper.SignInAsync(authManager,createdUser, isPersistent: false);
+            await SignInAsync(authManager,createdUser, isPersistent: false);
         }
 
         public bool HasPassword(int userId)
@@ -160,6 +132,19 @@ namespace UDG.Colloquium.BL.Managers
         public void Clean()
         {
             Dispose();
+        }
+
+        public async Task SignInAsync(IAuthenticationManager authManager, ApplicationUser user, bool isPersistent)
+        {
+            authManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+            var identity = await CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+            authManager.SignIn(new AuthenticationProperties() { IsPersistent = isPersistent }, identity);
+        }
+
+        public async Task<IList<string>> GetRolesAssignedToUserAsync(int id)
+        {
+            var userRoles = await GetRolesAsync(id);
+            return userRoles;
         }
     }
 }

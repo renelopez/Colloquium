@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -6,10 +7,10 @@ namespace UDG.Colloquium.DL.Repositories
 {
     public class ColloquiumUnitOfWork:IDisposable, IUnitOfWork
     {
-        private readonly IdentityDbContext _context;
+        private readonly DbContext _context;
         private bool _disposed;
 
-        public ColloquiumUnitOfWork(IdentityDbContext context)
+        public ColloquiumUnitOfWork(DbContext context)
         {
             _context = context;
         }

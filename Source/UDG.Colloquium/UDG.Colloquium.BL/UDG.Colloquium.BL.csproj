@@ -73,6 +73,9 @@
     <Reference Include="Microsoft.Owin.Security.OAuth">
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -83,20 +86,21 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="WebActivatorEx">
+      <HintPath>..\packages\WebActivatorEx.2.0.5\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\DI\BusinessDIModule.cs" />
-    <Compile Include="Configuration\Mappings\Initializer\AutoMapperBusinessConfiguration.cs" />
-    <Compile Include="Configuration\Mappings\Profiles\RoleProfile.cs" />
-    <Compile Include="Configuration\Mappings\Profiles\UserNameProfile.cs" />
+    <Compile Include="Configuration\Mappings\Initializers\AutoMapperBusinessInitializer.cs" />
     <Compile Include="Entities\Account\RoleNamesDao.cs" />
     <Compile Include="Entities\Account\UserNamesDao.cs" />
     <Compile Include="Entities\Account\UserRolesDao.cs" />
     <Compile Include="Entities\Account\WorkDao.cs" />
-    <Compile Include="Helpers\SignInHelper.cs" />
-    <Compile Include="Managers\SecurityRoleManager.cs" />
-    <Compile Include="Managers\SecurityUserManager.cs" />
-    <Compile Include="Managers\SecurityUserRoleManager.cs" />
+    <Compile Include="Contracts\Identity\ISecurityRoleManager.cs" />
+    <Compile Include="Contracts\Identity\ISecurityUserManager.cs" />
+    <Compile Include="Managers\Identity\SecurityRoleManager.cs" />
+    <Compile Include="Managers\Identity\SecurityUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\Account\Management\ManageUserVm.cs" />
     <Compile Include="ViewModels\Account\Management\SelectedRolesVm.cs" />
@@ -115,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
+    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

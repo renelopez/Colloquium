@@ -3,6 +3,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using UDG.Colloquium.DL.Custom;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
+using UDG.Colloquium.DL.DBInitializers;
 using UDG.Colloquium.DL.Repositories;
 
 namespace UDG.Colloquium.DL
@@ -22,11 +23,7 @@ namespace UDG.Colloquium.DL
         public ColloquiumDbContext()
             : base("ColloquiumConnection")
         {
-        }
-
-        public static ColloquiumDbContext Create()
-        {
-            return new ColloquiumDbContext();
+            Database.SetInitializer(new ColloquiumDBContextInitializer());
         }
     }
 }
