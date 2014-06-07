@@ -8,12 +8,18 @@
     var app = angular.module('app', [
         // Angular modules 
         'ngAnimate',        // animations
-        'ngRoute'   ,        // routing
+       // 'ngRoute',        // routing
+        'ngSanitize',
+        
 
         // Custom modules 
-        'registerModule'
+        'common',
+        'common.bootstrap',
+
         // 3rd Party Modules
-        
+        'ui.bootstrap',
+        'breeze.angular',
+        'breeze.directives'
     ]);
 
     // Execute bootstrapping code and any dependencies.

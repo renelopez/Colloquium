@@ -1,4 +1,4 @@
-﻿@model UDG.Colloquium.ViewModels.Account.RegisterDao
+﻿@model UDG.Colloquium.BL.ViewModels.Account.Register.RegisterVm
 @{
     ViewBag.Title = "Register User";
 }
@@ -286,7 +286,13 @@
 </div>
 @section Scripts {
     @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/angular/main")
+    @Scripts.Render("~/bundles/angularBreeze")
+    @Scripts.Render("~/bundles/externalVendors")
+    @Scripts.Render("~/bundles/bootstraping")
+    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/services")
+    @*@Scripts.Render("~/bundles/angularBreeze")
     @Scripts.Render("~/bundles/angular/register")
-    @Scripts.Render("~/bundles/custom/colloquiumCore")
+    @Scripts.Render("~/bundles/custom/colloquiumCore")*@
 }
