@@ -3,7 +3,7 @@
 (function () {
     'use strict';
 
-    var app = angular.module('app');
+    var app = angular.module('formApp');
 
     // Configure by setting an optional string value for appErrorPrefix.
     // Accessible via config.appErrorPrefix (via config value).

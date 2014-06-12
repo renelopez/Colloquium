@@ -34,7 +34,9 @@ namespace UDG.Colloquium.App_Start
                       "~/Content/bootstrap.css",
                       "~/Content/animate.css",
                       "~/Content/site.css",
-                      "~/Content/toastr.css"));
+                      "~/Content/toastr.css",
+                      "~/Content/kendo/kendo.common.min.css",
+                      "~/Content/kendo/kendo.bootstrap.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/PageList").Include(
                 "~/Content/PagedList.css"));
@@ -43,17 +45,47 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-resource.js",
                 "~/Scripts/angular-route.js",
-                "~/Scripts/angular-animate.js"));
+                "~/Scripts/angular-animate.js",
+                "~/Scripts/angular-animate.js",
+                "~/Scripts/angular-sanitize.js",
+                "~/Scripts/kendo.ui.core.min.js",
+                "~/Scripts/angular-kendo.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular/main").Include(
-                "~/app/app.js"));
+            bundles.Add(new ScriptBundle("~/bundles/angularBreeze").Include(
+                "~/Scripts/breeze.min.js",
+                "~/Scripts/breeze.angular.js",
+                "~/Scripts/breeze.debug.js",
+                "~/Scripts/breeze.directives.js"
+                ));
 
-            bundles.Add(new ScriptBundle("~/bundles/angular/register").Include(
-                "~/app/modules/registerModule.js",
-                "~/app/services/workFactory.js",
-                "~/app/controllers/workController.js",
-                "~/app/services/contactFactory.js",
-                "~/app/controllers/contactController.js"));
+            bundles.Add(new ScriptBundle("~/bundles/externalVendors").Include(
+               "~/Scripts/moment.js",
+               "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
+               "~/Scripts/spin.js",
+               "~/Scripts/angular-ui-router.js"
+               ));
+            bundles.Add(new ScriptBundle("~/bundles/bootstraping").Include(
+                "~/app/app.js",
+                "~/app/config.js",
+                "~/app/config.exceptionHandler.js",
+                "~/app/config.route.js"
+                ));
+            bundles.Add(new ScriptBundle("~/bundles/common").Include(
+               "~/app/common/common.js",
+               "~/app/common/logger.js",
+               "~/app/common/spinner.js",
+               "~/app/common/bootstrap/bootstrap.dialog.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/app").Include(
+                "~/app/register/register.js"
+                ));
+
+            bundles.Add(new ScriptBundle("~/bundles/services").Include(
+                "~/app/services/datacontext.js",
+                "~/app/services/directives.js",
+                "~/app/services/entityManagerFactory.js"
+                ));
         }
     }
 }

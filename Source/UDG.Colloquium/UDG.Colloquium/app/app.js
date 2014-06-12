@@ -2,10 +2,10 @@
     'use strict';
 
     // Module name is handy for logging
-    var id = 'app';
+    var id = 'formApp';
 
     // Create the module and define its dependencies.
-    var app = angular.module('app', [
+    var app = angular.module(id, [
         // Angular modules 
         'ngAnimate',        // animations
        // 'ngRoute',        // routing
@@ -17,9 +17,11 @@
         'common.bootstrap',
 
         // 3rd Party Modules
+        'ui.router',
         'ui.bootstrap',
         'breeze.angular',
-        'breeze.directives'
+        'breeze.directives',
+        'kendo.directives'
     ]);
 
     // Execute bootstrapping code and any dependencies.
