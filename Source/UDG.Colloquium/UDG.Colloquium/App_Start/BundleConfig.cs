@@ -83,6 +83,7 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
                 "~/app/services/datacontext.js",
+                "~/app/services/registerDatacontext.js",
                 "~/app/services/directives.js",
                 "~/app/services/entityManagerFactory.js"
                 ));

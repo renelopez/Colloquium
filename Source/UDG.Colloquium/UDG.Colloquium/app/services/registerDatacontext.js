@@ -24,15 +24,15 @@
         return service;
         
         function postWork(data,work) {
-            data.works.push(work);
+            data.push(work);
         }
         
         function removeLastWork(data) {
-            data.works.pop();
+            data.pop();
         }
 
         function removeSelectedWork(data,work) {
-            data.works.splice(data.works.indexOf(work), 1);
+            data.splice(data.indexOf(work), 1);
             work = null;
         }
         

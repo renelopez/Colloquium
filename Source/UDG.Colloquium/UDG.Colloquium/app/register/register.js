@@ -14,19 +14,18 @@
 
         var vm = this;
         vm.formData = {};
+        vm.formData.works = [];
         vm.processForm = processForm;
         vm.removeSelectedWork = removeSelectedWork;
-        vm.addWork = addWork;
+        vm.createWork = createWork;
         vm.removeLastWork = removeLastWork;
-        vm.showCompanyForm = showCompanyForm;
-        vm.hideCompanyForm = hideCompanyForm;
         activate();
 
         
         function activate() {
             common.activateController([], controllerId).then(function() {
                 log("Activated Register View");
-                addWork();
+                createWork();
             });
         }
         
@@ -34,8 +33,8 @@
             
         }
         
-        function addWork() {
-            registerDatacontext.postWork(formData,{
+        function createWork() {
+            registerDatacontext.postWork(vm.formData.works,{
                 workPosition: vm.workPosition,
                 workDescription: vm.workDescription,
                 workSalary: vm.workSalary,
@@ -43,29 +42,16 @@
                 workBeginDate: vm.workBeginDate,
                 workEndDate: vm.workEndDate,
                 company: vm.company,
-                companyFormVisible: vm.companyFormVisible
             });
         }
         
         function removeLastWork() {
-            registerDatacontext.removeLastWork(formData);
+            registerDatacontext.removeLastWork(vm.formData.works);
         }
 
-        function removeSelectedWork(work) {
-            var selectedWorkToDelete = vm.formData.works[work];
-            registerDatacontext.removeSelectedWork(formData,selectedWorkToDelete);
+        function removeSelectedWork(index) {
+            var selectedWorkToDelete = vm.formData.works[index];
+            registerDatacontext.removeSelectedWork(vm.formData.works,selectedWorkToDelete);
         }
-        
-        function showCompanyForm(work) {
-            var works = vm.formData.works;
-            works[works.indexOf(work)].companyFormVisible = true;
-        }
-        
-        function hideCompanyForm(work) {
-            var works = vm.formData.works;
-            works[works.indexOf(work)].companyFormVisible = false;
-        }
-        
-
     }
 })();

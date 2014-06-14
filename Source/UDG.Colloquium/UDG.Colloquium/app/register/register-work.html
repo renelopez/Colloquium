@@ -5,7 +5,7 @@
                 Please enter information about your current or previous work.
             </div>
             <div class="col-md-2">
-                <button type="button" ng-click="vm.removeSelectedWork(workItem)" class="btn btn-danger pull-right">Remove Work</button>
+                <button type="button" ng-click="vm.removeSelectedWork($index)" class="btn btn-danger pull-right">Remove Work</button>
             </div>
         </div>
     </div>
@@ -46,12 +46,7 @@
                 <input type="date" ng-model="workItem.workEndDate" class="form-control" />
             </div>
         </div>
-        <div class="form-group">
-            <div class="col-md-7">
-                <button class="btn btn-default" type="button" ng-click="work.showCompanyForm($index)">Add new company</button>
-            </div>
-        </div>
-        <div id="companyFormContainer" ng-show="workItem.companyFormVisible" class="show-hide-animation">
+        <div id="companyFormContainer" class="show-hide-animation">
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Name:</label>
                 <div class="col-md-8">
@@ -87,7 +82,7 @@
 </div>
 
 <div class="form-group col-md-12">
-    <button type="button" class="btn btn-default" ng-click="vm.addWork()">
+    <button type="button" class="btn btn-default" ng-click="vm.createWork()">
         <span class=" glyphicon glyphicon-plus"></span> Add Work
     </button>
     <button type="button" class="btn btn-default" ng-click="vm.removeLastWork()">
