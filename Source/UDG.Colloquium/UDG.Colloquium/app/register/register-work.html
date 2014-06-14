@@ -1,11 +1,11 @@
-﻿<div class="panel panel-primary repeat-animation" ng-repeat="workItem in work.works">
+﻿<div class="panel panel-primary repeat-animation" ng-repeat="workItem in vm.formData.works">
     <div class="panel-heading">
         <div class="row">
             <div class="col-md-10">
                 Please enter information about your current or previous work.
             </div>
             <div class="col-md-2">
-                <button type="button" ng-click="work.removeSelectedWork($index)" class="btn btn-danger pull-right">Remove Work</button>
+                <button type="button" ng-click="vm.removeSelectedWork(workItem)" class="btn btn-danger pull-right">Remove Work</button>
             </div>
         </div>
     </div>
@@ -13,47 +13,40 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Work Position:</label>
             <div class="col-md-10">
-                <input type="text" data-val="true" data-val-length-max="30" ng-model="workItem.workPosition" name="Works[{{$index}}].WorkPosition" class="form-control" />
-                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkPosition" data-valmsg-replace="true"></span>
+                <input type="text" ng-model="workItem.workPosition" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Work Description:</label>
             <div class="col-md-10">
-                <textarea data-val="true" data-val-length-max="100" ng-model="workItem.workDescription" name="Works[{{$index}}].WorkDescription" class="form-control"></textarea>
-                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkDescription" data-valmsg-replace="true"></span>
+                <textarea ng-model="workItem.workDescription" class="form-control"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Salary:</label>
             <div class="col-md-10">
-                <input type="number" data-val="true" data-val-number="true" ng-model="workItem.workSalary" name="Works[{{$index}}].WorkSalary" class="form-control" />
-                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkSalary" data-valmsg-replace="true"></span>
+                <input type="number" ng-model="workItem.workSalary" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Salary Schema:</label>
             <div class="col-md-10">
-                <input type="text" ng-model="workItem.workSalarySchema" name="Works[{{$index}}].SalarySchema" class="form-control" />
-                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].SalarySchema" data-valmsg-replace="true"></span>
+                <input type="text" ng-model="workItem.workSalarySchema" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Begin Date:</label>
             <div class="col-md-10">
-                <input type="date" data-val="true" data-val-regex-pattern="^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$" ng-model="workItem.workBeginDate" name="Works[{{$index}}].WorkBeginDate" class="form-control" />
-                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkBeginDate" data-valmsg-replace="true"></span>
+                <input type="date" ng-model="workItem.workBeginDate" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">End Date:</label>
             <div class="col-md-10">
-                <input type="date" data-val="true" data-val-regex-pattern="^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$" ng-model="workItem.workEndDate" name="Works[{{$index}}].WorkEndDate" class="form-control" />
-                <span class="field-validation-valid" data-valmsg-for="Works[{{$index}}].WorkEndDate" data-valmsg-replace="true"></span>
+                <input type="date" ng-model="workItem.workEndDate" class="form-control" />
             </div>
         </div>
         <div class="form-group">
-            @Html.Action("Companies")
             <div class="col-md-7">
                 <button class="btn btn-default" type="button" ng-click="work.showCompanyForm($index)">Add new company</button>
             </div>
@@ -62,41 +55,42 @@
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Name:</label>
                 <div class="col-md-8">
-                    <input type="text" ng-model="workItem.company.companyName" name="Works[{{$index}}].Company.CompanyName" class="form-control" />
+                    <input type="text" ng-model="workItem.company.companyName" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Corporate Name:</label>
                 <div class="col-md-8">
-                    <input type="text" ng-model="workItem.company.companyCorporateName" name="Works[{{$index}}].Company.CompanyCorporateName" class="form-control" />
+                    <input type="text" ng-model="workItem.company.companyCorporateName" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Description:</label>
                 <div class="col-md-8">
-                    <textarea ng-model="workItem.company.companyDescription" name="Works[{{$index}}].Company.CompanyDescription" class="form-control"></textarea>
+                    <textarea ng-model="workItem.company.companyDescription" class="form-control"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Address:</label>
                 <div class="col-md-8">
-                    <input type="text" ng-model="workItem.company.companyAddress" name="Works[{{$index}}].Company.CompanyAddress" class="form-control" />
+                    <input type="text" ng-model="workItem.company.companyAddress" class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Phone Number:</label>
                 <div class="col-md-8">
-                    <input type="tel" ng-model="workItem.company.companyPhoneNumber" name="Works[{{$index}}].Company.CompanyPhoneNumber" class="form-control" />
+                    <input type="tel" ng-model="workItem.company.companyPhoneNumber" class="form-control" />
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="form-group col-md-12">
-    <button type="button" class="btn btn-default" ng-click="work.addWork()">
+    <button type="button" class="btn btn-default" ng-click="vm.addWork()">
         <span class=" glyphicon glyphicon-plus"></span> Add Work
     </button>
-    <button type="button" class="btn btn-default" ng-click="work.removeLastWork()">
+    <button type="button" class="btn btn-default" ng-click="vm.removeLastWork()">
         <span class=" glyphicon glyphicon-minus"></span> Delete Work
     </button>
 </div>
