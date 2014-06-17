@@ -9,7 +9,8 @@
 
     // For use with the HotTowel-Angular-Breeze add-on that uses Breeze
     var serviceHost = "http://localhost:9000/";
-    var remoteServiceName = serviceHost + 'api/Breeze';
+    var remoteServiceName = serviceHost + 'api/Register';
+    
 
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
@@ -21,6 +22,7 @@
         docTitle: 'HotTowel: ',
         events: events,
         remoteServiceName: remoteServiceName,
+        hasServerMetadata:true,
         version: '2.1.0'
     };
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
@@ -17,11 +18,16 @@ namespace UDG.Colloquium.BL.Managers.Identity
     {
         public IUnitOfWork UnitOfWork { get; set; }
         public IUserStore<ApplicationUser,int> UserStore { get; set; }
+
+        public IdentityFactoryOptions<SecurityUserManager> IdentityOptions { get; set; }
+
+        
         public SecurityUserManager(IUserStore<ApplicationUser, int> userStore, IUnitOfWork unitOfWork)
             : base(userStore)
         {
             UnitOfWork = unitOfWork;
             UserStore = userStore;
+            IdentityOptions=new IdentityFactoryOptions<SecurityUserManager>();
             InitializeSettings();
         }
 
@@ -37,6 +43,13 @@ namespace UDG.Colloquium.BL.Managers.Identity
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false
             };
+            var dataProtectionProvider = IdentityOptions.DataProtectionProvider;
+            if (dataProtectionProvider != null)
+            {
+                UserTokenProvider =
+                    new DataProtectorTokenProvider<ApplicationUser,int>(dataProtectionProvider.Create("ASP.NET Identity"));
+            }
+
         }
     
         public async Task<IEnumerable<ApplicationUser>> GetAllUsersAsync()

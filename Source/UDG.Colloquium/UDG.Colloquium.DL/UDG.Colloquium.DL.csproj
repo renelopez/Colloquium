@@ -31,7 +31,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Breeze.ContextProvider">
+      <HintPath>..\packages\Breeze.Server.ContextProvider.1.4.13\lib\Breeze.ContextProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Breeze.ContextProvider.EF6">
+      <HintPath>..\packages\Breeze.Server.ContextProvider.EF6.1.4.13\lib\Breeze.ContextProvider.EF6.dll</HintPath>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
@@ -46,6 +55,10 @@
     <Reference Include="Microsoft.AspNet.Identity.EntityFramework">
       <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.0.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -56,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Company.cs" />
     <Compile Include="Custom\Roles\ApplicationRoleStore.cs" />
     <Compile Include="Custom\Users\ApplicationUserStore.cs" />
     <Compile Include="Custom\Roles\ApplicationRole.cs" />
@@ -69,12 +83,31 @@
     <Compile Include="Migrations\201403240226068_InitialCreate.Designer.cs">
       <DependentUpon>201403240226068_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406162134113_New Elements for register form.cs" />
+    <Compile Include="Migrations\201406162134113_New Elements for register form.Designer.cs">
+      <DependentUpon>201406162134113_New Elements for register form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406162245031_AddedDBSets.cs" />
+    <Compile Include="Migrations\201406162245031_AddedDBSets.Designer.cs">
+      <DependentUpon>201406162245031_AddedDBSets.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406162335440_AddedNullables.cs" />
+    <Compile Include="Migrations\201406162335440_AddedNullables.Designer.cs">
+      <DependentUpon>201406162335440_AddedNullables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406171659109_AddedRequireds.cs" />
+    <Compile Include="Migrations\201406171659109_AddedRequireds.Designer.cs">
+      <DependentUpon>201406171659109_AddedRequireds.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Repositories\ColloquiumUnitOfWork.cs" />
+    <Compile Include="ServiceRepositories\BreezeRepository.cs" />
+    <Compile Include="ServiceRepositories\IBreezeRepository.cs" />
+    <Compile Include="Work.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -85,6 +118,18 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201403240226068_InitialCreate.resx">
       <DependentUpon>201403240226068_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406162134113_New Elements for register form.resx">
+      <DependentUpon>201406162134113_New Elements for register form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406162245031_AddedDBSets.resx">
+      <DependentUpon>201406162245031_AddedDBSets.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406162335440_AddedNullables.resx">
+      <DependentUpon>201406162335440_AddedNullables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406171659109_AddedRequireds.resx">
+      <DependentUpon>201406171659109_AddedRequireds.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

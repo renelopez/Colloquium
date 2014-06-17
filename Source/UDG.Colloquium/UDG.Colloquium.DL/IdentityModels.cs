@@ -10,6 +10,8 @@ namespace UDG.Colloquium.DL
 {
     public class ColloquiumDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int,ApplicationUserLogin,ApplicationUserRole,ApplicationUserClaim>
     {
+        public DbSet<Work> Works { get; set; }
+        public DbSet<Company> Companies { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
