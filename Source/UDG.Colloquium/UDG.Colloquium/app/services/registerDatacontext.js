@@ -14,21 +14,20 @@
         var log = getLogFn(serviceId);
         var logError = getLogFn(serviceId, 'error');
         var logSuccess = getLogFn(serviceId, 'success');
+        var applicationUser;
 
         var service = {
             createUser: createUser,
             ready:ready,
-            removeLastWork: removeLastWork,
-            removeSelectedWork: removeSelectedWork,
+            addWorkToUser: addWorkToUser,
+            removeWorkToUser: removeWorkToUser,
         };
 
         return service;
         
         function createUser() {
-            var user = manager.createEntity("ApplicationUser", {
-                birthDate: new Date().toUTCString()
-            });
-            return user;
+            var userCreated = manager.createEntity(applicationUser);
+            return userCreated;
         }
         
         function ready() {
@@ -36,14 +35,19 @@
 
             function haveEntityManager(em) {
                 manager = em;
+                applicationUser = manager.metadataStore.getEntityType("ApplicationUser");
             }
         }
         
-        function removeLastWork(data) {
-            data.pop();
+        function addWorkToUser(user) {
+            var workAdded = manager.createEntity("Work", {});
+            var companyAdded = manager.createEntity("Company", {});
+            workAdded.company = companyAdded;
+            user.works.push(workAdded);
+            return user;
         }
 
-        function removeSelectedWork(data,work) {
+        function removeWorkToUser(data, work) {
             data.splice(data.indexOf(work), 1);
             work = null;
         }

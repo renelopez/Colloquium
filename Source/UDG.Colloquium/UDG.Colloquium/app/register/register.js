@@ -15,7 +15,7 @@
 
         var vm = this;
         vm.user = {};
-        //vm.formData.works = [];
+        //vm.user.works = [];
         vm.processForm = processForm;
         vm.removeSelectedWork = removeSelectedWork;
         activate();
@@ -27,6 +27,7 @@
                 //vm.createWork = createWork;
                 //vm.removeLastWork = removeLastWork;
                 vm.createUser = createUser;
+                vm.addWorkToUser = addWorkToUser;
                 createUser();
             }).catch(handleError);
             
@@ -52,8 +53,8 @@
             vm.user = registerDatacontext.createUser();
         }
         
-        function removeLastWork() {
-            registerDatacontext.removeLastWork(vm.user.works);
+        function addWorkToUser() {
+            vm.user=registerDatacontext.addWorkToUser(vm.user);
         }
 
         function removeSelectedWork(index) {

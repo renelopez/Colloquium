@@ -10,13 +10,10 @@ namespace UDG.Colloquium.DL
 {
     public class ColloquiumDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int,ApplicationUserLogin,ApplicationUserRole,ApplicationUserClaim>
     {
-        public DbSet<Work> Works { get; set; }
-        public DbSet<Company> Companies { get; set; }
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
-            modelBuilder.Entity<ApplicationUser>().Property(prop => prop.LastName).HasMaxLength(5);
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");
@@ -26,7 +23,13 @@ namespace UDG.Colloquium.DL
         public ColloquiumDbContext()
             : base("ColloquiumConnection")
         {
+            Configuration.ProxyCreationEnabled = false;
+            Configuration.LazyLoadingEnabled = false;
+
             Database.SetInitializer(new ColloquiumDBContextInitializer());
         }
+
+        public DbSet<Work> Works { get; set; }
+        public DbSet<Company> Companies { get; set; }
     }
 }

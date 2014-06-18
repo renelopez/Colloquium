@@ -15,8 +15,15 @@ namespace UDG.Colloquium.DL.Custom.Users
         }
         
         [Required]
+        [MaxLength(5)]
         public virtual string LastName { get; set; }
         public virtual string MiddleName { get; set; }
+
+        [Required]
+        [MaxLength(10)]
+        public virtual string FirstName { get; set; }
+
+        [Required]
         public virtual DateTime? BirthDate { get; set; }
         public virtual string BirthPlace { get; set; }
         public virtual UserGenre Genre { get; set; }

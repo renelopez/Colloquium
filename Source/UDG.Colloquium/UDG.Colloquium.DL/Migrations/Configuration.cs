@@ -36,7 +36,7 @@ namespace UDG.Colloquium.DL.Migrations
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name,LastName = "Mexi"};
+                user = new ApplicationUser { UserName = name, Email = name, LastName = "Lopez", FirstName = "Robben", BirthDate = DateTime.Now };
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }

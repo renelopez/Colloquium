@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
@@ -26,7 +27,7 @@ namespace UDG.Colloquium.DL.DBInitializers
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name,Nacionality = "Mexi"};
+                user = new ApplicationUser { UserName = name, Email = name,LastName = "Lopez" ,FirstName = "Robben",BirthDate = DateTime.Now};
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }

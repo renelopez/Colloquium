@@ -13,68 +13,68 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Work Position:</label>
             <div class="col-md-10">
-                <input type="text" ng-model="workItem.workPosition" class="form-control" />
+                <input type="text" z-validate ng-model="workItem.workPosition" class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Work Description:</label>
             <div class="col-md-10">
-                <textarea ng-model="workItem.workDescription" class="form-control"></textarea>
+                <textarea ng-model="workItem.workDescription" z-validate class="form-control"></textarea>
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Salary:</label>
             <div class="col-md-10">
-                <input type="number" ng-model="workItem.workSalary" class="form-control" />
+                <input type="number" ng-model="workItem.workSalary" z-validate class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Salary Schema:</label>
             <div class="col-md-10">
-                <input type="text" ng-model="workItem.workSalarySchema" class="form-control" />
+                <input type="text" ng-model="workItem.workSalarySchema" z-validate class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">Begin Date:</label>
             <div class="col-md-10">
-                <input type="date" ng-model="workItem.workBeginDate" class="form-control" />
+                <input type="date" ng-model="workItem.workBeginDate" z-validate class="form-control" />
             </div>
         </div>
         <div class="form-group">
             <label class="col-md-2 control-label">End Date:</label>
             <div class="col-md-10">
-                <input type="date" ng-model="workItem.workEndDate" class="form-control" />
+                <input type="date" ng-model="workItem.workEndDate" z-validate class="form-control" />
             </div>
         </div>
         <div id="companyFormContainer" class="show-hide-animation">
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Name:</label>
                 <div class="col-md-8">
-                    <input type="text" ng-model="workItem.company.companyName" class="form-control" />
+                    <input type="text" ng-model="workItem.company.companyName" z-validate class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Corporate Name:</label>
                 <div class="col-md-8">
-                    <input type="text" ng-model="workItem.company.companyCorporateName" class="form-control" />
+                    <input type="text" ng-model="workItem.company.companyCorporateName" z-validate class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Description:</label>
                 <div class="col-md-8">
-                    <textarea ng-model="workItem.company.companyDescription" class="form-control"></textarea>
+                    <textarea ng-model="workItem.company.companyDescription" z-validate class="form-control"></textarea>
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Address:</label>
                 <div class="col-md-8">
-                    <input type="text" ng-model="workItem.company.companyAddress" class="form-control" />
+                    <input type="text" ng-model="workItem.company.companyAddress" z-validate class="form-control" />
                 </div>
             </div>
             <div class="form-group">
                 <label class="col-md-2 control-label">Company Phone Number:</label>
                 <div class="col-md-8">
-                    <input type="tel" ng-model="workItem.company.companyPhoneNumber" class="form-control" />
+                    <input type="tel" ng-model="workItem.company.companyPhoneNumber" z-validate class="form-control" />
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
 </div>
 
 <div class="form-group col-md-12">
-    <button type="button" class="btn btn-default" ng-click="vm.createWork()">
+    <button type="button" class="btn btn-default" ng-click="vm.addWorkToUser()">
         <span class=" glyphicon glyphicon-plus"></span> Add Work
     </button>
     <button type="button" class="btn btn-default" ng-click="vm.removeLastWork()">
