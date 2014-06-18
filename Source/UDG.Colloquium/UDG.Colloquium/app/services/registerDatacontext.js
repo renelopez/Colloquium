@@ -2,13 +2,13 @@
     'use strict';
 
     var serviceId = 'registerDatacontext';
-    //angular.module('formApp').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', datacontext]);
-    angular.module('formApp').factory(serviceId, ['common', registerDatacontext]);
+    angular.module('formApp').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', registerDatacontext]);
+    //angular.module('formApp').factory(serviceId, ['common', registerDatacontext]);
 
     //function datacontext(common, breeze, entityManagerFactory) {
-    function registerDatacontext(common) {
+    function registerDatacontext(common,breeze,entityManagerFactory) {
         var $q = common.$q;
-        //var manager = entityManagerFactory.getEntityManager();
+        var manager = entityManagerFactory.getEntityManager();
 
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
@@ -16,15 +16,18 @@
         var logSuccess = getLogFn(serviceId, 'success');
 
         var service = {
-            postWork: postWork,
+            createUser: createUser,
             removeLastWork: removeLastWork,
             removeSelectedWork:removeSelectedWork
         };
 
         return service;
         
-        function postWork(data,work) {
-            data.push(work);
+        function createUser() {
+            var user = manager.createEntity("ApplicationUser", {
+                birthDate: new Date().toUTCString()
+            });
+            return user;
         }
         
         function removeLastWork(data) {

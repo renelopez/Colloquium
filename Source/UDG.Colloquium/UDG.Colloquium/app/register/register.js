@@ -14,35 +14,37 @@
 
         var vm = this;
         vm.formData = {};
-        vm.formData.works = [];
+        //vm.formData.works = [];
         vm.processForm = processForm;
         vm.removeSelectedWork = removeSelectedWork;
-        vm.createWork = createWork;
-        vm.removeLastWork = removeLastWork;
         activate();
 
         
         function activate() {
-            common.activateController([], controllerId).then(function() {
+            common.activateController([registerDatacontext.ready()], controllerId).then(function() {
                 log("Activated Register View");
-                createWork();
-            });
+                //vm.createWork = createWork;
+                //vm.removeLastWork = removeLastWork;
+                vm.createUser = createUser;
+                createUser();
+            }).catch(handleError);
         }
         
         function processForm() {
             
         }
         
-        function createWork() {
-            registerDatacontext.postWork(vm.formData.works,{
-                workPosition: vm.workPosition,
-                workDescription: vm.workDescription,
-                workSalary: vm.workSalary,
-                workSalarySchema: vm.workSalarySchema,
-                workBeginDate: vm.workBeginDate,
-                workEndDate: vm.workEndDate,
-                company: vm.company,
-            });
+        function createUser() {
+            //registerDatacontext.postWork(vm.formData.works,{
+            //    workPosition: vm.workPosition,
+            //    workDescription: vm.workDescription,
+            //    workSalary: vm.workSalary,
+            //    workSalarySchema: vm.workSalarySchema,
+            //    workBeginDate: vm.workBeginDate,
+            //    workEndDate: vm.workEndDate,
+            //    company: vm.company,
+            //});
+            vm.formData = registerDatacontext.createUser();
         }
         
         function removeLastWork() {
