@@ -7,13 +7,13 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class AddedRequireds : IMigrationMetadata
+    public sealed partial class Virtual : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedRequireds));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Virtual));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406171659109_AddedRequireds"; }
+            get { return "201406180545597_Virtual"; }
         }
         
         string IMigrationMetadata.Source

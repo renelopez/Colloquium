@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 
@@ -12,14 +13,14 @@ namespace UDG.Colloquium.DL.Custom.Users
             Male,
             Female
         }
-
-
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        public DateTime? BirthDate { get; set; }
-        public string BirthPlace { get; set; }
-        public UserGenre Genre { get; set; }
-        public string Nacionality { get; set; }
+        
+        [Required]
+        public virtual string LastName { get; set; }
+        public virtual string MiddleName { get; set; }
+        public virtual DateTime? BirthDate { get; set; }
+        public virtual string BirthPlace { get; set; }
+        public virtual UserGenre Genre { get; set; }
+        public virtual string Nacionality { get; set; }
 
 
         public virtual ICollection<Work> Works { get; set; }

@@ -7,13 +7,13 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class AddedNullables : IMigrationMetadata
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedNullables));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406162335440_AddedNullables"; }
+            get { return "201406180535210_Initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -26,7 +26,7 @@ namespace UDG.Colloquium.DL.DBInitializers
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name };
+                user = new ApplicationUser { UserName = name, Email = name,Nacionality = "Mexi"};
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }

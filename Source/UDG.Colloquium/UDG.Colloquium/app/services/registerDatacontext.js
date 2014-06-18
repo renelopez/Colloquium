@@ -8,7 +8,7 @@
     //function datacontext(common, breeze, entityManagerFactory) {
     function registerDatacontext(common,breeze,entityManagerFactory) {
         var $q = common.$q;
-        var manager = entityManagerFactory.getEntityManager();
+        var manager;
 
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
@@ -17,8 +17,9 @@
 
         var service = {
             createUser: createUser,
+            ready:ready,
             removeLastWork: removeLastWork,
-            removeSelectedWork:removeSelectedWork
+            removeSelectedWork: removeSelectedWork,
         };
 
         return service;
@@ -28,6 +29,14 @@
                 birthDate: new Date().toUTCString()
             });
             return user;
+        }
+        
+        function ready() {
+            return entityManagerFactory.getEntityManager().then(haveEntityManager);
+
+            function haveEntityManager(em) {
+                manager = em;
+            }
         }
         
         function removeLastWork(data) {

@@ -35,6 +35,7 @@ namespace UDG.Colloquium.App_Start
                       "~/Content/animate.css",
                       "~/Content/site.css",
                       "~/Content/toastr.css",
+                      "~/Content/breeze.directives.css",
                       "~/Content/kendo/kendo.common.min.css",
                       "~/Content/kendo/kendo.bootstrap.min.css"));
 
@@ -82,7 +83,7 @@ namespace UDG.Colloquium.App_Start
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
-                "~/app/services/datacontext.js",
+                "~/app/services/model.js",
                 "~/app/services/registerDatacontext.js",
                 "~/app/services/directives.js",
                 "~/app/services/entityManagerFactory.js"

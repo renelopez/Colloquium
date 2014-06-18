@@ -16,6 +16,7 @@ namespace UDG.Colloquium.DL
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<ApplicationUser>().ToTable("Users");
+            modelBuilder.Entity<ApplicationUser>().Property(prop => prop.LastName).HasMaxLength(5);
             modelBuilder.Entity<ApplicationRole>().ToTable("Roles");
             modelBuilder.Entity<ApplicationUserLogin>().ToTable("UserLogins");
             modelBuilder.Entity<ApplicationUserClaim>().ToTable("UserClaims");

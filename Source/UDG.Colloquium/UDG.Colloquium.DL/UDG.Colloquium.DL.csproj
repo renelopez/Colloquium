@@ -79,25 +79,13 @@
     <Compile Include="Custom\Users\ApplicationUserRole.cs" />
     <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201403240226068_InitialCreate.cs" />
-    <Compile Include="Migrations\201403240226068_InitialCreate.Designer.cs">
-      <DependentUpon>201403240226068_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201406180535210_Initial.cs" />
+    <Compile Include="Migrations\201406180535210_Initial.Designer.cs">
+      <DependentUpon>201406180535210_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201406162134113_New Elements for register form.cs" />
-    <Compile Include="Migrations\201406162134113_New Elements for register form.Designer.cs">
-      <DependentUpon>201406162134113_New Elements for register form.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406162245031_AddedDBSets.cs" />
-    <Compile Include="Migrations\201406162245031_AddedDBSets.Designer.cs">
-      <DependentUpon>201406162245031_AddedDBSets.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406162335440_AddedNullables.cs" />
-    <Compile Include="Migrations\201406162335440_AddedNullables.Designer.cs">
-      <DependentUpon>201406162335440_AddedNullables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406171659109_AddedRequireds.cs" />
-    <Compile Include="Migrations\201406171659109_AddedRequireds.Designer.cs">
-      <DependentUpon>201406171659109_AddedRequireds.cs</DependentUpon>
+    <Compile Include="Migrations\201406180545597_Virtual.cs" />
+    <Compile Include="Migrations\201406180545597_Virtual.Designer.cs">
+      <DependentUpon>201406180545597_Virtual.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -116,20 +104,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201403240226068_InitialCreate.resx">
-      <DependentUpon>201403240226068_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406180535210_Initial.resx">
+      <DependentUpon>201406180535210_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406162134113_New Elements for register form.resx">
-      <DependentUpon>201406162134113_New Elements for register form.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406162245031_AddedDBSets.resx">
-      <DependentUpon>201406162245031_AddedDBSets.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406162335440_AddedNullables.resx">
-      <DependentUpon>201406162335440_AddedNullables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406171659109_AddedRequireds.resx">
-      <DependentUpon>201406171659109_AddedRequireds.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406180545597_Virtual.resx">
+      <DependentUpon>201406180545597_Virtual.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

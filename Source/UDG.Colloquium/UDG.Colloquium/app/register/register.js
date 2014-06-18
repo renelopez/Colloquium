@@ -11,9 +11,10 @@
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
+        var logError = getLogFn(controllerId, 'error');
 
         var vm = this;
-        vm.formData = {};
+        vm.user = {};
         //vm.formData.works = [];
         vm.processForm = processForm;
         vm.removeSelectedWork = removeSelectedWork;
@@ -28,6 +29,10 @@
                 vm.createUser = createUser;
                 createUser();
             }).catch(handleError);
+            
+            function handleError(error) {
+                logError("Valio madres:", error, true);
+            }
         }
         
         function processForm() {
@@ -44,16 +49,16 @@
             //    workEndDate: vm.workEndDate,
             //    company: vm.company,
             //});
-            vm.formData = registerDatacontext.createUser();
+            vm.user = registerDatacontext.createUser();
         }
         
         function removeLastWork() {
-            registerDatacontext.removeLastWork(vm.formData.works);
+            registerDatacontext.removeLastWork(vm.user.works);
         }
 
         function removeSelectedWork(index) {
-            var selectedWorkToDelete = vm.formData.works[index];
-            registerDatacontext.removeSelectedWork(vm.formData.works,selectedWorkToDelete);
+            var selectedWorkToDelete = vm.user.works[index];
+            registerDatacontext.removeSelectedWork(vm.user.works,selectedWorkToDelete);
         }
     }
 })();
