@@ -24,8 +24,6 @@
         function activate() {
             common.activateController([registerDatacontext.ready()], controllerId).then(function() {
                 log("Activated Register View");
-                //vm.createWork = createWork;
-                //vm.removeLastWork = removeLastWork;
                 vm.createUser = createUser;
                 vm.addWorkToUser = addWorkToUser;
                 createUser();
@@ -41,15 +39,6 @@
         }
         
         function createUser() {
-            //registerDatacontext.postWork(vm.formData.works,{
-            //    workPosition: vm.workPosition,
-            //    workDescription: vm.workDescription,
-            //    workSalary: vm.workSalary,
-            //    workSalarySchema: vm.workSalarySchema,
-            //    workBeginDate: vm.workBeginDate,
-            //    workEndDate: vm.workEndDate,
-            //    company: vm.company,
-            //});
             vm.user = registerDatacontext.createUser();
         }
         

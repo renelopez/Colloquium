@@ -2,6 +2,7 @@
 using Breeze.ContextProvider;
 using Newtonsoft.Json.Linq;
 using UDG.Colloquium.DL.Custom.Users;
+using UDG.Colloquium.DL.Models;
 
 namespace UDG.Colloquium.DL.ServiceRepositories
 {

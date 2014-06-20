@@ -69,7 +69,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Company.cs" />
+    <Compile Include="Migrations\201406200423587_Added more rules.cs" />
+    <Compile Include="Migrations\201406200423587_Added more rules.Designer.cs">
+      <DependentUpon>201406200423587_Added more rules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Company.cs" />
     <Compile Include="Custom\Roles\ApplicationRoleStore.cs" />
     <Compile Include="Custom\Users\ApplicationUserStore.cs" />
     <Compile Include="Custom\Roles\ApplicationRole.cs" />
@@ -78,7 +82,7 @@
     <Compile Include="Custom\Users\ApplicationUserLogin.cs" />
     <Compile Include="Custom\Users\ApplicationUserRole.cs" />
     <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
-    <Compile Include="IdentityModels.cs" />
+    <Compile Include="ColloquiumDBContext.cs" />
     <Compile Include="Migrations\201406180535210_Initial.cs" />
     <Compile Include="Migrations\201406180535210_Initial.Designer.cs">
       <DependentUpon>201406180535210_Initial.cs</DependentUpon>
@@ -99,7 +103,7 @@
     <Compile Include="Repositories\ColloquiumUnitOfWork.cs" />
     <Compile Include="ServiceRepositories\BreezeRepository.cs" />
     <Compile Include="ServiceRepositories\IBreezeRepository.cs" />
-    <Compile Include="Work.cs" />
+    <Compile Include="Models\Work.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">
@@ -117,7 +121,11 @@
     <EmbeddedResource Include="Migrations\201406181654123_Added More Validations.resx">
       <DependentUpon>201406181654123_Added More Validations.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406200423587_Added more rules.resx">
+      <DependentUpon>201406200423587_Added more rules.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

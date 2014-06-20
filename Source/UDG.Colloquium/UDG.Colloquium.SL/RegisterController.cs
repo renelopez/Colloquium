@@ -9,6 +9,7 @@ using Breeze.WebApi2;
 using Newtonsoft.Json.Linq;
 using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Users;
+using UDG.Colloquium.DL.Models;
 using UDG.Colloquium.DL.ServiceRepositories;
 
 namespace UDG.Colloquium.SL
