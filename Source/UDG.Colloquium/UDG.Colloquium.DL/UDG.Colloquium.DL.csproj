@@ -102,6 +102,7 @@
     <Compile Include="Repositories\IUnitOfWork.cs" />
     <Compile Include="Repositories\ColloquiumUnitOfWork.cs" />
     <Compile Include="ServiceRepositories\BreezeRepository.cs" />
+    <Compile Include="ServiceRepositories\ColloquiumContextProvider.cs" />
     <Compile Include="ServiceRepositories\IBreezeRepository.cs" />
     <Compile Include="Models\Work.cs" />
   </ItemGroup>

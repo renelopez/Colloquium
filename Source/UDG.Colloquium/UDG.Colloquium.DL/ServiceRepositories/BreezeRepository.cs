@@ -9,7 +9,7 @@ namespace UDG.Colloquium.DL.ServiceRepositories
 {
     public class BreezeRepository:IBreezeRepository
     {
-        private readonly EFContextProvider<ColloquiumDbContext>_contextProvider=new EFContextProvider<ColloquiumDbContext>();
+        private readonly ColloquiumContextProvider _contextProvider=new ColloquiumContextProvider();
 
         public string MetaData
         {
@@ -38,5 +38,7 @@ namespace UDG.Colloquium.DL.ServiceRepositories
         {
             return _contextProvider.Context.Companies;
         }
+
+         
     }
 }

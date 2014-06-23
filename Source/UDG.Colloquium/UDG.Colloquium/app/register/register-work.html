@@ -5,7 +5,7 @@
                 Please enter information about your current or previous work.
             </div>
             <div class="col-md-2">
-                <button type="button" ng-click="vm.removeSelectedWork($index)" class="btn btn-danger pull-right">Remove Work</button>
+                <button type="button" ng-click="vm.removeWorkToUser(workItem)" class="btn btn-danger pull-right">Remove Work</button>
             </div>
         </div>
     </div>
@@ -31,7 +31,7 @@
         <div class="form-group">
             <label class="col-md-2 control-label">Salary Schema:</label>
             <div class="col-md-10">
-                <input type="text" ng-model="workItem.workSalarySchema" z-validate class="form-control" />
+                <input type="text" ng-model="workItem.salarySchema" z-validate class="form-control" />
             </div>
         </div>
         <div class="form-group">
@@ -87,5 +87,8 @@
     </button>
     <button type="button" class="btn btn-default" ng-click="vm.removeLastWork()">
         <span class=" glyphicon glyphicon-minus"></span> Delete Work
+    </button>
+    <button type="button" class="btn btn-default" ng-click="vm.saveChanges()">
+        <span class=" glyphicon glyphicon-check"></span> Save Changes
     </button>
 </div>

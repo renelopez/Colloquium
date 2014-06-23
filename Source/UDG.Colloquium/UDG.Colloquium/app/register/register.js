@@ -17,7 +17,8 @@
         vm.user = {};
         //vm.user.works = [];
         vm.processForm = processForm;
-        vm.removeSelectedWork = removeSelectedWork;
+        vm.removeWorkToUser = removeWorkToUser;
+        vm.saveChanges = saveChanges;
         activate();
 
         
@@ -43,12 +44,26 @@
         }
         
         function addWorkToUser() {
-            vm.user=registerDatacontext.addWorkToUser(vm.user);
+            //registerDatacontext.rejectChanges();
+            registerDatacontext.addWorkToUser(vm.user);
         }
 
-        function removeSelectedWork(index) {
-            var selectedWorkToDelete = vm.user.works[index];
-            registerDatacontext.removeSelectedWork(vm.user.works,selectedWorkToDelete);
+        function removeWorkToUser(work) {
+           registerDatacontext.removeWorkToUser(work);
+        }
+        
+        function saveChanges() {
+            registerDatacontext.saveChanges()
+                .then(success)
+                .fail(errorSave);
+            
+            function success() {
+                logSuccess("Order Saved");
+            }
+            
+            function errorSave(error) {
+                logError("Valio madres la grabada:", error, true);
+            }
         }
     }
 })();
