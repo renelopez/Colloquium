@@ -4,18 +4,34 @@
     var controllerId = 'registerController';
 
     angular.module('formApp').controller(controllerId,
-        ['$scope','common','registerDatacontext', registerController]);
+        ['$rootScope','common','config','registerDatacontext', registerController]);
 
-    function registerController($scope, common,registerDatacontext) {
+    function registerController($rootScope, common,config,registerDatacontext) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
 
+        var events = config.events;
+
         var vm = this;
+        
+        vm.busyMessage = 'Please wait ...';
+        vm.isBusy = true;
+        vm.spinnerOptions = {
+            radius: 40,
+            lines: 7,
+            length: 0,
+            width: 30,
+            speed: 1.7,
+            corners: 1.0,
+            trail: 100,
+            color: '#F58A00'
+        };
+
+
         vm.user = {};
-        //vm.user.works = [];
         vm.processForm = processForm;
         vm.removeWorkToUser = removeWorkToUser;
         vm.saveChanges = saveChanges;
@@ -65,5 +81,19 @@
                 logError("Valio madres la grabada:", error, true);
             }
         }
+        
+        function toggleSpinner(on) { vm.isBusy = on; }
+
+        $rootScope.$on('$routeChangeStart',
+            function (event, next, current) { toggleSpinner(true); }
+        );
+
+        $rootScope.$on(events.controllerActivateSuccess,
+            function (event, data) { toggleSpinner(false); }
+        );
+
+        $rootScope.$on(events.spinnerToggle,
+            function (event, data) { toggleSpinner(data.show); }
+        );
     }
 })();

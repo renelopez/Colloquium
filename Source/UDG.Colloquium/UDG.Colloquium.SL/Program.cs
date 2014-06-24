@@ -14,7 +14,7 @@ namespace UDG.Colloquium.SL
         {
             string baseAddress = "http://localhost:9000/";
 
-//            System.Data.Entity.Database.SetInitializer(new ColloquiumDBContextInitializer());
+            System.Data.Entity.Database.SetInitializer(new ColloquiumDBContextInitializer());
             // Start OWIN host 
             using (WebApp.Start<Startup>(url: baseAddress))
             {
