@@ -2,9 +2,11 @@
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
+using Autofac.Core;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
@@ -19,15 +21,15 @@ namespace UDG.Colloquium.BL.Managers.Identity
         public IUnitOfWork UnitOfWork { get; set; }
         public IUserStore<ApplicationUser,int> UserStore { get; set; }
 
-        public IdentityFactoryOptions<SecurityUserManager> IdentityOptions { get; set; }
+        public IOwinContext OwinContext { get; set; }
 
-        
-        public SecurityUserManager(IUserStore<ApplicationUser, int> userStore, IUnitOfWork unitOfWork)
+        public SecurityUserManager(IUserStore<ApplicationUser, int> userStore,IUnitOfWork unitOfWork, IOwinContext owinContext)
             : base(userStore)
         {
             UnitOfWork = unitOfWork;
             UserStore = userStore;
-            IdentityOptions=new IdentityFactoryOptions<SecurityUserManager>();
+            //IdentityOptions = identityFactoryOptions;
+            OwinContext = owinContext;
             InitializeSettings();
         }
 
@@ -43,12 +45,12 @@ namespace UDG.Colloquium.BL.Managers.Identity
                 RequiredLength = 6,
                 RequireNonLetterOrDigit = false
             };
-            var dataProtectionProvider = IdentityOptions.DataProtectionProvider;
-            if (dataProtectionProvider != null)
-            {
-                UserTokenProvider =
-                    new DataProtectorTokenProvider<ApplicationUser,int>(dataProtectionProvider.Create("ASP.NET Identity"));
-            }
+            ////var dataProtectionProvider = IdentityOptions.DataProtectionProvider;
+            //if (dataProtectionProvider != null)
+            //{
+            //    UserTokenProvider =
+            //        new DataProtectorTokenProvider<ApplicationUser,int>(dataProtectionProvider.Create("ASP.NET Identity"));
+            //}
 
         }
     
@@ -159,5 +161,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
             var userRoles = await GetRolesAsync(id);
             return userRoles;
         }
+
+
     }
 }

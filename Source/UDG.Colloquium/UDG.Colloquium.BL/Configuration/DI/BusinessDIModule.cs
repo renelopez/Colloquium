@@ -28,7 +28,6 @@ namespace UDG.Colloquium.BL.Configuration.DI
 
             builder.RegisterType<ColloquiumUnitOfWork>().As<IUnitOfWork>();
 
-
             builder.RegisterType<SecurityUserManager>().As<ISecurityUserManager>();
 
             builder.RegisterType<SecurityRoleManager>().As<ISecurityRoleManager>();

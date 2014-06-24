@@ -539,7 +539,6 @@
     <Content Include="Scripts\kendo.ui.core.min.js.map" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="app\views\" />
     <Folder Include="App_Data\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>

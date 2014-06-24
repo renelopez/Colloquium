@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using UDG.Colloquium.BL.Entities.Account;
+using UDG.Colloquium.BL.Managers.Identity;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.DL.Custom.Users;
 

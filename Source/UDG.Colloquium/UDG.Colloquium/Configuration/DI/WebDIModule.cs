@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Web;
 using Autofac;
 using Autofac.Core;
+using Microsoft.Owin;
 
 namespace UDG.Colloquium.Configuration.DI
 {
@@ -8,7 +10,7 @@ namespace UDG.Colloquium.Configuration.DI
     {
         protected override void Load(ContainerBuilder builder)
         {
-            base.Load(builder);
+            builder.Register(c => HttpContext.Current.GetOwinContext()).As<IOwinContext>();
         }
     }
 }
