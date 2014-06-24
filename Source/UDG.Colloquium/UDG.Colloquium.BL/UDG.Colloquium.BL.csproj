@@ -104,7 +104,6 @@
     <Compile Include="Entities\Account\WorkDao.cs" />
     <Compile Include="Contracts\Identity\ISecurityRoleManager.cs" />
     <Compile Include="Contracts\Identity\ISecurityUserManager.cs" />
-    <Compile Include="Managers\Identity\ColloquiumContextFactory.cs" />
     <Compile Include="Managers\Identity\SecurityRoleManager.cs" />
     <Compile Include="Managers\Identity\SecurityUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
