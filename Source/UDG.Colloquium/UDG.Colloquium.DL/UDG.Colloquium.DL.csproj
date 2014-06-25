@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
     <Compile Include="Migrations\201406200423587_Added more rules.cs" />
     <Compile Include="Migrations\201406200423587_Added more rules.Designer.cs">
       <DependentUpon>201406200423587_Added more rules.cs</DependentUpon>
@@ -81,7 +82,6 @@
     <Compile Include="Custom\Users\ApplicationUserClaim.cs" />
     <Compile Include="Custom\Users\ApplicationUserLogin.cs" />
     <Compile Include="Custom\Users\ApplicationUserRole.cs" />
-    <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
     <Compile Include="ColloquiumDBContext.cs" />
     <Compile Include="Migrations\201406180535210_Initial.cs" />
     <Compile Include="Migrations\201406180535210_Initial.Designer.cs">

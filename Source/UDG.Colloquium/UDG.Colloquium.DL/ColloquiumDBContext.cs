@@ -22,14 +22,17 @@ namespace UDG.Colloquium.DL
         }
 
         public ColloquiumDbContext()
-            : base("ColloquiumConnection")
+            : base("UDGColloquium")
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
 
-            Database.SetInitializer(new ColloquiumDBContextInitializer());
         }
 
+        static ColloquiumDbContext()
+        {
+            //Database.SetInitializer(new ColloquiumDBContextInitializer());            
+        }
         public DbSet<Work> Works { get; set; }
         public DbSet<Company> Companies { get; set; }
     }

@@ -13,6 +13,7 @@ namespace UDG.Colloquium
     {
         protected void Application_Start()
         {
+
             DIConfig.RegisterDependencies();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);

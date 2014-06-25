@@ -14,11 +14,15 @@
 
           <!-- use ng-submit to catch the form submission and use our Angular function -->
           <div class="panel panel-primary">
-                  <form id="register-form" class="form-horizontal" ng-submit="processForm()">
+              <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation">
+                  <div data-cc-spinner="vm.spinnerOptions"></div>
+                  <div class="page-splash-message page-splash-message-subtle">{{vm.busyMessage}}</div>
+              </div>
+              <form id="register-form" class="form-horizontal" ng-submit="processForm()">
 
-                      <!-- our nested state views will be injected here -->
-                      <div id="form-views" ui-view></div>
-                  </form>
+                  <!-- our nested state views will be injected here -->
+                  <div id="form-views" ui-view></div>
+              </form>
           </div> 
       </div>
 <pre>
