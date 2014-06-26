@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Owin.Hosting;
-using UDG.Colloquium.DL.DBInitializers;
 
 namespace UDG.Colloquium.SL
 {

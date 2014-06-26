@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Web.Http;
 using Breeze.ContextProvider;
 using Breeze.WebApi2;
 using Newtonsoft.Json.Linq;
-using UDG.Colloquium.DL;
-using UDG.Colloquium.DL.Custom.Users;
-using UDG.Colloquium.DL.Models;
-using UDG.Colloquium.DL.ServiceRepositories;
+using UDG.Colloquium.BL.ViewModels.Account.DTO;
+using UDG.Colloquium.SL.ServiceRepositories;
 
 namespace UDG.Colloquium.SL
 {
+   // [Authorize]
     [BreezeController]
     public class RegisterController:ApiController
     {
@@ -26,7 +21,7 @@ namespace UDG.Colloquium.SL
         [HttpGet]
         public string Metadata()
         {
-            return BreezeRepository.MetaData;
+            return BreezeRepository.GetMetaData;
         }
 
         [HttpPost]
@@ -36,7 +31,7 @@ namespace UDG.Colloquium.SL
         }
 
         [HttpGet]
-        public IQueryable<ApplicationUser> Users()
+        public IQueryable<User> Users()
         {
             return BreezeRepository.Users();
         }

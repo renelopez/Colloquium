@@ -42,7 +42,7 @@
 
             function haveEntityManager(em) {
                 manager = em;
-                applicationUser = manager.metadataStore.getEntityType("ApplicationUser");
+                applicationUser = manager.metadataStore.getEntityType("User");
             }
         }
         

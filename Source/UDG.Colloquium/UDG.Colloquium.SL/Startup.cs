@@ -1,16 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Reflection;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Autofac;
 using Autofac.Integration.WebApi;
 using Owin;
-using UDG.Colloquium.DL;
-using UDG.Colloquium.DL.ServiceRepositories;
+using UDG.Colloquium.BL.ViewModels.Account.DTO;
+using UDG.Colloquium.SL.ServiceRepositories;
 
 namespace UDG.Colloquium.SL
 {
@@ -41,7 +36,7 @@ namespace UDG.Colloquium.SL
 
             // Registering repositories
             builder.RegisterType<BreezeRepository>().As<IBreezeRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<ColloquiumDbContext>().As<ColloquiumDbContext>().InstancePerLifetimeScope();
+            builder.RegisterType<ColloquiumDTOContext>().As<ColloquiumDTOContext>().InstancePerLifetimeScope();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
