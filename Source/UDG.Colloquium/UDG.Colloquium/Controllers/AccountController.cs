@@ -13,6 +13,7 @@ using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.BL.Managers;
 using UDG.Colloquium.BL.Managers.Identity;
+using UDG.Colloquium.BL.ViewModels.Account.DTO;
 using UDG.Colloquium.BL.ViewModels.Account.Management;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.Helpers;
@@ -73,8 +74,8 @@ namespace UDG.Colloquium.Controllers
         // POST: /Account/Register
         //[Authorize(Roles = "Administrator")]
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Register(RegisterVm model)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Register(User model)
         {
             if (ModelState.IsValid)
             {

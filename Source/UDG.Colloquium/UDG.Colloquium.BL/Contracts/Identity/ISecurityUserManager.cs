@@ -6,6 +6,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.BL.Managers.Identity;
+using UDG.Colloquium.BL.ViewModels.Account.DTO;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.DL.Custom.Users;
 
@@ -19,7 +20,7 @@ namespace UDG.Colloquium.BL.Contracts.Identity
         Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync(int pageIndex, int pageSize);
         Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName);
         Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName, int pageIndex, int pageSize);
-        Task<IdentityResult> CreateUserAsync(RegisterVm model);
+        Task<IdentityResult> CreateUserAsync(User model);
         Task<bool> TryLogin(LoginVm model,IAuthenticationManager authManager);
         void SignInCreatedUser(string userName, IAuthenticationManager authManager);
         bool HasPassword(int userId);

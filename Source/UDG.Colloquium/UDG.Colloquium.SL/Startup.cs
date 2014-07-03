@@ -1,10 +1,17 @@
 ﻿using System.Reflection;
+using System.Security.Principal;
+using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Autofac;
 using Autofac.Integration.WebApi;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin;
+using Microsoft.Owin;
+using Microsoft.Owin.Security.Cookies;
 using Owin;
-using UDG.Colloquium.BL.ViewModels.Account.DTO;
+using Owin;
+using UDG.Colloquium.DL;
 using UDG.Colloquium.SL.ServiceRepositories;
 
 namespace UDG.Colloquium.SL
@@ -25,8 +32,6 @@ namespace UDG.Colloquium.SL
                 defaults: new { id = RouteParameter.Optional }
             );
 
-
-
             // Creating the builder.
             var builder = new ContainerBuilder();
 
@@ -35,8 +40,8 @@ namespace UDG.Colloquium.SL
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             // Registering repositories
-            builder.RegisterType<BreezeRepository>().As<IBreezeRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<ColloquiumDTOContext>().As<ColloquiumDTOContext>().InstancePerLifetimeScope();
+            builder.RegisterType<RegisterRepository>().As<IRegisterRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ColloquiumDbContext>().As<ColloquiumDbContext>().InstancePerLifetimeScope();
 
             var container = builder.Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(container);

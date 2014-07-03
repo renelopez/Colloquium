@@ -37,11 +37,11 @@
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.0.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
@@ -63,6 +63,14 @@
     <Compile Include="Migrations\201406200423587_Added more rules.cs" />
     <Compile Include="Migrations\201406200423587_Added more rules.Designer.cs">
       <DependentUpon>201406200423587_Added more rules.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407010333306_AddedContacts.cs" />
+    <Compile Include="Migrations\201407010333306_AddedContacts.Designer.cs">
+      <DependentUpon>201407010333306_AddedContacts.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201407010404214_ContactsInUser.cs" />
+    <Compile Include="Migrations\201407010404214_ContactsInUser.Designer.cs">
+      <DependentUpon>201407010404214_ContactsInUser.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\Company.cs" />
     <Compile Include="Custom\Roles\ApplicationRoleStore.cs" />
@@ -86,6 +94,7 @@
       <DependentUpon>201406181654123_Added More Validations.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Contact.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\GenericRepository.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -111,6 +120,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406200423587_Added more rules.resx">
       <DependentUpon>201406200423587_Added more rules.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407010333306_AddedContacts.resx">
+      <DependentUpon>201407010333306_AddedContacts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407010404214_ContactsInUser.resx">
+      <DependentUpon>201407010404214_ContactsInUser.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

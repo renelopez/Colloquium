@@ -38,6 +38,7 @@ namespace UDG.Colloquium.DL.Custom.Users
 
 
         public virtual ICollection<Work> Works { get; set; }
+        public virtual ICollection<Contact> Contacts { get; set; }
 
         public ApplicationUser()
         {

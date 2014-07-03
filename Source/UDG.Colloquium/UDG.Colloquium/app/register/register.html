@@ -5,28 +5,31 @@
               <!-- the links to our nested states using relative paths -->
               <!-- add the active class if the state matches our ui-sref -->
               <div id="status-buttons" class="text-center">
-                  <a ui-sref-active="active" ui-sref=".credentials"><span>1</span> Credentials</a>
-                  <a ui-sref-active="active" ui-sref=".personal"><span>2</span> Personal Information</a>
-                  <a ui-sref-active="active" ui-sref=".work"><span>3</span> Work Information</a>
-                  <a ui-sref-active="active" ui-sref=".contact"><span>4</span> Contact Information</a>
+                  <ul class="nav nav-pills">
+                      <li ng-class="{active:vm.activeTab=='credentials'}" ><a ui-sref-active="active" ui-sref=".credentials" ng-click="vm.setActiveTab('credentials')">Credentials</a></li>
+                      <li ng-class="{active:vm.activeTab=='personal'}"><a ui-sref-active="active" ui-sref=".personal" ng-click="vm.setActiveTab('personal')">Personal Information</a></li>
+                      <li ng-class="{active:vm.activeTab=='work'}"><a ui-sref-active="active" ui-sref=".work" ng-click="vm.setActiveTab('work')">Work Information</a></li>
+                      <li ng-class="{active:vm.activeTab=='contact'}"><a ui-sref-active="active" ui-sref=".contact" ng-click="vm.setActiveTab('contact')">Contact Information</a></li>
+                      <li ng-class="{active:vm.activeTab=='submit'}"><a ui-sref-active="active" ui-sref=".submit" ng-click="vm.setActiveTab('submit')">Submit Information</a></li>
+                      
+                         
+                      
+                  </ul>
               </div>
           </div>
 
           <!-- use ng-submit to catch the form submission and use our Angular function -->
-          <div class="panel panel-primary">
-              <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation">
-                  <div data-cc-spinner="vm.spinnerOptions"></div>
-                  <div class="page-splash-message page-splash-message-subtle">{{vm.busyMessage}}</div>
-              </div>
-              <form id="register-form" class="form-horizontal" ng-submit="processForm()">
+          <!--<div class="panel panel-primary">-->
+          <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation">
+              <div data-cc-spinner="vm.spinnerOptions"></div>
+              <div class="page-splash-message page-splash-message-subtle">{{vm.busyMessage}}</div>
+          </div>
+          <form name="register" class="form-horizontal">
 
-                  <!-- our nested state views will be injected here -->
-                  <div id="form-views" ui-view></div>
-              </form>
-          </div> 
+              <!-- our nested state views will be injected here -->
+              <div id="form-views" ui-view></div>
+          </form>
+          <!--</div>--> 
       </div>
-<pre>
-<!--{{vm.user}}-->
-</pre>
 
 

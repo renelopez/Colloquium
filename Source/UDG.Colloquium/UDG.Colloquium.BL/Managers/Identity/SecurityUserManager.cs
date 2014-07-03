@@ -10,6 +10,7 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
+using UDG.Colloquium.BL.ViewModels.Account.DTO;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Repositories;
@@ -87,7 +88,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
             return userNames;
         }
 
-        public async Task<IdentityResult> CreateUserAsync(RegisterVm model)
+        public async Task<IdentityResult> CreateUserAsync(User model)
         {
             var user = new ApplicationUser { UserName = model.UserName };
             return await CreateAsync(user, model.Password);

@@ -1,55 +1,58 @@
 ﻿using System.Linq;
+using System.Web;
 using System.Web.Http;
 using Breeze.ContextProvider;
 using Breeze.WebApi2;
 using Newtonsoft.Json.Linq;
-using UDG.Colloquium.BL.ViewModels.Account.DTO;
+using UDG.Colloquium.DL.Custom.Users;
+using UDG.Colloquium.DL.Models;
 using UDG.Colloquium.SL.ServiceRepositories;
 
 namespace UDG.Colloquium.SL
 {
-   // [Authorize]
     [BreezeController]
     public class RegisterController:ApiController
     {
-        public IBreezeRepository BreezeRepository { get; set; }
-        public RegisterController(IBreezeRepository breezeRepository)
+        public IRegisterRepository RegisterRepository { get; set; }
+        public RegisterController(IRegisterRepository registerRepository)
         {
-            BreezeRepository = breezeRepository;
+            RegisterRepository = registerRepository;
         }
 
         [HttpGet]
         public string Metadata()
         {
-            return BreezeRepository.GetMetaData;
+            return RegisterRepository.GetMetadata();
         }
 
-        [HttpPost]
+        [HttpPost]        
         public SaveResult SaveChanges(JObject saveBundle)
         {
-            return BreezeRepository.SaveChanges(saveBundle);
+            return RegisterRepository.SaveChanges(saveBundle);
         }
 
         [HttpGet]
-        public IQueryable<User> Users()
+        public IQueryable<ApplicationUser> Users()
         {
-            return BreezeRepository.Users();
+            return RegisterRepository.GetUsers();
         }
 
         [HttpGet]
         public IQueryable<Work> Works()
         {
-            return BreezeRepository.Works();
+            return RegisterRepository.GetWorks();
         }
 
         [HttpGet]
         public IQueryable<Company> Companies()
         {
-            return BreezeRepository.Companies();
+            return RegisterRepository.GetCompanies();
         }
 
-       
-
-
+        [HttpGet]
+        public IQueryable<Contact> Contacts()
+        {
+            return RegisterRepository.GetContacts();
+        }
     }
 }

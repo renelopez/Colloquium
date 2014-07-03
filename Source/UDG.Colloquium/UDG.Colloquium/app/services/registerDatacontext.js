@@ -15,15 +15,22 @@
         var applicationUser;
 
         var service = {
+            addContactToUser:addContactToUser,
             addWorkToUser: addWorkToUser,
             createUser: createUser,
             ready:ready,
             rejectChanges: rejectChanges,
+            removeContactToUser: removeContactToUser,
             removeWorkToUser: removeWorkToUser,
             saveChanges:saveChanges,
         };
 
         return service;
+        
+        function addContactToUser(user) {
+            var contactAdded = manager.createEntity("Contact", {});
+            user.contacts.push(contactAdded);
+        }
         
         function addWorkToUser(user) {
             var workAdded = manager.createEntity("Work", {});
@@ -42,7 +49,7 @@
 
             function haveEntityManager(em) {
                 manager = em;
-                applicationUser = manager.metadataStore.getEntityType("User");
+                applicationUser = manager.metadataStore.getEntityType("ApplicationUser");
             }
         }
         
@@ -52,12 +59,12 @@
         }
         
         
+        function removeContactToUser(contact) {
+            contact.entityAspect.setDeleted();
+        }
 
         function removeWorkToUser(work) {
-            //data.splice(data.indexOf(work), 1);
-            //work = null;
             work.entityAspect.setDeleted();
-            //var changes = manager.getEntities();
         }
         
         function saveChanges() {

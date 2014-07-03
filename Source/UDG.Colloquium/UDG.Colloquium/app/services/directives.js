@@ -199,4 +199,34 @@
             attrs.$set('class', 'widget-head');
         }
     });
+    
+    app.directive('regCollapsible', ['$window','$animate', function ($window,$animate) {
+        // Usage:
+        // 
+        // Creates:
+        // 
+        var directive = {
+            link: link,
+            restrict: 'E',
+            replace:true,
+            template: '<div class="panel panel-primary"><div class="panel-heading" ng-click="toggleVisibility()"><div class="row"><div class="col-md-10"><div>{{title}}</div></div><div class="col-md-2"><button type="button" ng-click="removeMethod()" class="btn btn-danger pull-right">{{titleRemove}}</button></div></div></div><div ng-transclude ng-show="visible"></div></div>',
+            controller: function($scope) {
+                $scope.visible = false;
+                $scope.toggleVisibility=function() {
+                    $scope.visible = !$scope.visible;
+                }
+            },
+            scope: {
+                title: "@",
+                titleRemove:"@",
+                removeMethod: "&",
+            },
+            transclude:true
+        };
+        return directive;
+
+        function link(scope, element, attrs) {
+        }
+    }]);
+    
 })();

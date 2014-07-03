@@ -230,3 +230,16 @@ input[type="checkbox"].input-validation-error {
 /*#endregion */
 
 
+
+#form-views.ng-enter            { 
+    -webkit-animation:fadeIn 0.5s;
+	-moz-animation:fadeIn 0.5s;
+	animation:fadeIn 0.5s; 
+}
+
+/* leave animation */
+#form-views.ng-leave            { 
+    /*-webkit-animation:bounceOut 0.5s;
+	-moz-animation:bounceOut 0.5s;
+	animation:bounceOut 0.5s;*/   
+}
