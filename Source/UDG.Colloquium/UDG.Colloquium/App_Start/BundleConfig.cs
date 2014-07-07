@@ -80,7 +80,7 @@ namespace UDG.Colloquium.App_Start
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
-                "~/app/register/shellRegister.js",
+                "~/app/shell/shell.js",
                 "~/app/register/register.js"
                 ));
 

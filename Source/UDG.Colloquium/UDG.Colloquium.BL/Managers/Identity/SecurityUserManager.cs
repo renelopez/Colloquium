@@ -24,13 +24,13 @@ namespace UDG.Colloquium.BL.Managers.Identity
 
         public IOwinContext OwinContext { get; set; }
 
-        public SecurityUserManager(IUserStore<ApplicationUser, int> userStore,IUnitOfWork unitOfWork, IOwinContext owinContext)
+        public SecurityUserManager(IUserStore<ApplicationUser, int> userStore,IUnitOfWork unitOfWork)//, IOwinContext owinContext)
             : base(userStore)
         {
             UnitOfWork = unitOfWork;
             UserStore = userStore;
             //IdentityOptions = identityFactoryOptions;
-            OwinContext = owinContext;
+            //OwinContext = owinContext;
             InitializeSettings();
         }
 
@@ -163,6 +163,9 @@ namespace UDG.Colloquium.BL.Managers.Identity
             return userRoles;
         }
 
-
+        public async Task<ApplicationUser> FindUserAsync(string user, string password)
+        {
+            return await FindAsync(user, password);
+        }
     }
 }

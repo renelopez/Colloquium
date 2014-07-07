@@ -186,6 +186,10 @@
     <Folder Include="App_Start\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\UDG.Colloquium.BL\UDG.Colloquium.BL.csproj">
+      <Project>{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}</Project>
+      <Name>UDG.Colloquium.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
       <Project>{7265b8a6-ad45-4174-bd20-8e65fd39d500}</Project>
       <Name>UDG.Colloquium.DL</Name>

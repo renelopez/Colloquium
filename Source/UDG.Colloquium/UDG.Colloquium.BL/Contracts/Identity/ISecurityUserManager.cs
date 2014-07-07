@@ -32,5 +32,6 @@ namespace UDG.Colloquium.BL.Contracts.Identity
         void Clean();
         Task SignInAsync(IAuthenticationManager authManager, ApplicationUser user, bool isPersistent);
         Task<IList<string>> GetRolesAssignedToUserAsync(int id);
+        Task<ApplicationUser> FindUserAsync(string user, string password);
     }
 }

@@ -8,7 +8,9 @@ using Microsoft.Owin.Security;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Newtonsoft.Json;
 using PagedList;
+using RestSharp;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.BL.Managers;
@@ -52,6 +54,13 @@ namespace UDG.Colloquium.Controllers
             {
                 if (await UserManager.TryLogin(model, AuthenticationManager))
                 {
+                    var client = new RestClient("http://localhost:9000");
+                    var request = new RestRequest("api/Register/authenticate", Method.POST);
+                    request.RequestFormat = DataFormat.Json;
+                    request.AddBody(model);
+
+                    var response = (RestResponse) client.Execute(request);
+                    Session["AccessToken"] = response.Content;
                     return RedirectToLocal(returnUrl);
                 }
                 ModelState.AddModelError("", "Invalid username or password.");

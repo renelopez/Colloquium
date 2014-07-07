@@ -4,16 +4,14 @@
     var controllerId = 'registerController';
 
     angular.module('formApp').controller(controllerId,
-        ['$rootScope','common','config','registerDatacontext','$location', registerController]);
+        ['common','config','registerDatacontext','$location','$scope', registerController]);
 
-    function registerController($rootScope, common,config,registerDatacontext,$location) {
+    function registerController(common,config,registerDatacontext,$location,$scope) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
-
-        var events = config.events;
 
         var vm = this;
         
@@ -21,28 +19,14 @@
         vm.genres = ['Male','Female'];
         vm.activeTab = "";
         vm.setActiveTab = setActiveTab;
-
-        vm.busyMessage = 'Please wait ...';
-        vm.adviceWorkMessage = "Please add new user information.(Click in order to expand/hide the form.)";
-        vm.isBusy = true;
-        vm.spinnerOptions = {
-            radius: 40,
-            lines: 7,
-            length: 0,
-            width: 30,
-            speed: 1.7,
-            corners: 1.0,
-            trail: 100,
-            color: '#F58A00'
-        };
-
-
+        vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
+        common.$broadcast(config.events.spinnerToggle, { show: true });
         vm.user = {};
         activate();
 
         
         function activate() {
-            common.activateController([registerDatacontext.ready()], controllerId).then(function() {
+            common.activateController([registerDatacontext.ready()], controllerId).then(function () {
                 log("Activated Register View");
                 vm.addContactToUser = addContactToUser;
                 vm.addWorkToUser = addWorkToUser;
@@ -84,7 +68,7 @@
             
             
             function success() {
-                logSuccess("Order Saved");
+                logSuccess("User information was correctly saved");
             }
             
             function errorSave(error) {
@@ -100,19 +84,5 @@
         function setActiveTab(value) {
             vm.activeTab = value;
         }
-        
-        function toggleSpinner(on) { vm.isBusy = on; }
-
-        $rootScope.$on('$routeChangeStart',
-            function (event, next, current) { toggleSpinner(true); }
-        );
-
-        $rootScope.$on(events.controllerActivateSuccess,
-            function (event, data) { toggleSpinner(false); }
-        );
-
-        $rootScope.$on(events.spinnerToggle,
-            function (event, data) { toggleSpinner(data.show); }
-        );
     }
 })();
