@@ -1,35 +1,35 @@
 ﻿(function() {
     'use strict';
 
-    var app = angular.module('formApp');
+    var app = angular.module('app');
     app.config(['$stateProvider', '$urlRouterProvider', routeConfigurator]);
 
     function routeConfigurator($stateProvider, $urlRouterProvider) {
         $stateProvider.state('register', {
             url: '/register',
-            templateUrl: '/app/register/register.html',
+            templateUrl: '/app/userManagement/register/usrRegRegister.html',
             controller: 'registerController as vm'
         })
             .state('register.credentials', {
                 url: '/credentials',
-                templateUrl: '/app/register/register-credentials.html'
+                templateUrl: '/app/userManagement/register/usrRegCredentials.html'
             })
             .state('register.personal', {
                 url: '/personal',
-                templateUrl: '/app/register/register-personal.html'
+                templateUrl: '/app/userManagement/register/usrRegPersonal.html'
             })
             .state('register.work', {
                 url: '/work',
-                templateUrl: '/app/register/register-work.html'
+                templateUrl: '/app/userManagement/register/usrRegWork.html'
             })
             .state('register.contact', {
                 url: '/contact',
-                templateUrl: '/app/register/register-contact.html'
+                templateUrl: '/app/userManagement/register/usrRegContact.html'
             })
             .state('register.submit', {
                 url: '/submit',
-                templateUrl: '/app/register/register-submit.html'
+                templateUrl: '/app/userManagement/register/usrRegSubmit.html'
             });
-        $urlRouterProvider.otherwise('/register/credentials');
+        $urlRouterProvider.otherwise('userManagement/register/usrRegCredentials');
     }
 })();

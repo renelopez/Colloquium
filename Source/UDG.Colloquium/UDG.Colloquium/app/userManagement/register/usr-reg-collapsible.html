@@ -1,0 +1,12 @@
+﻿<div class="panel panel-primary">
+    <div class="panel-heading" ng-click="toggleVisibility()">
+        <div class="row">
+            <div class="col-md-10">
+                <div>{{title}}</div>
+            </div><div class="col-md-2">
+                      <button type="button" ng-click="removeMethod()" class="btn btn-danger pull-right">{{titleRemove}}</button>
+                  </div>
+        </div>
+    </div>
+    <div ng-transclude ng-show="visible"></div>
+</div>

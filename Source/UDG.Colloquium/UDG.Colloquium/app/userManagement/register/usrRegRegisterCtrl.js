@@ -1,12 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'registerController';
+    var controllerId = 'usrRegRegisterCtrl';
 
-    angular.module('formApp').controller(controllerId,
-        ['common','config','registerDatacontext','$location','$scope', registerController]);
+    angular.module('app').controller(controllerId,
+        ['common', 'config', 'usrDatacontextSvc', '$location', '$scope', usrRegRegisterCtrl]);
 
-    function registerController(common,config,registerDatacontext,$location,$scope) {
+    function usrRegRegisterCtrl(common, config, registerDatacontext, $location, $scope) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");

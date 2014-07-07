@@ -3,7 +3,7 @@
     
     var factoryId = 'modelService';
 
-    angular.module('formApp').factory(factoryId, ['common', 'breeze', modelService]);
+    angular.module('app').factory(factoryId, ['common', 'breeze', modelService]);
 
     function modelService(common, breeze) {
         var getLogFn = common.logger.getLogFn;

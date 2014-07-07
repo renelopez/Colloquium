@@ -1,10 +1,10 @@
 ﻿(function() {
     'use strict';
 
-    var serviceId = 'registerDatacontext';
-    angular.module('formApp').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', registerDatacontext]);
+    var serviceId = 'usrDatacontextSvc';
+    angular.module('app').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', usrDatacontextSvc]);
     
-    function registerDatacontext(common,breeze,entityManagerFactory) {
+    function usrDatacontextSvc(common, breeze, entityManagerFactory) {
         var $q = common.$q;
         var manager;
 
