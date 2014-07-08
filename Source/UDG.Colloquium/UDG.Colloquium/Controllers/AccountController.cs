@@ -55,12 +55,17 @@ namespace UDG.Colloquium.Controllers
                 if (await UserManager.TryLogin(model, AuthenticationManager))
                 {
                     var client = new RestClient("http://localhost:9000");
-                    var request = new RestRequest("api/Register/authenticate", Method.POST);
-                    request.RequestFormat = DataFormat.Json;
-                    request.AddBody(model);
+                    var request = new RestRequest("token", Method.POST);
+
+                    var data = "grant_type=password&username=" + model.UserName + "&password=" + model.Password;
+                    request.AddParameter("application/x-www-form-urlencoded", data, ParameterType.RequestBody);
+                    request.AddHeader("Accept", "application/json");
+                   // request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+                    request.RequestFormat=DataFormat.Json;
 
                     var response = (RestResponse) client.Execute(request);
-                    Session["AccessToken"] = response.Content;
+                    var responseJson = JsonConvert.DeserializeObject(response.Content);
+                    Session["AccessToken"] =responseJson;
                     return RedirectToLocal(returnUrl);
                 }
                 ModelState.AddModelError("", "Invalid username or password.");
