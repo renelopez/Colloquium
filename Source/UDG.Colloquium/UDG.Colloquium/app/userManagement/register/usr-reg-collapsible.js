@@ -10,7 +10,7 @@
             link: link,
             restrict: 'E',
             replace: true,
-            templateUrl: 'usr-reg-collapsible.html',
+            templateUrl: '/app/userManagement/register/usr-reg-collapsible.html',
             controller: function ($scope) {
                 $scope.visible = false;
                 $scope.toggleVisibility = function () {

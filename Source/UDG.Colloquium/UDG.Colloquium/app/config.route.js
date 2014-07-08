@@ -8,7 +8,7 @@
         $stateProvider.state('register', {
             url: '/register',
             templateUrl: '/app/userManagement/register/usrRegRegister.html',
-            controller: 'registerController as vm'
+            controller: 'usrRegRegisterCtrl as vm'
         })
             .state('register.credentials', {
                 url: '/credentials',
@@ -30,6 +30,6 @@
                 url: '/submit',
                 templateUrl: '/app/userManagement/register/usrRegSubmit.html'
             });
-        $urlRouterProvider.otherwise('userManagement/register/usrRegCredentials');
+        $urlRouterProvider.otherwise('/register/credentials');
     }
 })();
