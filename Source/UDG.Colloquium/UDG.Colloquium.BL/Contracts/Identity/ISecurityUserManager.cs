@@ -4,6 +4,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using RestSharp;
 using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.BL.Managers.Identity;
 using UDG.Colloquium.BL.ViewModels.Account.DTO;
@@ -33,5 +34,6 @@ namespace UDG.Colloquium.BL.Contracts.Identity
         Task SignInAsync(IAuthenticationManager authManager, ApplicationUser user, bool isPersistent);
         Task<IList<string>> GetRolesAssignedToUserAsync(int id);
         Task<ApplicationUser> FindUserAsync(string user, string password);
+        Task<IRestResponse<AccessData>> RemoteLogin(string userName, string password);
     }
 }

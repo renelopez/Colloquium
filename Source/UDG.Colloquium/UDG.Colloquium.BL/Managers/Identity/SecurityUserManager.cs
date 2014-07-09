@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security;
+using Newtonsoft.Json;
+using RestSharp;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.BL.ViewModels.Account.DTO;
@@ -22,7 +24,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
         public IUnitOfWork UnitOfWork { get; set; }
         public IUserStore<ApplicationUser,int> UserStore { get; set; }
 
-        public IOwinContext OwinContext { get; set; }
+        //public IOwinContext OwinContext { get; set; }
 
         public SecurityUserManager(IUserStore<ApplicationUser, int> userStore,IUnitOfWork unitOfWork)//, IOwinContext owinContext)
             : base(userStore)
@@ -166,6 +168,28 @@ namespace UDG.Colloquium.BL.Managers.Identity
         public async Task<ApplicationUser> FindUserAsync(string user, string password)
         {
             return await FindAsync(user, password);
+        }
+
+        public Task<IRestResponse<AccessData>> RemoteLogin(string userName, string password)
+        {
+            var tcs = new TaskCompletionSource<IRestResponse<AccessData>>();
+            var client = new RestClient("http://localhost:9000");
+            var request = new RestRequest("token", Method.POST);
+
+            var data = "grant_type=password&username=" +userName + "&password=" + password;
+            request.AddParameter("application/x-www-form-urlencoded", data, ParameterType.RequestBody);
+            request.AddHeader("Accept", "application/json");
+            request.RequestFormat = DataFormat.Json;
+
+            AccessData accessData = null;
+            client.ExecuteAsync<AccessData>(request, response =>
+            {
+                if (response.ResponseStatus == ResponseStatus.Completed)
+                {
+                   tcs.SetResult(response);
+                }
+            });
+            return tcs.Task;
         }
     }
 }

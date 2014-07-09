@@ -52,20 +52,9 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (await UserManager.TryLogin(model, AuthenticationManager))
+                var loginData =await UserManager.RemoteLogin(model.UserName, model.Password);
+                if(loginData!=null)
                 {
-                    var client = new RestClient("http://localhost:9000");
-                    var request = new RestRequest("token", Method.POST);
-
-                    var data = "grant_type=password&username=" + model.UserName + "&password=" + model.Password;
-                    request.AddParameter("application/x-www-form-urlencoded", data, ParameterType.RequestBody);
-                    request.AddHeader("Accept", "application/json");
-                   // request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-                    request.RequestFormat=DataFormat.Json;
-
-                    var response = (RestResponse) client.Execute(request);
-                    var responseJson = JsonConvert.DeserializeObject(response.Content);
-                    Session["AccessToken"] =responseJson;
                     return RedirectToLocal(returnUrl);
                 }
                 ModelState.AddModelError("", "Invalid username or password.");

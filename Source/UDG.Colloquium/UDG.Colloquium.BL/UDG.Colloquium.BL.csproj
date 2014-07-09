@@ -88,6 +88,9 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -99,6 +102,7 @@
   <ItemGroup>
     <Compile Include="Configuration\DI\BusinessDIModule.cs" />
     <Compile Include="Configuration\Mappings\Initializers\AutoMapperBusinessInitializer.cs" />
+    <Compile Include="Entities\Account\AccessData.cs" />
     <Compile Include="Entities\Account\RoleNamesDao.cs" />
     <Compile Include="Entities\Account\UserNamesDao.cs" />
     <Compile Include="Entities\Account\UserRolesDao.cs" />
