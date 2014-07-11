@@ -14,15 +14,17 @@
 
         //var serviceName = config.remoteServiceName;
         //var metadataStore = new breeze.MetadataStore();
-        var token = angular.element("#accessToken").val().replace(/"/g, "");;
-
-        var ajaxAdapter = breeze.config.getAdapterInstance('ajax');
-        ajaxAdapter.defaultSettings = {
-            headers: {
-                'Authorization':'Bearer '+ token
-            }
-        };
         
+        var ajaxAdapter = breeze.config.getAdapterInstance('ajax');
+        var authorizationData = JSON.parse(localStorage.getItem("authorizationData"));
+        if (authorizationData) {
+            ajaxAdapter.defaultSettings = {
+                headers: {
+                    'Authorization': 'Bearer ' + authorizationData.token
+                }
+            };
+        }
+
 
         var manager;
 

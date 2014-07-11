@@ -170,9 +170,8 @@ namespace UDG.Colloquium.BL.Managers.Identity
             return await FindAsync(user, password);
         }
 
-        public Task<IRestResponse<AccessData>> RemoteLogin(string userName, string password)
+        public async Task<IRestResponse<AccessData>> RemoteLogin(string userName, string password)
         {
-            var tcs = new TaskCompletionSource<IRestResponse<AccessData>>();
             var client = new RestClient("http://localhost:9000");
             var request = new RestRequest("token", Method.POST);
 
@@ -180,16 +179,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
             request.AddParameter("application/x-www-form-urlencoded", data, ParameterType.RequestBody);
             request.AddHeader("Accept", "application/json");
             request.RequestFormat = DataFormat.Json;
-
-            AccessData accessData = null;
-            client.ExecuteAsync<AccessData>(request, response =>
-            {
-                if (response.ResponseStatus == ResponseStatus.Completed)
-                {
-                   tcs.SetResult(response);
-                }
-            });
-            return tcs.Task;
+            return await client.ExecuteTaskAsync<AccessData>(request);
         }
     }
 }

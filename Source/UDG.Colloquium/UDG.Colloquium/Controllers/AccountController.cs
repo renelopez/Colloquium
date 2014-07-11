@@ -52,15 +52,25 @@ namespace UDG.Colloquium.Controllers
         {
             if (ModelState.IsValid)
             {
-                var loginData =await UserManager.RemoteLogin(model.UserName, model.Password);
-                if(loginData!=null)
+                var responseLogin =await UserManager.RemoteLogin(model.UserName, model.Password);
+                if (responseLogin.ErrorException != null)
                 {
-                    return RedirectToLocal(returnUrl);
+                    AddErrors("Following errors ocurred:" + responseLogin.ErrorMessage);
                 }
-                ModelState.AddModelError("", "Invalid username or password.");
+                else
+                {
+                    if (await UserManager.TryLogin(model, AuthenticationManager))
+                    {
+                        TempData["AccessToken"] = responseLogin.Data.AccessToken;
+                        TempData["AccessUserName"] = model.UserName;
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+
             }
 
             // If we got this far, something failed, redisplay form
+            AddErrors("Unable to Login User.Please try again or contact administrator");
             return View(model);
             
         }

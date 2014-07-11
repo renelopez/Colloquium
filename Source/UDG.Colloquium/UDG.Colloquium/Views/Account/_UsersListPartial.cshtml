@@ -20,7 +20,7 @@
                     @Html.DisplayFor(modelItem => user.UserName)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = user.Id, userName = user.UserName }) |
+                    <a href="/Account/Register#/edit/@user.Id/credentials">Edit</a> |
                     @Html.ActionLink("Roles", "EditUserRoles", new { id = user.Id, userName = user.UserName }) |
                     @Html.ActionLink("Details", "Details", new { id = user.Id, userName = user.UserName }) |
                     @Html.ActionLink("Delete", "Delete", new { id = user.Id, userName = user.UserName })

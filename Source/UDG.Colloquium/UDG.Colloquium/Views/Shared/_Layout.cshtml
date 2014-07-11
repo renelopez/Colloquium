@@ -30,7 +30,7 @@
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     <li>@Html.ActionLink("Manage Users", "ManageUsers", "Account")</li>
-                                    <li>@Html.ActionLink("Register User", "Register", "Account")</li>
+                                    <li><a href="/Account/Register#/register/credentials">Register User</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -52,7 +52,8 @@
     <div class="container body-content">
         @if (User.IsInRole("Administrator"))
         {
-            <input id="accessToken" type="hidden" value="@Session["AccessToken"]" />
+            <input id="accessToken" type="hidden" value="@TempData["AccessToken"]" />
+            <input id="accessUserName" type="hidden" value="@TempData["AccessUserName"]" />
         }
         @RenderBody()
         <hr />

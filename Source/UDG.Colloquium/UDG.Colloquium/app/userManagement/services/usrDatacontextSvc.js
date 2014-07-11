@@ -18,6 +18,7 @@
             addContactToUser:addContactToUser,
             addWorkToUser: addWorkToUser,
             createUser: createUser,
+            findUserById:findUserById,
             ready:ready,
             rejectChanges: rejectChanges,
             removeContactToUser: removeContactToUser,
@@ -42,6 +43,25 @@
         function createUser() {
             var userCreated = manager.createEntity(applicationUser);
             return userCreated;
+        }
+        
+        function findUserById(id) {
+            return breeze.EntityQuery.from("Users").where("id","eq",id)
+                .expand("Works")
+                .using(manager)
+                .execute()
+                .then(success)
+                .catch(fail);
+            
+            function success(data) {
+                var results = data.results;
+                logSuccess("Got " + results.length + " users", null, true);
+                return results;
+            }
+            
+            function fail(error) {
+                logSuccess("Some errors ocurred:", error, true);
+            }
         }
         
         function ready() {
@@ -80,7 +100,7 @@
             }
             
             function saveSuccess(saveResult) {
-                logSuccess(saveResult, null, true);
+                logSuccess("Changes were saved succesfully", saveResult, true);
             }
         }
         

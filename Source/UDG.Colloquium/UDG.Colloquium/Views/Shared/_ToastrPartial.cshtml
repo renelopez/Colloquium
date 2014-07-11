@@ -16,6 +16,18 @@
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     }
+
+    $(function() {
+        var userName = $("#accessUserName").val();
+        var accessToken = $("#accessToken").val();
+        
+        if (userName != "" && accessToken != "") {
+            localStorage.setItem("authorizationData",JSON.stringify({
+                token: accessToken,
+                userName: userName
+            }));
+        }
+    });
 </script>
 
 @if (TempData.Keys.Count > 0)
