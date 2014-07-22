@@ -88,7 +88,7 @@ namespace UDG.Colloquium.App_Start
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
                 "~/app/services/model.js",
                 "~/app/userManagement/services/usrDatacontextSvc.js",
-                "~/app/userManagement/register/services/usr-collapsible.js",
+                "~/app/userManagement/services/usr-collapsible.js",
                 "~/app/services/directives.js",
                 "~/app/services/entityManagerFactory.js"
                 ));

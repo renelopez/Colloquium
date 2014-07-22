@@ -47,7 +47,7 @@
         
         function findUserById(id) {
             return breeze.EntityQuery.from("Users").where("id","eq",id)
-                .expand("Works")
+                .expand("Works.Company,Contacts")
                 .using(manager)
                 .execute()
                 .then(success)
@@ -55,12 +55,12 @@
             
             function success(data) {
                 var results = data.results;
-                logSuccess("Got " + results.length + " users", null, true);
+                logSuccess("User data was succesfully retrieved.", null, true);
                 return results;
             }
             
             function fail(error) {
-                logSuccess("Some errors ocurred:", error, true);
+                logError("Some errors ocurred:", error, true);
             }
         }
         

@@ -40,6 +40,7 @@
             }).catch(handleError);
             
             function handleError(error) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
@@ -78,6 +79,7 @@
             }
             
             function errorSave(error) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
