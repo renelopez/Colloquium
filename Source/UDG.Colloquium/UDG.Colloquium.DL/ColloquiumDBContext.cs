@@ -26,7 +26,6 @@ namespace UDG.Colloquium.DL
         {
             Configuration.ProxyCreationEnabled = false;
             Configuration.LazyLoadingEnabled = false;
-
         }
 
         static ColloquiumDbContext()

@@ -54,6 +54,14 @@ namespace UDG.Colloquium.SL.ServiceRepositories
                 user.SecurityStamp = Guid.NewGuid().ToString();
                 user.PasswordHash = new PasswordHasher().HashPassword(user.PasswordHash);
             }
+            if (entityInfo.EntityState == EntityState.Modified && entityInfo.Entity is ApplicationUser)
+            {
+                var user = entityInfo.Entity as ApplicationUser;
+                if (user.PasswordHash != "")
+                {
+                    user.PasswordHash = new PasswordHasher().HashPassword(user.PasswordHash);
+                }
+            }
             return base.BeforeSaveEntity(entityInfo);
         }
 
