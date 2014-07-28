@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using UDG.Colloquium.DL.Models;
@@ -36,6 +37,10 @@ namespace UDG.Colloquium.DL.Custom.Users
         [Required]
         public virtual string Nacionality { get; set; }
 
+        [ForeignKey("Colloquium")]
+        public int ColloquiumID { get; set; }
+
+        public virtual Models.Colloquium Colloquium { get; set; }
 
         public virtual ICollection<Work> Works { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }

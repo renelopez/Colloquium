@@ -35,7 +35,7 @@
                 vm.removeContactToUser = removeContactToUser;
                 vm.removeWorkToUser = removeWorkToUser;
                 vm.saveChanges = saveChanges;
-                createOrEditUser();
+                createUser();
                 loadInitialTab();
             }).catch(handleError);
             
@@ -44,8 +44,7 @@
             }
         }
         
-        function createOrEditUser() {
-            var userToEdit = $location.search("userId");
+        function createUser() {
             vm.user = registerDatacontext.createUser();
         }
         

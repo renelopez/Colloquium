@@ -72,6 +72,11 @@
     <Compile Include="Migrations\201407010404214_ContactsInUser.Designer.cs">
       <DependentUpon>201407010404214_ContactsInUser.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201407282325227_ColloquiumData.cs" />
+    <Compile Include="Migrations\201407282325227_ColloquiumData.Designer.cs">
+      <DependentUpon>201407282325227_ColloquiumData.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Colloquium.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Custom\Roles\ApplicationRoleStore.cs" />
     <Compile Include="Custom\Users\ApplicationUserStore.cs" />
@@ -126,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201407010404214_ContactsInUser.resx">
       <DependentUpon>201407010404214_ContactsInUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201407282325227_ColloquiumData.resx">
+      <DependentUpon>201407282325227_ColloquiumData.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup />

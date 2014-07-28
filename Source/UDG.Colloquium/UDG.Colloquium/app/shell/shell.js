@@ -9,20 +9,6 @@
         var vm = this;
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
         var events = config.events;
-        //$scope.spinnerObject = {
-        //    busyMessage: 'Please wait ...',
-        //    isBusy: true,
-        //    spinnerOptions: {
-        //        radius: 40,
-        //        lines: 7,
-        //        length: 0,
-        //        width: 30,
-        //        speed: 1.7,
-        //        corners: 1.0,
-        //        trail: 100,
-        //        color: '#F58A00'
-        //    }
-        //};
 
         vm.busyMessage = 'Please wait ...';
         vm.isBusy = true,

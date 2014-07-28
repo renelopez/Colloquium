@@ -238,6 +238,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\colloquium\register\colRegData.html" />
+    <Content Include="app\colloquium\register\colRegister.html" />
+    <Content Include="app\colloquium\register\colRegisterCtrl.js" />
     <Content Include="app\common\bootstrap\bootstrap.dialog.js" />
     <Content Include="app\common\common.js" />
     <Content Include="app\common\logger.js" />

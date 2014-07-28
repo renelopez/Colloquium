@@ -1,0 +1,17 @@
+﻿<div id="form-container">
+    <div class="page-header text-center">
+        <h2>Colloquium Registration</h2>
+
+        <!-- the links to our nested states using relative paths -->
+        <!-- add the active class if the state matches our ui-sref -->
+        <div id="status-buttons" class="text-center">
+            <ul class="nav nav-pills">
+                <li ng-class="{active:vm.activeTab=='colInfo'}"><a ui-sref-active="active" ui-sref=".credentials" ng-click="vm.setActiveTab('credentials')">Colloquium Information</a></li>
+                <li ng-class="{active:vm.activeTab=='students'}"><a ui-sref-active="active" ui-sref=".personal" ng-click="vm.setActiveTab('personal')">Students to participate</a></li>
+                <li ng-class="{active:vm.activeTab=='submit'}"><a ui-sref-active="active" ui-sref=".submit" ng-click="vm.setActiveTab('submit')">Submit Information</a></li>
+            </ul>
+        </div>
+    </div>
+        <!-- our nested state views will be injected here -->
+        <div id="form-views" ui-view></div>
+</div>

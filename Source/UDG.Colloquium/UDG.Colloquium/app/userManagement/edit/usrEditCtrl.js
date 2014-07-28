@@ -56,8 +56,6 @@
         function findUserById(id) {
             return usrDatacontextSvc.findUserById(id).then(function(user) {
                 vm.user = user[0];
-                vm.user.passwordHash = "";
-                vm.user.confirmPassword = "";
             });
         }
     
