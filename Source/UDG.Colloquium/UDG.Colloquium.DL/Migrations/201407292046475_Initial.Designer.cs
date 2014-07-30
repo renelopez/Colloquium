@@ -6,14 +6,14 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Addedmorerules : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
+    public sealed partial class Initial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Addedmorerules));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Initial));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406200423587_Added more rules"; }
+            get { return "201407292046475_Initial"; }
         }
         
         string IMigrationMetadata.Source

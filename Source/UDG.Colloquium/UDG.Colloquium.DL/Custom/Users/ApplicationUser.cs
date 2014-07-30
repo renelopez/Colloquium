@@ -36,9 +36,7 @@ namespace UDG.Colloquium.DL.Custom.Users
         public virtual UserGenre Genre { get; set; }
         [Required]
         public virtual string Nacionality { get; set; }
-
-        [ForeignKey("Colloquium")]
-        public int ColloquiumID { get; set; }
+        public int? ColloquiumId { get; set; }
 
         public virtual Models.Colloquium Colloquium { get; set; }
 

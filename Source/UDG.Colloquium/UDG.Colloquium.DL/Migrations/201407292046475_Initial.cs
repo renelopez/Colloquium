@@ -8,48 +8,29 @@ namespace UDG.Colloquium.DL.Migrations
         public override void Up()
         {
             CreateTable(
-                "dbo.Companies",
+                "dbo.Colloquiums",
                 c => new
                     {
-                        CompanyId = c.Int(nullable: false, identity: true),
-                        CompanyCorporateName = c.String(nullable: false),
-                        CompanyDescription = c.String(nullable: false),
-                        CompanyAddress = c.String(nullable: false),
-                        CompanyPhoneNumber = c.String(nullable: false),
+                        ColloquiumId = c.Int(nullable: false, identity: true),
+                        Period = c.String(nullable: false),
+                        BeginDate = c.DateTime(nullable: false),
+                        EndDate = c.DateTime(nullable: false),
                     })
-                .PrimaryKey(t => t.CompanyId);
-            
-            CreateTable(
-                "dbo.Works",
-                c => new
-                    {
-                        WorkId = c.Int(nullable: false, identity: true),
-                        WorkPosition = c.String(nullable: false),
-                        WorkDescription = c.String(nullable: false),
-                        Salary = c.Double(nullable: false),
-                        SalarySchema = c.String(nullable: false),
-                        BeginDate = c.DateTime(),
-                        EndDate = c.DateTime(),
-                        ApplicationUserId = c.Int(nullable: false),
-                        CompanyId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.WorkId)
-                .ForeignKey("dbo.Users", t => t.ApplicationUserId, cascadeDelete: true)
-                .ForeignKey("dbo.Companies", t => t.CompanyId, cascadeDelete: true)
-                .Index(t => t.ApplicationUserId)
-                .Index(t => t.CompanyId);
+                .PrimaryKey(t => t.ColloquiumId);
             
             CreateTable(
                 "dbo.Users",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
-                        LastName = c.String(nullable: false, maxLength: 5),
-                        MiddleName = c.String(),
-                        BirthDate = c.DateTime(),
-                        BirthPlace = c.String(),
+                        LastName = c.String(nullable: false, maxLength: 30),
+                        MiddleName = c.String(maxLength: 20),
+                        FirstName = c.String(nullable: false, maxLength: 20),
+                        BirthDate = c.DateTime(nullable: false),
+                        BirthPlace = c.String(nullable: false),
                         Genre = c.Int(nullable: false),
-                        Nacionality = c.String(),
+                        Nacionality = c.String(nullable: false),
+                        ColloquiumId = c.Int(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -63,6 +44,8 @@ namespace UDG.Colloquium.DL.Migrations
                         UserName = c.String(nullable: false, maxLength: 256),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Colloquiums", t => t.ColloquiumId, cascadeDelete: true)
+                .Index(t => t.ColloquiumId)
                 .Index(t => t.UserName, unique: true, name: "UserNameIndex");
             
             CreateTable(
@@ -77,6 +60,19 @@ namespace UDG.Colloquium.DL.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Users", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
+            
+            CreateTable(
+                "dbo.Contacts",
+                c => new
+                    {
+                        ContactId = c.Int(nullable: false, identity: true),
+                        ContactType = c.Int(nullable: false),
+                        ContactInfo = c.String(),
+                        ApplicationUserId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.ContactId)
+                .ForeignKey("dbo.Users", t => t.ApplicationUserId, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId);
             
             CreateTable(
                 "dbo.UserLogins",
@@ -104,6 +100,38 @@ namespace UDG.Colloquium.DL.Migrations
                 .Index(t => t.RoleId);
             
             CreateTable(
+                "dbo.Works",
+                c => new
+                    {
+                        WorkId = c.Int(nullable: false, identity: true),
+                        WorkPosition = c.String(nullable: false, maxLength: 20),
+                        WorkDescription = c.String(nullable: false, maxLength: 100),
+                        Salary = c.Double(nullable: false),
+                        SalarySchema = c.String(nullable: false, maxLength: 20),
+                        BeginDate = c.DateTime(),
+                        EndDate = c.DateTime(),
+                        ApplicationUserId = c.Int(nullable: false),
+                        CompanyId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.WorkId)
+                .ForeignKey("dbo.Users", t => t.ApplicationUserId, cascadeDelete: true)
+                .ForeignKey("dbo.Companies", t => t.CompanyId, cascadeDelete: true)
+                .Index(t => t.ApplicationUserId)
+                .Index(t => t.CompanyId);
+            
+            CreateTable(
+                "dbo.Companies",
+                c => new
+                    {
+                        CompanyId = c.Int(nullable: false, identity: true),
+                        CompanyCorporateName = c.String(nullable: false, maxLength: 30),
+                        CompanyDescription = c.String(nullable: false, maxLength: 100),
+                        CompanyAddress = c.String(nullable: false, maxLength: 30),
+                        CompanyPhoneNumber = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.CompanyId);
+            
+            CreateTable(
                 "dbo.Roles",
                 c => new
                     {
@@ -122,22 +150,28 @@ namespace UDG.Colloquium.DL.Migrations
             DropForeignKey("dbo.Works", "ApplicationUserId", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
+            DropForeignKey("dbo.Contacts", "ApplicationUserId", "dbo.Users");
+            DropForeignKey("dbo.Users", "ColloquiumId", "dbo.Colloquiums");
             DropForeignKey("dbo.UserClaims", "UserId", "dbo.Users");
             DropIndex("dbo.Roles", "RoleNameIndex");
+            DropIndex("dbo.Works", new[] { "CompanyId" });
+            DropIndex("dbo.Works", new[] { "ApplicationUserId" });
             DropIndex("dbo.UserRoles", new[] { "RoleId" });
             DropIndex("dbo.UserRoles", new[] { "UserId" });
             DropIndex("dbo.UserLogins", new[] { "UserId" });
+            DropIndex("dbo.Contacts", new[] { "ApplicationUserId" });
             DropIndex("dbo.UserClaims", new[] { "UserId" });
             DropIndex("dbo.Users", "UserNameIndex");
-            DropIndex("dbo.Works", new[] { "CompanyId" });
-            DropIndex("dbo.Works", new[] { "ApplicationUserId" });
+            DropIndex("dbo.Users", new[] { "ColloquiumId" });
             DropTable("dbo.Roles");
+            DropTable("dbo.Companies");
+            DropTable("dbo.Works");
             DropTable("dbo.UserRoles");
             DropTable("dbo.UserLogins");
+            DropTable("dbo.Contacts");
             DropTable("dbo.UserClaims");
             DropTable("dbo.Users");
-            DropTable("dbo.Works");
-            DropTable("dbo.Companies");
+            DropTable("dbo.Colloquiums");
         }
     }
 }

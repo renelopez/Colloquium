@@ -31,7 +31,7 @@
                 log("Activated Register View");
                 vm.addContactToUser = addContactToUser;
                 vm.addWorkToUser = addWorkToUser;
-                vm.createOrEditUser = createOrEditUser;
+                vm.createUser = createUser;
                 vm.removeContactToUser = removeContactToUser;
                 vm.removeWorkToUser = removeWorkToUser;
                 vm.saveChanges = saveChanges;

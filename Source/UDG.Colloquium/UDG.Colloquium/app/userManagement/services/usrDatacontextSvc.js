@@ -51,16 +51,12 @@
                 .using(manager)
                 .execute()
                 .then(success)
-                .catch(fail);
+                .catch(_fail);
             
             function success(data) {
                 var results = data.results;
                 logSuccess("User data was succesfully retrieved.", null, true);
                 return results;
-            }
-            
-            function fail(error) {
-                logError("Some errors ocurred:", error, true);
             }
         }
         
@@ -75,7 +71,6 @@
         
         function rejectChanges() {
             manager.rejectChanges();
-           // var changes = manager.getChanges();
         }
         
         
@@ -104,8 +99,9 @@
             }
         }
         
-
-
+        function _fail(error) {
+            logError("Some errors ocurred:", error, true);
+        }
     }
 }
 )();

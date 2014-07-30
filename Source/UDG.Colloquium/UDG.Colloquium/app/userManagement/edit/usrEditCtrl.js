@@ -22,7 +22,6 @@
         vm.setActiveTab = setActiveTab;
         vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
         vm.adviceContactMessage = "Please click to expand/collapse this section to add new contact information";
-        common.$broadcast(config.events.spinnerToggle, { show: true });
         vm.user = {};
         activate();
 
@@ -54,8 +53,10 @@
         }
 
         function findUserById(id) {
-            return usrDatacontextSvc.findUserById(id).then(function(user) {
-                vm.user = user[0];
+            common.$broadcast(config.events.spinnerToggle, { show: true });
+            return usrDatacontextSvc.findUserById(id).then(function (user) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
+               return vm.user = user[0];
             });
         }
     
@@ -86,7 +87,7 @@
         
         function loadInitialTab() {
             var url = $location.url();
-            vm.activeTab = url.split("/")[2];
+            vm.activeTab = url.split("/")[3];
         }
         
         function setActiveTab(value) {

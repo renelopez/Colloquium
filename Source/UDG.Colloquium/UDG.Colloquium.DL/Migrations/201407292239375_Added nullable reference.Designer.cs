@@ -6,14 +6,14 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class Virtual : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
+    public sealed partial class Addednullablereference : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Virtual));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Addednullablereference));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406180545597_Virtual"; }
+            get { return "201407292239375_Added nullable reference"; }
         }
         
         string IMigrationMetadata.Source

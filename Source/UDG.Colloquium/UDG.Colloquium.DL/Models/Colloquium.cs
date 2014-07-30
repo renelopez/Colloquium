@@ -16,7 +16,7 @@ namespace UDG.Colloquium.DL.Models
         }
 
         [Key]
-        public int Id { get; set; }
+        public int ColloquiumId { get; set; }
 
         [Required]
         public string Period { get; set; }
