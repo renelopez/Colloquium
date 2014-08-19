@@ -9,7 +9,7 @@
     </div>
 </div>
 <div ng-repeat="workItem in vm.user.works" class="repeat-animation">
-    <usr-collapsible title="{{workItem.workPosition!=='' ? workItem.workPosition : vm.adviceWorkMessage}}" title-remove="Remove Work" remove-method="vm.removeWorkToUser(workItem)">
+    <usr-mgmt-collapsible title="{{workItem.workPosition!=='' ? workItem.workPosition : vm.adviceWorkMessage}}" title-remove="Remove Work" remove-method="vm.removeWorkToUser(workItem)">
         <div class="panel-body">
             <div class="form-group">
                 <label class="col-md-2 control-label">Work Position:</label>
@@ -62,7 +62,7 @@
                 <input type="tel" ng-model="workItem.company.companyPhoneNumber" z-validate class="form-control col-md-10" />
             </div>
         </div>
-    </usr-collapsible>
+    </usr-mgmt-collapsible>
 </div>
 
 

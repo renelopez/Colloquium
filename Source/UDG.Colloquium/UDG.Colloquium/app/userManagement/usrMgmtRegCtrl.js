@@ -1,18 +1,17 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'usrEditCtrl';
+    var controllerId = 'usrMgmtRegCtrl';
 
     angular.module('app').controller(controllerId,
-        ['common', 'config', 'usrDatacontextSvc', '$location', '$stateParams','$scope', usrEditCtrl]);
+        ['common', 'config', 'usrMgmtDatacontextSvc', '$location', usrMgmtRegCtrl]);
 
-    function usrEditCtrl(common, config, usrDatacontextSvc, $location, $stateParams,$scope) {
+    function usrMgmtRegCtrl(common, config, usrMgmtDatacontextSvc, $location) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
-        var stateParams = $stateParams;
 
         var vm = this;
         
@@ -22,56 +21,67 @@
         vm.setActiveTab = setActiveTab;
         vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
         vm.adviceContactMessage = "Please click to expand/collapse this section to add new contact information";
+        common.$broadcast(config.events.spinnerToggle, { show: true });
         vm.user = {};
+        vm.roles = [];
+        vm.toggleRoles = toggleRoles;
         activate();
 
         
         function activate() {
-            common.activateController([usrDatacontextSvc.ready()], controllerId).then(function () {
+            common.activateController([usrMgmtDatacontextSvc.ready()], controllerId).then(function () {
                 log("Activated Register View");
                 vm.addContactToUser = addContactToUser;
                 vm.addWorkToUser = addWorkToUser;
+                vm.createUser = createUser;
                 vm.removeContactToUser = removeContactToUser;
                 vm.removeWorkToUser = removeWorkToUser;
                 vm.saveChanges = saveChanges;
-                findUserById($stateParams.userId);
+                createUser();
+                getRoles();
                 loadInitialTab();
             }).catch(handleError);
             
             function handleError(error) {
-                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
         
         function addContactToUser() {
-            usrDatacontextSvc.addContactToUser(vm.user);
+            usrMgmtDatacontextSvc.addContactToUser(vm.user);
         }
         
         function addWorkToUser() {
-            usrDatacontextSvc.addWorkToUser(vm.user);
+            usrMgmtDatacontextSvc.addWorkToUser(vm.user);
         }
-
-        function findUserById(id) {
-            common.$broadcast(config.events.spinnerToggle, { show: true });
-            return usrDatacontextSvc.findUserById(id).then(function (user) {
-                common.$broadcast(config.events.spinnerToggle, { show: false });
-               return vm.user = user[0];
+        
+        function createUser() {
+            vm.user = usrMgmtDatacontextSvc.createUser();
+        }
+        
+        function getRoles() {
+            usrMgmtDatacontextSvc.getRoles().then(function(roles) {
+                vm.roles = roles;
             });
         }
-    
-
+        
+        function loadInitialTab() {
+            var url = $location.url();
+            vm.activeTab = url.split("/")[2];
+        }
+        
         function removeContactToUser(contact) {
-            usrDatacontextSvc.removeContactToUser(contact);
+            usrMgmtDatacontextSvc.removeContactToUser(contact);
         }
 
         function removeWorkToUser(work) {
-            usrDatacontextSvc.removeWorkToUser(work);
+            usrMgmtDatacontextSvc.removeWorkToUser(work);
         }
+        
         
         function saveChanges() {
             common.$broadcast(config.events.spinnerToggle, { show: true });
-            usrDatacontextSvc.saveChanges().then(success).catch(errorSave);
+            usrMgmtDatacontextSvc.saveChanges().then(success).catch(errorSave);
             
             
             function success() {
@@ -80,18 +90,28 @@
             }
             
             function errorSave(error) {
-                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
         
-        function loadInitialTab() {
-            var url = $location.url();
-            vm.activeTab = url.split("/")[3];
-        }
+        
         
         function setActiveTab(value) {
             vm.activeTab = value;
+        }
+        
+        function toggleRoles(role) {
+            var idx = vm.user.roles.indexOf(role);
+
+            // is currently selected
+            if (idx > -1) {
+                usrMgmtDatacontextSvc.removeRoleToUser(role);
+            }
+
+                // is newly selected
+            else {
+                usrMgmtDatacontextSvc.addRoleToUser(vm.user,role);
+            }
         }
     }
 })();

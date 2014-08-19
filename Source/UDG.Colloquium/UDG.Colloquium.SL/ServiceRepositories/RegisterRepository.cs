@@ -9,6 +9,7 @@ using Breeze.ContextProvider.EF6;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json.Linq;
 using UDG.Colloquium.DL;
+using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Models;
 
@@ -34,6 +35,11 @@ namespace UDG.Colloquium.SL.ServiceRepositories
         public IQueryable<Company> GetCompanies()
         {
             return Context.Companies;
+        }
+
+        public IQueryable<ApplicationRole> GetRoles()
+        {
+            return Context.Roles;
         }
 
         public SaveResult SaveChanges(JObject saveBundle)

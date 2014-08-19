@@ -81,14 +81,14 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/app/shell/shell.js",
-                "~/app/userManagement/register/usrRegisterCtrl.js",
-                "~/app/userManagement/edit/usrEditCtrl.js"
+                "~/app/userManagement/usrMgmtRegCtrl.js",
+                "~/app/userManagement/usrMgmtEditCtrl.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
                 "~/app/services/model.js",
-                "~/app/userManagement/services/usrDatacontextSvc.js",
-                "~/app/userManagement/services/usr-collapsible.js",
+                "~/app/userManagement/usrMgmtDatacontextSvc.js",
+                "~/app/userManagement/usr-mgmt-collapsible.js",
                 "~/app/services/directives.js",
                 "~/app/services/entityManagerFactory.js"
                 ));

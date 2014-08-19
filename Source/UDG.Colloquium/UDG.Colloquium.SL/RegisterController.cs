@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Newtonsoft.Json.Linq;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.ViewModels.Account.Register;
+using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Models;
 using UDG.Colloquium.SL.ServiceRepositories;
@@ -61,5 +62,13 @@ namespace UDG.Colloquium.SL
         {
             return RegisterRepository.GetContacts();
         }
+
+        [HttpGet]
+        public IQueryable<ApplicationRole> Roles()
+        {
+            return RegisterRepository.GetRoles();
+        }
+
+        
     }
 }

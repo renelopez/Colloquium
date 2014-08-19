@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using Microsoft.AspNet.Identity;
 using UDG.Colloquium.DL.Custom.Roles;
@@ -14,15 +15,19 @@ namespace UDG.Colloquium.DL.DBInitializers
             var roleManager = new RoleManager<ApplicationRole, int>(new ApplicationRoleStore(context));
             const string name = "renelopezcano";
             const string password = "renerene";
-            const string roleName = "Administrator";
+            var roles =new List<string> {"Administrator","Student","Teacher"};
 
-            //Create Role Admin if it does not exist
-            var role = roleManager.FindByName(roleName);
-            if (role == null)
+            roles.ForEach(roleName =>
             {
+                //Create Role Admin if it does not exist
+                var role = roleManager.FindByName(roleName);
+                if (role != null) return;
                 role = new ApplicationRole(roleName);
                 var roleresult = roleManager.Create(role);
-            }
+            });
+
+
+           
 
             var user = userManager.FindByName(name);
             if (user == null)
@@ -34,9 +39,9 @@ namespace UDG.Colloquium.DL.DBInitializers
 
             // Add user admin to Role Admin if not already added
             var rolesForUser = userManager.GetRoles(user.Id);
-            if (!rolesForUser.Contains(role.Name))
+            if (!rolesForUser.Contains("Administrator"))
             {
-                var result = userManager.AddToRole(user.Id, role.Name);
+                var result = userManager.AddToRole(user.Id, "Administrator");
             }
 
             userManager.Dispose();

@@ -1,12 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'usrRegisterCtrl';
+    var controllerId = 'usrMgmtEditCtrl';
 
     angular.module('app').controller(controllerId,
-        ['common', 'config', 'usrDatacontextSvc', '$location', '$scope', usrRegisterCtrl]);
+        ['common', 'config', 'usrMgmtDatacontextSvc', '$location', '$stateParams', usrMgmtEditCtrl]);
 
-    function usrRegisterCtrl(common, config, registerDatacontext, $location, $scope) {
+    function usrMgmtEditCtrl(common, config, usrMgmtDatacontextSvc, $location, $stateParams) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
@@ -21,52 +21,56 @@
         vm.setActiveTab = setActiveTab;
         vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
         vm.adviceContactMessage = "Please click to expand/collapse this section to add new contact information";
-        common.$broadcast(config.events.spinnerToggle, { show: true });
         vm.user = {};
         activate();
 
         
         function activate() {
-            common.activateController([registerDatacontext.ready()], controllerId).then(function () {
+            common.activateController([usrMgmtDatacontextSvc.ready()], controllerId).then(function () {
                 log("Activated Register View");
                 vm.addContactToUser = addContactToUser;
                 vm.addWorkToUser = addWorkToUser;
-                vm.createUser = createUser;
                 vm.removeContactToUser = removeContactToUser;
                 vm.removeWorkToUser = removeWorkToUser;
                 vm.saveChanges = saveChanges;
-                createUser();
+                findUserById($stateParams.userId);
                 loadInitialTab();
             }).catch(handleError);
             
             function handleError(error) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
         
-        function createUser() {
-            vm.user = registerDatacontext.createUser();
-        }
-        
         function addContactToUser() {
-            registerDatacontext.addContactToUser(vm.user);
+            usrMgmtDatacontextSvc.addContactToUser(vm.user);
         }
         
         function addWorkToUser() {
-            registerDatacontext.addWorkToUser(vm.user);
+            usrMgmtDatacontextSvc.addWorkToUser(vm.user);
         }
-        
+
+        function findUserById(id) {
+            common.$broadcast(config.events.spinnerToggle, { show: true });
+            return usrMgmtDatacontextSvc.findUserById(id).then(function (user) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
+               return vm.user = user[0];
+            });
+        }
+    
+
         function removeContactToUser(contact) {
-            registerDatacontext.removeContactToUser(contact);
+            usrMgmtDatacontextSvc.removeContactToUser(contact);
         }
 
         function removeWorkToUser(work) {
-           registerDatacontext.removeWorkToUser(work);
+            usrMgmtDatacontextSvc.removeWorkToUser(work);
         }
         
         function saveChanges() {
             common.$broadcast(config.events.spinnerToggle, { show: true });
-            registerDatacontext.saveChanges().then(success).catch(errorSave);
+            usrMgmtDatacontextSvc.saveChanges().then(success).catch(errorSave);
             
             
             function success() {
@@ -75,13 +79,14 @@
             }
             
             function errorSave(error) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
         
         function loadInitialTab() {
             var url = $location.url();
-            vm.activeTab = url.split("/")[2];
+            vm.activeTab = url.split("/")[3];
         }
         
         function setActiveTab(value) {

@@ -1,7 +1,7 @@
 ﻿(function() {
     'use strict';
     
-    angular.module('app').directive('usrCollapsible', ['$window', '$animate', function ($window, $animate) {
+    angular.module('app').directive('usrMgmtCollapsible', ['$window', '$animate', function ($window, $animate) {
         // Usage:
         // 
         // Creates:
@@ -10,7 +10,7 @@
             link: link,
             restrict: 'E',
             replace: true,
-            templateUrl: '/app/userManagement/services/usr-collapsible.html',
+            templateUrl: '/app/userManagement/usr-mgmt-collapsible.html',
             controller: function ($scope) {
                 $scope.visible = false;
                 $scope.toggleVisibility = function () {

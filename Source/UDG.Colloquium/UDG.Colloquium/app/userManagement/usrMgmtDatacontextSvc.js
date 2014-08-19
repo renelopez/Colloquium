@@ -1,10 +1,10 @@
 ﻿(function() {
     'use strict';
 
-    var serviceId = 'usrDatacontextSvc';
-    angular.module('app').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', usrDatacontextSvc]);
+    var serviceId = 'usrMgmtDatacontextSvc';
+    angular.module('app').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', usrMgmtDatacontextSvc]);
     
-    function usrDatacontextSvc(common, breeze, entityManagerFactory) {
+    function usrMgmtDatacontextSvc(common, breeze, entityManagerFactory) {
         var $q = common.$q;
         var manager;
 
@@ -15,14 +15,17 @@
         var applicationUser;
 
         var service = {
-            addContactToUser:addContactToUser,
+            addContactToUser: addContactToUser,
+            addRoleToUser:addRoleToUser,
             addWorkToUser: addWorkToUser,
             createUser: createUser,
-            findUserById:findUserById,
+            findUserById: findUserById,
+            getRoles:getRoles,
             ready:ready,
             rejectChanges: rejectChanges,
             removeContactToUser: removeContactToUser,
             removeWorkToUser: removeWorkToUser,
+            removeRoleToUser: removeRoleToUser,
             saveChanges:saveChanges,
         };
 
@@ -31,6 +34,11 @@
         function addContactToUser(user) {
             var contactAdded = manager.createEntity("Contact", {});
             user.contacts.push(contactAdded);
+        }
+        
+        function addRoleToUser(user,role) {
+            var roleAdded = manager.createEntity("ApplicationRole", role);
+            user.roles.push(roleAdded);
         }
         
         function addWorkToUser(user) {
@@ -60,6 +68,20 @@
             }
         }
         
+        function getRoles() {
+            return breeze.EntityQuery.from('Roles')
+                .using(manager)
+                .execute()
+                .then(success)
+                .catch(_fail);
+            
+            function success(data) {
+                var results = data.results;
+                logSuccess("User roles were succesfully retrieved.", null, true);
+                return results;
+            }
+        }
+
         function ready() {
             return entityManagerFactory.getEntityManager().then(haveEntityManager);
 
@@ -80,6 +102,10 @@
 
         function removeWorkToUser(work) {
             work.entityAspect.setDeleted();
+        }
+        
+        function removeRoleToUser(role) {
+            role.entityAspect.setDeleted();
         }
         
         function saveChanges() {
