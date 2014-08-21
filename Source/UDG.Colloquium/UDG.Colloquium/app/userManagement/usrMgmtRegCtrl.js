@@ -12,6 +12,7 @@
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
+        var selectedRoles = [];
 
         var vm = this;
         
@@ -81,6 +82,11 @@
         
         function saveChanges() {
             common.$broadcast(config.events.spinnerToggle, { show: true });
+
+
+            vm.user.roles.push.apply(vm.user.roles, selectedRoles);
+
+
             usrMgmtDatacontextSvc.saveChanges().then(success).catch(errorSave);
             
             
@@ -90,6 +96,7 @@
             }
             
             function errorSave(error) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }
         }
@@ -101,16 +108,16 @@
         }
         
         function toggleRoles(role) {
-            var idx = vm.user.roles.indexOf(role);
+            var idx = selectedRoles.indexOf(role);
 
             // is currently selected
             if (idx > -1) {
-                usrMgmtDatacontextSvc.removeRoleToUser(role);
+                selectedRoles.splice(idx, 1);
             }
 
                 // is newly selected
             else {
-                usrMgmtDatacontextSvc.addRoleToUser(vm.user,role);
+                selectedRoles.push(role);
             }
         }
     }
