@@ -30,7 +30,7 @@ namespace UDG.Colloquium.DL
 
         static ColloquiumDbContext()
         {
-           // Database.SetInitializer(new ColloquiumDBContextInitializer());            
+          //  Database.SetInitializer(new ColloquiumDBContextInitializer());            
         }
         public DbSet<Work> Works { get; set; }
         public DbSet<Company> Companies { get; set; }

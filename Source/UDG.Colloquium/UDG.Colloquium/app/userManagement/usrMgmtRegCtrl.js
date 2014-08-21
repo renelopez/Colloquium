@@ -4,9 +4,9 @@
     var controllerId = 'usrMgmtRegCtrl';
 
     angular.module('app').controller(controllerId,
-        ['common', 'config', 'usrMgmtDatacontextSvc', '$location', usrMgmtRegCtrl]);
+        ['$location','common', 'config', 'usrMgmtDatacontextSvc', usrMgmtRegCtrl]);
 
-    function usrMgmtRegCtrl(common, config, usrMgmtDatacontextSvc, $location) {
+    function usrMgmtRegCtrl($location,common, config, usrMgmtDatacontextSvc) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
@@ -24,6 +24,7 @@
         common.$broadcast(config.events.spinnerToggle, { show: true });
         vm.user = {};
         vm.roles = [];
+        vm.selectedRoles = [];
         vm.toggleRoles = toggleRoles;
         activate();
 
@@ -105,12 +106,14 @@
 
             // is currently selected
             if (idx > -1) {
-                usrMgmtDatacontextSvc.removeRoleToUser(role);
+                //usrMgmtDatacontextSvc.removeRoleToUser(role);
+                vm.user.roles.splice(idx, 1);
             }
 
                 // is newly selected
             else {
-                usrMgmtDatacontextSvc.addRoleToUser(vm.user,role);
+                //usrMgmtDatacontextSvc.addRoleToUser(vm.user,role);
+                vm.user.roles.push(role);                
             }
         }
     }

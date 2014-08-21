@@ -37,8 +37,11 @@
         }
         
         function addRoleToUser(user,role) {
-            var roleAdded = manager.createEntity("ApplicationRole", role);
-            user.roles.push(roleAdded);
+            var userRoleAdded = manager.createEntity("ApplicationUserRole", {
+                userId:user.id,
+                roleId: role.id,
+            });
+            user.roles.push(userRoleAdded);
         }
         
         function addWorkToUser(user) {
