@@ -107,8 +107,14 @@
             work.entityAspect.setDeleted();
         }
         
-        function removeRoleToUser(role) {
-            role.entityAspect.setDeleted();
+        function removeRoleToUser(user,role) {
+            for (var i = 0; i < user.roles.length; i++) {
+                if (user.roles[i].roleId === role.id) {
+                    user.roles[i].entityAspect.setDeleted();
+                    user.roles.splice(i, 1);
+                    break;
+                }
+            }
         }
         
         function saveChanges() {

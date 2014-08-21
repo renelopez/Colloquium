@@ -85,7 +85,7 @@
             common.$broadcast(config.events.spinnerToggle, { show: true });
 
 
-            vm.user.roles.push.apply(vm.user.roles, selectedRoles);
+            //vm.user.roles.push.apply(vm.user.roles, selectedRoles);
 
 
             usrMgmtDatacontextSvc.saveChanges().then(success).catch(errorSave);
@@ -114,11 +114,13 @@
             // is currently selected
             if (idx > -1) {
                 selectedRoles.splice(idx, 1);
+                usrMgmtDatacontextSvc.removeRoleToUser(vm.user, role);
             }
 
                 // is newly selected
             else {
                 selectedRoles.push(role);
+                usrMgmtDatacontextSvc.addRoleToUser(vm.user, role);
             }
         }
     }
