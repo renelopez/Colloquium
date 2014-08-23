@@ -14,13 +14,21 @@
         var logSuccess = getLogFn(serviceId, 'success');
         var applicationUser;
 
+        var storeMeta = {
+            isLoaded: {
+                roles: false,
+                userRoles: false
+            }
+        };
+
         var service = {
             addContactToUser: addContactToUser,
             addRoleToUser:addRoleToUser,
             addWorkToUser: addWorkToUser,
             createUser: createUser,
             findUserById: findUserById,
-            getRoles:getRoles,
+            getRoles: getRoles,
+            getUserRoles:getUserRoles,
             ready:ready,
             rejectChanges: rejectChanges,
             removeContactToUser: removeContactToUser,
@@ -71,7 +79,13 @@
             }
         }
         
-        function getRoles() {
+        function getRoles(forceRemote) {
+            
+            if (_areRolesLoaded() && !forceRemote) {
+                var attend
+            }
+
+
             return breeze.EntityQuery.from('Roles')
                 .using(manager)
                 .execute()
@@ -80,6 +94,7 @@
             
             function success(data) {
                 var results = data.results;
+                _areRolesLoaded(true);
                 logSuccess("User roles were succesfully retrieved.", null, true);
                 return results;
             }
@@ -116,6 +131,7 @@
                 }
             }
         }
+
         
         function saveChanges() {
             return manager.saveChanges()
@@ -132,6 +148,17 @@
             function saveSuccess(saveResult) {
                 logSuccess("Changes were saved succesfully", saveResult, true);
             }
+        }
+        
+        function _areRolesLoaded(value) {
+            return _areItemsLoaded('roles', value);
+        }
+        
+        function _areItemsLoaded(key, value) {
+            if (value === undefined) {
+                return storeMeta.isLoaded[key]; // get
+            }
+            return storeMeta.isLoaded[key] = value; // set
         }
         
         function _fail(error) {

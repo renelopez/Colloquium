@@ -83,17 +83,12 @@
         
         function saveChanges() {
             common.$broadcast(config.events.spinnerToggle, { show: true });
-
-
-            //vm.user.roles.push.apply(vm.user.roles, selectedRoles);
-
-
             usrMgmtDatacontextSvc.saveChanges().then(success).catch(errorSave);
-            
             
             function success() {
                 common.$broadcast(config.events.spinnerToggle, { show: false });
-                logSuccess("User "+vm.user.userName+" was succesfully created");
+                logSuccess("User " + vm.user.userName + " was succesfully created");
+                $location.path('/');
             }
             
             function errorSave(error) {

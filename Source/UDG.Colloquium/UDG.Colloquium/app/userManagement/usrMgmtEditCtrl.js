@@ -4,9 +4,9 @@
     var controllerId = 'usrMgmtEditCtrl';
 
     angular.module('app').controller(controllerId,
-        ['common', 'config', 'usrMgmtDatacontextSvc', '$location', '$stateParams', usrMgmtEditCtrl]);
+        ['$location','$stateParams','common', 'config', 'usrMgmtDatacontextSvc', usrMgmtEditCtrl]);
 
-    function usrMgmtEditCtrl(common, config, usrMgmtDatacontextSvc, $location, $stateParams) {
+    function usrMgmtEditCtrl($location, $stateParams,common, config, usrMgmtDatacontextSvc) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
@@ -22,6 +22,9 @@
         vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
         vm.adviceContactMessage = "Please click to expand/collapse this section to add new contact information";
         vm.user = {};
+        vm.roles = [];
+        vm.selectedRoles = [];
+        vm.toggleRoles = toggleRoles;
         activate();
 
         
@@ -34,6 +37,8 @@
                 vm.removeWorkToUser = removeWorkToUser;
                 vm.saveChanges = saveChanges;
                 findUserById($stateParams.userId);
+                fillRoles();
+                fillOwnedRoles();
                 loadInitialTab();
             }).catch(handleError);
             
@@ -50,7 +55,19 @@
         function addWorkToUser() {
             usrMgmtDatacontextSvc.addWorkToUser(vm.user);
         }
+        
+        function fillOwnedRoles() {
+            usrMgmtDatacontextSvc.getUserRoles(user).then(function(roles) {
+                vm.selectedRoles = roles;
+            });
+        }
 
+        function fillRoles() {
+            usrMgmtDatacontextSvc.getRoles().then(function (roles) {
+                vm.roles = roles;
+            });
+        }
+        
         function findUserById(id) {
             common.$broadcast(config.events.spinnerToggle, { show: true });
             return usrMgmtDatacontextSvc.findUserById(id).then(function (user) {
