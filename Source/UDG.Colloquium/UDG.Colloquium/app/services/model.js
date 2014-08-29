@@ -12,7 +12,13 @@
         var logSuccess = getLogFn(factoryId, 'success');
         var logError = getLogFn(factoryId, 'error');
 
+        var entityNames = {
+            role: 'ApplicationRole',
+            user: 'ApplicationUser'
+        };
+
         var model = {
+            entityNames:entityNames,
             setModel: setModel
         };
         return model;

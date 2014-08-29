@@ -2,9 +2,9 @@
     'use strict';
 
     var serviceId = 'usrMgmtDatacontextSvc';
-    angular.module('app').factory(serviceId, ['common', 'breeze', 'entityManagerFactory', usrMgmtDatacontextSvc]);
+    angular.module('app').factory(serviceId, ['common', 'breeze', 'entityManagerFactory','model', usrMgmtDatacontextSvc]);
     
-    function usrMgmtDatacontextSvc(common, breeze, entityManagerFactory) {
+    function usrMgmtDatacontextSvc(common, breeze, entityManagerFactory,model) {
         var $q = common.$q;
         var manager;
 
@@ -12,6 +12,7 @@
         var log = getLogFn(serviceId);
         var logError = getLogFn(serviceId, 'error');
         var logSuccess = getLogFn(serviceId, 'success');
+        var entityNames = model.entityNames;
         var applicationUser;
 
         var storeMeta = {
@@ -80,9 +81,11 @@
         }
         
         function getRoles(forceRemote) {
+            var roles;
             
             if (_areRolesLoaded() && !forceRemote) {
-                var attend
+                roles = _getAllLocal(entityNames.role, orderBy);
+                return $q.when(roles);
             }
 
 
@@ -150,15 +153,24 @@
             }
         }
         
-        function _areRolesLoaded(value) {
-            return _areItemsLoaded('roles', value);
-        }
         
         function _areItemsLoaded(key, value) {
             if (value === undefined) {
                 return storeMeta.isLoaded[key]; // get
             }
             return storeMeta.isLoaded[key] = value; // set
+        }
+        
+        function _areRolesLoaded(value) {
+            return _areItemsLoaded('roles', value);
+        }
+        
+        function _getAllLocal(resource, ordering, predicate) {
+            return breeze.EntityQuery.from(resource)
+                .orderBy(ordering)
+                .where(predicate)
+                .using(manager)
+                .executeLocally();
         }
         
         function _fail(error) {
