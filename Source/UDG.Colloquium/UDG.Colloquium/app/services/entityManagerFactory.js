@@ -2,7 +2,7 @@
     'use strict';
 
     var serviceId = 'entityManagerFactory';
-    angular.module('app').factory(serviceId, ['breeze','$q', 'config','modelService', entityManagerFactory]);
+    angular.module('app').factory(serviceId, ['breeze','$q', 'config','model', entityManagerFactory]);
 
     function entityManagerFactory(breeze,$q,config,modelService) {
         // Convert server-side PascalCase to client-side camelCase property names

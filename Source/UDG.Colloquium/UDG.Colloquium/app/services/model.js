@@ -1,7 +1,7 @@
 ﻿(function() {
     'use strict';
     
-    var factoryId = 'modelService';
+    var factoryId = 'model';
 
     angular.module('app').factory(factoryId, ['common', 'breeze', modelService]);
 

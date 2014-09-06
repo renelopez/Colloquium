@@ -18,18 +18,19 @@
         vm.contactTypes = ['Home Phone', 'Address', 'Email', 'Work Phone', 'Web Page'];
         vm.genres = ['Male','Female'];
         vm.activeTab = "";
+        vm.isSaving = false;
         vm.setActiveTab = setActiveTab;
         vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
         vm.adviceContactMessage = "Please click to expand/collapse this section to add new contact information";
         vm.user = {};
         vm.roles = [];
         vm.selectedRoles = [];
-        vm.toggleRoles = toggleRoles;
+        //vm.toggleRoles = toggleRoles;
         activate();
 
         
         function activate() {
-            common.activateController([usrMgmtDatacontextSvc.ready()], controllerId).then(function () {
+            common.activateController([usrMgmtDatacontextSvc.ready()], controllerId).then(function() {
                 log("Activated Register View");
                 vm.addContactToUser = addContactToUser;
                 vm.addWorkToUser = addWorkToUser;
@@ -38,14 +39,8 @@
                 vm.saveChanges = saveChanges;
                 findUserById($stateParams.userId);
                 fillRoles();
-                fillOwnedRoles();
                 loadInitialTab();
-            }).catch(handleError);
-            
-            function handleError(error) {
-                common.$broadcast(config.events.spinnerToggle, { show: false });
-                logError("Following errors ocurred:", error, true);
-            }
+            });
         }
         
         function addContactToUser() {
@@ -56,12 +51,6 @@
             usrMgmtDatacontextSvc.addWorkToUser(vm.user);
         }
         
-        function fillOwnedRoles() {
-            usrMgmtDatacontextSvc.getUserRoles(user).then(function(roles) {
-                vm.selectedRoles = roles;
-            });
-        }
-
         function fillRoles() {
             usrMgmtDatacontextSvc.getRoles().then(function (roles) {
                 vm.roles = roles;
@@ -86,16 +75,19 @@
         }
         
         function saveChanges() {
+            vm.isSaving = true;
             common.$broadcast(config.events.spinnerToggle, { show: true });
             usrMgmtDatacontextSvc.saveChanges().then(success).catch(errorSave);
             
             
             function success() {
+                vm.isSaving = false;
                 common.$broadcast(config.events.spinnerToggle, { show: false });
                 logSuccess("User "+vm.user.userName+" was succesfully created");
             }
             
-            function errorSave(error) {
+            function errorSave() {
+                vm.isSaving = false;
                 common.$broadcast(config.events.spinnerToggle, { show: false });
                 logError("Following errors ocurred:", error, true);
             }

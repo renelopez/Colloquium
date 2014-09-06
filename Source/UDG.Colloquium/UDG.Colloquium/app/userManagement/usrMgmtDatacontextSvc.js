@@ -29,7 +29,7 @@
             createUser: createUser,
             findUserById: findUserById,
             getRoles: getRoles,
-            getUserRoles:getUserRoles,
+            //getUserRoles:getUserRoles,
             ready:ready,
             rejectChanges: rejectChanges,
             removeContactToUser: removeContactToUser,
@@ -104,11 +104,18 @@
         }
 
         function ready() {
-            return entityManagerFactory.getEntityManager().then(haveEntityManager);
+            return entityManagerFactory.getEntityManager()
+                .then(haveEntityManager)
+                .catch(emError);
 
             function haveEntityManager(em) {
                 manager = em;
                 applicationUser = manager.metadataStore.getEntityType("ApplicationUser");
+            }
+            
+            function emError(error) {
+                common.$broadcast(config.events.spinnerToggle, { show: false });
+                logError("Following errors ocurred:", error, true);
             }
         }
         
