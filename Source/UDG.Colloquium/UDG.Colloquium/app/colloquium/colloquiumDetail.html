@@ -1,0 +1,47 @@
+﻿<div class="container-fluid">
+    <div>
+        <button class="btn btn-info" 
+                ng-click="vm.goBack()">
+            <i class="glyphicon glyphicon-hand-left"></i>Back
+        </button>
+        <button class="btn btn-info" 
+                ng-click="vm.cancel()"
+                ng-disabled="!vm.canSave">
+            <i class="glyphicon glyphicon-repeat"></i>Cancel
+        </button>
+        <button class="btn btn-info"
+                ng-click="vm.save()"
+                ng-disabled="!vm.canSave">
+            <i class="glyphicon glyphicon-save"></i>Save
+        </button>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Edit {{vm.colloquium.period || 'New Colloquium'}} </div>
+            <div class="panel-body">
+                <div>
+                    <label>Colloquium Period</label>
+                    <select ng-options="year for year in vm.years"
+                            z-validate
+                            ng-model="vm.year">
+                    </select>
+                    <select ng-options="cycle for cycle in vm.cycles"
+                            z-validate
+                            ng-model="vm.cycle"></select>
+                </div>
+                <div>
+                    <label>Start Date</label>
+                    <input ng-model="vm.colloquium.startDate"
+                           z-validate
+                           kendo-date-picker/>
+                </div>
+                <div>
+                    <label>End Date</label>
+                    <input ng-model="vm.colloquium.endDate"
+                           z-validate
+                           kendo-date-picker />
+                </div>
+            </div>
+         </div>
+    </div>
+</div>

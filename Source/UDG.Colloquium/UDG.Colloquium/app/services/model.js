@@ -3,9 +3,9 @@
     
     var factoryId = 'model';
 
-    angular.module('app').factory(factoryId, ['common', 'breeze', modelService]);
+    angular.module('app').factory(factoryId, ['common', model]);
 
-    function modelService(common, breeze) {
+    function model(common) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(factoryId);
         var logInfo = getLogFn(factoryId, "info");
@@ -13,27 +13,41 @@
         var logError = getLogFn(factoryId, 'error');
 
         var entityNames = {
+            colloquium:'Colloquium',
+            company:'Company',
+            contact:'Contact',
             role: 'ApplicationRole',
-            user: 'ApplicationUser'
+            user: 'ApplicationUser',
+            userRole: 'ApplicationUserRole',
+            work: 'Work',
         };
 
-        var model = {
-            entityNames:entityNames,
-            setModel: setModel
+        var service = {
+            configureMetadataStore: configureMetadataStore,
+            entityNames:entityNames
         };
-        return model;
+        return service;
 
-        function setModel(manager) {
-            return manager.metadataStore
-                .fetchMetadata(manager.dataService)
-                .then(function() { return manager; })
-                .catch(metadataFetchFailed);
+        function configureMetadataStore(metadataStore) {
+            registerRangeDate(metadataStore);
         }
+        
+        function registerRangeDate(metadataStore) {
+            metadataStore.registerEntityTypeCtor('Colloquium', Colloquium);
+            
+            function Colloquium(){}
 
-        function metadataFetchFailed(error) {
-            var err = 'Metadata fetch failed.\nIs the server running?';
-            logError(err, error, true);
+            Object.defineProperty(Colloquium.prototype, 'rangeDate', {                
+               get:function() {
+                   var startDate = this.startDate;
+                   var endDate = this.endDate;
+                   var value = 'From ' + moment.utc(startDate).format('MMM Do YYYY') + ' To ' + moment.utc(endDate).format('MMM Do YYYY');
+                   return value;
+               }
+               
+            });
         }
+       
     }
 
 })();

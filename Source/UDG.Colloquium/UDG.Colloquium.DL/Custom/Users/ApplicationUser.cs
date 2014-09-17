@@ -38,7 +38,7 @@ namespace UDG.Colloquium.DL.Custom.Users
         public virtual string Nacionality { get; set; }
         public int? ColloquiumId { get; set; }
 
-        public virtual Models.Colloquium Colloquium { get; set; }
+        public virtual ICollection<Models.Colloquium> Colloquiums { get; set; }
 
         public virtual ICollection<Work> Works { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
@@ -46,6 +46,7 @@ namespace UDG.Colloquium.DL.Custom.Users
         public ApplicationUser()
         {
             Works=new HashSet<Work>();
+            Colloquiums=new HashSet<Models.Colloquium>();
         }
     }
 }

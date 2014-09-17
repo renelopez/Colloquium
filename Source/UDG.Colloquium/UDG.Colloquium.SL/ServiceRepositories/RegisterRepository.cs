@@ -22,6 +22,11 @@ namespace UDG.Colloquium.SL.ServiceRepositories
             return Metadata();
         }
 
+        public IQueryable<DL.Models.Colloquium> GetColloquiums()
+        {
+            return Context.Colloquiums;
+        }
+
         public IQueryable<ApplicationUser> GetUsers()
         {
             return Context.Users;

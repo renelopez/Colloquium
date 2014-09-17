@@ -40,7 +40,7 @@ namespace UDG.Colloquium.DL.Migrations
                 // Registering to colloquium
                 var col = new Models.Colloquium { BeginDate = DateTime.Now, EndDate = DateTime.Now.AddDays(1), Period = "2014B", ColloquiumId = 1 };
                 context.Colloquiums.Add(col);
-                user.Colloquium = col;
+                user.Colloquiums.Add(col);
 
                 // Adding user to DB.
                 var result = userManager.Create(user, password);

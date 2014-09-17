@@ -265,7 +265,23 @@ input[type="checkbox"].input-validation-error {
         }
 /*#endregion */
 
+.search-query {
+    margin: 2px auto 8px auto !important; 
+}
 
+.input-medium {
+    width: 300px;
+  height: 35px;
+  padding: 5px 10px;
+  font-size: 15px;
+  line-height: 1.5;
+    -ms-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.btn-margin {
+    margin-right: 5px
+}
 
 #form-views.ng-enter            { 
     -webkit-animation:fadeIn 0.5s;

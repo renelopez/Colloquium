@@ -28,6 +28,7 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
+                      "~/Scripts/lodash.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -81,13 +82,23 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/app").Include(
                 "~/app/shell/shell.js",
-                "~/app/userManagement/usrMgmtRegCtrl.js",
-                "~/app/userManagement/usrMgmtEditCtrl.js"
+                "~/app/userManagement/usrMgmtCtrl.js",
+                "~/app/colloquium/colloquiumsCtrl.js",
+                "~/app/colloquium/colloquiumDetailCtrl.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
                 "~/app/services/model.js",
-                "~/app/userManagement/usrMgmtDatacontextSvc.js",
+                "~/app/services/datacontext.js",
+                "~/app/services/repositories.js",
+                "~/app/services/repository.abstract.js",
+                "~/app/services/repository.company.js",
+                "~/app/services/repository.contact.js",
+                "~/app/services/repository.role.js",
+                "~/app/services/repository.user.js",
+                "~/app/services/repository.urole.js",
+                "~/app/services/repository.work.js",
+                "~/app/services/repository.colloquium.js",
                 "~/app/userManagement/usr-mgmt-collapsible.js",
                 "~/app/services/directives.js",
                 "~/app/services/entityManagerFactory.js"

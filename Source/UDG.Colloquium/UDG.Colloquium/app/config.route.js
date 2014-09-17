@@ -6,11 +6,12 @@
 
     function routeConfigurator($stateProvider, $urlRouterProvider) {
         // Creation
-        $stateProvider.state('register', {
-            url: '/register',
-            templateUrl: '/app/userManagement/usrMgmt.html',
-            controller: 'usrMgmtRegCtrl as vm'
-        })
+        $stateProvider
+            .state('register', {
+                url: '/register',
+                templateUrl: '/app/userManagement/usrMgmt.html',
+                controller: 'usrMgmtCtrl as vm'
+            })
             .state('register.credentials', {
                 url: '/credentials',
                 templateUrl: '/app/userManagement/usrMgmtCredentials.html'
@@ -32,16 +33,16 @@
                 templateUrl: '/app/userManagement/usrMgmtSubmit.html'
             })
         
-        // Update
-        .state('edit', {
-            url: '/edit/:userId',
-            templateUrl: '/app/userManagement/usrMgmt.html',
-            controller: 'usrMgmtEditCtrl as vm'
-        })
+            // Update
+            .state('edit', {
+                url: '/edit/:userId',
+                templateUrl: '/app/userManagement/usrMgmt.html',
+                controller: 'usrMgmtCtrl as vm'
+            })
             .state('edit.credentials', {
                 url: '/credentials',
                 templateUrl: '/app/userManagement/usrMgmtCredentials.html',
-             })
+            })
             .state('edit.personal', {
                 url: '/personal',
                 templateUrl: '/app/userManagement/usrMgmtPersonal.html'
@@ -57,7 +58,18 @@
             .state('edit.submit', {
                 url: '/submit',
                 templateUrl: '/app/userManagement/usrMgmtSubmit.html'
-            });
+            })
+            .state('colloquiumList', {
+                url: '/colloquiums',
+                templateUrl: '/app/colloquium/colloquiums.html',
+                controller: 'colloquiumsCtrl as vm'
+            })
+            .state('colloquiumDetail', {
+                url: '/colloquiums/:colloquiumId',
+                templateUrl: '/app/colloquium/colloquiumDetail.html',
+                controller: 'colloquiumDetailCtrl as vm'
+            
+    });
         
         $urlRouterProvider.otherwise('/register/credentials');
     }

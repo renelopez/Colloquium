@@ -69,6 +69,12 @@ namespace UDG.Colloquium.SL
             return RegisterRepository.GetRoles();
         }
 
+        [HttpGet]
+        public IQueryable<DL.Models.Colloquium> Colloquiums()
+        {
+            return RegisterRepository.GetColloquiums();
+        }
+
         
     }
 }

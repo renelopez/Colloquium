@@ -11,6 +11,7 @@ namespace UDG.Colloquium.SL.ServiceRepositories
     public interface IRegisterRepository
     {
         string GetMetadata();
+        IQueryable<DL.Models.Colloquium> GetColloquiums();
         IQueryable<ApplicationUser> GetUsers();
         IQueryable<ApplicationRole> GetRoles();
         IQueryable<Work> GetWorks();

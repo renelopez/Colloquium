@@ -11,6 +11,23 @@
     var serviceHost = "http://localhost:9000/";
     var remoteServiceName = serviceHost + 'api/Register';
     
+    var keyCodes = {
+        backspace: 8,
+        tab: 9,
+        enter: 13,
+        esc: 27,
+        space: 32,
+        pageup: 33,
+        pagedown: 34,
+        end: 35,
+        home: 36,
+        left: 37,
+        up: 38,
+        right: 39,
+        down: 40,
+        insert: 45,
+        del: 46
+    };
 
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
@@ -18,13 +35,16 @@
     };
 
     var config = {
-        appErrorPrefix: '[HT Error] ', //Configure the exceptionHandler decorator
-        docTitle: 'HotTowel: ',
+        appErrorPrefix: '[Colloquim Error] ', //Configure the exceptionHandler decorator
+        docTitle: 'Colloquium: ',
         events: events,
+        keyCodes:keyCodes,
         remoteServiceName: remoteServiceName,
         hasServerMetadata:true,
         version: '2.1.0'
     };
+
+    app.constant('lodash', window._);
 
     app.value('config', config);
 

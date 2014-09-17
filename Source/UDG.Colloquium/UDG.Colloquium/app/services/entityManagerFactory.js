@@ -4,7 +4,10 @@
     var serviceId = 'entityManagerFactory';
     angular.module('app').factory(serviceId, ['breeze','$q', 'config','model', entityManagerFactory]);
 
-    function entityManagerFactory(breeze,$q,config,modelService) {
+    function entityManagerFactory(breeze, $q, config, model) {
+        
+        breeze.config.initializeAdapterInstance('modelLibrary', 'backingStore', true);
+        
         // Convert server-side PascalCase to client-side camelCase property names
         breeze.NamingConvention.camelCase.setAsDefault();
         
@@ -12,8 +15,8 @@
         // We could also set this per entityManager
         new breeze.ValidationOptions({ validateOnAttach: false }).setAsDefault();
 
-        //var serviceName = config.remoteServiceName;
-        //var metadataStore = new breeze.MetadataStore();
+        var serviceName = config.remoteServiceName;
+        var metadataStore = createMetadataStore();
         
         var ajaxAdapter = breeze.config.getAdapterInstance('ajax');
         var authorizationData = JSON.parse(localStorage.getItem("authorizationData"));
@@ -25,28 +28,25 @@
             };
         }
 
-
-        var manager;
-
         var provider = {
-            //metadataStore: metadataStore,
-            getEntityManager: getEntityManager
+            metadataStore: metadataStore,
+            newManager: newManager
         };
 
         return provider;
 
-        function getEntityManager() {
-          if (manager) {
-              return $q.when(manager);
-          } else {
-              var dataService = new breeze.DataService({
-                  hasServerMetadata: config.hasServerMetadata,
-                  serviceName: config.remoteServiceName
-              });
+        function createMetadataStore() {
+            var store = new breeze.MetadataStore();
+            model.configureMetadataStore(store);
+            return store;
+        }
 
-              manager = new breeze.EntityManager({ dataService: dataService });
-              return modelService.setModel(manager);
-          }
+        function newManager() {
+            var mgr = new breeze.EntityManager({
+                serviceName: serviceName,
+                metadataStore: metadataStore
+            });
+            return mgr;
         }
     }
 })();
