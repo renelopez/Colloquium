@@ -79,6 +79,33 @@ input[type="checkbox"].input-validation-error {
     }
 /*#endregion*/
 
+.content-animation.ngEnter,.content-animation.ngLeave {
+  position:absolute;
+  top:0;
+  left:0;
+  right:0;
+  height:600px;
+}
+
+.content-animation.ng-enter {
+    -webkit-animation: 0.5s fadeInUp;
+    -moz-animation: 0.5s fadeInUp;
+    -ms-animation: 0.5s fadeInUp;
+    -o-animation:  0.5s   fadeInUp;
+    animation: 0.5s fadeInUp;
+
+}
+
+.content-animation.ng-leave {
+    -webkit-animation: 0.5s fadeOutDown;
+    -moz-animation: 0.5s fadeOutDown;
+    -ms-animation: 0.5s fadeOutDown;
+    -o-animation:  0.5s fadeOutDown;
+    animation: 0.5s fadeOutDown;
+
+    
+}
+
 .repeat-animation.ng-enter {
     -webkit-animation: fadeInLeft 0.5s;
     -moz-animation: fadeInLeft 0.5s;

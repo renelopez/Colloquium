@@ -2,17 +2,18 @@
     'use strict';
 
     var serviceId = 'datacontext';
-    angular.module('app').factory(serviceId, ['breeze', 'common', 'entityManagerFactory','lodash','repositories','model', usrMgmtDatacontextSvc]);
+    angular.module('app').factory(serviceId, ['breeze', 'common','config', 'entityManagerFactory','lodash','repositories','model', usrMgmtDatacontextSvc]);
     
-    function usrMgmtDatacontextSvc(breeze, common, entityManagerFactory,lodash,repositories, model) {
+    function usrMgmtDatacontextSvc(breeze, common,config,entityManagerFactory,lodash,repositories, model) {
         var $q = common.$q;
-        
+
+        var events = config.events;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
         var logError = getLogFn(serviceId, 'error');
         var logSuccess = getLogFn(serviceId, 'success');
         var entityNames = model.entityNames;
-        var repoNames = ['colloquium','user', 'role','company','contact','urole','work']; 
+        var repoNames = ['colloquium','session','user', 'role','company','contact','urole','work']; 
         var manager = entityManagerFactory.newManager();
 
         var storeMeta = {
@@ -42,6 +43,7 @@
         function init() {
             repositories.init(manager);
             defineLazyLoadedRepos();
+            setupEventForHasChangesChanged();
         }
         
         function defineLazyLoadedRepos() {
@@ -188,6 +190,13 @@
         
         function _fail(error) {
             logError("Some errors ocurred:", error, true);
+        }
+
+        function setupEventForHasChangesChanged() {
+            manager.hasChangesChanged.subscribe(function(eventArgs) {
+                var data = { hasChanges: eventArgs.hasChanges };
+                common.$broadcast(events.hasChangesChanged, data);
+            });
         }
     }
 }

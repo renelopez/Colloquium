@@ -8,6 +8,8 @@
     function repository(breeze,common,model, AbstractRepository) {
         var EntityQuery = breeze.EntityQuery;
         var entityName = model.entityNames.user;
+        var orderBy = 'id';
+        var Predicate = breeze.Predicate;
         
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
@@ -23,6 +25,7 @@
             // Data Access
             this.create = create;
             this.getById = getById;
+            this.getByName = getByName;
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -37,7 +40,7 @@
             if (!forceRemote) {
                 // check cache first
                 var entity = manager.getEntityByKey(entityName, id);
-                if (entity) {// && !entity.isPartial) {
+                if (entity && !entity.isPartial) {
                     self.log('Retrieved [' + entityName + '] id:' + entity.id + ' from cache.', entity, true);
                     if (entity.entityAspect.entityState.isDeleted()) {
                         entity = null; // hide session marked-for-delete
@@ -56,6 +59,29 @@
             function success(data) {
                 var results = data.results[0];
                 logSuccess("User data was succesfully retrieved.", null, true);
+                return results;
+            }
+        }
+        
+        function getByName(name, forceRemote) {
+            var self = this;
+            var users;
+            var predicate = Predicate.create('firstName', 'substringof', name);
+
+            if (self._areItemsLoaded() && !forceRemote) {
+                users = self._getAllLocal(entityName, orderBy,predicate);
+                return self.$q.when(users);
+            }
+            return EntityQuery.from("Users")
+                 .where(predicate)
+                 .using(self.manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
+
+            function success(data) {
+                var results = data.results;
+                //logSuccess("User data was succesfully retrieved.", null, true);
                 return results;
             }
         }

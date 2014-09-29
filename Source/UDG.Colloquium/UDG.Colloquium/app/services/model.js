@@ -17,6 +17,7 @@
             company:'Company',
             contact:'Contact',
             role: 'ApplicationRole',
+            session:'Session',
             user: 'ApplicationUser',
             userRole: 'ApplicationUserRole',
             work: 'Work',
@@ -35,7 +36,9 @@
         function registerRangeDate(metadataStore) {
             metadataStore.registerEntityTypeCtor('Colloquium', Colloquium);
             
-            function Colloquium(){}
+            function Colloquium() {
+                this.isPartial = false;
+            }
 
             Object.defineProperty(Colloquium.prototype, 'rangeDate', {                
                get:function() {

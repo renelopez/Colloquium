@@ -1,0 +1,33 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="form-inline">
+            <input class="input-medium search-query"
+                   ng-model="vm.colloquiumSessionsSearch"
+                   ng-keyup="vm.search($event)"
+                   placeholder="Find a session..." />
+            <div class="btn-group pull-right">
+                <a class="btn btn-info btn-margin" ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i><span>Refresh</span></a>
+                <a class="btn btn-info btn-margin" href="#/colloquiums/{{vm.colloquiumId}}/sessions/new"><i class="glyphicon glyphicon-plus"></i><span>Add Session</span></a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{vm.title}}</div>
+            <div class="panel-body">
+                <div ng-repeat="session in vm.filteredSessions"
+                     ng-click="vm.editSession(session)">
+                    <div class="media">
+                        <!--<a class="pull-left" href="#">
+                                <img class="media-object" src="..." alt="...">
+                            </a>-->
+                        <div class="media-body">
+                            <h4 class="media-heading">{{session.name}}</h4>
+                            <p>{{session.student.name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

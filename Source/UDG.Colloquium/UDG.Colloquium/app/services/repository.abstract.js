@@ -24,6 +24,7 @@
         AbstractConstructor.prototype._getAllLocal = _getAllLocal;
         AbstractConstructor.prototype._getById = _getById;
         AbstractConstructor.prototype._queryFailed = _queryFailed;
+        AbstractConstructor.prototype._setIsPartialIsTrue = _setIsPartialIsTrue;
         AbstractConstructor.prototype.log = common.logger.getLogFn(this.serviceId);
         AbstractConstructor.prototype.$q = common.$q;
 
@@ -50,7 +51,7 @@
             if (!forceRemote) {
                 // check cache first
                 var entity = manager.getEntityByKey(entityName, id);
-                if (entity){// && !entity.isPartial) {
+                if (entity && !entity.isPartial) {
                     self.log('Retrieved [' + entityName + '] id:' + entity.id + ' from cache.', entity, true);
                     if (entity.entityAspect.entityState.isDeleted()) {
                         entity = null; // hide session marked-for-delete
@@ -71,7 +72,7 @@
                     self.log('Could not find [' + entityName + '] id:' + id, null, true);
                     return null;
                 }
-                //entity.isPartial = false;
+                entity.isPartial = false;
                 self.log('Retrieved [' + entityName + '] id ' + entity.id
                     + ' from remote data source', entity, true);
                 return entity;
@@ -82,6 +83,13 @@
             var msg = config.appErrorPrefix + 'Error retrieving data.' + error.message;
             logError(msg, error);
             throw error;
+        }
+        
+        function _setIsPartialIsTrue(entities) {
+            for (var i = entities.length; i--;) {
+                entities[i].isPartial = true;
+            }
+            return entities;
         }
 
     }

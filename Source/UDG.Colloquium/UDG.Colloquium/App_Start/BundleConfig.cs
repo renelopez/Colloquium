@@ -84,7 +84,9 @@ namespace UDG.Colloquium.App_Start
                 "~/app/shell/shell.js",
                 "~/app/userManagement/usrMgmtCtrl.js",
                 "~/app/colloquium/colloquiumsCtrl.js",
-                "~/app/colloquium/colloquiumDetailCtrl.js"
+                "~/app/colloquium/colloquiumDetailCtrl.js",
+                "~/app/colloquium/colloquiumSessionsCtrl.js",
+                "~/app/colloquium/colloquiumSessionDetailCtrl.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
@@ -95,6 +97,7 @@ namespace UDG.Colloquium.App_Start
                 "~/app/services/repository.company.js",
                 "~/app/services/repository.contact.js",
                 "~/app/services/repository.role.js",
+                "~/app/services/repository.session.js",
                 "~/app/services/repository.user.js",
                 "~/app/services/repository.urole.js",
                 "~/app/services/repository.work.js",

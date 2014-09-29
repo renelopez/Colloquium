@@ -1,0 +1,77 @@
+﻿(function () {
+    'use strict';
+
+    var controllerId = 'colloquiumSessionsCtrl';
+
+    angular.module('app').controller(controllerId,
+        ['$location','$stateParams', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
+
+    function colloquiumSessionsCtrl($location,$stateParams, common, config, datacontext) {
+        var vm = this;
+        var getLogFn = common.logger.getLogFn;
+        var log = getLogFn(controllerId);
+        var keyCodes = config.keyCodes;
+
+        var applyFilter = function () { };
+
+        vm.colloquiumSessionsSearch = '';
+        vm.colloquiumSessionsFilter = colloquiumSessionsFilter;
+        vm.editSession = editSession;
+        vm.filteredColloquiumSessions = [];
+        vm.refresh = refresh;
+        vm.colloquiumSessions = [];
+        vm.search = search;
+        vm.colloquiumId = $stateParams.colloquiumId;
+        vm.title = 'Sessions';
+
+        activate();
+        
+        function activate() {
+            toggleBusyMessage(true);
+            common.activateController([getRequestedColloquiumSessions()], controllerId).then(function() {
+                applyFilter = common.createSearchThrottle(vm, 'colloquiumSessions');
+                if (vm.colloquiumSessionsSearch) {
+                    applyFilter(true);
+                }
+                log('Activated ColloquiumSessions View');
+            });
+        }
+        
+        function editSession(session) {
+            if (session && session.id) {
+                $location.path('/colloquiums/' + vm.colloquiumId+'/sessions/'+session.id);
+            }
+        }
+        
+        function colloquiumSessionsFilter(session) {
+            var textContains = common.textContains;
+            var searchText = vm.colloquiumSessionsSearch;
+            var isMatch = searchText ? textContains(session.name, searchText) : true;
+            return isMatch;
+        }
+        
+        function getRequestedColloquiumSessions(forceRefresh) {
+            
+            return datacontext.colloquium.getColloquiumSessionsById(vm.colloquiumId,forceRefresh).then(function(sessions) {
+                vm.colloquiumSessions = vm.filteredColloquiumSessions = sessions;
+            });
+        }
+        
+        function refresh() {
+            getRequestedColloquiumSessions(true);
+        }
+
+        function search($event) {
+            if ($event.keyCode === keyCodes.esc) {
+                vm.colloquiumsSearch = '';
+                applyFilter(true);
+            } else {
+                applyFilter();
+            }
+        }
+
+        function toggleBusyMessage(state) {
+            common.$broadcast(config.events.spinnerToggle, { show: state });
+        }
+    }
+})();

@@ -12,11 +12,11 @@ namespace UDG.Colloquium.DL.Models
     {
         public Colloquium()
         {
-            Users=new HashSet<ApplicationUser>();
+            Sessions=new HashSet<Session>();
         }
 
         [Key]
-        public int ColloquiumId { get; set; }
+        public int Id { get; set; }
 
         [Required]
         public string Period { get; set; }
@@ -27,6 +27,6 @@ namespace UDG.Colloquium.DL.Models
         [Required]
         public DateTime EndDate { get; set; }
 
-        public virtual ICollection<ApplicationUser> Users { get; set; }
+        public virtual ICollection<Session> Sessions { get; set; }
     }
 }

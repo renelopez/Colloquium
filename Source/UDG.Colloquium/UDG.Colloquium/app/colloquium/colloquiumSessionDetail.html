@@ -22,32 +22,25 @@
     </div>
     <div class="row">
         <div class="panel panel-primary">
-            <div class="panel-heading">Edit {{vm.colloquium.period || 'New Colloquium'}} </div>
+            <div class="panel-heading">Edit {{vm.session.name || 'New Session'}} </div>
             <div class="panel-body">
-                <div>
-                    <label>Colloquium Period</label>
-                    <select ng-options="year for year in vm.years"
-                            ng-change="vm.updatePeriod()"
-                            ng-model="vm.year">
-                    </select>
-                    <select ng-options="cycle for cycle in vm.cycles"
-                            ng-change="vm.updatePeriod()"
-                            ng-model="vm.cycle">
-                    </select>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Name</label>
+                    <input ng-model="vm.session.name" class="form-control col-md-10"
+                           z-validate />
                 </div>
-                <div>
-                    <label>Start Date</label>
-                    <input ng-model="vm.colloquium.beginDate"
-                           z-validate
-                           kendo-date-picker/>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Description</label>
+                    <input ng-model="vm.session.description" class="form-control col-md-10"
+                           z-validate />
                 </div>
-                <div>
-                    <label>End Date</label>
-                    <input ng-model="vm.colloquium.endDate"
-                           z-validate
-                           kendo-date-picker />
+                <div class="form-group">
+                    <label class="control-label col-md-2">Student</label>
+                    <input ng-model="vm.users" typeahead="user for user in vm.getUsers($viewValue)"
+                           typeahead-loading="loadingUsers" class="form-control col-md-10" />
+                    <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
                 </div>
             </div>
-         </div>
+        </div>
     </div>
 </div>

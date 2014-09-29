@@ -4,9 +4,9 @@
     var controllerId = 'colloquiumsCtrl';
 
     angular.module('app').controller(controllerId,
-        ['common','config','datacontext', colloquiumsCtrl]);
+        ['$location','common','config','datacontext', colloquiumsCtrl]);
 
-    function colloquiumsCtrl(common,config,datacontext) {
+    function colloquiumsCtrl($location,common,config,datacontext) {
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -17,8 +17,9 @@
         vm.colloquiums = [];
         vm.colloquiumsSearch = '';
         vm.colloquiumsFilter = colloquiumsFilter;
+        vm.editColloquium = editColloquium;
         vm.filteredColloquiums = [];
-        //vm.goToColloquiumStudents = goToColloquiumStudents;
+        vm.goToColloquiumStudents = goToColloquiumStudents;
         vm.title = 'Colloquiums';
         vm.refresh = refresh;
         vm.search = search;
@@ -26,6 +27,7 @@
         activate();
 
         function activate() {
+            toggleBusyMessage(true);
             common.activateController([getColloquiums()], controllerId).then(function() {
                 applyFilter = common.createSearchThrottle(vm, 'colloquiums');
                 if (vm.colloquiumsSearch) {
@@ -42,10 +44,22 @@
             return isMatch;
         }
         
+        function editColloquium(col) {
+            if (col && col.id) {
+                $location.path('/colloquiums/' + col.id);
+            }
+        }
+        
         function getColloquiums(forceRefresh) {
             return datacontext.colloquium.getAll(forceRefresh).then(function(cols) {
                 vm.colloquiums = vm.filteredColloquiums = cols;
             });
+        }
+        
+        function goToColloquiumStudents(col) {
+            if (col && col.id) {
+                $location.path('/colloquiums/' + col.id + '/sessions');
+            }
         }
         
         function refresh() {
@@ -59,6 +73,10 @@
             } else {
                 applyFilter();
             }
+        }
+        
+        function toggleBusyMessage(state) {
+            common.$broadcast(config.events.spinnerToggle, { show: state });
         }
     }
 })();

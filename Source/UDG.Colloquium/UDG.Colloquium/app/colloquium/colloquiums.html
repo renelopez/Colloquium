@@ -15,15 +15,16 @@
             <div class="panel panel-primary">
                 <div class="panel-heading">{{vm.title}}</div>
                 <div class="panel-body">
-                    <div ng-repeat="col in vm.filteredColloquiums"
-                         ng-click="vm.goToColloquiumStudents(col)">
+                    <div ng-repeat="col in vm.filteredColloquiums">
                         <div class="media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="..." alt="...">
-                            </a>
+                            <!--<a class="pull-left" href="#">
+                                    <img class="media-object" src="..." alt="...">
+                                </a>-->
+                            <button class="btn btn-info pull-right" ng-click="vm.editColloquium(col)"><i class="glyphicon glyphicon-pencil"></i><span> Edit Colloquium</span></button>
+                            <button class="btn btn-info pull-right" ng-click="vm.goToColloquiumStudents(col)"><i class="glyphicon glyphicon-book"></i><span> Consult Students</span></button>
                             <div class="media-body">
                                 <h4 class="media-heading">{{col.period}}</h4>
-                               <p>{{col.rangeDate}}</p>
+                                <p>{{col.rangeDate}}</p>
                             </div>
                         </div>
                     </div>

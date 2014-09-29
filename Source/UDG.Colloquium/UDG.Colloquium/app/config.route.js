@@ -68,7 +68,16 @@
                 url: '/colloquiums/:colloquiumId',
                 templateUrl: '/app/colloquium/colloquiumDetail.html',
                 controller: 'colloquiumDetailCtrl as vm'
-            
+            })
+            .state('colloquiumSessions', {
+                url: '/colloquiums/:colloquiumId/sessions',
+                templateUrl: '/app/colloquium/colloquiumSessions.html',
+                controller:'colloquiumSessionsCtrl as vm'
+            })
+            .state('colloquiumSessionDetails', {
+                url: '/colloquiums/:colloquiumId/sessions/:sessionId',
+                templateUrl: '/app/colloquium/colloquiumSessionDetail.html',
+                controller: 'colloquiumSessionDetailCtrl as vm'
     });
         
         $urlRouterProvider.otherwise('/register/credentials');
