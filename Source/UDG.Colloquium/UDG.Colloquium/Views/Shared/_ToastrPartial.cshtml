@@ -2,26 +2,11 @@
 @using Microsoft.AspNet.Identity
 <script type="text/javascript">
 
-    toastr.options = {
-        "closeButton": false,
-        "debug": false,
-        "positionClass": "toast-top-right",
-        "onclick": null,
-        "showDuration": "300",
-        "hideDuration": "1000",
-        "timeOut": "5000",
-        "extendedTimeOut": "1000",
-        "showEasing": "swing",
-        "hideEasing": "linear",
-        "showMethod": "fadeIn",
-        "hideMethod": "fadeOut"
-    }
-
-    $(function() {
+   $(function() {
         var userName = $("#accessUserName").val();
         var accessToken = $("#accessToken").val();
         
-        if (userName != "" && accessToken != "") {
+        if (userName !== "" && accessToken !== "") {
             localStorage.setItem("authorizationData",JSON.stringify({
                 token: accessToken,
                 userName: userName
