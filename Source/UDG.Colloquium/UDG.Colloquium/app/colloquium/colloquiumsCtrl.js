@@ -19,7 +19,7 @@
         vm.colloquiumsFilter = colloquiumsFilter;
         vm.editColloquium = editColloquium;
         vm.filteredColloquiums = [];
-        vm.goToColloquiumStudents = goToColloquiumStudents;
+        vm.goToColloquiumSessions = goToColloquiumSessions;
         vm.title = 'Colloquiums';
         vm.refresh = refresh;
         vm.search = search;
@@ -56,7 +56,7 @@
             });
         }
         
-        function goToColloquiumStudents(col) {
+        function goToColloquiumSessions(col) {
             if (col && col.id) {
                 $location.path('/colloquiums/' + col.id + '/sessions');
             }

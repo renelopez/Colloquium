@@ -9,7 +9,7 @@
 
     // For use with the HotTowel-Angular-Breeze add-on that uses Breeze
     var serviceHost = "http://localhost:9000/";
-    var remoteServiceName = serviceHost + 'api/Register';
+    var remoteServiceName = serviceHost + 'api/colloquium';
     
     var keyCodes = {
         backspace: 8,

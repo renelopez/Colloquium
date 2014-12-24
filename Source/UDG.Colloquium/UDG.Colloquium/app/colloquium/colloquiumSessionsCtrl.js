@@ -4,24 +4,24 @@
     var controllerId = 'colloquiumSessionsCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location','$stateParams', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
+        ['$location','$stateParams','$window', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
 
-    function colloquiumSessionsCtrl($location,$stateParams, common, config, datacontext) {
+    function colloquiumSessionsCtrl($location,$stateParams,$window, common, config, datacontext) {
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var keyCodes = config.keyCodes;
 
         var applyFilter = function () { };
-
+        vm.colloquiumId = $stateParams.colloquiumId;
+        vm.colloquiumSessions = [];
         vm.colloquiumSessionsSearch = '';
         vm.colloquiumSessionsFilter = colloquiumSessionsFilter;
         vm.editSession = editSession;
         vm.filteredColloquiumSessions = [];
+        vm.goBack = goBack;
         vm.refresh = refresh;
-        vm.colloquiumSessions = [];
         vm.search = search;
-        vm.colloquiumId = $stateParams.colloquiumId;
         vm.title = 'Sessions';
 
         activate();
@@ -55,6 +55,10 @@
             return datacontext.colloquium.getColloquiumSessionsById(vm.colloquiumId,forceRefresh).then(function(sessions) {
                 vm.colloquiumSessions = vm.filteredColloquiumSessions = sessions;
             });
+        }
+
+        function goBack() {
+            $window.history.back();
         }
         
         function refresh() {

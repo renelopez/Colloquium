@@ -8,7 +8,7 @@ using UDG.Colloquium.DL.Models;
 
 namespace UDG.Colloquium.SL.ServiceRepositories
 {
-    public interface IRegisterRepository
+    public interface IColloquiumRepository
     {
         string GetMetadata();
         IQueryable<DL.Models.Colloquium> GetColloquiums();

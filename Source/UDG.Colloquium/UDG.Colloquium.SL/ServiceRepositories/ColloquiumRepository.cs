@@ -15,7 +15,7 @@ using UDG.Colloquium.DL.Models;
 
 namespace UDG.Colloquium.SL.ServiceRepositories
 {
-    public class RegisterRepository:EFContextProvider<ColloquiumDbContext>,IRegisterRepository
+    public class ColloquiumRepository:EFContextProvider<ColloquiumDbContext>,IColloquiumRepository
     {
         public string GetMetadata()
         {

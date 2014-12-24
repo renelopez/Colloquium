@@ -1,8 +1,4 @@
 ﻿@model UDG.Colloquium.BL.ViewModels.Account.Register.RegisterDTO
-@{
-    ViewBag.Title = "Register User";
-}
-
 @functions{
 
     public string GetAntiForgeryToken()
@@ -28,7 +24,6 @@
 <div ng-app="app">
     @if (@User.Identity.IsAuthenticated)
     {
-        <h2>@ViewBag.Title.</h2>
         <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />
         <div>
             <div data-ng-include="'/app/shell/shell.html'"></div>

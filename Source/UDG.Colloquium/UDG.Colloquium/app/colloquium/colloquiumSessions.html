@@ -1,4 +1,5 @@
-﻿<div class="container-fluid">
+﻿<h2>Sessions Module</h2>
+<div class="container-fluid">
     <div class="row">
         <div class="form-inline">
             <input class="input-medium search-query"
@@ -6,6 +7,10 @@
                    ng-keyup="vm.search($event)"
                    placeholder="Find a session..." />
             <div class="btn-group pull-right">
+                <a class="btn btn-info btn-margin"
+                        ng-click="vm.goBack()">
+                    <i class="glyphicon glyphicon-hand-left"></i>Back
+                </a>
                 <a class="btn btn-info btn-margin" ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i><span>Refresh</span></a>
                 <a class="btn btn-info btn-margin" href="#/colloquiums/{{vm.colloquiumId}}/sessions/new"><i class="glyphicon glyphicon-plus"></i><span>Add Session</span></a>
             </div>

@@ -59,7 +59,7 @@ namespace UDG.Colloquium.SL
 
            // builder.Register(c => HttpContext.Current.GetOwinContext()).As<IOwinContext>();
             // Registering repositories
-            builder.RegisterType<RegisterRepository>().As<IRegisterRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<ColloquiumRepository>().As<IColloquiumRepository>().InstancePerLifetimeScope();
             builder.RegisterType<ColloquiumDbContext>().As<DbContext>().InstancePerLifetimeScope();
 
             builder.RegisterType<ApplicationUserStore>()

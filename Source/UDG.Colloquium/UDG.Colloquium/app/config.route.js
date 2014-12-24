@@ -6,7 +6,7 @@
 
     function routeConfigurator($stateProvider, $urlRouterProvider) {
         $stateProvider
-            .state('home', {
+            .state('index', {
                 url: '/',
                 templateUrl: '/app/index.html',
                 controller: 'indexCtrl as vm'
@@ -85,6 +85,6 @@
                 controller: 'colloquiumSessionDetailCtrl as vm'
     });
         
-        $urlRouterProvider.otherwise('/register/credentials');
+        $urlRouterProvider.otherwise('/');
     }
 })();

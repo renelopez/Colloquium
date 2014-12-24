@@ -19,60 +19,60 @@ namespace UDG.Colloquium.SL
 {
     [BreezeController]
     [Authorize]
-    public class RegisterController:ApiController
+    public class ColloquiumController:ApiController
     {
-        public IRegisterRepository RegisterRepository { get; set; }
-        public RegisterController(IRegisterRepository registerRepository)
+        public IColloquiumRepository ColloquiumRepository { get; set; }
+        public ColloquiumController(IColloquiumRepository colloquiumRepository)
         {
-            RegisterRepository = registerRepository;
+            ColloquiumRepository = colloquiumRepository;
         }
 
         [HttpGet]
         public string Metadata()
         {
-            return RegisterRepository.GetMetadata();
+            return ColloquiumRepository.GetMetadata();
         }
 
         [HttpPost]        
         public SaveResult SaveChanges(JObject saveBundle)
         {
-            return RegisterRepository.SaveChanges(saveBundle);
+            return ColloquiumRepository.SaveChanges(saveBundle);
         }
 
         [HttpGet]
         public IQueryable<ApplicationUser> Users()
         {
-            return RegisterRepository.GetUsers();
+            return ColloquiumRepository.GetUsers();
         }
 
         [HttpGet]
         public IQueryable<Work> Works()
         {
-            return RegisterRepository.GetWorks();
+            return ColloquiumRepository.GetWorks();
         }
 
         [HttpGet]
         public IQueryable<Company> Companies()
         {
-            return RegisterRepository.GetCompanies();
+            return ColloquiumRepository.GetCompanies();
         }
 
         [HttpGet]
         public IQueryable<Contact> Contacts()
         {
-            return RegisterRepository.GetContacts();
+            return ColloquiumRepository.GetContacts();
         }
 
         [HttpGet]
         public IQueryable<ApplicationRole> Roles()
         {
-            return RegisterRepository.GetRoles();
+            return ColloquiumRepository.GetRoles();
         }
 
         [HttpGet]
         public IQueryable<DL.Models.Colloquium> Colloquiums()
         {
-            return RegisterRepository.GetColloquiums();
+            return ColloquiumRepository.GetColloquiums();
         }
 
         
