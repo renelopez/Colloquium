@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
-    public class LoginVm
+    public class LoginDTO
     {
         [Required]
         [Display(Name = "User name")]

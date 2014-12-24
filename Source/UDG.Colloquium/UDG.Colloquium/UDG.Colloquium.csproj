@@ -228,6 +228,7 @@
     <Compile Include="Configuration\DI\WebDIModule.cs" />
     <Compile Include="Configuration\Mappings\Initializers\AutoMapperWebInitializer.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BootstrapController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
@@ -240,6 +241,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\index.html" />
     <Content Include="app\colloquium\colloquiumSessionDetail.html" />
     <Content Include="app\colloquium\colloquiumDetail.html" />
     <Content Include="app\colloquium\colloquiumDetailCtrl.js" />
@@ -255,6 +257,7 @@
     <Content Include="app\config.exceptionHandler.js" />
     <Content Include="app\config.js" />
     <Content Include="app\config.route.js" />
+    <Content Include="app\indexCtrl.js" />
     <Content Include="app\services\repositories.js" />
     <Content Include="app\services\repository.abstract.js" />
     <Content Include="app\services\repository.session.js" />
@@ -1312,6 +1315,7 @@
     <Content Include="Scripts\kendo\2014.3.1119\kendo.autocomplete.min.js.map" />
     <Content Include="Scripts\kendo\2014.3.1119\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\2014.3.1119\jquery.min.map" />
+    <None Include="Views\Bootstrap\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

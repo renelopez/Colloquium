@@ -7,7 +7,7 @@ namespace UDG.Colloquium.BL.Contracts.Identity
 {
     public interface ISecurityRoleManager
     {
-        Task<IEnumerable<RoleNamesDao>> GetAllRolesAsync();
+        Task<IEnumerable<RoleNamesDTO>> GetAllRolesAsync();
         Task<IdentityResult> RemoveRoleAsync(string roleName);
         Task<IdentityResult> CreateRoleAsync(string roleName);
         void Clean();

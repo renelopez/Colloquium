@@ -3,10 +3,10 @@ using UDG.Colloquium.BL.ViewModels.Account.Management;
 
 namespace UDG.Colloquium.BL.Entities.Account
 {
-    public class UserRolesDao
+    public class UserRolesDTO
     {
         public int Id { get; set; }
         public string UserName { get; set; }
-        public List<SelectedRolesVm> UserRoles { get; set; }
+        public List<SelectedRolesDTO> UserRoles { get; set; }
     }
 }

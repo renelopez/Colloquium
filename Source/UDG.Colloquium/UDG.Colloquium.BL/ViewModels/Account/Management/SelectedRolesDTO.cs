@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Management
 {
-    public class SelectedRolesVm
+    public class SelectedRolesDTO
     {
         public bool Selected { get; set; }
 

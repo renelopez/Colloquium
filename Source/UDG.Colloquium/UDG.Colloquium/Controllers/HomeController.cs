@@ -7,14 +7,15 @@ using System.Web.Mvc;
 namespace UDG.Colloquium.Controllers
 {
     [RoutePrefix("")]
-    [Route("{action=Index}")]
     public class HomeController : Controller
     {
+        [Route("")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Route("about")]
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
@@ -22,6 +23,7 @@ namespace UDG.Colloquium.Controllers
             return View();
         }
 
+        [Route("contact")]
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

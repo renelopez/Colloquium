@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
-    public class ContactVm
+    public class ContactDTO
     {
         [MaxLength(30)]
         [DataType(DataType.PhoneNumber)]

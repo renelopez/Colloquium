@@ -63,30 +63,30 @@ namespace UDG.Colloquium.BL.Managers.Identity
             return users;
         }
 
-        public async Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync()
+        public async Task<IEnumerable<UserNamesDTO>> GetAllUserNamesAsync()
         {
             var users = await GetAllUsersAsync();
-            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDTO>>(users);
             return userNames;
         }
-        public async Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync(int pageIndex, int pageSize)
+        public async Task<IEnumerable<UserNamesDTO>> GetAllUserNamesAsync(int pageIndex, int pageSize)
         {
             var users = await GetAllUsersAsync();
             users = users.Skip(pageIndex).Take(pageSize);
-            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDTO>>(users);
             return userNames;
         }
 
-        public async Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName)
+        public async Task<IEnumerable<UserNamesDTO>> FindUserNameAsync(string userName)
         {
             var users = await Users.Where(usr => usr.UserName.Contains(userName)).ToListAsync();
-            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDTO>>(users);
             return userNames;
         }
-        public async Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName, int pageIndex, int pageSize)
+        public async Task<IEnumerable<UserNamesDTO>> FindUserNameAsync(string userName, int pageIndex, int pageSize)
         {
             var users = await Users.Where(usr => usr.UserName.Contains(userName)).Take(pageIndex).Skip(pageSize).ToListAsync();;
-            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDao>>(users);
+            var userNames = Mapper.Map<IEnumerable<ApplicationUser>, IEnumerable<UserNamesDTO>>(users);
             return userNames;
         }
 
@@ -96,7 +96,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
             return await CreateAsync(user, model.Password);
         }
 
-        public async Task<bool> TryLogin(LoginVm model,IAuthenticationManager authManager)
+        public async Task<bool> TryLogin(LoginDTO model,IAuthenticationManager authManager)
         {
             var user = await FindAsync(model.UserName, model.Password);
             if (user != null)
@@ -170,7 +170,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
             return await FindAsync(user, password);
         }
 
-        public async Task<IRestResponse<AccessData>> RemoteLogin(string userName, string password)
+        public async Task<IRestResponse<AccessDTO>> RemoteLogin(string userName, string password)
         {
             var client = new RestClient("http://localhost:9000");
             var request = new RestRequest("token", Method.POST);
@@ -179,7 +179,7 @@ namespace UDG.Colloquium.BL.Managers.Identity
             request.AddParameter("application/x-www-form-urlencoded", data, ParameterType.RequestBody);
             request.AddHeader("Accept", "application/json");
             request.RequestFormat = DataFormat.Json;
-            return await client.ExecuteTaskAsync<AccessData>(request);
+            return await client.ExecuteTaskAsync<AccessDTO>(request);
         }
     }
 }

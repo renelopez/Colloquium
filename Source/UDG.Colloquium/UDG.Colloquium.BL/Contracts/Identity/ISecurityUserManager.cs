@@ -17,12 +17,12 @@ namespace UDG.Colloquium.BL.Contracts.Identity
     {
         void InitializeSettings();
         Task<IEnumerable<ApplicationUser>> GetAllUsersAsync();
-        Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync();
-        Task<IEnumerable<UserNamesDao>> GetAllUserNamesAsync(int pageIndex, int pageSize);
-        Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName);
-        Task<IEnumerable<UserNamesDao>> FindUserNameAsync(string userName, int pageIndex, int pageSize);
+        Task<IEnumerable<UserNamesDTO>> GetAllUserNamesAsync();
+        Task<IEnumerable<UserNamesDTO>> GetAllUserNamesAsync(int pageIndex, int pageSize);
+        Task<IEnumerable<UserNamesDTO>> FindUserNameAsync(string userName);
+        Task<IEnumerable<UserNamesDTO>> FindUserNameAsync(string userName, int pageIndex, int pageSize);
         Task<IdentityResult> CreateUserAsync(User model);
-        Task<bool> TryLogin(LoginVm model,IAuthenticationManager authManager);
+        Task<bool> TryLogin(LoginDTO model,IAuthenticationManager authManager);
         void SignInCreatedUser(string userName, IAuthenticationManager authManager);
         bool HasPassword(int userId);
         Task<IdentityResult> ChangePassword(int userId, string oldPassword, string newPassword);
@@ -34,6 +34,6 @@ namespace UDG.Colloquium.BL.Contracts.Identity
         Task SignInAsync(IAuthenticationManager authManager, ApplicationUser user, bool isPersistent);
         Task<IList<string>> GetRolesAssignedToUserAsync(int id);
         Task<ApplicationUser> FindUserAsync(string user, string password);
-        Task<IRestResponse<AccessData>> RemoteLogin(string userName, string password);
+        Task<IRestResponse<AccessDTO>> RemoteLogin(string userName, string password);
     }
 }

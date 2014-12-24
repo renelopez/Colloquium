@@ -17,9 +17,11 @@
 @section styles
 {
     <style>
-    /* This helps the ng-show/ng-hide animations start at the right place. */
-    /* Since Angular has this but needs to load, this gives us the class early. */
-        .ng-hide { display: none !important; }
+        /* This helps the ng-show/ng-hide animations start at the right place. */
+        /* Since Angular has this but needs to load, this gives us the class early. */
+        .ng-hide {
+            display: none !important;
+        }
     </style>
 }
 
@@ -47,13 +49,13 @@
 </div>
 @if (@User.Identity.IsAuthenticated)
 {
-@section Scripts {
-    @Scripts.Render("~/bundles/angular")
-    @Scripts.Render("~/bundles/angularBreeze")
-    @Scripts.Render("~/bundles/externalVendors")
-    @Scripts.Render("~/bundles/bootstraping")
-    @Scripts.Render("~/bundles/common")
-    @Scripts.Render("~/bundles/app")
-    @Scripts.Render("~/bundles/services")
-}}
+    @section Scripts {
+        @Scripts.Render("~/bundles/angular")
+        @Scripts.Render("~/bundles/angularBreeze")
+        @Scripts.Render("~/bundles/externalVendors")
+        @Scripts.Render("~/bundles/bootstraping")
+        @Scripts.Render("~/bundles/common")
+        @Scripts.Render("~/bundles/app")
+        @Scripts.Render("~/bundles/services")
+    }}
 

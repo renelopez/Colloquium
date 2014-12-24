@@ -23,10 +23,10 @@ namespace UDG.Colloquium.BL.Managers.Identity
             UnitOfWork = unitOfWork;
         }
 
-        public async Task<IEnumerable<RoleNamesDao>> GetAllRolesAsync()
+        public async Task<IEnumerable<RoleNamesDTO>> GetAllRolesAsync()
         {
             var roles = await Roles.ToListAsync();
-            var rolesList = Mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<RoleNamesDao>>(roles);
+            var rolesList = Mapper.Map<IEnumerable<ApplicationRole>, IEnumerable<RoleNamesDTO>>(roles);
             return rolesList;
         }
 

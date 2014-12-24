@@ -1,6 +1,6 @@
 ﻿namespace UDG.Colloquium.BL.Entities.Account
 {
-    public class AccessData
+    public class AccessDTO
     {
         public string AccessToken { get; set; }
         public string TokenType { get; set; }

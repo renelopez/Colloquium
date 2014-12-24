@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
-    public enum GenreDVm
+    public enum GenreTypes
     {
         [Display(Name="Male")]
         Male,

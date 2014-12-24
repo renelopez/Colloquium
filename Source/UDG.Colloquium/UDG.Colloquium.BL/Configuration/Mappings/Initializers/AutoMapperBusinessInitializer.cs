@@ -12,11 +12,11 @@ namespace UDG.Colloquium.BL.Configuration.Mappings.Initializers
     {
         public static void Init()
         {
-            Mapper.CreateMap<ApplicationRole, RoleNamesDao>()
+            Mapper.CreateMap<ApplicationRole, RoleNamesDTO>()
                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                .ForMember(dest => dest.RoleName, opt => opt.MapFrom(src => src.Name));
 
-            Mapper.CreateMap<ApplicationUser, UserNamesDao>()
+            Mapper.CreateMap<ApplicationUser, UserNamesDTO>()
                  .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
                  .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.UserName));
         }

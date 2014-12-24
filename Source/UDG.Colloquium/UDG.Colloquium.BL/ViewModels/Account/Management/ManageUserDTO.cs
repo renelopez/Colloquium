@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Management
 {
-    public class ManageUserVm
+    public class ManageUserDTO
     {
         [Required]
         [DataType(DataType.Password)]

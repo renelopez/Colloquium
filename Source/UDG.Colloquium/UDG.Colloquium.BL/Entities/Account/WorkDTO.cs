@@ -4,7 +4,7 @@ using UDG.Colloquium.BL.ViewModels.Account.Register;
 
 namespace UDG.Colloquium.BL.Entities.Account
 {
-    public class WorkDao
+    public class WorkDTO
     {
         [Display(Name = "WorkPosition")]
         [MaxLength(30)]
@@ -19,7 +19,7 @@ namespace UDG.Colloquium.BL.Entities.Account
         public double WorkSalary { get; set; }
 
         [Display(Name = "Schema")]
-        public SchemaTypeVm SalarySchema { get; set; }
+        public SchemaTypeDTO SalarySchema { get; set; }
 
         [Display(Name = "Begin Date")]
         [RegularExpression(@"^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$")]
@@ -29,6 +29,6 @@ namespace UDG.Colloquium.BL.Entities.Account
         [RegularExpression(@"^[0,1]?\d{1}\/(([0-2]?\d{1})|([3][0,1]{1}))\/(([1]{1}[9]{1}[9]{1}\d{1})|([2-9]{1}\d{3}))$")]
         public DateTime WorkEndDate { get; set; }
 
-        public CompanyVm Company { get; set; }
+        public CompanyDTO Company { get; set; }
     }
 }

@@ -48,7 +48,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginVm model, string returnUrl)
+        public async Task<ActionResult> Login(LoginDTO model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace UDG.Colloquium.Controllers
                     {
                         TempData["AccessToken"] = responseLogin.Data.AccessToken;
                         TempData["AccessUserName"] = model.UserName;
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index","Bootstrap");
                     }
                 }
 
@@ -107,9 +107,9 @@ namespace UDG.Colloquium.Controllers
 
         public PartialViewResult Companies()
         {
-            var companies=new List<CompanyVm>
+            var companies=new List<CompanyDTO>
             {
-                new CompanyVm
+                new CompanyDTO
                 {
                     CompanyId = 1,
                     CompanyName = "Unosquare",
@@ -118,7 +118,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyVm
+                new CompanyDTO
                 {
                     CompanyId = 2,
                     CompanyName = "Tata",
@@ -127,7 +127,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta 100",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyVm
+                new CompanyDTO
                 {
                     CompanyId = 3,
                     CompanyName = "HP",
@@ -136,7 +136,7 @@ namespace UDG.Colloquium.Controllers
                     CompanyDescription = "Apesta",
                     CompanyPhoneNumber = "34313343"
                 },
-                new CompanyVm
+                new CompanyDTO
                 {
                     CompanyId = 4,
                     CompanyName = "Oracle",
@@ -178,7 +178,7 @@ namespace UDG.Colloquium.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrator,Student")]
-        public async Task<ActionResult> Manage(ManageUserVm model)
+        public async Task<ActionResult> Manage(ManageUserDTO model)
         {
             bool hasPassword = HasPassword();
             ViewBag.HasLocalPassword = hasPassword;
@@ -247,7 +247,7 @@ namespace UDG.Colloquium.Controllers
         [Authorize]
         public async Task<ActionResult> ManageUsers(string userName,int page=1,string order="asc")
         {
-            IEnumerable<UserNamesDao> usersWithRoles;
+            IEnumerable<UserNamesDTO> usersWithRoles;
 
 
             if (String.IsNullOrEmpty(userName))
@@ -283,24 +283,24 @@ namespace UDG.Colloquium.Controllers
         {
             var userRoles = await UserManager.GetRolesAssignedToUserAsync(id);
             var allRoles = await RoleManager.GetAllRolesAsync();
-            var userViewModel = new UserRolesDao
+            var userViewModel = new UserRolesDTO
             {
                 Id = id,
                 UserName = userName,
-                UserRoles = new List<SelectedRolesVm>()
+                UserRoles = new List<SelectedRolesDTO>()
             };
             foreach (var role in allRoles)
             {
                 userViewModel.UserRoles.Add(userRoles.Contains(role.RoleName)
-                    ? new SelectedRolesVm() { RoleName = role.RoleName, Selected = true }
-                    : new SelectedRolesVm() { RoleName = role.RoleName });
+                    ? new SelectedRolesDTO() { RoleName = role.RoleName, Selected = true }
+                    : new SelectedRolesDTO() { RoleName = role.RoleName });
             }
             return View(userViewModel);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> EditUserRoles(UserRolesDao userRolesDao)
+        public async Task<ActionResult> EditUserRoles(UserRolesDTO userRolesDao)
         {
             var success = new List<string>();
             var failed =new List<IdentityResult>();
@@ -369,7 +369,7 @@ namespace UDG.Colloquium.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> CreateRole(RoleNamesDao roleNamesDao)
+        public async Task<ActionResult> CreateRole(RoleNamesDTO roleNamesDao)
         {
             if (ModelState.IsValid)
             {
@@ -427,5 +427,6 @@ namespace UDG.Colloquium.Controllers
         {
             return UserManager.HasPassword(Convert.ToInt32(User.Identity.GetUserId()));
         }
+
     }
 }

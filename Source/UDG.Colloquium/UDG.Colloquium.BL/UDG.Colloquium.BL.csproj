@@ -112,11 +112,11 @@
   <ItemGroup>
     <Compile Include="Configuration\DI\BusinessDIModule.cs" />
     <Compile Include="Configuration\Mappings\Initializers\AutoMapperBusinessInitializer.cs" />
-    <Compile Include="Entities\Account\AccessData.cs" />
-    <Compile Include="Entities\Account\RoleNamesDao.cs" />
-    <Compile Include="Entities\Account\UserNamesDao.cs" />
-    <Compile Include="Entities\Account\UserRolesDao.cs" />
-    <Compile Include="Entities\Account\WorkDao.cs" />
+    <Compile Include="Entities\Account\AccessDTO.cs" />
+    <Compile Include="Entities\Account\RoleNamesDTO.cs" />
+    <Compile Include="Entities\Account\UserNamesDTO.cs" />
+    <Compile Include="Entities\Account\UserRolesDTO.cs" />
+    <Compile Include="Entities\Account\WorkDTO.cs" />
     <Compile Include="Contracts\Identity\ISecurityRoleManager.cs" />
     <Compile Include="Contracts\Identity\ISecurityUserManager.cs" />
     <Compile Include="Managers\Identity\SecurityRoleManager.cs" />
@@ -126,14 +126,14 @@
     <Compile Include="ViewModels\Account\DTO\Company.cs" />
     <Compile Include="ViewModels\Account\DTO\User.cs" />
     <Compile Include="ViewModels\Account\DTO\Work.cs" />
-    <Compile Include="ViewModels\Account\Management\ManageUserVm.cs" />
-    <Compile Include="ViewModels\Account\Management\SelectedRolesVm.cs" />
-    <Compile Include="ViewModels\Account\Register\CompanyVm.cs" />
-    <Compile Include="ViewModels\Account\Register\ContactVm.cs" />
-    <Compile Include="ViewModels\Account\Register\GenreVm.cs" />
-    <Compile Include="ViewModels\Account\Register\LoginVm.cs" />
-    <Compile Include="ViewModels\Account\Register\RegisterVm.cs" />
-    <Compile Include="ViewModels\Account\Register\SchemaTypeVm.cs" />
+    <Compile Include="ViewModels\Account\Management\ManageUserDTO.cs" />
+    <Compile Include="ViewModels\Account\Management\SelectedRolesDTO.cs" />
+    <Compile Include="ViewModels\Account\Register\CompanyDTO.cs" />
+    <Compile Include="ViewModels\Account\Register\ContactDTO.cs" />
+    <Compile Include="ViewModels\Account\Register\GenreTypes.cs" />
+    <Compile Include="ViewModels\Account\Register\LoginDTO.cs" />
+    <Compile Include="ViewModels\Account\Register\RegisterDTO.cs" />
+    <Compile Include="ViewModels\Account\Register\SchemaTypeDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">

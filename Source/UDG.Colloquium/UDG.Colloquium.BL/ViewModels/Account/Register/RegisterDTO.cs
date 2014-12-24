@@ -5,7 +5,7 @@ using UDG.Colloquium.BL.Entities.Account;
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
-    public class RegisterVm
+    public class RegisterDTO
     {
         [Required]
         [Display(Name = "User name")]
@@ -45,14 +45,14 @@ namespace UDG.Colloquium.BL.ViewModels.Account.Register
 
         [Display(Name = "Sex")]
         [Required]
-        public GenreDVm Sex { get; set; }
+        public GenreTypes Sex { get; set; }
 
         [Display(Name = "Nacionality")]
         [Required]
         public string Nacionality { get; set; }
 
-        public ICollection<WorkDao> Works { get; set; }
-        public ICollection<ContactVm> Contacts { get; set; }
+        public ICollection<WorkDTO> Works { get; set; }
+        public ICollection<ContactDTO> Contacts { get; set; }
 
     }
 }

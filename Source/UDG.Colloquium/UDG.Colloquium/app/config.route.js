@@ -5,8 +5,13 @@
     app.config(['$stateProvider', '$urlRouterProvider', routeConfigurator]);
 
     function routeConfigurator($stateProvider, $urlRouterProvider) {
-        // Creation
         $stateProvider
+            .state('home', {
+                url: '/',
+                templateUrl: '/app/index.html',
+                controller: 'indexCtrl as vm'
+            })
+            // Creation
             .state('register', {
                 url: '/register',
                 templateUrl: '/app/userManagement/usrMgmt.html',
@@ -41,7 +46,7 @@
             })
             .state('edit.credentials', {
                 url: '/credentials',
-                templateUrl: '/app/userManagement/usrMgmtCredentials.html',
+                templateUrl: '/app/userManagement/usrMgmtCredentials.html'
             })
             .state('edit.personal', {
                 url: '/personal',

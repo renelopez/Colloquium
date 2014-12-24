@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
-    public class CompanyVm
+    public class CompanyDTO
     {
         [Display(Name = "Company Id")]
         public int CompanyId { get; set; }

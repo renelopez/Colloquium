@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.ViewModels.Account.Register
 {
-    public enum SchemaTypeVm
+    public enum SchemaTypeDTO
     {
         [Display(Name = "Base Salary")]
         BaseSalary,

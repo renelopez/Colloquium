@@ -2,7 +2,7 @@
 
 namespace UDG.Colloquium.BL.Entities.Account
 {
-    public class RoleNamesDao
+    public class RoleNamesDTO
     {
         public string Id { get; set; }
         [Required]
