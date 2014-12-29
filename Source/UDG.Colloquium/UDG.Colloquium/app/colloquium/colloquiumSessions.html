@@ -20,15 +20,16 @@
         <div class="panel panel-primary">
             <div class="panel-heading">{{vm.title}}</div>
             <div class="panel-body">
-                <div ng-repeat="session in vm.filteredSessions"
+                <div ng-repeat="session in vm.filteredColloquiumSessions"
                      ng-click="vm.editSession(session)">
                     <div class="media">
                         <!--<a class="pull-left" href="#">
-                                <img class="media-object" src="..." alt="...">
-                            </a>-->
+                    <img class="media-object" src="..." alt="...">
+                </a>-->
                         <div class="media-body">
-                            <h4 class="media-heading">{{session.name}}</h4>
-                            <p>{{session.student.name}}</p>
+                            <h2 class="media-heading">{{session.name}}</h2>
+                            <h4>{{session.applicationUser.firstName}}&nbsp;&nbsp;{{session.applicationUser.lastName}}</h4>
+                            <h6>{{session.description}}</h6>
                         </div>
                     </div>
                 </div>

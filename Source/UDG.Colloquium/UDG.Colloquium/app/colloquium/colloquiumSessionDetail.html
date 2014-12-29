@@ -36,8 +36,8 @@
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-2">Student</label>
-                    <input ng-model="vm.users" typeahead="user for user in vm.getUsers($viewValue)"
-                           typeahead-loading="loadingUsers" class="form-control col-md-10" />
+                    <input ng-model="vm.selectedUser" typeahead="user for user in vm.getUsers($viewValue)"
+                           typeahead-loading="loadingUsers" typeahead-wait-ms="1000" class="form-control col-md-10" />
                     <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
                 </div>
             </div>

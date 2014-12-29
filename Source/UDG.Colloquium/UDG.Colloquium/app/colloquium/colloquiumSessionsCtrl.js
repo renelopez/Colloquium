@@ -51,8 +51,7 @@
         }
         
         function getRequestedColloquiumSessions(forceRefresh) {
-            
-            return datacontext.colloquium.getColloquiumSessionsById(vm.colloquiumId,forceRefresh).then(function(sessions) {
+            return datacontext.session.getSessionsByColloquiumId(vm.colloquiumId,forceRefresh).then(function(sessions) {
                 vm.colloquiumSessions = vm.filteredColloquiumSessions = sessions;
             });
         }
@@ -67,7 +66,7 @@
 
         function search($event) {
             if ($event.keyCode === keyCodes.esc) {
-                vm.colloquiumsSearch = '';
+                vm.colloquiumSessionsSearch = '';
                 applyFilter(true);
             } else {
                 applyFilter();

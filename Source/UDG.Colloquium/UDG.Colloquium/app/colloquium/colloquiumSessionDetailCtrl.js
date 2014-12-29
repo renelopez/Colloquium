@@ -16,6 +16,7 @@
         vm.hasChanges = false;
         vm.isSaving = false;
         vm.save = save;
+        vm.selectedUser = undefined;
         vm.session = undefined;
         vm.sessionId = $stateParams.sessionId;
         vm.users = [];
@@ -49,7 +50,7 @@
         
         function getRequestedSession() {
             if (vm.sessionId === 'new') {
-                return vm.session = datacontext.session.create();
+                return vm.session = datacontext.session.create(vm.colloquiumId);
             }
 
             return datacontext.session.getById(vm.sessionId).then(function (session) {
@@ -62,9 +63,9 @@
         }
         
         function getUsers(value) {
-            return datacontext.user.getByName(value).then(function(users) {
+            return datacontext.user.getTypeaheadData(value).then(function(users) {
                 return users.map(function(user) {
-                    return user.firstName + " " + user.lastName;
+                    return user.firstName+" "+user.lastName;
                 });
             });
         }
@@ -91,15 +92,18 @@
         }
         
          function save() {
-            if (!canSave()) { return $q.when(null); } // Must return a promise
-            vm.isSaving = true;
-            return datacontext.saveChanges()
-                .then(function (saveResult) {
-                    vm.isSaving = false;
-                }, function (error) {
-                    vm.isSaving = false;
-                });
-        }
+             if (!canSave()) { return $q.when(null); } // Must return a promise
+             vm.isSaving = true;
+             datacontext.user.getEntityByName(vm.selectedUser).then(function(user) {
+                 vm.session.applicationUser = user;
+                 return datacontext.saveChanges()
+                     .then(function(saveResult) {
+                         vm.isSaving = false;
+                     }, function(error) {
+                         vm.isSaving = false;
+                     });
+             });
+         }
         
         function toggleBusyMessage(state) {
             common.$broadcast(config.events.spinnerToggle, { show: state });

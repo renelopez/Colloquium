@@ -20,10 +20,10 @@
         }
     </style>
 }
-
-<div ng-app="app">
-    @if (@User.Identity.IsAuthenticated)
-    {
+@if (@User.Identity.IsAuthenticated)
+{
+    <div ng-app="app">
+    
         <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />
         <div>
             <div data-ng-include="'/app/shell/shell.html'"></div>
@@ -40,17 +40,7 @@
         </div>
 
         <span data-cc-scroll-to-top></span>
-    }
-</div>
-@if (@User.Identity.IsAuthenticated)
-{
-    @section Scripts {
-        @Scripts.Render("~/bundles/angular")
-        @Scripts.Render("~/bundles/angularBreeze")
-        @Scripts.Render("~/bundles/externalVendors")
-        @Scripts.Render("~/bundles/bootstraping")
-        @Scripts.Render("~/bundles/common")
-        @Scripts.Render("~/bundles/app")
-        @Scripts.Render("~/bundles/services")
-    }}
+    
+    </div>
+}
 

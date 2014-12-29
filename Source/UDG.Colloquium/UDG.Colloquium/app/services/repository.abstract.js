@@ -37,10 +37,11 @@
             return this.isLoaded = value; // set
         }
 
-        function _getAllLocal(resource, ordering, predicate) {
+        function _getAllLocal(resource, ordering,predicate) {
             return EntityQuery.from(resource)
-                .orderBy(ordering)
                 .where(predicate)
+                .orderBy(ordering)
+                .toType(resource)
                 .using(this.manager)
                 .executeLocally();
         }

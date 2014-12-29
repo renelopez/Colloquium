@@ -71,8 +71,15 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/angular")
+    @Scripts.Render("~/bundles/angularBreeze")
+    @Scripts.Render("~/bundles/externalVendors")
+    @Scripts.Render("~/bundles/bootstraping")
+    @Scripts.Render("~/bundles/common")
+    @Scripts.Render("~/bundles/app")
+    @Scripts.Render("~/bundles/services")
     @Html.Partial("_ToastrPartial")
+    @RenderSection("scripts",required:false)
 
 </body>
 

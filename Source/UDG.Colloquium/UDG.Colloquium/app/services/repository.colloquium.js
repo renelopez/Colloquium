@@ -25,7 +25,6 @@
             this.create = create;
             this.getAll = getAll;
             this.getById = getById;
-            this.getColloquiumSessionsById = getColloquiumSessionsById;
             
         };
 
@@ -59,34 +58,7 @@
             }
         }
 
-        function getColloquiumSessionsById(id, forceRemote) {
-            var self = this;
-            var manager = self.manager;
-            if (!forceRemote) {
-                // check cache first
-                var entity = manager.getEntityByKey(entityName, id);
-                if (entity && !entity.isPartial) {
-                    self.log('Retrieved [' + entityName + '] id:' + entity.id + ' from cache.', entity, true);
-                    if (entity.entityAspect.entityState.isDeleted()) {
-                        entity = null; // hide session marked-for-delete
-                    }
-                    return $q.when(entity);
-                }
-            }
-
-            return EntityQuery.from("Colloquiums").where("id", "eq", id)
-                 .expand("Sessions")
-                 .using(self.manager)
-                 .execute()
-                 .then(success)
-                 .catch(this._fail);
-
-            function success(data) {
-                var results = data.results[0];
-                logSuccess("Colloquium sessions data was succesfully retrieved.", null, true);
-                return results;
-            }
-        }
+        
         
 
         function getById(id, forceRemote) {

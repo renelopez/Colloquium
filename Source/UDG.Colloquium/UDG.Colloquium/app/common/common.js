@@ -113,9 +113,10 @@
                 throttles[key] = undefined;
             }
             if (immediate) {
-                callback();
+                return callback();
             } else {
                 throttles[key] = $timeout(callback, delay);
+                return throttles[key];
             }
         }
 

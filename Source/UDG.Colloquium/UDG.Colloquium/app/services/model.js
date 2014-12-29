@@ -30,11 +30,12 @@
         return service;
 
         function configureMetadataStore(metadataStore) {
-            registerRangeDate(metadataStore);
+            registerColloquium(metadataStore);
+            registerUser(metadataStore);
         }
         
-        function registerRangeDate(metadataStore) {
-            metadataStore.registerEntityTypeCtor('Colloquium', Colloquium);
+        function registerColloquium(metadataStore) {
+            metadataStore.registerEntityTypeCtor(entityNames.colloquium, Colloquium);
             
             function Colloquium() {
                 this.isPartial = false;
@@ -49,6 +50,23 @@
                }
                
             });
+        }
+
+        function registerUser(metadataStore) {
+            metadataStore.registerEntityTypeCtor(entityNames.user, ApplicationUser);
+
+            function ApplicationUser() {
+                this.isPartial = false;
+            }
+
+            Object.defineProperty(ApplicationUser.prototype, 'fullName', {
+                get:function() {
+                    var firstName = this.firstName;
+                    var lastName = this.lastName;
+                    return firstName + " " + lastName;
+                }
+            });
+
         }
        
     }

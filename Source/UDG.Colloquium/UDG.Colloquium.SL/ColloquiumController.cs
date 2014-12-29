@@ -75,6 +75,12 @@ namespace UDG.Colloquium.SL
             return ColloquiumRepository.GetColloquiums();
         }
 
+        [HttpGet]
+        public IQueryable<Session> Sessions()
+        {
+            return ColloquiumRepository.GetSessions();
+        }
+
         
     }
 }

@@ -57,6 +57,11 @@ namespace UDG.Colloquium.SL.ServiceRepositories
             return Context.Contacts;
         }
 
+        public IQueryable<Session> GetSessions()
+        {
+            return Context.Sessions;
+        }
+
         protected override bool BeforeSaveEntity(EntityInfo entityInfo)
         {
             if (entityInfo.EntityState == EntityState.Added && entityInfo.Entity is ApplicationUser)

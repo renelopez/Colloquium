@@ -25,7 +25,8 @@
             // Data Access
             this.create = create;
             this.getById = getById;
-            this.getByName = getByName;
+            this.getTypeaheadData = getTypeaheadData;
+            this.getEntityByName = getEntityByName;
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -58,30 +59,75 @@
 
             function success(data) {
                 var results = data.results[0];
-                logSuccess("User data was succesfully retrieved.", null, true);
+                if (!results) {
+                    self.log('Couldnt find [' + entityName + '] id:' + id, null, true);
+                    return null;
+                }
+                results.isPartial = false;
+                self.log('Retrieved [' + entityName + '] id:' + results.id+' from remote data source',entity, true);
                 return results;
             }
         }
         
-        function getByName(name, forceRemote) {
+        function getTypeaheadData(name) {
             var self = this;
             var users;
             var predicate = Predicate.create('firstName', 'substringof', name);
-
-            if (self._areItemsLoaded() && !forceRemote) {
-                users = self._getAllLocal(entityName, orderBy,predicate);
-                return self.$q.when(users);
-            }
             return EntityQuery.from("Users")
                  .where(predicate)
+                 .select('firstName,lastName')
+                 .orderBy(orderBy)
                  .using(self.manager)
                  .execute()
                  .then(success)
                  .catch(this._fail);
 
             function success(data) {
-                var results = data.results;
+                users = self._setIsPartialIsTrue(data.results);
+                //self._areItemsLoaded(true);
                 //logSuccess("User data was succesfully retrieved.", null, true);
+                return users;
+            }
+        }
+
+        function getEntityByName(fullName, forceRemote) {
+            var self = this;
+            var manager = self.manager;
+            var projection = "";
+            var splitFullName = fullName.split(' ');
+            var firstName = splitFullName[0];
+            var lastName = splitFullName[1];
+            var predicate = Predicate.create('firstName', 'eq', firstName)
+                                     .and('lastName','eq',lastName);
+            var user;
+
+            
+            if (!forceRemote) {
+                user = self._getAllLocal(entityName, orderBy,predicate)[0];
+                if (user && !user.isPartial) {
+                    self.log('Retrieved [' + entityName + '] id:' + user.id + ' from cache.', user, true);
+                    if (user.entityAspect.entityState.isDeleted()) {
+                        user = null; // hide session marked-for-delete
+                    }
+                    return $q.when(user);
+                }
+            }
+            return EntityQuery.from("Users")
+                 .where(predicate)
+                 .orderBy(orderBy)
+                 .using(manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
+
+            function success(data) {
+                var results = data.results[0];
+                if (!results) {
+                    self.log('Couldnt find [' + entityName + '] name:' + fullName, null, true);
+                    return null;
+                }
+                results.isPartial = false;
+                self.log('Retrieved [' + entityName + '] name:' + results.firstName+' '+results.lastName + ' from remote data source', results, true);
                 return results;
             }
         }

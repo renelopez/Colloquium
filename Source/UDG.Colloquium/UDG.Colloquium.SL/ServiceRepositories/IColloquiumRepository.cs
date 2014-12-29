@@ -19,5 +19,6 @@ namespace UDG.Colloquium.SL.ServiceRepositories
         SaveResult SaveChanges(JObject saveBundle);
         IQueryable<Contact> GetContacts();
 
+        IQueryable<Session> GetSessions();
     }
 }
