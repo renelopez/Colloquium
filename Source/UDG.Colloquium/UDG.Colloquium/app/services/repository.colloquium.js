@@ -45,6 +45,8 @@
 
 
             return EntityQuery.from('Colloquiums')
+                .select('period,beginDate,endDate')
+                .toType(entityName)
                 .using(self.manager)
                 .execute()
                 .then(success)
@@ -53,8 +55,9 @@
             function success(data) {
                 var results = data.results;
                 self._areItemsLoaded(true);
+                sessions = self._setIsPartialIsTrue(results);
                 logSuccess("Colloquiums were succesfully retrieved.", null, true);
-                return results;
+                return sessions;
             }
         }
 

@@ -83,10 +83,10 @@
                  .catch(this._fail);
 
             function success(data) {
-                users = self._setIsPartialIsTrue(data.results);
+                //users = self._setIsPartialIsTrue(data.results);
                 //self._areItemsLoaded(true);
                 //logSuccess("User data was succesfully retrieved.", null, true);
-                return users;
+                return data.results;
             }
         }
 

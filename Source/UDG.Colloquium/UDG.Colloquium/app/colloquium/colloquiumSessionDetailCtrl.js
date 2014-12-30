@@ -44,7 +44,7 @@
         function cancel() {
             datacontext.cancel();
             if (vm.session.entityAspect.entityState.isDetached()) {
-                goToSessionsList();
+                goBack();
             }
         }
         
@@ -58,7 +58,7 @@
             }, function (error) {
                 toggleBusyMessage(false);
                 logError('Unable to get session ' + val);
-                goToSessionsList();
+                goBack();
             });
         }
         
@@ -75,12 +75,8 @@
             $window.history.back();
         }
         
-        function goToSessionsList() {
-            $location.path('/colloquiums');
-        }
-        
         function onDestroy() {
-            $scope.$on('destroy', function () {
+            $scope.$on('$destroy', function () {
                 datacontext.cancel();
             });
         }
@@ -99,8 +95,10 @@
                  return datacontext.saveChanges()
                      .then(function(saveResult) {
                          vm.isSaving = false;
-                     }, function(error) {
-                         vm.isSaving = false;
+                         goBack();
+                 }, function(error) {
+                     vm.isSaving = false;
+                         goBack();
                      });
              });
          }

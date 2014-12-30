@@ -43,9 +43,9 @@
 
             Object.defineProperty(Colloquium.prototype, 'rangeDate', {                
                get:function() {
-                   var startDate = this.startDate;
+                   var beginDate = this.beginDate;
                    var endDate = this.endDate;
-                   var value = 'From ' + moment.utc(startDate).format('MMM Do YYYY') + ' To ' + moment.utc(endDate).format('MMM Do YYYY');
+                   var value = 'From ' + moment.utc(beginDate).format('MMM Do YYYY') + ' To ' + moment.utc(endDate).format('MMM Do YYYY');
                    return value;
                }
                

@@ -85,7 +85,7 @@
         }
         
         function onDestroy() {
-            $scope.$on('destroy', function() {
+            $scope.$on('$destroy', function() {
                 datacontext.cancel();
             });
         }
