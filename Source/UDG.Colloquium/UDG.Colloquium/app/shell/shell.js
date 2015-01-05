@@ -26,7 +26,7 @@
         activate();
 
         function activate() {
-            logSuccess('Register Module loaded!', null, true);
+            logSuccess('Colloquium Module loaded!', null, true);
             common.activateController([], controllerId);
         }
 

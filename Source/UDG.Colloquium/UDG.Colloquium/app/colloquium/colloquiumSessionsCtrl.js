@@ -23,13 +23,14 @@
         vm.refresh = refresh;
         vm.search = search;
         vm.title = 'Sessions';
+        vm.currentColloquium = {};
 
         activate();
         
         function activate() {
-            toggleBusyMessage(true);
-            common.activateController([getRequestedColloquiumSessions()], controllerId).then(function() {
-                applyFilter = common.createSearchThrottle(vm, 'colloquiumSessions');
+            common.toggleBusyMessage(true);
+            common.activateController([getRequestedColloquiumSessions(),getCurrentColloquium()], controllerId).then(function() {
+                applyFilter = common.createSearchThrottle(vm, 'colloquiumSessions',"filteredColloquiumSessions","colloquiumSessionsFilter");
                 if (vm.colloquiumSessionsSearch) {
                     applyFilter(true);
                 }
@@ -48,6 +49,12 @@
             var searchText = vm.colloquiumSessionsSearch;
             var isMatch = searchText ? textContains(session.name, searchText) : true;
             return isMatch;
+        }
+
+        function getCurrentColloquium(forceRemote) {
+            return datacontext.colloquium.getById(vm.colloquiumId, forceRemote).then(function(colloquium) {
+                vm.currentColloquium = colloquium;
+            });
         }
         
         function getRequestedColloquiumSessions(forceRefresh) {
@@ -71,10 +78,6 @@
             } else {
                 applyFilter();
             }
-        }
-
-        function toggleBusyMessage(state) {
-            common.$broadcast(config.events.spinnerToggle, { show: state });
         }
     }
 })();

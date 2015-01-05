@@ -25,6 +25,7 @@
             // Data Access
             this.create = create;
             this.getById = getById;
+            this.getAll = getAll;
             this.getTypeaheadData = getTypeaheadData;
             this.getEntityByName = getEntityByName;
         };
@@ -34,6 +35,10 @@
         return RepoConstructor;
         
         function create() { return this.manager.createEntity(entityName); }
+
+        function getAll() {
+            
+        }
         
         function getById(id,forceRemote) {
             var self = this;
@@ -129,6 +134,34 @@
                 results.isPartial = false;
                 self.log('Retrieved [' + entityName + '] name:' + results.firstName+' '+results.lastName + ' from remote data source', results, true);
                 return results;
+            }
+        }
+
+        function getAll(forceRemote) {
+            var users;
+            var self = this;
+
+            if (self._areItemsLoaded() && !forceRemote) {
+                users = self._getAllLocal('Users', orderBy);
+                self.log('Retrieved ' + colloquiums.length + ' elements from cache for entity type:' + entityName + '.', null, true);
+                return $q.when(colloquiums);
+            }
+
+
+            return EntityQuery.from('Users')
+                .select('id,userName,firstName,lastName')
+                .toType(entityName)
+                .using(self.manager)
+                .execute()
+                .then(success)
+                .catch(self._queryFailed);
+
+            function success(data) {
+                var results = data.results;
+                self._areItemsLoaded(true);
+                users = self._setIsPartialIsTrue(results);
+                self.log('Retrieved ' + users.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                return users;
             }
         }
         

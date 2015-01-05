@@ -14,55 +14,55 @@
             // Creation
             .state('register', {
                 url: '/register',
-                templateUrl: '/app/userManagement/usrMgmt.html',
-                controller: 'usrMgmtCtrl as vm'
+                templateUrl: '/app/userManagement/usrReg.html',
+                controller: 'usrRegCtrl as vm'
             })
             .state('register.credentials', {
                 url: '/credentials',
-                templateUrl: '/app/userManagement/usrMgmtCredentials.html'
+                templateUrl: '/app/userManagement/usrRegCredentials.html'
             })
             .state('register.personal', {
                 url: '/personal',
-                templateUrl: '/app/userManagement/usrMgmtPersonal.html'
+                templateUrl: '/app/userManagement/usrRegPersonal.html'
             })
             .state('register.work', {
                 url: '/work',
-                templateUrl: '/app/userManagement/usrMgmtWork.html'
+                templateUrl: '/app/userManagement/usrRegWork.html'
             })
             .state('register.contact', {
                 url: '/contact',
-                templateUrl: '/app/userManagement/usrMgmtContact.html'
+                templateUrl: '/app/userManagement/usrRegContact.html'
             })
             .state('register.submit', {
                 url: '/submit',
-                templateUrl: '/app/userManagement/usrMgmtSubmit.html'
+                templateUrl: '/app/userManagement/usrRegSubmit.html'
             })
         
             // Update
             .state('edit', {
                 url: '/edit/:userId',
-                templateUrl: '/app/userManagement/usrMgmt.html',
-                controller: 'usrMgmtCtrl as vm'
+                templateUrl: '/app/userManagement/usrReg.html',
+                controller: 'usrRegCtrl as vm'
             })
             .state('edit.credentials', {
                 url: '/credentials',
-                templateUrl: '/app/userManagement/usrMgmtCredentials.html'
+                templateUrl: '/app/userManagement/usrRegCredentials.html'
             })
             .state('edit.personal', {
                 url: '/personal',
-                templateUrl: '/app/userManagement/usrMgmtPersonal.html'
+                templateUrl: '/app/userManagement/usrRegPersonal.html'
             })
             .state('edit.work', {
                 url: '/work',
-                templateUrl: '/app/userManagement/usrMgmtWork.html'
+                templateUrl: '/app/userManagement/usrRegWork.html'
             })
             .state('edit.contact', {
                 url: '/contact',
-                templateUrl: '/app/userManagement/usrMgmtContact.html'
+                templateUrl: '/app/userManagement/usrRegContact.html'
             })
             .state('edit.submit', {
                 url: '/submit',
-                templateUrl: '/app/userManagement/usrMgmtSubmit.html'
+                templateUrl: '/app/userManagement/usrRegSubmit.html'
             })
             .state('colloquiumList', {
                 url: '/colloquiums',

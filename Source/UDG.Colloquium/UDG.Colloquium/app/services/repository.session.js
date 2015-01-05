@@ -42,17 +42,16 @@
         function getSessionsByColloquiumId(colloquiumId,forceRemote) {
             var self = this;
             var manager = self.manager;
-            //var projection = 'id,name,description,applicationUser.firstName,applicationUser.lastName';
             var predicate = Predicate.create('colloquiumId', 'eq', colloquiumId);
             var sessions;
             if (self._areItemsLoaded() && !forceRemote) {
-                sessions = self._getAllLocal('Sessions', orderBy,predicate);
+                sessions = self._getAllLocal('Sessions', orderBy, predicate);
+                self.log('Retrieved ' + sessions.length + ' elements from cache for entity type:' + entityName + '.', null, true);
                 return $q.when(sessions);
             }
             return EntityQuery.from("Sessions")
                 .expand("applicationUser")
                  .where(predicate)
-                 //.select(projection)
                  .orderBy(orderBy)
                  .toType(entityName)
                  .using(manager)
@@ -61,14 +60,13 @@
                  .catch(this._fail);
 
             function success(data) {
-                var results = data.results;
-                if (!results) {
-                    self.log('Couldnt find [' + entityName + '] colloquiumId:' + colloquiumId, null, true);
+                sessions = data.results;
+                if (!sessions) {
+                    self.log('Couldnt find [' + entityName + '] for colloquiumId:' + colloquiumId, null, true);
                     return null;
                 }
                 self._areItemsLoaded(true);
-                sessions = self._setIsPartialIsTrue(data.results);
-                logSuccess("Colloquiums were succesfully retrieved.", null, true);
+                self.log('Retrieved ' + sessions.length + ' elements from server for entity type:' + entityName + '.', null, true);
                 return sessions;
             }
 

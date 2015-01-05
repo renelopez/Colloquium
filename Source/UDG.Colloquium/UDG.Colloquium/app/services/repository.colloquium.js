@@ -40,12 +40,13 @@
 
             if (self._areItemsLoaded() && !forceRemote) {
                 colloquiums = self._getAllLocal('Colloquiums', orderBy);
+                self.log('Retrieved '+ colloquiums.length +' elements from cache for entity type:' + entityName + '.',null,true);
                 return $q.when(colloquiums);
             }
 
 
             return EntityQuery.from('Colloquiums')
-                .select('period,beginDate,endDate')
+                .select('id,period,beginDate,endDate')
                 .toType(entityName)
                 .using(self.manager)
                 .execute()
@@ -55,9 +56,9 @@
             function success(data) {
                 var results = data.results;
                 self._areItemsLoaded(true);
-                sessions = self._setIsPartialIsTrue(results);
-                logSuccess("Colloquiums were succesfully retrieved.", null, true);
-                return sessions;
+                colloquiums = self._setIsPartialIsTrue(results);
+                self.log('Retrieved ' + colloquiums.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                return colloquiums;
             }
         }
 

@@ -41,7 +41,9 @@
             debouncedThrottle: debouncedThrottle,
             isNumber: isNumber,
             logger: logger, // for accessibility
-            textContains: textContains
+            textContains: textContains,
+            toggleBusyMessage:toggleBusyMessage
+
         };
 
         return service;
@@ -113,11 +115,14 @@
                 throttles[key] = undefined;
             }
             if (immediate) {
-                return callback();
+                callback();
             } else {
                 throttles[key] = $timeout(callback, delay);
-                return throttles[key];
             }
+        }
+
+        function toggleBusyMessage(state) {
+            $broadcast(config.events.spinnerToggle, { show: state });
         }
 
         function isNumber(val) {

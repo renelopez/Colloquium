@@ -27,7 +27,7 @@
         activate();
 
         function activate() {
-            toggleBusyMessage(true);
+            common.toggleBusyMessage(true);
             common.activateController([getColloquiums()], controllerId).then(function() {
                 applyFilter = common.createSearchThrottle(vm, 'colloquiums');
                 if (vm.colloquiumsSearch) {
@@ -73,10 +73,6 @@
             } else {
                 applyFilter();
             }
-        }
-        
-        function toggleBusyMessage(state) {
-            common.$broadcast(config.events.spinnerToggle, { show: state });
         }
     }
 })();

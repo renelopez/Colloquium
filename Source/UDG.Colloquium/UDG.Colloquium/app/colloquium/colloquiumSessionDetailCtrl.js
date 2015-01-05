@@ -29,7 +29,7 @@
         activate();
 
         function activate() {
-            toggleBusyMessage(true);
+            common.toggleBusyMessage(true);
             onDestroy();
             onHasChanges();
             common.activateController([getRequestedSession()], controllerId).then(function () {
@@ -55,6 +55,7 @@
 
             return datacontext.session.getById(vm.sessionId).then(function (session) {
                 vm.session = session;
+                vm.selectedUser = vm.session.applicationUser.firstName + " " + vm.session.applicationUser.lastName;
             }, function (error) {
                 toggleBusyMessage(false);
                 logError('Unable to get session ' + val);
@@ -103,8 +104,5 @@
              });
          }
         
-        function toggleBusyMessage(state) {
-            common.$broadcast(config.events.spinnerToggle, { show: state });
-        }
     }
 })();

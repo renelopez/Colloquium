@@ -26,7 +26,7 @@
         activate();
 
         function activate() {
-            toggleBusyMessage(true);
+            common.toggleBusyMessage(true);
             loadYears();
             onDestroy();
             onHasChanges();
@@ -45,7 +45,7 @@
             vm.cycle = vm.colloquium.period.slice(-1);
             
             if (vm.colloquium.entityAspect.entityState.isDetached()) {
-                goToColloquiumsList();
+                goBack();
             }
         }
 
@@ -99,16 +99,17 @@
         function save() {
             if (!canSave()) { return $q.when(null); } // Must return a promise
             vm.isSaving = true;
+            toggleBusyMessage(true);
             return datacontext.saveChanges()
                 .then(function (saveResult) {
+                    toggleBusyMessage(false);
                     vm.isSaving = false;
+                    goBack();
                 }, function (error) {
+                    toggleBusyMessage(false);
                     vm.isSaving = false;
+                    goBack();
                 });
-        }
-        
-        function toggleBusyMessage(state) {
-            common.$broadcast(config.events.spinnerToggle, { show: state });
         }
 
     }

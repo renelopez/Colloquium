@@ -1,12 +1,12 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'usrMgmtCtrl';
+    var controllerId = 'usrRegCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location','$stateParams','common', 'config', 'datacontext','lodash', usrMgmtCtrl]);
+        ['$location', '$stateParams', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
 
-    function usrMgmtCtrl($location,$stateParams,common, config, datacontext,lodash) {
+    function usrRegCtrl($location,$stateParams,common, config, datacontext,lodash) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
