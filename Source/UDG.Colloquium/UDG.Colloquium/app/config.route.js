@@ -11,6 +11,12 @@
                 templateUrl: '/app/index.html',
                 controller: 'indexCtrl as vm'
             })
+            .state('management', {
+                url: '/management',
+                templateUrl: '/app/userManagement/usrMgmt.html',
+                controller:'userMgmtCtrl as vm'
+            })
+
             // Creation
             .state('register', {
                 url: '/register',

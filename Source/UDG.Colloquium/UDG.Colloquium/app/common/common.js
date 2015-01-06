@@ -14,7 +14,8 @@
         this.config = {
             // These are the properties we need to set
             controllerActivateSuccessEvent: '',
-            spinnerToggleEvent: ''
+            spinnerToggleEvent: '',
+            hasChangesChangedEvent:''
         };
 
         this.$get = function () {
@@ -122,7 +123,7 @@
         }
 
         function toggleBusyMessage(state) {
-            $broadcast(config.events.spinnerToggle, { show: state });
+            $broadcast(commonConfig.config.spinnerToggleEvent, { show: state });
         }
 
         function isNumber(val) {
