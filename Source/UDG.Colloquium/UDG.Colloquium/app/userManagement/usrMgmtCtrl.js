@@ -1,14 +1,14 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'userMgmtCtrl';
+    var controllerId = 'usrMgmtCtrl';
     angular
         .module('app')
-        .controller(controllerId, userMgmtCtrl);
+        .controller(controllerId, usrMgmtCtrl);
 
-    userMgmtCtrl.$inject = ['common','datacontext']; 
+    usrMgmtCtrl.$inject = ['common','datacontext']; 
 
-    function userMgmtCtrl(common,datacontext) {
+    function usrMgmtCtrl(common,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -29,13 +29,14 @@
         vm.search = search;
         vm.usersFilter = usersFilter;
         vm.users = [];
-        vm.usersSearch = {};
+        vm.usersSearch = undefined;
 
 
 
         activate();
 
         function activate() {
+            common.toggleBusyMessage(true);
             common.activateController([getUsers()], controllerId).then(function () {
                 applyFilter = common.createSearchThrottle(vm, 'users');
                 if (vm.usersSearch) {
@@ -56,6 +57,26 @@
             var searchText = vm.usersSearch;
             var isMatch = searchText ? textContains(user.userName, searchText) : true;
             return isMatch;
+        }
+
+        function deleteUser() {
+            
+        }
+
+        function editRolesForUser() {
+            
+        }
+
+        function editUser() {
+            
+        }
+
+        function refresh() {
+            
+        }
+
+        function search() {
+            
         }
     }
 })();

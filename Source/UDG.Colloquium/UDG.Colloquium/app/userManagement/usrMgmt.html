@@ -3,12 +3,12 @@
     <div class="row">
         <div class="form-inline">
             <input class="input-medium search-query"
-                   ng-model="vm.userSearch"
+                   ng-model="vm.usersSearch"
                    ng-keyup="vm.search($event)"
                    placeholder="Find a user..." />
             <div class="btn-group pull-right">
                 <a class="btn btn-info btn-margin" ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i><span> Refresh</span></a>
-                <a class="btn btn-info btn-margin" href="#"><i class="glyphicon glyphicon-plus"></i><span> Add Session</span></a>
+                <a class="btn btn-info btn-margin" href="#/register/credentials"><i class="glyphicon glyphicon-plus"></i><span> Add User</span></a>
             </div>
         </div>
     </div>

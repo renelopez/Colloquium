@@ -268,7 +268,7 @@
     <Content Include="app\services\repository.colloquium.js" />
     <Content Include="app\services\repository.work.js" />
     <Content Include="app\services\repository.user.js" />
-    <Content Include="app\userManagement\userMgmtCtrl.js" />
+    <Content Include="app\userManagement\usrMgmtCtrl.js" />
     <Content Include="app\userManagement\usrMgmt.html" />
     <Content Include="app\userManagement\usr-mgmt-collapsible.html" />
     <Content Include="app\userManagement\usr-mgmt-collapsible.js" />

@@ -4,9 +4,9 @@
     var controllerId = 'usrRegCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location', '$stateParams', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
+        ['$location','$scope', '$stateParams', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
 
-    function usrRegCtrl($location,$stateParams,common, config, datacontext,lodash) {
+    function usrRegCtrl($location, $scope,$stateParams, common, config, datacontext, lodash) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
@@ -15,13 +15,19 @@
 
         var vm = this;
         
+        
+       
         vm.activeTab = "";
         vm.addContactToUser = addContactToUser;
         vm.addWorkToUser = addWorkToUser;
         vm.adviceWorkMessage = "Please click to expand/collapse this section to add new work information";
         vm.adviceContactMessage = "Please click to expand/collapse this section to add new contact information";
+        vm.cancel = cancel;
         vm.contactTypes = ['Home Phone', 'Address', 'Email', 'Work Phone', 'Web Page'];
+        vm.goBack = goBack;
         vm.genres = ['Male', 'Female'];
+        vm.hasChanges = false;
+        vm.isSaving = false;
         vm.removeEntity = removeEntity;
         vm.removeContactToUser = removeContactToUser;
         vm.removeWorkToUser = removeWorkToUser;
@@ -30,11 +36,17 @@
         vm.saveChanges = saveChanges;
         vm.toggleRoles = toggleRoles;
         vm.user = {};
+
+        Object.defineProperty(vm, 'canSave', {
+            get: canSave
+        });
         
         activate();
         
         function activate() {
             toggleBusyMessage(true);
+            onDestroy();
+            onHasChanges();
             common.activateController([getRoles()], controllerId).then(function() {
                 log("Activated Register View");
                 if ($stateParams.userId) {
@@ -56,6 +68,21 @@
             var newCompany = datacontext.company.create();
             newWork.company = newCompany;
             vm.user.works.push(newWork);
+        }
+
+        function goBack() {
+            $window.history.back();
+        }
+
+        function cancel() {
+            datacontext.cancel();
+            if (vm.user.entityAspect.entityState.isDetached()) {
+                goBack();
+            }
+        }
+
+        function canSave() {
+            return !vm.isSaving && vm.hasChanges;
         }
         
         function createUser() {
@@ -79,6 +106,18 @@
         function loadInitialTab() {
             var url = $location.url();
             vm.activeTab = url.split("/")[2];
+        }
+
+        function onDestroy() {
+            $scope.$on('$destroy', function () {
+                datacontext.cancel();
+            });
+        }
+
+        function onHasChanges() {
+            $scope.$on(config.events.hasChangesChanged, function (event, data) {
+                vm.hasChanges = data.hasChanges;
+            });
         }
         
         function removeContactToUser(contact) {

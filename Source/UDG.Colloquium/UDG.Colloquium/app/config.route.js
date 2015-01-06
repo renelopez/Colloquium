@@ -12,9 +12,9 @@
                 controller: 'indexCtrl as vm'
             })
             .state('management', {
-                url: '/management',
+                url: '/management/user',
                 templateUrl: '/app/userManagement/usrMgmt.html',
-                controller:'userMgmtCtrl as vm'
+                controller:'usrMgmtCtrl as vm'
             })
 
             // Creation

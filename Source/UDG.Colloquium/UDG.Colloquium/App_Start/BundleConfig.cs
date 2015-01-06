@@ -84,6 +84,7 @@ namespace UDG.Colloquium.App_Start
                 "~/app/indexCtrl.js",
                 "~/app/shell/shell.js",
                 "~/app/userManagement/usrRegCtrl.js",
+                "~/app/userManagement/usrMgmtCtrl.js",
                 "~/app/colloquium/colloquiumsCtrl.js",
                 "~/app/colloquium/colloquiumDetailCtrl.js",
                 "~/app/colloquium/colloquiumSessionsCtrl.js",

@@ -143,8 +143,8 @@
 
             if (self._areItemsLoaded() && !forceRemote) {
                 users = self._getAllLocal('Users', orderBy);
-                self.log('Retrieved ' + colloquiums.length + ' elements from cache for entity type:' + entityName + '.', null, true);
-                return $q.when(colloquiums);
+                self.log('Retrieved ' + users.length + ' elements from cache for entity type:' + entityName + '.', null, true);
+                return $q.when(users);
             }
 
 
