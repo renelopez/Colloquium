@@ -57,7 +57,7 @@
                 vm.session = session;
                 vm.selectedUser = vm.session.applicationUser.firstName + " " + vm.session.applicationUser.lastName;
             }, function (error) {
-                toggleBusyMessage(false);
+                common.toggleBusyMessage(false);
                 logError('Unable to get session ' + val);
                 goBack();
             });
@@ -91,14 +91,17 @@
          function save() {
              if (!canSave()) { return $q.when(null); } // Must return a promise
              vm.isSaving = true;
+             common.toggleBusyMessage(true);
              datacontext.user.getEntityByName(vm.selectedUser).then(function(user) {
                  vm.session.applicationUser = user;
                  return datacontext.saveChanges()
                      .then(function(saveResult) {
                          vm.isSaving = false;
+                         common.toggleBusyMessage(false);
                          goBack();
                  }, function(error) {
                      vm.isSaving = false;
+                     common.toggleBusyMessage(false);
                          goBack();
                      });
              });

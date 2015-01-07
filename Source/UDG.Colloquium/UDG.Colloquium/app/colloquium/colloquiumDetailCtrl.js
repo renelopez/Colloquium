@@ -99,14 +99,14 @@
         function save() {
             if (!canSave()) { return $q.when(null); } // Must return a promise
             vm.isSaving = true;
-            toggleBusyMessage(true);
+            common.toggleBusyMessage(true);
             return datacontext.saveChanges()
                 .then(function (saveResult) {
-                    toggleBusyMessage(false);
+                    common.toggleBusyMessage(false);
                     vm.isSaving = false;
                     goBack();
                 }, function (error) {
-                    toggleBusyMessage(false);
+                    common.toggleBusyMessage(false);
                     vm.isSaving = false;
                     goBack();
                 });

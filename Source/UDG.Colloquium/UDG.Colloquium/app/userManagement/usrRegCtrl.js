@@ -4,9 +4,9 @@
     var controllerId = 'usrRegCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location','$scope', '$stateParams', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
+        ['$location','$scope', '$stateParams','$window', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
 
-    function usrRegCtrl($location, $scope,$stateParams, common, config, datacontext, lodash) {
+    function usrRegCtrl($location, $scope,$stateParams,$window,common, config, datacontext, lodash) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
@@ -44,7 +44,7 @@
         activate();
         
         function activate() {
-            toggleBusyMessage(true);
+            common.toggleBusyMessage(true);
             onDestroy();
             onHasChanges();
             common.activateController([getRoles()], controllerId).then(function() {
@@ -90,9 +90,9 @@
         }
         
         function findUserById(id) {
-            toggleBusyMessage(true);
+            common.toggleBusyMessage(true);
             return datacontext.user.getById(id).then(function (user) {
-                toggleBusyMessage(false);
+                common.toggleBusyMessage(false);
                 return vm.user = user;
             });
         }
@@ -140,17 +140,18 @@
         }
         
         function saveChanges() {
-            common.$broadcast(config.events.spinnerToggle, { show: true });
+            if (!canSave()) { return $q.when(null); } // Must return a promise
+            vm.isSaving = true;
             datacontext.saveChanges().then(success).catch(errorSave);
             
             function success() {
-                common.$broadcast(config.events.spinnerToggle, { show: false });
+                common.toggleBusyMessage(false);
                 logSuccess("User " + vm.user.userName + " was succesfully created");
                 $location.path('/');
             }
             
             function errorSave(error) {
-                common.$broadcast(config.events.spinnerToggle, { show: false });
+                common.toggleBusyMessage(false);
                 logError("Following errors ocurred:", error, true);
             }
         }
@@ -186,10 +187,6 @@
             lodash.remove(vm.user.roles, function (userRole) {
                 return userRoleToRemove === userRole;
             });
-        }
-        
-        function toggleBusyMessage(state) {
-            common.$broadcast(config.events.spinnerToggle, { show: state });
         }
     }
 })();
