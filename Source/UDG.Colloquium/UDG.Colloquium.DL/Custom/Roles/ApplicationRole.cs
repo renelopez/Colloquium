@@ -5,6 +5,7 @@ namespace UDG.Colloquium.DL.Custom.Roles
 {
     public class ApplicationRole:IdentityRole<int,ApplicationUserRole>
     {
+        public string Description { get; set; }
         public ApplicationRole() { }
 
         public ApplicationRole(string roleName)

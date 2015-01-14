@@ -1,0 +1,38 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="form-inline">
+            <div class="btn-group search-query">
+                <button class="btn btn-info btn-margin"
+                        ng-click="vm.goBack()">
+                    <i class="glyphicon glyphicon-hand-left"></i>Back
+                </button>
+                <button class="btn btn-info btn-margin"
+                        ng-click="vm.cancel()"
+                        ng-disabled="!vm.canSave">
+                    <i class="glyphicon glyphicon-remove"></i>Cancel
+                </button>
+                <button class="btn btn-info btn-margin"
+                        ng-click="vm.save()"
+                        ng-disabled="!vm.canSave">
+                    <i class="glyphicon glyphicon-save"></i>Save
+                </button>
+                <span ng-show="vm.hasChanges" class="dissolve-animation"><i class="glyphicon glyphicon-asterisk"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Select the roles that will be assigned to the user.</div>
+            <div class="panel-body">
+                <div ng-repeat="role in vm.roles">
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" value="{{role.id}}" ng-model="role.selected" ng-click="vm.toggleRoles(role)">
+                            {{role.name}}
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

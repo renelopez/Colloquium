@@ -20,7 +20,7 @@
             scope: {
                 title: "@",
                 titleRemove: "@",
-                removeMethod: "&",
+                removeMethod: "&"
             },
             transclude: true
         };

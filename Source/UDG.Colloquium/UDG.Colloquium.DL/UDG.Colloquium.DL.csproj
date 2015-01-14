@@ -70,6 +70,10 @@
     <Compile Include="Migrations\201409250351443_Added Sessions.Designer.cs">
       <DependentUpon>201409250351443_Added Sessions.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201501132317174_AddingRoleDescription.cs" />
+    <Compile Include="Migrations\201501132317174_AddingRoleDescription.Designer.cs">
+      <DependentUpon>201501132317174_AddingRoleDescription.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Colloquium.cs" />
     <Compile Include="Models\Company.cs" />
@@ -102,6 +106,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201409250351443_Added Sessions.resx">
       <DependentUpon>201409250351443_Added Sessions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501132317174_AddingRoleDescription.resx">
+      <DependentUpon>201501132317174_AddingRoleDescription.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

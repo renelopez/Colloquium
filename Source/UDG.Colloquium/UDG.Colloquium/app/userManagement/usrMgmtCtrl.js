@@ -59,24 +59,29 @@
             return isMatch;
         }
 
-        function deleteUser() {
+        function deleteUser(user) {
             
         }
 
-        function editRolesForUser() {
-            
+        function editRolesForUser(user) {
+            $location.path('/management/user/' + user.id + '/roles');
         }
 
-        function editUser() {
-            
+        function editUser(user) {
+            $location.path('/register/credentials/' + user.id);
         }
 
         function refresh() {
-            
+            getUsers(true);
         }
 
-        function search() {
-            
+        function search($event) {
+            if ($event.keyCode === keyCodes.esc) {
+                vm.usersSearch = '';
+                applyFilter(true);
+            } else {
+                applyFilter();
+            }
         }
     }
 })();

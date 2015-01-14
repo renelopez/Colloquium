@@ -268,6 +268,9 @@
     <Content Include="app\services\repository.colloquium.js" />
     <Content Include="app\services\repository.work.js" />
     <Content Include="app\services\repository.user.js" />
+    <Content Include="app\userManagement\roleMgmt.html" />
+    <Content Include="app\userManagement\roleMgmtCtrl.js" />
+    <Content Include="app\userManagement\usrRoleDetail.html" />
     <Content Include="app\userManagement\usrMgmtCtrl.js" />
     <Content Include="app\userManagement\usrMgmt.html" />
     <Content Include="app\userManagement\usr-mgmt-collapsible.html" />
@@ -285,6 +288,7 @@
     <Content Include="app\services\entityManagerFactory.js" />
     <Content Include="app\services\model.js" />
     <Content Include="app\services\datacontext.js" />
+    <Content Include="app\userManagement\usrRoleDetailCtrl.js" />
     <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
