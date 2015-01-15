@@ -1,13 +1,14 @@
 ﻿(function () {
     'use strict';
 
+    var controllerId = 'usrRoleDetailCtrl';
     angular
         .module('app')
-        .controller('usrRoleDetailCtrl', usrRoleDetailCtrl);
+        .controller(controllerId, usrRoleDetailCtrl);
 
-    usrRoleDetailCtrl.$inject = ['$scope','$stateParams','$window','common','config','datacontext','lodash']; 
+    usrRoleDetailCtrl.$inject = ['$location','$scope','$window','$stateParams','$state','common','config','datacontext','lodash']; 
 
-    function usrRoleDetailCtrl($scope,$stateParams,$window, common, config, datacontext,lodash) {
+    function usrRoleDetailCtrl($location,$scope,$window,$stateParams,$state, common, config, datacontext,lodash) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);

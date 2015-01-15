@@ -6,9 +6,9 @@
         .module('app')
         .controller(controllerId, usrMgmtCtrl);
 
-    usrMgmtCtrl.$inject = ['common','datacontext']; 
+    usrMgmtCtrl.$inject = ['$location','$state','common','datacontext']; 
 
-    function usrMgmtCtrl(common,datacontext) {
+    function usrMgmtCtrl($location,$state,common,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -64,7 +64,8 @@
         }
 
         function editRolesForUser(user) {
-            $location.path('/management/user/' + user.id + '/roles');
+            $location.path('/management/roles/users/' + user.id);
+            //$state.go('userRoles', { userId: user.id },{location:true});
         }
 
         function editUser(user) {

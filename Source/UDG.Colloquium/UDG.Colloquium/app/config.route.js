@@ -16,8 +16,8 @@
                 templateUrl: '/app/userManagement/usrMgmt.html',
                 controller:'usrMgmtCtrl as vm'
             })
-            .state('management.userRoles', {
-                url: '/management/user/:userId/roles',
+            .state('userRoles', {
+                url: '/management/roles/users/:userId',
                 templateUrl: '/app/userManagement/usrRoleDetail.html',
                 controller: 'usrRoleDetailCtrl as vm'
             })
