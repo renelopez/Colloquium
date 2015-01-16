@@ -64,8 +64,8 @@
         }
 
         function editRolesForUser(user) {
-            $location.path('/management/roles/users/' + user.id);
-            //$state.go('userRoles', { userId: user.id },{location:true});
+            //$location.path('/management/roles/users/' + user.id);
+            $state.go('userRoles', { userId: user.id },{location:true});
         }
 
         function editUser(user) {

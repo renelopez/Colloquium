@@ -26,8 +26,9 @@
             this.create = create;
             this.getById = getById;
             this.getAll = getAll;
-            this.getTypeaheadData = getTypeaheadData;
             this.getEntityByName = getEntityByName;
+            this.getTypeaheadData = getTypeaheadData;
+            this.getUserRoles = getUserRoles;
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -35,10 +36,6 @@
         return RepoConstructor;
         
         function create() { return this.manager.createEntity(entityName); }
-
-        function getAll() {
-            
-        }
         
         function getById(id,forceRemote) {
             var self = this;
@@ -164,6 +161,5 @@
                 return users;
             }
         }
-        
     }
 })();

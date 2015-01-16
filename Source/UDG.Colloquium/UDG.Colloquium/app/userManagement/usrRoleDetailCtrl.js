@@ -15,6 +15,7 @@
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
+        var userId = $stateParams.userId;
 
         var vm = this;
         vm.roles = [];
@@ -39,16 +40,16 @@
             onHasChanges();
             common.activateController([getRoles()], controllerId).then(function () {
                 log("Activated User Roles View");
-                if ($stateParams.userId) {
-                    findUserById($stateParams.userId);
+                if (userId) {
+                    findUserRoles(userId);
                 }
                 // TODO Make error message here..
             });
         }
 
-        function findUserById(id) {
+        function findUserRoles(id) {
             common.toggleBusyMessage(true);
-            return datacontext.user.getById(id).then(function (user) {
+            return datacontext.user.getUserRoles(id).then(function (user) {
                 common.toggleBusyMessage(false);
                 return vm.user = user;
             });
