@@ -28,7 +28,7 @@
             this.getAll = getAll;
             this.getEntityByName = getEntityByName;
             this.getTypeaheadData = getTypeaheadData;
-            this.getUserRoles = getUserRoles;
+            this.getUserRolesById = getUserRolesById;
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -159,6 +159,27 @@
                 users = self._setIsPartialIsTrue(results);
                 self.log('Retrieved ' + users.length + ' elements from server for entity type:' + entityName + '.', null, true);
                 return users;
+            }
+        }
+
+        function getUserRolesById(id) {
+            var user;
+            var self = this;
+            return EntityQuery.from("Users").where("id", "eq", id)
+                 .expand("roles")
+                 .using(self.manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
+
+            function success(data) {
+                user = data.results[0];
+                if (!user) {
+                    self.log('Couldnt find [' + entityName + '] id:' + id, null, true);
+                    return null;
+                }
+                self.log('Retrieved [' + entityName + '] id:' + user.id + ' from remote data source', user, true);
+                return user;
             }
         }
     }

@@ -16,9 +16,11 @@
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
         var userId = $stateParams.userId;
+        var userRoles = [];
 
         var vm = this;
         vm.roles = [];
+        
         vm.hasChanges = false;
         vm.isSaving = false;
         vm.canSave = canSave;
@@ -41,33 +43,35 @@
             common.activateController([getRoles()], controllerId).then(function () {
                 log("Activated User Roles View");
                 if (userId) {
-                    findUserRoles(userId);
+                    getUserRolesById(userId);
                 }
                 // TODO Make error message here..
             });
         }
 
-        function findUserRoles(id) {
-            common.toggleBusyMessage(true);
-            return datacontext.user.getUserRoles(id).then(function (user) {
-                common.toggleBusyMessage(false);
-                return vm.user = user;
+        function addOrRemoveRoles() {
+            vm.roles.forEach(function(role) {
+                if (!role.selected) {
+                    removeUserRole(role);
+                } else {
+                    addUserRole(role);
+                }
             });
         }
 
-        function toggleRoles(role) {
-            role.selected = !role.selected;
-
-            if (!role.selected) {
-                removeUserRole(role);
-            } else {
-                addUserRole(role);
-            }
+        function getUserRolesById(id) {
+            common.toggleBusyMessage(true);
+            return datacontext.user.getUserRolesById(id).then(function (user) {
+                common.toggleBusyMessage(false);
+                vm.user = user;
+                selectCurrentUserRoles();
+                return vm.user;
+            });
         }
 
         function addUserRole(role) {
-            var newUserRole = datacontext.urole.create(vm.user.id, role.id);
-            vm.user.roles.push(newUserRole);
+            var userRole=datacontext.urole.create(vm.user.id, role.id);
+            vm.user.roles.push(userRole);
         }
 
         function canSave() {
@@ -92,6 +96,14 @@
             });
         }
 
+        function toggleRoles(role) {
+            if (!role.selected) {
+                removeUserRole(role);
+            } else {
+                addUserRole(role);
+            }
+        }
+
         function removeUserRole(role) {
             var userRoleToRemove = lodash.find(vm.user.roles, function (userRole) {
                 return userRole.roleId === role.id;
@@ -107,6 +119,7 @@
         function save() {
             if (!canSave()) { return $q.when(null); } // Must return a promise
             vm.isSaving = true;
+            //addOrRemoveRoles();
             datacontext.saveChanges().then(success).catch(errorSave);
 
             function success() {
@@ -119,6 +132,20 @@
                 common.toggleBusyMessage(false);
                 logError("Following errors ocurred:", error, true);
             }
+        }
+
+        function selectCurrentUserRoles() {
+            vm.roles.forEach(function (role) {
+                role.selected = false;
+                var userRoleFound=lodash.find(vm.user.roles, function(userRole) {
+                    return userRole.roleId === role.id;
+                });
+                if (userRoleFound) {
+                    userRoles.push(userRoleFound);
+                    role.selected = true;
+                }
+
+            });
         }
 
         function cancel() {
