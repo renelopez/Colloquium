@@ -16,7 +16,6 @@
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
         var userId = $stateParams.userId;
-        var userRoles = [];
 
         var vm = this;
         vm.roles = [];
@@ -70,12 +69,12 @@
         }
 
         function addUserRole(role) {
-            var userRole=datacontext.urole.create(vm.user.id, role.id);
-            vm.user.roles.push(userRole);
+            var userRoleToAdd = datacontext.urole.create(vm.user.id, role.id);
+            vm.user.roles.push(userRoleToAdd);
         }
 
         function canSave() {
-            return !vm.isSaving && vm.hasChanges;
+            return !vm.isSaving; //&& vm.hasChanges;
         }
 
         function getRoles() {
@@ -119,7 +118,7 @@
         function save() {
             if (!canSave()) { return $q.when(null); } // Must return a promise
             vm.isSaving = true;
-            //addOrRemoveRoles();
+            addOrRemoveRoles();
             datacontext.saveChanges().then(success).catch(errorSave);
 
             function success() {
@@ -141,10 +140,8 @@
                     return userRole.roleId === role.id;
                 });
                 if (userRoleFound) {
-                    userRoles.push(userRoleFound);
                     role.selected = true;
                 }
-
             });
         }
 

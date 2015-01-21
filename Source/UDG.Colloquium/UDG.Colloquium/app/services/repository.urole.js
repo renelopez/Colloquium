@@ -8,6 +8,7 @@
     function repository(breeze,model, AbstractRepository) {
         var EntityQuery = breeze.EntityQuery;
         var entityName = model.entityNames.userRole;
+        var Predicate = breeze.Predicate;
 
         function RepoConstructor(manager) {
             this.serviceId = serviceId;
@@ -24,8 +25,9 @@
         function create(userId, roleId) {
             return this.manager.createEntity("ApplicationUserRole", {
                 userId: userId,
-                roleId: roleId,
+                roleId: roleId
             });
         }
+
     }
 })();
