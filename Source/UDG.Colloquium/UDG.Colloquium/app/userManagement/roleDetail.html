@@ -18,19 +18,16 @@
         <div class="panel panel-primary">
             <div class="panel-heading">Select the roles that will be assigned to the user.</div>
             <div class="panel-body">
-                <form name="vm.myForm">
-                    <div ng-repeat="role in vm.roles">
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" value="{{role.id}}" ng-model="role.selected">
-                                {{role.name}}
-                            </label><br />
-                            <label>
-                                <i>{{role.description}}</i>
-                            </label>
-                        </div>
+                <div ng-repeat="role in vm.roles">
+                    <div class="form-group">
+                        <label>Role Name</label>
+                        <input type="text" ng-model="role.name">
                     </div>
-                </form>
+                    <div>
+                        <label>Role Description</label>
+                        <textarea ng-model="role.description"/>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

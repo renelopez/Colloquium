@@ -11,15 +11,20 @@
                 templateUrl: '/app/index.html',
                 controller: 'indexCtrl as vm'
             })
-            .state('management', {
+            .state('userManagement', {
                 url: '/management/user',
                 templateUrl: '/app/userManagement/usrMgmt.html',
                 controller:'usrMgmtCtrl as vm'
             })
             .state('userRoles', {
-                url: '/management/roles/users/:userId',
+                url: '/management/userRoles/:userId',
                 templateUrl: '/app/userManagement/usrRoleDetail.html',
                 controller: 'usrRoleDetailCtrl as vm'
+            })
+            .state('roleManagement', {
+                url: '/management/role',
+                templateUrl: '/app/userManagement/roleMgmt.html',
+                controller: 'roleMgmtCtrl as vm'
             })
 
             // Creation

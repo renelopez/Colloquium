@@ -24,6 +24,7 @@
         vm.isSaving = false;
         vm.canSave = canSave;
         vm.cancel = cancel;
+        vm.goBack = goBack;
         vm.save = save;
 
         vm.title = 'usrRoleDetailCtrl';
@@ -47,20 +48,20 @@
             });
         }
 
+        function getExistingUserRole(roleId) {
+            return lodash.find(vm.user.roles, function (userRole) {
+                return userRole.roleId === roleId;
+            });
+        }
+
         function addOrRemoveRoles() {
             vm.roles.forEach(function(role) {
                 if (!role.selected) {
-                    var existingUserRole = lodash.find(vm.user.roles, function (userRole) {
-                        return userRole.roleId === role.id;
-                    });
-                    if (existingUserRole) {
+                    if (getExistingUserRole(role.id)) {
                         removeUserRole(role);
                     }
                 } else {
-                    var existingUserRole = lodash.find(vm.user.roles, function(userRole) {
-                        return userRole.roleId === role.id;
-                    });
-                    if (!existingUserRole) {
+                    if (!getExistingUserRole(role.id)) {
                         addUserRole(role);
                     }
                 }
@@ -83,7 +84,7 @@
         }
 
         function canSave() {
-            return !vm.isSaving; //&& vm.hasChanges;
+            return !vm.isSaving;
         }
 
         function getRoles() {
@@ -124,7 +125,7 @@
 
             function success() {
                 common.toggleBusyMessage(false);
-                logSuccess("User " + vm.user.userName + " was succesfully created");
+                logSuccess("Roles were correctly assigned to user " + vm.user.userName+".");
                 $location.path('/');
             }
 

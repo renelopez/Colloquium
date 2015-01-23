@@ -6,15 +6,16 @@
         .module('app')
         .controller(controllerId, usrMgmtCtrl);
 
-    usrMgmtCtrl.$inject = ['$location','$state','common','datacontext']; 
+    usrMgmtCtrl.$inject = ['$location','$state','common','config','datacontext']; 
 
-    function usrMgmtCtrl($location,$state,common,datacontext) {
+    function usrMgmtCtrl($location,$state,common,config,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
+        var keyCodes = config.keyCodes;
 
         var applyFilter = function() {};
         var vm = this;
