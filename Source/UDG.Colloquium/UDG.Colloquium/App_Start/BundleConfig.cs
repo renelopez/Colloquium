@@ -56,8 +56,8 @@ namespace UDG.Colloquium.App_Start
             bundles.Add(new ScriptBundle("~/bundles/angularBreeze").Include(
                 "~/Scripts/breeze.min.js",
                 "~/Scripts/breeze.saveErrorExtensions.js",
-                "~/Scripts/breeze.angular.js",
                 "~/Scripts/breeze.debug.js",
+                "~/Scripts/breeze.bridge.angular.js",
                 "~/Scripts/breeze.directives.js"
                 ));
 

@@ -27,7 +27,6 @@
         vm.save = save;
 
         vm.title = 'usrRoleDetailCtrl';
-        vm.toggleRoles = toggleRoles;
 
         Object.defineProperty(vm, 'canSave', {
             get: canSave
@@ -51,9 +50,19 @@
         function addOrRemoveRoles() {
             vm.roles.forEach(function(role) {
                 if (!role.selected) {
-                    removeUserRole(role);
+                    var existingUserRole = lodash.find(vm.user.roles, function (userRole) {
+                        return userRole.roleId === role.id;
+                    });
+                    if (existingUserRole) {
+                        removeUserRole(role);
+                    }
                 } else {
-                    addUserRole(role);
+                    var existingUserRole = lodash.find(vm.user.roles, function(userRole) {
+                        return userRole.roleId === role.id;
+                    });
+                    if (!existingUserRole) {
+                        addUserRole(role);
+                    }
                 }
             });
         }
@@ -93,14 +102,6 @@
             $scope.$on(config.events.hasChangesChanged, function (event, data) {
                 vm.hasChanges = data.hasChanges;
             });
-        }
-
-        function toggleRoles(role) {
-            if (!role.selected) {
-                removeUserRole(role);
-            } else {
-                addUserRole(role);
-            }
         }
 
         function removeUserRole(role) {
