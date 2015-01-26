@@ -24,6 +24,7 @@
             // Data Access
             this.create = create;
             this.getAll = getAll;
+            this.getById = getById;
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -43,6 +44,8 @@
 
 
             return EntityQuery.from('Roles')
+                .select('id,name,description')
+                .toType(self.entityName)
                 .using(self.manager)
                 .execute()
                 .then(success)
@@ -50,10 +53,15 @@
 
             function success(data) {
                 var results = data.results;
+                roles = self._setIsPartialIsTrue(results);
                 self._areItemsLoaded(true);
                 logSuccess("User roles were succesfully retrieved.", null, true);
                 return results;
             }
+        }
+
+        function getById(id, forceRemote) {
+            return this._getById(this.entityName, id, forceRemote);
         }
     }
 })();

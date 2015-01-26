@@ -7,12 +7,9 @@
                    ng-keyup="vm.search($event)"
                    placeholder="Find a session..." />
             <div class="btn-group pull-right">
-                <a class="btn btn-info btn-margin"
-                        ng-click="vm.goBack()">
-                    <i class="glyphicon glyphicon-hand-left"></i> Go Back
-                </a>
-                <a class="btn btn-info btn-margin" ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i><span> Refresh</span></a>
-                <a class="btn btn-info btn-margin" href="#/colloquiums/{{vm.colloquiumId}}/sessions/new"><i class="glyphicon glyphicon-plus"></i><span> Add Session</span></a>
+                <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
+                <usr-mgmt-refresh action="vm.refresh()"></usr-mgmt-refresh>
+                <usr-mgmt-add link="#/colloquiums/{{vm.colloquiumId}}/sessions/new" title="Add Session"></usr-mgmt-add>
             </div>
         </div>
     </div>

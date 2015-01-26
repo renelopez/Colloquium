@@ -26,6 +26,11 @@
                 templateUrl: '/app/userManagement/roleMgmt.html',
                 controller: 'roleMgmtCtrl as vm'
             })
+            .state('roleDetail', {
+                url: '/management/role/:roleId',
+                templateUrl: '/app/userManagement/roleDetail.html',
+                controller: 'roleDetailCtrl as vm'
+            })
 
             // Creation
             .state('register', {

@@ -7,8 +7,8 @@
                    ng-keyup="vm.search($event)"
                    placeholder="Find a user..." />
             <div class="btn-group pull-right">
-                <a class="btn btn-info btn-margin" ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i><span> Refresh</span></a>
-                <a class="btn btn-info btn-margin" href="#/register/credentials"><i class="glyphicon glyphicon-plus"></i><span> Add User</span></a>
+                <usr-mgmt-refresh action="vm.refresh()"></usr-mgmt-refresh>
+                <usr-mgmt-add link="#/register/credentials" title="Add User"></usr-mgmt-add>
             </div>
         </div>
     </div>

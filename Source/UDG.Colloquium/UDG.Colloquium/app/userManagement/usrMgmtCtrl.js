@@ -70,7 +70,8 @@
         }
 
         function editUser(user) {
-            $location.path('/register/credentials/' + user.id);
+            $state.go('edit', { userId: user.id });
+            //$location.path('/register/credentials/' + user.id);
         }
 
         function refresh() {

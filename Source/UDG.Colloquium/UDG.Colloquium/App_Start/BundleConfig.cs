@@ -87,6 +87,7 @@ namespace UDG.Colloquium.App_Start
                 "~/app/userManagement/usrRoleDetailCtrl.js",
                 "~/app/userManagement/usrMgmtCtrl.js",
                 "~/app/userManagement/roleMgmtCtrl.js",
+                "~/app/userManagement/roleDetailCtrl.js",
                 "~/app/colloquium/colloquiumsCtrl.js",
                 "~/app/colloquium/colloquiumDetailCtrl.js",
                 "~/app/colloquium/colloquiumSessionsCtrl.js",
@@ -107,6 +108,10 @@ namespace UDG.Colloquium.App_Start
                 "~/app/services/repository.work.js",
                 "~/app/services/repository.colloquium.js",
                 "~/app/userManagement/usr-mgmt-collapsible.js",
+                "~/app/userManagement/usr-mgmt-back.js",
+                "~/app/userManagement/usr-mgmt-cancel.js",
+                "~/app/userManagement/usr-mgmt-save.js",
+                "~/app/userManagement/usr-mgmt-add.js",
                 "~/app/services/directives.js",
                 "~/app/services/entityManagerFactory.js"
                 ));

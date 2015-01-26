@@ -8,8 +8,8 @@
                        ng-keyup="vm.search($event)" 
                        placeholder="Find a colloquium..." />
                 <div class="btn-group pull-right">
-                    <a class="btn btn-info btn-margin" ng-click="vm.refresh()"><i class="glyphicon glyphicon-refresh"></i><span>Refresh</span></a>
-                    <a class="btn btn-info btn-margin" href="#/colloquiums/new"><i class="glyphicon glyphicon-plus"></i><span>Add Colloquium</span></a>
+                    <usr-mgmt-refresh action="vm.refresh()"></usr-mgmt-refresh>
+                    <usr-mgmt-add link="#/colloquiums/new" title="Add colloquium"></usr-mgmt-add>
                 </div>
             </div>
         </div>

@@ -272,6 +272,16 @@
     <Content Include="app\userManagement\roleDetailCtrl.js" />
     <Content Include="app\userManagement\roleMgmt.html" />
     <Content Include="app\userManagement\roleMgmtCtrl.js" />
+    <Content Include="app\userManagement\usr-mgmt-add.js" />
+    <Content Include="app\userManagement\usr-mgmt-add.html" />
+    <Content Include="app\userManagement\usr-mgmt-back.html" />
+    <Content Include="app\userManagement\usr-mgmt-back.js" />
+    <Content Include="app\userManagement\usr-mgmt-refresh.html" />
+    <Content Include="app\userManagement\usr-mgmt-refresh.js" />
+    <Content Include="app\userManagement\usr-mgmt-save.html" />
+    <Content Include="app\userManagement\usr-mgmt-save.js" />
+    <Content Include="app\userManagement\usr-mgmt-cancel.html" />
+    <Content Include="app\userManagement\usr-mgmt-cancel.js" />
     <Content Include="app\userManagement\usrRoleDetail.html" />
     <Content Include="app\userManagement\usrMgmtCtrl.js" />
     <Content Include="app\userManagement\usrMgmt.html" />

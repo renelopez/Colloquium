@@ -6,9 +6,9 @@
         .module('app')
         .controller(controllerId, roleMgmtCtrl);
 
-    roleMgmtCtrl.$inject = ['$location','common','config','datacontext']; 
+    roleMgmtCtrl.$inject = ['$state','common','config','datacontext']; 
 
-    function roleMgmtCtrl($location,common,config,datacontext) {
+    function roleMgmtCtrl($state,common,config,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -58,11 +58,11 @@
         }
 
         function deleteRole(role) {
-
+            datacontext.markDeleted(role);
         }
 
         function editRole(role) {
-            $state.go('editRole', { roleId: role.id });
+            $state.go('roleDetail', { roleId: role.id });
         }
 
         function refresh() {
