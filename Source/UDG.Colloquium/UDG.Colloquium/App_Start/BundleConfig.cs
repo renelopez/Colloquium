@@ -108,6 +108,7 @@ namespace UDG.Colloquium.App_Start
                 "~/app/services/repository.work.js",
                 "~/app/services/repository.colloquium.js",
                 "~/app/userManagement/usr-mgmt-collapsible.js",
+                "~/app/userManagement/modalInstanceCtrl.js",
                 "~/app/userManagement/usr-mgmt-back.js",
                 "~/app/userManagement/usr-mgmt-cancel.js",
                 "~/app/userManagement/usr-mgmt-save.js",

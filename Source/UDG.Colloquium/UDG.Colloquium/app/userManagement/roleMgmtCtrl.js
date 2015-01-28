@@ -6,9 +6,9 @@
         .module('app')
         .controller(controllerId, roleMgmtCtrl);
 
-    roleMgmtCtrl.$inject = ['$state','common','config','datacontext']; 
+    roleMgmtCtrl.$inject = ['$modal','$state','common','config','datacontext']; 
 
-    function roleMgmtCtrl($state,common,config,datacontext) {
+    function roleMgmtCtrl($modal,$state,common,config,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -58,7 +58,15 @@
         }
 
         function deleteRole(role) {
-            datacontext.markDeleted(role);
+            var modalInstance = $modal.open({
+                templateUrl: '/app/userManagement/modalInstance.html',
+                controller: 'modalInstanceCtrl as vm',
+                resolve: {
+                    role:function() {
+                        return role;
+                    }
+                }
+            });
         }
 
         function editRole(role) {
