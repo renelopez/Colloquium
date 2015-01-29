@@ -67,6 +67,9 @@
                     }
                 }
             });
+            modalInstance.result.then(function() {
+                $state.go($state.$current, null, { reload: true });
+            });
         }
 
         function editRole(role) {
