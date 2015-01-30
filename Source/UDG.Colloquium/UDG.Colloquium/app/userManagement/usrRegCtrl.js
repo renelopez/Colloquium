@@ -12,6 +12,7 @@
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
+        var userId = $stateParams.userId;
 
         var vm = this;
         
@@ -49,8 +50,8 @@
             onHasChanges();
             common.activateController([getRoles()], controllerId).then(function() {
                 log("Activated Register View");
-                if ($stateParams.userId) {
-                    findUserById($stateParams.userId);
+                if (userId) {
+                    findUserById(userId);
                 } else {
                     createUser();
                 }
@@ -105,7 +106,7 @@
         
         function loadInitialTab() {
             var url = $location.url();
-            vm.activeTab = url.split("/")[2];
+            vm.activeTab = userId ? url.split("/")[3] : url.split("/")[2];
         }
 
         function onDestroy() {

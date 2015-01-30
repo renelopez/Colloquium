@@ -53,11 +53,12 @@
             }
             
             return EntityQuery.from("Users").where("id", "eq", id)
-                 .expand("Works.Company,Contacts")
+                 .expand("works.company,contacts")
                  .using(self.manager)
+                 .toType(self.entityName)
                  .execute()
                  .then(success)
-                 .catch(this._fail);
+                 .catch(self._queryFailed);
 
             function success(data) {
                 var results = data.results[0];
