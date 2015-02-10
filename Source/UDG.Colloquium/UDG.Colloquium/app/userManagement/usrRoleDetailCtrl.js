@@ -6,9 +6,9 @@
         .module('app')
         .controller(controllerId, usrRoleDetailCtrl);
 
-    usrRoleDetailCtrl.$inject = ['$location','$scope','$window','$stateParams','$state','common','config','datacontext','lodash']; 
+    usrRoleDetailCtrl.$inject = ['$scope','$window','$stateParams','$state','common','config','datacontext','lodash']; 
 
-    function usrRoleDetailCtrl($location,$scope,$window,$stateParams,$state, common, config, datacontext,lodash) {
+    function usrRoleDetailCtrl($scope,$window,$stateParams,$state, common, config, datacontext,lodash) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -126,7 +126,7 @@
             function success() {
                 common.toggleBusyMessage(false);
                 logSuccess("Roles were correctly assigned to user " + vm.user.userName+".");
-                $location.path('/');
+                $state.go('index');
             }
 
             function errorSave(error) {

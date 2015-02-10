@@ -16,7 +16,7 @@
             scope: {
                 action:'&'
             },
-            templateUrl:'/app/userManagement/usr-mgmt-back.html'
+            template:'<button class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-hand-left"></i>Back</button>'
         };
         return directive;
 

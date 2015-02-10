@@ -18,7 +18,7 @@
                 action:'&',
                 visibility:'='
             },
-            templateUrl:'/app/userManagement/usr-mgmt-cancel.html'
+            template:'<button class="btn btn-info btn-margin" ng-click="action()" ng-disabled="visibility"><i class="glyphicon glyphicon-remove"></i>Cancel</button>'
         };
         return directive;
 

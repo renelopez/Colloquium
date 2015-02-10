@@ -17,7 +17,7 @@
             scope: {
                 action:'&'
             },
-            templateUrl:'/app/userManagement/usr-mgmt-refresh.html'
+            template: '<a class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-refresh"></i><span> Refresh</span></a>'
         };
         return directive;
 

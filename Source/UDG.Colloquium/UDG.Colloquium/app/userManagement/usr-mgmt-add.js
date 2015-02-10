@@ -18,7 +18,7 @@
                 link: '@',
                 title:'@'
             },
-            templateUrl:'app/userManagement/usr-mgmt-add.html'
+            template: '<a class="btn btn-info btn-margin" href="{{link}}"><i class="glyphicon glyphicon-plus"></i><span>{{title}}</span></a>'
 
         };
         return directive;
