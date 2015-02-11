@@ -6,9 +6,9 @@
         .module('app')
         .controller(controllerId, roleMgmtCtrl);
 
-    roleMgmtCtrl.$inject = ['$modal','$state','common','config','datacontext']; 
+    roleMgmtCtrl.$inject = ['$modal','$state','bootstrap.dialog','common','config','datacontext']; 
 
-    function roleMgmtCtrl($modal,$state,common,config,datacontext) {
+    function roleMgmtCtrl($modal,$state,bsDialog,common,config,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -31,7 +31,7 @@
         vm.rolesFilter = rolesFilter;
         vm.roles = [];
         vm.rolesSearch = undefined;
-
+        vm.workingRole = undefined;
         activate();
 
         function activate() {
@@ -57,19 +57,42 @@
             return isMatch;
         }
 
+        function save() {
+            common.toggleBusyMessage(true);
+            return datacontext.saveChanges()
+               .then(function (saveResult) {
+                   common.toggleBusyMessage(false);
+                   refresh();
+            }, function (error) {
+                   common.toggleBusyMessage(false);
+                   refresh();
+               });
+        }
+
+        function cancel() {
+            datacontext.cancel();
+            if (vm.workingRole.entityAspect.entityState.isDetached()) {
+                refresh();
+            }
+        }
+
         function deleteRole(role) {
-            var modalInstance = $modal.open({
-                templateUrl: '/app/userManagement/modalInstance.html',
-                controller: 'modalInstanceCtrl as vm',
-                resolve: {
-                    role:function() {
-                        return role;
-                    }
+            vm.workingRole = role;
+            return bsDialog.deleteDialog('Role').then(confirmDelete);
+
+            function confirmDelete() {
+                datacontext.markDeleted(vm.workingRole);
+                save().then(success, failed);
+
+                function success() {
+                    refresh();
                 }
-            });
-            modalInstance.result.then(function() {
-                $state.go($state.$current, null, { reload: true });
-            });
+
+                function failed(error) {
+                    cancel();
+                }
+
+            }
         }
 
         function editRole(role) {
