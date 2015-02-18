@@ -7,7 +7,7 @@
                    ng-keyup="vm.search($event)"
                    placeholder="Find a user..." />
             <div class="btn-group pull-right">
-                <usr-mgmt-refresh action="vm.refresh()"></usr-mgmt-refresh>
+                <usr-mgmt-refresh action="vm.refresh()" title="Refresh"></usr-mgmt-refresh>
                 <usr-mgmt-add link="#/register/credentials" title="Add User"></usr-mgmt-add>
             </div>
         </div>
@@ -19,11 +19,11 @@
                 <div ng-repeat="user in vm.filteredUsers">
                     <div class="media">
                         <!--<a class="pull-left" href="#">
-                <img class="media-object" src="..." alt="...">
-            </a>-->
+                            <img class="media-object" src="..." alt="...">
+                        </a>-->
+                        <button class="btn btn-danger pull-right" ng-click="vm.deleteUser(user)"><i class="glyphicon glyphicon-remove-sign"></i><span> Delete User</span></button>
                         <button class="btn btn-info pull-right" ng-click="vm.editUser(user)"><i class="glyphicon glyphicon-pencil"></i><span> Edit User</span></button>
                         <button class="btn btn-info pull-right" ng-click="vm.editRolesForUser(user)"><i class="glyphicon glyphicon-pencil"></i><span> View Roles</span></button>
-                        <button class="btn btn-info pull-right" ng-click="vm.deleteUser(user)"><i class="glyphicon glyphicon-pencil"></i><span> Delete User</span></button>
                         <div class="media-body">
                             <h4 class="media-heading">{{user.userName}}</h4>
                             <p>{{user.firstName}} {{user.lastName}}</p>

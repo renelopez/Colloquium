@@ -111,6 +111,7 @@ namespace UDG.Colloquium.App_Start
                 "~/app/userManagement/modalInstanceCtrl.js",
                 "~/app/userManagement/usr-mgmt-back.js",
                 "~/app/userManagement/usr-mgmt-cancel.js",
+                "~/app/userManagement/usr-mgmt-refresh.js",
                 "~/app/userManagement/usr-mgmt-save.js",
                 "~/app/userManagement/usr-mgmt-add.js",
                 "~/app/services/directives.js",

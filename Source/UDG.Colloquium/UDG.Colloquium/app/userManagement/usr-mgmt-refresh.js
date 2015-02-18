@@ -15,9 +15,10 @@
             link: link,
             restrict: 'E',
             scope: {
-                action:'&'
+                action: '&',
+                title:'@'
             },
-            template: '<a class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-refresh"></i><span> Refresh</span></a>'
+            template: '<button class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-refresh"></i><span> {{title}}</span></button>'
         };
         return directive;
 

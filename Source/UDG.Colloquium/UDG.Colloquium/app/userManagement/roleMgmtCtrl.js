@@ -85,10 +85,12 @@
                 save().then(success, failed);
 
                 function success() {
+                    logSuccess("The following role was deleted:" + role.name + ".");
                     refresh();
                 }
 
                 function failed(error) {
+                    logError("Following errors ocurred:", error, true);
                     cancel();
                 }
 

@@ -25,8 +25,6 @@
             // Data Access
             this.create = create;
             this.getById = getById;
-            this.getSessionsByColloquiumId = getSessionsByColloquiumId;
-            
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -39,38 +37,7 @@
             return this._getById(entityName, id, forceRemote);
         }
 
-        function getSessionsByColloquiumId(colloquiumId,forceRemote) {
-            var self = this;
-            var manager = self.manager;
-            var predicate = Predicate.create('colloquiumId', 'eq', colloquiumId);
-            var sessions;
-            if (self._areItemsLoaded() && !forceRemote) {
-                sessions = self._getAllLocal('Sessions', orderBy, predicate);
-                self.log('Retrieved ' + sessions.length + ' elements from cache for entity type:' + entityName + '.', null, true);
-                return $q.when(sessions);
-            }
-            return EntityQuery.from("Sessions")
-                .expand("applicationUser")
-                 .where(predicate)
-                 .orderBy(orderBy)
-                 .toType(entityName)
-                 .using(manager)
-                 .execute()
-                 .then(success)
-                 .catch(this._fail);
-
-            function success(data) {
-                sessions = data.results;
-                if (!sessions) {
-                    self.log('Couldnt find [' + entityName + '] for colloquiumId:' + colloquiumId, null, true);
-                    return null;
-                }
-                self._areItemsLoaded(true);
-                self.log('Retrieved ' + sessions.length + ' elements from server for entity type:' + entityName + '.', null, true);
-                return sessions;
-            }
-
-        }
+        
 
     }
 })();

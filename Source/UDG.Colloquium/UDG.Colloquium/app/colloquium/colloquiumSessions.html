@@ -7,9 +7,10 @@
                    ng-keyup="vm.search($event)"
                    placeholder="Find a session..." />
             <div class="btn-group pull-right">
-                <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
-                <usr-mgmt-refresh action="vm.refresh()"></usr-mgmt-refresh>
                 <usr-mgmt-add link="#/colloquiums/{{vm.colloquiumId}}/sessions/new" title="Add Session"></usr-mgmt-add>
+                <usr-mgmt-refresh action="vm.refresh()" title="Refresh"></usr-mgmt-refresh>
+                <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
+
             </div>
         </div>
     </div>
@@ -17,15 +18,16 @@
         <div class="panel panel-primary">
             <div class="panel-heading">{{vm.title}}</div>
             <div class="panel-body">
-                <div ng-repeat="session in vm.filteredColloquiumSessions"
-                     ng-click="vm.editSession(session)">
+                <div ng-repeat="session in vm.filteredColloquiumSessions">
                     <div class="media">
                         <!--<a class="pull-left" href="#">
-                    <img class="media-object" src="..." alt="...">
-                </a>-->
+                            <img class="media-object" src="..." alt="...">
+                        </a>-->
+                        <button class="btn btn-danger pull-right" ng-click="vm.deleteSession(session)"><i class="glyphicon glyphicon-remove-sign"></i><span> Delete Session</span></button>
+                        <button class="btn btn-info pull-right" ng-click="vm.editSession(session)"><i class="glyphicon glyphicon-pencil"></i><span> Edit Session</span></button>
                         <div class="media-body">
                             <h2 class="media-heading">{{session.name}}</h2>
-                            <h4>{{session.applicationUser.firstName}}  {{session.applicationUser.lastName}}</h4>
+                            <h4>{{session.applicationUser.firstName}} {{session.applicationUser.lastName}}</h4>
                             <h6>{{session.description}}</h6>
                         </div>
                     </div>

@@ -8,6 +8,7 @@
     function repository(breeze,common,model, AbstractRepository) {
         var EntityQuery = breeze.EntityQuery;
         var entityName = model.entityNames.colloquium;
+        var Predicate = breeze.Predicate;
         var orderBy = 'period';
         
         var getLogFn = common.logger.getLogFn;
@@ -25,7 +26,8 @@
             this.create = create;
             this.getAll = getAll;
             this.getById = getById;
-            
+            this.getSessionsByColloquiumId = getSessionsByColloquiumId;
+
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -47,6 +49,7 @@
 
             return EntityQuery.from('Colloquiums')
                 .select('id,period,beginDate,endDate')
+                .orderBy(orderBy)
                 .toType(entityName)
                 .using(self.manager)
                 .execute()
@@ -62,6 +65,41 @@
             }
         }
 
+        function getSessionsByColloquiumId(colloquiumId, forceRemote) {
+            var self = this;
+            var manager = self.manager;
+            var predicate = Predicate.create('id', 'eq', colloquiumId);
+            var sessions;
+            var colloquium;
+            if (!forceRemote) {
+                colloquium = manager.getEntityByKey(entityName, parseInt(colloquiumId));
+                if (colloquium && !colloquium.isPartial) {
+                    self.log('Retrieved ' + colloquium.sessions.length + ' elements from cache for entity type:' + entityName + '.', null, true);
+                    return $q.when(colloquium.sessions);
+                }
+            }
+            return EntityQuery.from("Colloquiums")
+                .expand("sessions,sessions.applicationUser")
+                 .where(predicate)
+                 .orderBy(orderBy)
+                 .toType(entityName)
+                 .using(manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._queryFailed);
+
+            function success(data) {
+                sessions = data.results[0].sessions;
+                if (!sessions) {
+                    self.log('Couldnt find [' + entityName + '] for colloquiumId:' + colloquiumId, null, true);
+                    return null;
+                }
+                colloquium.isPartial = false;
+                self.log('Retrieved ' + sessions.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                return sessions;
+            }
+
+        }
         
         
 

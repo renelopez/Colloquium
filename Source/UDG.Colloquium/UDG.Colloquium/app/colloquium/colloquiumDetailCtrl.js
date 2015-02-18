@@ -4,9 +4,9 @@
     var controllerId = 'colloquiumDetailCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location','$scope','$stateParams','$window','common','config','datacontext', colloquiumDetailCtrl]);
+        ['$state','$scope','$stateParams','$window','common','config','datacontext', colloquiumDetailCtrl]);
 
-    function colloquiumDetailCtrl($location,$scope,$stateParams,$window,common,config,datacontext) {
+    function colloquiumDetailCtrl($state,$scope,$stateParams,$window,common,config,datacontext) {
         var vm = this;
 
         vm.cancel = cancel;
@@ -75,7 +75,7 @@
         }
         
         function goToColloquiumsList() {
-            $location.path('/colloquiums');
+            $state.go('colloquiumList');
         }
         
         function loadYears() {

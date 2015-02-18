@@ -4,9 +4,9 @@
     var controllerId = 'colloquiumSessionDetailCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location', '$scope', '$stateParams', '$window', 'common', 'config', 'datacontext', colloquiumSessionDetailCtrl]);
+        ['$scope', '$stateParams', '$window', 'common', 'config', 'datacontext', colloquiumSessionDetailCtrl]);
 
-    function colloquiumSessionDetailCtrl($location, $scope, $stateParams, $window, common, config, datacontext) {
+    function colloquiumSessionDetailCtrl($scope, $stateParams, $window, common, config, datacontext) {
         var vm = this;
 
         vm.cancel = cancel;

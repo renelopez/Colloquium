@@ -4,9 +4,9 @@
     var controllerId = 'colloquiumSessionsCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location','$stateParams','$window', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
+        ['$state','$stateParams','$window', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
 
-    function colloquiumSessionsCtrl($location,$stateParams,$window, common, config, datacontext) {
+    function colloquiumSessionsCtrl($state,$stateParams,$window, common, config, datacontext) {
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -40,7 +40,7 @@
         
         function editSession(session) {
             if (session && session.id) {
-                $location.path('/colloquiums/' + vm.colloquiumId+'/sessions/'+session.id);
+                $state.go('colloquiumSessionDetails', { colloquiumId: vm.colloquiumId, sessionId: session.id });
             }
         }
         
@@ -58,7 +58,7 @@
         }
         
         function getRequestedColloquiumSessions(forceRefresh) {
-            return datacontext.session.getSessionsByColloquiumId(vm.colloquiumId,forceRefresh).then(function(sessions) {
+            return datacontext.colloquium.getSessionsByColloquiumId(vm.colloquiumId,forceRefresh).then(function(sessions) {
                 vm.colloquiumSessions = vm.filteredColloquiumSessions = sessions;
             });
         }
