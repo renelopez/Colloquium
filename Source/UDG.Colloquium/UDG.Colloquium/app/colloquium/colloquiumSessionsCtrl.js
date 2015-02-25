@@ -15,15 +15,29 @@
         var applyFilter = function () { };
         vm.colloquiumId = $stateParams.colloquiumId;
         vm.colloquiumSessions = [];
+        vm.colloquiumSessionsCount = 0;
+        vm.colloquiumSessionsFilteredCount = 0;
         vm.colloquiumSessionsSearch = '';
         vm.colloquiumSessionsFilter = colloquiumSessionsFilter;
+        vm.currentColloquium = {};
         vm.editSession = editSession;
         vm.filteredColloquiumSessions = [];
         vm.goBack = goBack;
+        vm.pageChanged = pageChanged;
+        vm.paging = {
+            currentPage: 1,
+            maxPagesToShow: 5,
+            pageSize:3
+        };
         vm.refresh = refresh;
         vm.search = search;
         vm.title = 'Sessions';
-        vm.currentColloquium = {};
+
+        Object.defineProperty(vm.paging, 'pageCount', {
+            get:function() {
+                return Math.floor(vm.colloquiumSessionsFilteredCount / vm.paging.pageSize) + 1;
+            }
+        });
 
         activate();
         
@@ -44,6 +58,20 @@
             }
         }
         
+        function getColloquiumSessionsCount() {
+            // TODO Create this in datacontext
+            return datacontext.colloquium.getColloquiumSessionsCount(vm.colloquiumId).then(function(data) {
+                return vm.colloquiumSessionsCount = data;
+            });
+        }
+
+        function getColloquiumSessionsFilteredCount() {
+            // TODO Create this in datacontext
+            return datacontext.colloquium.getColloquiumSessionsFilteredCount(vm.colloquiumId,vm.colloquiumSessionsSearch).then(function (data) {
+                return vm.colloquiumSessionsFilteredCount = data;
+            });
+        }
+
         function colloquiumSessionsFilter(session) {
             var textContains = common.textContains;
             var searchText = vm.colloquiumSessionsSearch;
@@ -58,13 +86,27 @@
         }
         
         function getRequestedColloquiumSessions(forceRefresh) {
-            return datacontext.colloquium.getSessionsByColloquiumId(vm.colloquiumId,forceRefresh).then(function(sessions) {
+            // TODO Create this in datacontext
+            return datacontext.colloquium.getSessionsByColloquiumId(vm.colloquiumId,vm.paging.currentPage,vm.paging.pageSize,vm.forceRefresh).then(function(sessions) {
                 vm.colloquiumSessions = vm.filteredColloquiumSessions = sessions;
+                getColloquiumSessionsFilteredCount();
+                if (!vm.colloquiumSessionsCount && forceRefresh) {
+                    getColloquiumSessionsCount();
+                }
+                return sessions;
             });
         }
 
         function goBack() {
             $window.history.back();
+        }
+
+        function pageChanged(page) {
+            if (!page) {
+                return;
+            }
+            vm.paging.currentPage = page;
+            getRequestedColloquiumSessions();
         }
         
         function refresh() {

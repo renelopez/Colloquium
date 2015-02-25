@@ -65,17 +65,18 @@
             }
         }
 
-        function getSessionsByColloquiumId(colloquiumId, forceRemote) {
+        function getSessionsByColloquiumId(colloquiumId,page,size,sessionFilter,forceRemote) {
             var self = this;
             var manager = self.manager;
             var predicate = Predicate.create('id', 'eq', colloquiumId);
-            var sessions;
             var colloquium;
+            var take = size || 10;
+            var skip = page ? (page - 1) * size : 0;
             if (!forceRemote) {
                 colloquium = manager.getEntityByKey(entityName, parseInt(colloquiumId));
                 if (colloquium && !colloquium.isPartial) {
                     self.log('Retrieved ' + colloquium.sessions.length + ' elements from cache for entity type:' + entityName + '.', null, true);
-                    return $q.when(colloquium.sessions);
+                    return $q.when(getByPage());
                 }
             }
             return EntityQuery.from("Colloquiums")
@@ -88,15 +89,27 @@
                  .then(success)
                  .catch(this._queryFailed);
 
+            function getByPage() {
+                var predicate = null;
+                if (sessionFilter) {
+                    predicate = Predicate.create('sessionName', 'contains', sessionFilter);
+                }
+                var sessions = EntityQuery.from("Colloquiums")
+                    .where(predicate)
+                    .orderBy(orderBy)
+                    .using(manager)
+                    .executeLocally();
+                return sessions;
+            }
+
             function success(data) {
-                sessions = data.results[0].sessions;
-                if (!sessions) {
+                if (!data.results[0].sessions) {
                     self.log('Couldnt find [' + entityName + '] for colloquiumId:' + colloquiumId, null, true);
                     return null;
                 }
                 colloquium.isPartial = false;
-                self.log('Retrieved ' + sessions.length + ' elements from server for entity type:' + entityName + '.', null, true);
-                return sessions;
+                self.log('Retrieved ' + data.results[0].sessions.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                return getByPage();
             }
 
         }

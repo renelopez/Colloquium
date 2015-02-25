@@ -35,4 +35,18 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <pagination boundary-links="true"
+                    on-select-page="vm.pageChanged(page)"
+                    total-items="vm.colloquiumSessionsFilteredCount"
+                    items-per-page="vm.paging.pageSize"
+                    page="vm.paging.currentPage"
+                    max-size="vm.page.maxPagesToShow"
+                    class="pagination-sm"
+                    previous-text="Prev"
+                    next-text="Next"
+                    first-text="First"
+                    last-text="Last">
+        </pagination>
+    </div>
 </div>
