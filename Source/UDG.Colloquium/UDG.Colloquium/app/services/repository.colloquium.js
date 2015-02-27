@@ -92,14 +92,15 @@
             function getByPage() {
                 var predicate = null;
                 if (sessionFilter) {
-                    predicate = Predicate.create('sessionName', 'contains', sessionFilter);
+                    predicate = Predicate.create('session.name', 'contains', sessionFilter);
                 }
-                var sessions = EntityQuery.from("Colloquiums")
+                var query = EntityQuery.from("Colloquiums")
+                    .select('sessions')
                     .where(predicate)
                     .orderBy(orderBy)
                     .using(manager)
                     .executeLocally();
-                return sessions;
+                return query[0].sessions;
             }
 
             function success(data) {
@@ -112,6 +113,13 @@
                 return getByPage();
             }
 
+        }
+
+        function getColloquiumSessionsFilteredCount(id, search) {
+            var colloquium = manager.getEntityByKey(entityName, parseInt(colloquiumId));
+            if (colloquium && !colloquium.IsPartial) {
+                
+            }
         }
         
         
