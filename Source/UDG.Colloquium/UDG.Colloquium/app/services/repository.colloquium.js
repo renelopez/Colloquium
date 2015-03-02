@@ -27,6 +27,9 @@
             this.getAll = getAll;
             this.getById = getById;
             this.getSessionsByColloquiumId = getSessionsByColloquiumId;
+            this.getColloquiumSessionsFilteredCount = getColloquiumSessionsFilteredCount;
+            this.getColloquiumSessionsCount = getColloquiumSessionsCount;
+
 
         };
 
@@ -68,7 +71,7 @@
         function getSessionsByColloquiumId(colloquiumId,page,size,sessionFilter,forceRemote) {
             var self = this;
             var manager = self.manager;
-            var predicate = Predicate.create('id', 'eq', colloquiumId);
+            var predicate = _getFilterPredicate(colloquiumId);
             var colloquium;
             var take = size || 10;
             var skip = page ? (page - 1) * size : 0;
@@ -79,47 +82,84 @@
                     return $q.when(getByPage());
                 }
             }
-            return EntityQuery.from("Colloquiums")
-                .expand("sessions,sessions.applicationUser")
+            return EntityQuery.from('Sessions')
+                .expand('colloquium,applicationUser')
                  .where(predicate)
-                 .orderBy(orderBy)
-                 .toType(entityName)
+                 .orderBy('colloquium.period')
+                 .toType(model.entityNames.session)
                  .using(manager)
                  .execute()
                  .then(success)
                  .catch(this._queryFailed);
 
             function getByPage() {
-                var predicate = null;
-                if (sessionFilter) {
-                    predicate = Predicate.create('session.name', 'contains', sessionFilter);
+                var predicate;
+                if (colloquiumId && sessionFilter) {
+                    predicate = _getFilterPredicate(colloquiumId, sessionFilter);
                 }
-                var query = EntityQuery.from("Colloquiums")
-                    .select('sessions')
+                var sessions = EntityQuery.from("Sessions")
+                    .take(take)
+                    .skip(skip)
                     .where(predicate)
-                    .orderBy(orderBy)
+                    .orderBy('colloquium.period')
                     .using(manager)
                     .executeLocally();
-                return query[0].sessions;
+                return sessions;
             }
 
             function success(data) {
-                if (!data.results[0].sessions) {
+                if (!data.results) {
                     self.log('Couldnt find [' + entityName + '] for colloquiumId:' + colloquiumId, null, true);
                     return null;
                 }
                 colloquium.isPartial = false;
-                self.log('Retrieved ' + data.results[0].sessions.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
                 return getByPage();
             }
 
         }
 
-        function getColloquiumSessionsFilteredCount(id, search) {
+        function getColloquiumSessionsCount(colloquiumId) {
+            var self = this;
+            var manager = self.manager;
+            var predicate = _getFilterPredicate(colloquiumId);
             var colloquium = manager.getEntityByKey(entityName, parseInt(colloquiumId));
-            if (colloquium && !colloquium.IsPartial) {
-                
+            if (colloquium && !colloquium.isPartial) {
+                return $q.when(_getLocalEntityCount(colloquiumId,"Sessions"));
             }
+
+            return EntityQuery.from('Sessions')
+                .expand('colloquium')
+                .where(predicate)
+                .using(manager)
+                .execute()
+                .then(_getInlineCount)
+                .catch(this._queryFailed);
+
+            function _getInlineCount(data) {
+                return data.inlineCount;
+            }
+        }
+
+        function _getLocalEntityCount(colloquiumId,entityName) {
+            var predicate = _getFilterPredicate(id, search);
+                var entities = EntityQuery.from(entityName)
+                    .where(predicate)
+                    .using(this.manager)
+                    .executeLocally();
+                return entities.length;
+            }
+
+        function getColloquiumSessionsFilteredCount(id, search) {
+            var self = this;
+            var manager = self.manager;
+            var predicate = _getFilterPredicate(id,search);
+            var query = EntityQuery.from('Sessions')
+                    .where(predicate)
+                    .using(manager)
+                    .executeLocally();
+                return $q.when(query.length);
+                
         }
         
         
@@ -127,6 +167,13 @@
         function getById(id, forceRemote) {
             return this._getById(entityName, id, forceRemote);
         }
-        
+
+        function _getFilterPredicate(id, filter) {
+            if (filter) {
+                return Predicate.create('colloquiumId', 'eq', id)
+                    .and('name', 'contains', filter);
+            }
+            return Predicate.create('colloquiumId', 'eq', id);
+        }
     }
 })();

@@ -37,10 +37,10 @@
     </div>
     <div class="row">
         <pagination boundary-links="true"
-                    on-select-page="vm.pageChanged(page)"
+                    ng-change="vm.pageChanged()"
                     total-items="vm.colloquiumSessionsFilteredCount"
                     items-per-page="vm.paging.pageSize"
-                    page="vm.paging.currentPage"
+                    ng-model="vm.paging.currentPage"
                     max-size="vm.page.maxPagesToShow"
                     class="pagination-sm"
                     previous-text="Prev"

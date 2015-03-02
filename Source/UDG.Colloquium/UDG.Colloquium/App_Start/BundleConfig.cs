@@ -63,6 +63,7 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/externalVendors").Include(
                "~/Scripts/moment.js",
+               //"~/Scripts/angular-ui/ui-bootstrap.js",
                "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                "~/Scripts/spin.js",
                "~/Scripts/angular-ui-router.js"

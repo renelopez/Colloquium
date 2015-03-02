@@ -27,7 +27,7 @@
         vm.paging = {
             currentPage: 1,
             maxPagesToShow: 5,
-            pageSize:3
+            pageSize:2
         };
         vm.refresh = refresh;
         vm.search = search;
@@ -59,14 +59,12 @@
         }
         
         function getColloquiumSessionsCount() {
-            // TODO Create this in datacontext
             return datacontext.colloquium.getColloquiumSessionsCount(vm.colloquiumId).then(function(data) {
                 return vm.colloquiumSessionsCount = data;
             });
         }
 
         function getColloquiumSessionsFilteredCount() {
-            // TODO Create this in datacontext
             return datacontext.colloquium.getColloquiumSessionsFilteredCount(vm.colloquiumId,vm.colloquiumSessionsSearch).then(function (data) {
                 return vm.colloquiumSessionsFilteredCount = data;
             });
@@ -86,8 +84,7 @@
         }
         
         function getRequestedColloquiumSessions(forceRefresh) {
-            // TODO Create this in datacontext
-            return datacontext.colloquium.getSessionsByColloquiumId(vm.colloquiumId,vm.paging.currentPage,vm.paging.pageSize,vm.forceRefresh).then(function(sessions) {
+            return datacontext.colloquium.getSessionsByColloquiumId(vm.colloquiumId, vm.paging.currentPage, vm.paging.pageSize, vm.colloquiumSessionsSearch,vm.forceRefresh).then(function (sessions) {
                 vm.colloquiumSessions = vm.filteredColloquiumSessions = sessions;
                 getColloquiumSessionsFilteredCount();
                 if (!vm.colloquiumSessionsCount && forceRefresh) {
@@ -101,11 +98,10 @@
             $window.history.back();
         }
 
-        function pageChanged(page) {
-            if (!page) {
+        function pageChanged() {
+            if (!vm.paging.currentPage) {
                 return;
             }
-            vm.paging.currentPage = page;
             getRequestedColloquiumSessions();
         }
         
@@ -120,6 +116,7 @@
             } else {
                 applyFilter();
             }
+            getRequestedColloquiumSessions();
         }
     }
 })();
