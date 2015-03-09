@@ -1,0 +1,52 @@
+﻿<h2>Sessions Section</h2>
+<div class="container-fluid">
+    <div class="row">
+        <div class="form-inline">
+            <input class="input-medium search-query"
+                   ng-model="vm.sessionsSearch"
+                   ng-keyup="vm.search($event)"
+                   placeholder="Find a session..." />
+            <div class="btn-group pull-right">
+                <usr-mgmt-add link="#/sessions/new" title="Add Session"></usr-mgmt-add>
+                <usr-mgmt-refresh action="vm.refresh()" title="Refresh"></usr-mgmt-refresh>
+                <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
+
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">{{vm.title}}</div>
+            <div class="panel-body">
+                <div ng-repeat="session in vm.filteredSessions">
+                    <div class="media">
+                        <!--<a class="pull-left" href="#">
+                            <img class="media-object" src="..." alt="...">
+                        </a>-->
+                        <button class="btn btn-danger pull-right" ng-click="vm.deleteSession(session)"><i class="glyphicon glyphicon-remove-sign"></i><span> Delete Session</span></button>
+                        <button class="btn btn-info pull-right" ng-click="vm.editSession(session)"><i class="glyphicon glyphicon-pencil"></i><span> Edit Session</span></button>
+                        <div class="media-body">
+                            <h2 class="media-heading">{{session.name}}</h2>
+                            <h4>{{session.applicationUser.firstName}} {{session.applicationUser.lastName}}</h4>
+                            <h6>{{session.description}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <pagination boundary-links="true"
+                    ng-change="vm.pageChanged()"
+                    total-items="vm.sessionsFilteredCount"
+                    items-per-page="vm.paging.pageSize"
+                    ng-model="vm.paging.currentPage"
+                    max-size="vm.page.maxPagesToShow"
+                    class="pagination-sm"
+                    previous-text="Prev"
+                    next-text="Next"
+                    first-text="First"
+                    last-text="Last">
+        </pagination>
+    </div>
+</div>

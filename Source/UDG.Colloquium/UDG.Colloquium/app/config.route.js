@@ -31,6 +31,11 @@
                 templateUrl: '/app/userManagement/roleDetail.html',
                 controller: 'roleDetailCtrl as vm'
             })
+             .state('session', {
+                 url: '/sessions',
+                 templateUrl: '/app/sessions/sessions.html',
+                 controller: 'sessionsCtrl as vm'
+             })
 
             // Creation
             .state('register', {

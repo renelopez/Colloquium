@@ -1,0 +1,41 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="form-inline">
+            <div class="btn-group search-query">
+                <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
+                <usr-mgmt-cancel action="vm.cancel()" visibility="!vm.canSave"></usr-mgmt-cancel>
+                <usr-mgmt-save action="vm.save()" visibility="!vm.canSave"></usr-mgmt-save>
+                <span ng-show="vm.hasChanges" class="dissolve-animation"><i class="glyphicon glyphicon-asterisk"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Edit {{vm.session.name || 'New Session'}} </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Name</label>
+                        <input ng-model="vm.session.name" class="form-control col-md-10"
+                               z-validate/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Student</label>
+                        <input ng-model="vm.selectedUser" typeahead="user for user in vm.getUsers($viewValue)"
+                               typeahead-loading="loadingUsers" typeahead-wait-ms="1000" class="form-control col-md-10" />
+                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="form-group">
+                        <label class="control-label col-md-2">Description</label>
+                        <textarea ng-model="vm.session.description" class="form-control col-md-10" rows="10"
+                                  z-validate></textarea>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
