@@ -1,7 +1,7 @@
 ﻿(function () {
     'use strict';
 
-    var controllerId = 'colloquiumSessionDetailCtrl';
+    var controllerId = 'sessionDetailCtrl';
 
     angular.module('app').controller(controllerId,
         ['$scope', '$stateParams', '$window', 'common', 'config', 'datacontext', colloquiumSessionDetailCtrl]);
