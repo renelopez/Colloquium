@@ -175,5 +175,26 @@
             }
             return Predicate.create('colloquiumId', 'eq', id);
         }
+
+        function getTypeAheadData(col) {
+            var self = this;
+            var users;
+            var predicate = Predicate.create('firstName', 'substringof', name);
+            return EntityQuery.from("Users")
+                 .where(predicate)
+                 .select('firstName,lastName')
+                 .orderBy(orderBy)
+                 .using(self.manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
+
+            function success(data) {
+                //users = self._setIsPartialIsTrue(data.results);
+                //self._areItemsLoaded(true);
+                //logSuccess("User data was succesfully retrieved.", null, true);
+                return data.results;
+            }
+        }
     }
 })();

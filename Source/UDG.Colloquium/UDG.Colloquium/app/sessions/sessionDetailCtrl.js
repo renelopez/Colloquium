@@ -11,7 +11,7 @@
 
         vm.cancel = cancel;
         vm.colloquiumId = $stateParams.colloquiumId;
-        vm.getUsers = getUsers;
+        vm.getColloquiums = getColloquiums;
         vm.goBack = goBack;
         vm.hasChanges = false;
         vm.isSaving = false;
@@ -63,10 +63,10 @@
             });
         }
         
-        function getUsers(value) {
-            return datacontext.user.getTypeaheadData(value).then(function(users) {
-                return users.map(function(user) {
-                    return user.firstName+" "+user.lastName;
+        function getColloquiums(value) {
+            return datacontext.colloquium.getTypeaheadData(value).then(function(colloquiums) {
+                return colloquiums.map(function(col) {
+                    return col.period;
                 });
             });
         }
