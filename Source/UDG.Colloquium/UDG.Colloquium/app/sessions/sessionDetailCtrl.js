@@ -17,6 +17,7 @@
         vm.isSaving = false;
         vm.save = save;
         vm.selectedUser = undefined;
+        vm.selectedColloquium = undefined;
         vm.session = undefined;
         vm.sessionId = $stateParams.sessionId;
         vm.users = [];
@@ -65,8 +66,8 @@
         
         function getColloquiums(value) {
             return datacontext.colloquium.getTypeaheadData(value).then(function(colloquiums) {
-                return colloquiums.map(function(col) {
-                    return col.period;
+                return colloquiums.map(function(period) {
+                    return period;
                 });
             });
         }

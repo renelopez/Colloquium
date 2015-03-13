@@ -29,6 +29,7 @@
             this.getSessionsByColloquiumId = getSessionsByColloquiumId;
             this.getColloquiumSessionsFilteredCount = getColloquiumSessionsFilteredCount;
             this.getColloquiumSessionsCount = getColloquiumSessionsCount;
+            this.getTypeaheadData = getTypeAheadData;
 
 
         };
@@ -179,10 +180,10 @@
         function getTypeAheadData(col) {
             var self = this;
             var users;
-            var predicate = Predicate.create('firstName', 'substringof', name);
-            return EntityQuery.from("Users")
+            var predicate = Predicate.create('period', 'substringof', col);
+            return EntityQuery.from("Colloquiums")
                  .where(predicate)
-                 .select('firstName,lastName')
+                 .select('period')
                  .orderBy(orderBy)
                  .using(self.manager)
                  .execute()
@@ -190,9 +191,6 @@
                  .catch(this._fail);
 
             function success(data) {
-                //users = self._setIsPartialIsTrue(data.results);
-                //self._areItemsLoaded(true);
-                //logSuccess("User data was succesfully retrieved.", null, true);
                 return data.results;
             }
         }

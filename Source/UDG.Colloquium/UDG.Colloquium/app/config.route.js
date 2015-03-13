@@ -36,6 +36,11 @@
                  templateUrl: '/app/sessions/sessions.html',
                  controller: 'sessionsCtrl as vm'
              })
+              .state('sessionDetail', {
+                  url: '/sessions/:sessionId',
+                  templateUrl: '/app/sessions/sessionDetail.html',
+                  controller: 'sessionDetailCtrl as vm'
+              })
 
             // Creation
             .state('register', {
