@@ -12,6 +12,7 @@
         vm.cancel = cancel;
         vm.colloquiumId = $stateParams.colloquiumId;
         vm.getColloquiums = getColloquiums;
+        vm.getUsers = getUsers;
         vm.goBack = goBack;
         vm.hasChanges = false;
         vm.isSaving = false;
@@ -72,6 +73,14 @@
             });
         }
 
+        function getUsers(value) {
+            return datacontext.user.getTypeaheadData(value).then(function (users) {
+                return users.map(function (user) {
+                    return user.firstName + " " + user.lastName;
+                });
+            });
+        }
+
         
         function goBack() {
             $window.history.back();
@@ -93,18 +102,21 @@
              if (!canSave()) { return $q.when(null); } // Must return a promise
              vm.isSaving = true;
              common.toggleBusyMessage(true);
-             datacontext.user.getEntityByName(vm.selectedUser).then(function(user) {
+             return datacontext.user.getEntityByName(vm.selectedUser).then(function(user) {
                  vm.session.applicationUser = user;
-                 return datacontext.saveChanges()
-                     .then(function(saveResult) {
+                 datacontext.colloquium.getEntityByName(vm.selectedColloquium).then(function (colloquium) {
+                     vm.session.colloquium = colloquium;
+                     return datacontext.saveChanges()
+                     .then(function (saveResult) {
                          vm.isSaving = false;
                          common.toggleBusyMessage(false);
                          goBack();
-                 }, function(error) {
-                     vm.isSaving = false;
-                     common.toggleBusyMessage(false);
+                     }, function (error) {
+                         vm.isSaving = false;
+                         common.toggleBusyMessage(false);
                          goBack();
                      });
+                 });
              });
          }
         
