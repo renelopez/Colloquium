@@ -102,11 +102,10 @@
              if (!canSave()) { return $q.when(null); } // Must return a promise
              vm.isSaving = true;
              common.toggleBusyMessage(true);
-             return datacontext.user.getEntityByName(vm.selectedUser).then(function(user) {
-                 vm.session.applicationUser = user;
-                 datacontext.colloquium.getEntityByName(vm.selectedColloquium).then(function (colloquium) {
-                     vm.session.colloquium = colloquium;
-                     return datacontext.saveChanges()
+             $q.all([datacontext.user.getEntityByName(vm.selectedUser), datacontext.colloquium.getEntityByName(vm.selectedColloquium)]).then(function(values) {
+                 vm.session.applicationUser = values[0];
+                 vm.session.colloquium = values[1];
+                 return datacontext.saveChanges()
                      .then(function (saveResult) {
                          vm.isSaving = false;
                          common.toggleBusyMessage(false);
@@ -116,9 +115,7 @@
                          common.toggleBusyMessage(false);
                          goBack();
                      });
-                 });
              });
          }
-        
     }
 })();
