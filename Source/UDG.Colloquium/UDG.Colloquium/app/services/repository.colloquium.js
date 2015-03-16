@@ -30,8 +30,7 @@
             this.getColloquiumSessionsFilteredCount = getColloquiumSessionsFilteredCount;
             this.getColloquiumSessionsCount = getColloquiumSessionsCount;
             this.getTypeaheadData = getTypeAheadData;
-
-
+            this.getEntityByName = getEntityByName;
         };
 
         AbstractRepository.extend(RepoConstructor);
@@ -71,15 +70,18 @@
 
         function getSessionsByColloquiumId(colloquiumId,page,size,sessionFilter,forceRemote) {
             var self = this;
+            var sessionEntityName = 'Session';
             var manager = self.manager;
             var predicate = _getFilterPredicate(colloquiumId);
-            var colloquium;
+            var session;
             var take = size || 10;
             var skip = page ? (page - 1) * size : 0;
+
+            // TODO:Refactor this.
             if (!forceRemote) {
-                colloquium = manager.getEntityByKey(entityName, parseInt(colloquiumId));
-                if (colloquium && !colloquium.isPartial) {
-                    self.log('Retrieved ' + colloquium.sessions.length + ' elements from cache for entity type:' + entityName + '.', null, true);
+                session = manager.getEntityByKey(sessionEntityName, parseInt(colloquiumId));
+                if (session && !session.isPartial) {
+                    self.log('Retrieved ' + session.length + ' elements from cache for entity type:' + sessionEntityName + '.', null, true);
                     return $q.when(getByPage());
                 }
             }
@@ -161,6 +163,43 @@
                     .executeLocally();
                 return $q.when(query.length);
                 
+        }
+
+        function getEntityByName(period, forceRemote) {
+            var self = this;
+            var manager = self.manager;
+            var predicate = Predicate.create('period', 'eq', period);
+            var colloquium;
+
+
+            if (!forceRemote) {
+                colloquium = self._getAllLocal(entityName, orderBy, predicate)[0];
+                if (colloquium && !colloquium.isPartial) {
+                    self.log('Retrieved [' + entityName + '] id:' + colloquium.id + ' from cache.', colloquium, true);
+                    if (colloquium.entityAspect.entityState.isDeleted()) {
+                        colloquium = null; // hide session marked-for-delete
+                    }
+                    return $q.when(colloquium);
+                }
+            }
+            return EntityQuery.from('Colloquiums')
+                 .where(predicate)
+                 .orderBy(orderBy)
+                 .using(manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
+
+            function success(data) {
+                var results = data.results[0];
+                if (!results) {
+                    self.log('Couldnt find [' + entityName + '] name:' + colloquium, null, true);
+                    return null;
+                }
+                results.isPartial = false;
+                self.log('Retrieved [' + entityName + '] name:' + results.period+ ' from remote data source', results, true);
+                return results;
+            }
         }
         
         
