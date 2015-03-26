@@ -19,16 +19,32 @@
         var applyFilter = function() {};
 
         vm.colloquiums = [];
+        vm.colloquiumsCount = 0;
+        vm.colloquiumsFilteredCount = 0;
+
         vm.colloquiumsSearch = '';
         vm.colloquiumsFilter = colloquiumsFilter;
         vm.deleteColloquium = deleteColloquium;
         vm.editColloquium = editColloquium;
         vm.filteredColloquiums = [];
+        vm.goBack = goBack;
+        vm.pageChanged = pageChanged;
+        vm.paging= {
+            currentPage: 1,
+            maxPagesToShow: 10,
+            pageSize:2
+        }
         vm.goToColloquiumSessions = goToColloquiumSessions;
         vm.title = 'Colloquiums';
         vm.refresh = refresh;
         vm.search = search;
         vm.workingColloquium = undefined;
+
+        Object.defineProperty(vm.paging,'pageCount', {
+            get:function() {
+                return Math.floor(this.colloquiumsFilteredCount / vm.paging.pageSize) + 1;
+            }
+        });
         
         activate();
 
@@ -78,7 +94,7 @@
         }
         
         function getColloquiums(forceRefresh) {
-            return datacontext.colloquium.getAll(forceRefresh).then(function(cols) {
+            return datacontext.colloquium.getAll(vm.paging.currentPage,vm.paging.pageSize,vm.sessionsFilter,forceRefresh).then(function(cols) {
                 vm.colloquiums = vm.filteredColloquiums = cols;
             });
         }

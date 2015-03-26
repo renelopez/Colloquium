@@ -39,14 +39,17 @@
         
         function create() { return this.manager.createEntity(entityName); }
         
-        function getAll(forceRemote) {
+        function getAll(page,size,filter,forceRemote) {
             var colloquiums;
             var self = this;
+            var take = size || 10;
+            var skip = page? (page - 1) *size:0;
+
 
             if (self._areItemsLoaded() && !forceRemote) {
                 colloquiums = self._getAllLocal('Colloquiums', orderBy);
                 self.log('Retrieved '+ colloquiums.length +' elements from cache for entity type:' + entityName + '.',null,true);
-                return $q.when(colloquiums);
+                return $q.when(getColloquiumsByPage());
             }
 
 
@@ -58,6 +61,22 @@
                 .execute()
                 .then(success)
                 .catch(self._queryFailed);
+
+
+            function getColloquiumsByPage() {
+                var predicate;
+                if (sessionFilter) {
+                    predicate = _getColloquiumFilterPredicate(filter);
+                }
+
+
+                return EntityQuery.from('Colloquiums')
+                    .where(predicate)
+                    .orderBy(orderBy)
+                    .toType(entityName)
+                    .using(self.manager)
+                    .executeLocally();
+            }
 
             function success(data) {
                 var results = data.results;
@@ -82,7 +101,7 @@
                 sessions = self._getAllLocal(sessionResource,sessionOrderBy,predicate);
                 if (sessions && sessions.length > 0) {
                     self.log('Retrieved ' + sessions.length + ' elements from cache for entity type:' + sessionResource + '.', null, true);
-                    return $q.when(getByPage());
+                    return $q.when(getSessionsByPage());
                 }
             }
             return EntityQuery.from('Sessions')
@@ -95,7 +114,7 @@
                  .then(success)
                  .catch(this._queryFailed);
 
-            function getByPage() {
+            function getSessionsByPage() {
                 var predicate;
                 if (colloquiumId && sessionFilter) {
                     predicate = _getFilterPredicate(colloquiumId, sessionFilter);
@@ -116,7 +135,7 @@
                     return null;
                 }
                 self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
-                return getByPage();
+                return getSessionsByPage();
             }
 
         }
@@ -204,6 +223,10 @@
                     .and('name', 'contains', filter);
             }
             return Predicate.create('colloquiumId', 'eq', id);
+        }
+
+        function _getColloquiumFilterPredicate(filter) {
+                return Predicate.create('name', 'contains', filter);
         }
 
         function getTypeAheadData(col) {
