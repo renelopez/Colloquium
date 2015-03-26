@@ -58,6 +58,7 @@
             return datacontext.session.getById(vm.sessionId).then(function (session) {
                 vm.session = session;
                 vm.selectedUser = vm.session.applicationUser.firstName + " " + vm.session.applicationUser.lastName;
+                vm.selectedColloquium = vm.session.colloquium.period;
             }, function (error) {
                 common.toggleBusyMessage(false);
                 logError('Unable to get session ' + val);

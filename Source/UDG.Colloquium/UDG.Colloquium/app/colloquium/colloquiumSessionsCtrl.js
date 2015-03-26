@@ -54,7 +54,7 @@
         
         function editSession(session) {
             if (session && session.id) {
-                $state.go('colloquiumSessionDetails', { colloquiumId: vm.colloquiumId, sessionId: session.id });
+                $state.go('colloquiumSessionDetail', { colloquiumId: vm.colloquiumId, sessionId: session.id });
             }
         }
         

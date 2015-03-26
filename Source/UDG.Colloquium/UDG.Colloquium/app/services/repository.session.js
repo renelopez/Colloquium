@@ -43,7 +43,7 @@
         function getAll(page, size, filter, forceRemote) {
             var self = this;
             var take = size || 20;
-            var skip = page ? page - 1 * size : 0;
+            var skip = page ? (page - 1) * size : 0;
             if (self._areItemsLoaded() && !forceRemote) {
                 return $q.when(getByPage());
             }
@@ -87,7 +87,7 @@
             var self = this;
             var manager = self.manager;
             if (self._areItemsLoaded()) {
-                return $q.when(_getLocalEntityCount(colloquiumId, "Sessions"));
+                return $q.when(_getLocalEntityCount("Sessions"));
             }
 
             return EntityQuery.from('Sessions')

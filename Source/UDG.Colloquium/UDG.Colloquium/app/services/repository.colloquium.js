@@ -70,18 +70,18 @@
 
         function getSessionsByColloquiumId(colloquiumId,page,size,sessionFilter,forceRemote) {
             var self = this;
-            var sessionEntityName = 'Session';
+            var sessionResource= 'Sessions';
+            var sessionOrderBy = 'name';
             var manager = self.manager;
             var predicate = _getFilterPredicate(colloquiumId);
-            var session;
+            var sessions;
             var take = size || 10;
             var skip = page ? (page - 1) * size : 0;
 
-            // TODO:Refactor this.
             if (!forceRemote) {
-                session = manager.getEntityByKey(sessionEntityName, parseInt(colloquiumId));
-                if (session && !session.isPartial) {
-                    self.log('Retrieved ' + session.length + ' elements from cache for entity type:' + sessionEntityName + '.', null, true);
+                sessions = self._getAllLocal(sessionResource,sessionOrderBy,predicate);
+                if (sessions && sessions.length > 0) {
+                    self.log('Retrieved ' + sessions.length + ' elements from cache for entity type:' + sessionResource + '.', null, true);
                     return $q.when(getByPage());
                 }
             }
@@ -115,7 +115,6 @@
                     self.log('Couldnt find [' + entityName + '] for colloquiumId:' + colloquiumId, null, true);
                     return null;
                 }
-                colloquium.isPartial = false;
                 self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
                 return getByPage();
             }
@@ -143,15 +142,6 @@
                 return data.inlineCount;
             }
         }
-
-        function _getLocalEntityCount(colloquiumId,entityName) {
-            var predicate = _getFilterPredicate(id, search);
-                var entities = EntityQuery.from(entityName)
-                    .where(predicate)
-                    .using(this.manager)
-                    .executeLocally();
-                return entities.length;
-            }
 
         function getColloquiumSessionsFilteredCount(id, search) {
             var self = this;

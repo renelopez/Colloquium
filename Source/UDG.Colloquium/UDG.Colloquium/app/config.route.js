@@ -110,7 +110,7 @@
                 templateUrl: '/app/colloquium/colloquiumSessions.html',
                 controller:'colloquiumSessionsCtrl as vm'
             })
-            .state('colloquiumSessionDetails', {
+            .state('colloquiumSessionDetail', {
                 url: '/colloquiums/:colloquiumId/sessions/:sessionId',
                 templateUrl: '/app/colloquium/colloquiumSessionDetail.html',
                 controller: 'colloquiumSessionDetailCtrl as vm'

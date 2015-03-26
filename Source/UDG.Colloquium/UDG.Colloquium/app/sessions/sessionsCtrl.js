@@ -53,7 +53,7 @@
         
         function editSession(session) {
             if (session && session.id) {
-                $state.go('sessionDetails', { sessionId: session.id });
+                $state.go('sessionDetail', { sessionId: session.id });
             }
         }
         
