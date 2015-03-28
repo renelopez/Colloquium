@@ -27,6 +27,8 @@
             this.getAll = getAll;
             this.getById = getById;
             this.getSessionsByColloquiumId = getSessionsByColloquiumId;
+            this.getColloquiumsCount = getColloquiumsCount;
+            this.getColloquiumsFilteredCount = getColloquiumsFilteredCount;
             this.getColloquiumSessionsFilteredCount = getColloquiumSessionsFilteredCount;
             this.getColloquiumSessionsCount = getColloquiumSessionsCount;
             this.getTypeaheadData = getTypeAheadData;
@@ -43,7 +45,7 @@
             var colloquiums;
             var self = this;
             var take = size || 10;
-            var skip = page? (page - 1) *size:0;
+            var skip = page ? (page - 1) * size:0;
 
 
             if (self._areItemsLoaded() && !forceRemote) {
@@ -62,28 +64,31 @@
                 .then(success)
                 .catch(self._queryFailed);
 
+            function success(data) {
+                if (!data.results) {
+                    self.log('Could not find [' + entityName + ']', null, true);
+                    return null;
+                }
+                self._areItemsLoaded(true);
+                self._setIsPartialIsTrue(data.results);
+                self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                return getColloquiumsByPage();
+            }
 
             function getColloquiumsByPage() {
                 var predicate;
-                if (sessionFilter) {
+                if (filter) {
                     predicate = _getColloquiumFilterPredicate(filter);
                 }
 
-
                 return EntityQuery.from('Colloquiums')
                     .where(predicate)
+                    .take(take)
+                    .skip(skip)
                     .orderBy(orderBy)
                     .toType(entityName)
                     .using(self.manager)
                     .executeLocally();
-            }
-
-            function success(data) {
-                var results = data.results;
-                self._areItemsLoaded(true);
-                colloquiums = self._setIsPartialIsTrue(results);
-                self.log('Retrieved ' + colloquiums.length + ' elements from server for entity type:' + entityName + '.', null, true);
-                return colloquiums;
             }
         }
 
@@ -138,6 +143,34 @@
                 return getSessionsByPage();
             }
 
+        }
+
+        function getColloquiumsCount() {
+            var self = this;
+            var manager = self.manager;
+            if (self._areItemsLoaded()) {
+                return $q.when(self._getLocalCount('Colloquiums'));
+            }
+
+            return EntityQuery.from('Colloquiums')
+                .where(predicate)
+                .using(manager)
+                .execute()
+                .then(_getInlineCount)
+                .catch(this._queryFailed);
+
+            function _getInlineCount(data) {
+                return data.inlineCount;
+            }
+        }
+
+        function getColloquiumsFilteredCount(filter) {
+            var predicate = _getColloquiumFilterPredicate(filter);
+            var query = EntityQuery.from('Colloquiums')
+                    .where(predicate)
+                    .using(this.manager)
+                    .executeLocally();
+            return $q.when(query.length);
         }
 
         function getColloquiumSessionsCount(colloquiumId) {
@@ -226,7 +259,7 @@
         }
 
         function _getColloquiumFilterPredicate(filter) {
-                return Predicate.create('name', 'contains', filter);
+                return Predicate.create('period', 'contains', filter);
         }
 
         function getTypeAheadData(col) {

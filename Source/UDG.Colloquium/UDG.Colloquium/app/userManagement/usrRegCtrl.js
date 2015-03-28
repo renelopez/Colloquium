@@ -142,6 +142,7 @@
         
         function saveChanges() {
             if (!canSave()) { return $q.when(null); } // Must return a promise
+            common.toggleBusyMessage(false);
             vm.isSaving = true;
             datacontext.saveChanges().then(success).catch(errorSave);
             
@@ -164,8 +165,6 @@
         }
         
         function toggleRoles(role) {
-            role.selected = !role.selected;
-            
             if (!role.selected) {
                 removeUserRole(role);
             } else {

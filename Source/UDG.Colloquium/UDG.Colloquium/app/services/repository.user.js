@@ -26,6 +26,8 @@
             this.create = create;
             this.getById = getById;
             this.getAll = getAll;
+            this.getCount = getCount;
+            this.getFilteredCount = getFilteredCount;
             this.getEntityByName = getEntityByName;
             this.getTypeaheadData = getTypeaheadData;
             this.getUserRolesById = getUserRolesById;
@@ -36,6 +38,49 @@
         return RepoConstructor;
         
         function create() { return this.manager.createEntity(entityName); }
+
+        function getAll(page, size, filter, forceRemote) {
+            var users;
+            var self = this;
+            var take = size || 10;
+            var skip = page ? (page - 1) * size : 0;
+
+            if (self._areItemsLoaded() && !forceRemote) {
+                users = self._getAllLocal('Users', orderBy);
+                self.log('Retrieved ' + users.length + ' elements from cache for entity type:' + entityName + '.', null, true);
+                return $q.when(getByPage());
+            }
+
+
+            return EntityQuery.from('Users')
+                .select('id,userName,firstName,lastName')
+                .toType(entityName)
+                .using(self.manager)
+                .execute()
+                .then(success)
+                .catch(self._queryFailed);
+
+            function success(data) {
+                if (!data.results) {
+                    self.log('Could not find [' + entityName + ']', null, true);
+                    return null;
+                }
+                self._areItemsLoaded(true);
+                self._setIsPartialIsTrue(data.results);
+                self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                return getByPage();
+            }
+
+            function getByPage() {
+                return EntityQuery.from('Users')
+                    .select('id,userName,firstName,lastName')
+                    .take(take)
+                    .skip(skip)
+                    .toType(entityName)
+                    .using(self.manager)
+                    .executeLocally();
+            }
+        }
         
         function getById(id,forceRemote) {
             var self = this;
@@ -71,27 +116,6 @@
                 return results;
             }
         }
-        
-        function getTypeaheadData(name) {
-            var self = this;
-            var users;
-            var predicate = Predicate.create('firstName', 'substringof', name);
-            return EntityQuery.from("Users")
-                 .where(predicate)
-                 .select('firstName,lastName')
-                 .orderBy(orderBy)
-                 .using(self.manager)
-                 .execute()
-                 .then(success)
-                 .catch(this._fail);
-
-            function success(data) {
-                //users = self._setIsPartialIsTrue(data.results);
-                //self._areItemsLoaded(true);
-                //logSuccess("User data was succesfully retrieved.", null, true);
-                return data.results;
-            }
-        }
 
         function getEntityByName(fullName, forceRemote) {
             var self = this;
@@ -101,12 +125,12 @@
             var firstName = splitFullName[0];
             var lastName = splitFullName[1];
             var predicate = Predicate.create('firstName', 'eq', firstName)
-                                     .and('lastName','eq',lastName);
+                                     .and('lastName', 'eq', lastName);
             var user;
 
-            
+
             if (!forceRemote) {
-                user = self._getAllLocal(entityName, orderBy,predicate)[0];
+                user = self._getAllLocal(entityName, orderBy, predicate)[0];
                 if (user && !user.isPartial) {
                     self.log('Retrieved [' + entityName + '] id:' + user.id + ' from cache.', user, true);
                     if (user.entityAspect.entityState.isDeleted()) {
@@ -130,36 +154,29 @@
                     return null;
                 }
                 results.isPartial = false;
-                self.log('Retrieved [' + entityName + '] name:' + results.firstName+' '+results.lastName + ' from remote data source', results, true);
+                self.log('Retrieved [' + entityName + '] name:' + results.firstName + ' ' + results.lastName + ' from remote data source', results, true);
                 return results;
             }
         }
-
-        function getAll(forceRemote) {
-            var users;
+        
+        function getTypeaheadData(name) {
             var self = this;
-
-            if (self._areItemsLoaded() && !forceRemote) {
-                users = self._getAllLocal('Users', orderBy);
-                self.log('Retrieved ' + users.length + ' elements from cache for entity type:' + entityName + '.', null, true);
-                return $q.when(users);
-            }
-
-
-            return EntityQuery.from('Users')
-                .select('id,userName,firstName,lastName')
-                .toType(entityName)
-                .using(self.manager)
-                .execute()
-                .then(success)
-                .catch(self._queryFailed);
+            var users;
+            var predicate = Predicate.create('firstName', 'substringof', name);
+            return EntityQuery.from("Users")
+                 .where(predicate)
+                 .select('firstName,lastName')
+                 .orderBy(orderBy)
+                 .using(self.manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
 
             function success(data) {
-                var results = data.results;
-                self._areItemsLoaded(true);
-                users = self._setIsPartialIsTrue(results);
-                self.log('Retrieved ' + users.length + ' elements from server for entity type:' + entityName + '.', null, true);
-                return users;
+                //users = self._setIsPartialIsTrue(data.results);
+                //self._areItemsLoaded(true);
+                //logSuccess("User data was succesfully retrieved.", null, true);
+                return data.results;
             }
         }
 
@@ -183,5 +200,44 @@
                 return user;
             }
         }
+
+        function getCount() {
+            var self = this;
+            if (self._areItemsLoaded()) {
+                return self._getLocalCount('Users');
+            }
+
+            return EntityQuery.from("Users")
+                 .using(self.manager)
+                 .execute()
+                 .then(success)
+                 .catch(this._fail);
+
+            function success(data) {
+                return data.results.inlineCount;
+            }
+        }
+
+        function getFilteredCount(filter) {
+            var self = this;
+            var predicate = _getFilterPredicate(filter);
+            var users= EntityQuery.from("Users")
+                .where(predicate)
+                .using(self.manager)
+                .executeLocally();
+            return $q.when(users.length);
+        }
+        
+
+
+        function _getFilterPredicate(filter) {
+            return Predicate.create('firstName', 'contains', filter);
+        }
+
+       
+
+        
+
+        
     }
 })();

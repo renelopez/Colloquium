@@ -27,7 +27,6 @@
         vm.deleteColloquium = deleteColloquium;
         vm.editColloquium = editColloquium;
         vm.filteredColloquiums = [];
-        vm.goBack = goBack;
         vm.pageChanged = pageChanged;
         vm.paging= {
             currentPage: 1,
@@ -94,8 +93,24 @@
         }
         
         function getColloquiums(forceRefresh) {
-            return datacontext.colloquium.getAll(vm.paging.currentPage,vm.paging.pageSize,vm.sessionsFilter,forceRefresh).then(function(cols) {
+            return datacontext.colloquium.getAll(vm.paging.currentPage, vm.paging.pageSize, vm.colloquiumsSearch, forceRefresh).then(function (cols) {
                 vm.colloquiums = vm.filteredColloquiums = cols;
+                getColloquiumsFilteredCount();
+                if (!vm.colloquiumsFilteredCount && forceRefresh) {
+                    getColloquiumsCount();
+                }
+            });
+        }
+
+        function getColloquiumsFilteredCount() {
+            return datacontext.colloquium.getColloquiumsFilteredCount(vm.colloquiumsSearch).then(function(count) {
+                vm.colloquiumsFilteredCount = count;
+            });
+        }
+
+        function getColloquiumsCount() {
+            return datacontext.colloquium.getColloquiumsCount().then(function (count) {
+                vm.colloquiumsCount = count;
             });
         }
         
@@ -103,6 +118,13 @@
             if (col && col.id) {
                 $state.go('colloquiumSessions', { colloquiumId: col.id });
             }
+        }
+
+        function pageChanged() {
+            if (!vm.paging.currentPage) {
+                return;
+            }
+            getColloquiums();
         }
         
         function refresh() {

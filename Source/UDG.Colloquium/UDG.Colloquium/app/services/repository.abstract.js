@@ -22,6 +22,7 @@
         
         AbstractConstructor.prototype._areItemsLoaded = _areItemsLoaded;
         AbstractConstructor.prototype._getAllLocal = _getAllLocal;
+        AbstractConstructor.prototype._getLocalCount = _getLocalCount;
         AbstractConstructor.prototype._getById = _getById;
         AbstractConstructor.prototype._queryFailed = _queryFailed;
         AbstractConstructor.prototype._setIsPartialIsTrue = _setIsPartialIsTrue;
@@ -78,6 +79,14 @@
                     + ' from remote data source', entity, true);
                 return entity;
             }
+        }
+
+        function _getLocalCount(resource,predicate) {
+            var results = EntityQuery.from(resource)
+                .where(predicate)
+                .using(manager)
+                .executeLocally();
+            return results.length;
         }
         
         function _queryFailed(error) {

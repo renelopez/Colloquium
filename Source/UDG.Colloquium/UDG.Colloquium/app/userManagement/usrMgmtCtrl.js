@@ -27,10 +27,19 @@
         vm.title = 'Users already available in the system';
         vm.filteredUsers = [];
         vm.refresh = refresh;
+        vm.pageChanged = pageChanged;
+        vm.paging= {
+            currentPage: 1,
+            maxPagesToShow: 10,
+            pageSize:3
+        }
+        vm.usersFilteredCount = 0;
+        vm.usersCount = 0;
         vm.search = search;
         vm.usersFilter = usersFilter;
         vm.users = [];
-        vm.usersSearch = undefined;
+        vm.usersSearch = '';
+
 
 
 
@@ -48,8 +57,24 @@
         }
 
         function getUsers(forceRemote) {
-            return datacontext.user.getAll(forceRemote).then(function(users) {
+            return datacontext.user.getAll(vm.paging.currentPage,vm.paging.pageSize,vm.usersSearch,forceRemote).then(function(users) {
                 vm.users = vm.filteredUsers = users;
+                getUsersFilteredCount();
+                if (!vm.usersFilteredCount && forceRemote) {
+                    getUsersCount();
+                }
+            });
+        }
+
+        function getUsersCount() {
+            return datacontext.user.getCount().then(function(userCount) {
+                vm.usersCount = userCount;
+            });
+        }
+
+        function getUsersFilteredCount() {
+            return datacontext.user.getFilteredCount().then(function (userCount) {
+               vm.usersFilteredCount = userCount;
             });
         }
 
@@ -65,13 +90,18 @@
         }
 
         function editRolesForUser(user) {
-            //$location.path('/management/roles/users/' + user.id);
-            $state.go('userRoles', { userId: user.id },{location:true});
+            $state.go('userRoles', { userId: user.id });
         }
 
         function editUser(user) {
             $state.go('edit.credentials', { userId: user.id });
-            //$location.path('/register/credentials/' + user.id);
+        }
+
+        function pageChanged() {
+            if (!vm.paging.currentPage) {
+                return;
+            }
+            getUsers();
         }
 
         function refresh() {

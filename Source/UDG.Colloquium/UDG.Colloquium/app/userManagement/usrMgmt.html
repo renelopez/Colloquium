@@ -33,4 +33,18 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <pagination boundary-links="true"
+                    ng-change="vm.pageChanged()"
+                    total-items="vm.usersFilteredCount"
+                    items-per-page="vm.paging.pageSize"
+                    ng-model="vm.paging.currentPage"
+                    max-size="vm.page.maxPagesToShow"
+                    class="pagination-sm"
+                    previous-text="Prev"
+                    next-text="Next"
+                    first-text="First"
+                    last-text="Last">
+        </pagination>
+    </div>
 </div>
