@@ -27,6 +27,11 @@ namespace UDG.Colloquium.DL.Models
         [Required]
         public DateTime EndDate { get; set; }
 
+        [Required]
+        public bool IsActive { get; set; }
+
         public virtual ICollection<Session> Sessions { get; set; }
+
+
     }
 }

@@ -4,9 +4,9 @@
     var controllerId = 'colloquiumSessionsCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$state','$stateParams','$window', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
+        ['bootstrap.dialog', '$state', '$stateParams', '$window', 'common', 'config', 'datacontext', colloquiumSessionsCtrl]);
 
-    function colloquiumSessionsCtrl($state,$stateParams,$window, common, config, datacontext) {
+    function colloquiumSessionsCtrl(bsDialog, $state, $stateParams, $window, common, config, datacontext) {
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -20,7 +20,8 @@
         vm.colloquiumSessionsSearch = '';
         vm.colloquiumSessionsFilter = colloquiumSessionsFilter;
         vm.currentColloquium = {};
-        vm.editSession = editSession;
+        vm.editColloquiumSession = editColloquiumSession;
+        vm.deleteColloquiumSession = deleteColloquiumSession;
         vm.filteredColloquiumSessions = [];
         vm.goBack = goBack;
         vm.pageChanged = pageChanged;
@@ -51,8 +52,29 @@
                 log('Activated ColloquiumSessions View');
             });
         }
+
+        function deleteColloquiumSession(session) {
+            vm.workingSession = session;
+            return bsDialog.deleteDialog('Session').then(confirmDelete);
+
+            function confirmDelete() {
+                datacontext.markDeleted(session);
+                save().then(success, failed);
+
+                function success() {
+                    logSuccess("The following session was deleted:" + session.name + ".");
+                    refresh();
+                }
+
+                function failed(error) {
+                    logError("Following errors ocurred:", error, true);
+                    cancel();
+                }
+
+            }
+        }
         
-        function editSession(session) {
+        function editColloquiumSession(session) {
             if (session && session.id) {
                 $state.go('colloquiumSessionDetail', { colloquiumId: vm.colloquiumId, sessionId: session.id });
             }

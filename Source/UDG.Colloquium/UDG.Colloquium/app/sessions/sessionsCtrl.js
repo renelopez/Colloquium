@@ -4,9 +4,9 @@
     var controllerId = 'sessionsCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$state','$window', 'common', 'config', 'datacontext', sessionsCtrl]);
+        ['bootstrap.dialog','$state','$window', 'common', 'config', 'datacontext', sessionsCtrl]);
 
-    function sessionsCtrl($state, $window, common, config, datacontext) {
+    function sessionsCtrl(bsDialog,$state, $window, common, config, datacontext) {
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -19,6 +19,7 @@
         vm.sessionsSearch = '';
         vm.sessionsFilter = sessionsFilter;
         vm.currentSession = {};
+        vm.deleteSession = deleteSession;
         vm.editSession = editSession;
         vm.filteredSessions = [];
         vm.goBack = goBack;
@@ -49,6 +50,27 @@
                 }
                 log('Activated ColloquiumSessions View');
             });
+        }
+
+        function deleteSession(session) {
+            vm.workingSession = session;
+            return bsDialog.deleteDialog('Session').then(confirmDelete);
+
+            function confirmDelete() {
+                datacontext.markDeleted(session);
+                save().then(success, failed);
+
+                function success() {
+                    logSuccess("The following session was deleted:" + session.name + ".");
+                    refresh();
+                }
+
+                function failed(error) {
+                    logError("Following errors ocurred:", error, true);
+                    cancel();
+                }
+
+            }
         }
         
         function editSession(session) {
