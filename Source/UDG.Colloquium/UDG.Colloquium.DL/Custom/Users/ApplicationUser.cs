@@ -45,6 +45,8 @@ namespace UDG.Colloquium.DL.Custom.Users
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
 
+        public bool IsActive { get; set; }
+
         public ApplicationUser()
         {
             Works=new HashSet<Work>();

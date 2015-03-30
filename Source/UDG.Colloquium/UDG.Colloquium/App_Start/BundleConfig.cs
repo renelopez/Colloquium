@@ -55,10 +55,10 @@ namespace UDG.Colloquium.App_Start
 
             bundles.Add(new ScriptBundle("~/bundles/angularBreeze").Include(
                 "~/Scripts/breeze.min.js",
-                "~/Scripts/breeze.saveErrorExtensions.js",
                 "~/Scripts/breeze.debug.js",
                 "~/Scripts/breeze.bridge.angular.js",
-                "~/Scripts/breeze.directives.js"
+                "~/Scripts/breeze.directives.js",
+                "~/Scripts/breeze.saveErrorExtensions.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/externalVendors").Include(

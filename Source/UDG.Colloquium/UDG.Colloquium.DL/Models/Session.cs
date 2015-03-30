@@ -27,5 +27,8 @@ namespace UDG.Colloquium.DL.Models
         public int ApplicationUserId { get; set; }
 
         public ApplicationUser ApplicationUser { get; set; }
+
+        [Required]
+        public bool IsActive { get; set; }
     }
 }

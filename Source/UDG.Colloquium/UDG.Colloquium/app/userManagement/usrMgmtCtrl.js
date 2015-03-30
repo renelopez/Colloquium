@@ -6,9 +6,9 @@
         .module('app')
         .controller(controllerId, usrMgmtCtrl);
 
-    usrMgmtCtrl.$inject = ['$location','$state','common','config','datacontext']; 
+    usrMgmtCtrl.$inject = ['bootstrap.dialog','$location','$state','common','config','datacontext']; 
 
-    function usrMgmtCtrl($location,$state,common,config,datacontext) {
+    function usrMgmtCtrl(bsDialog,$location,$state,common,config,datacontext) {
         /* jshint validthis:true */
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
@@ -20,7 +20,7 @@
         var applyFilter = function() {};
         var vm = this;
 
-
+        vm.cancel = cancel;
         vm.deleteUser = deleteUser;
         vm.editRolesForUser = editRolesForUser;
         vm.editUser = editUser;
@@ -56,6 +56,13 @@
             });
         }
 
+        function cancel() {
+            datacontext.cancel();
+            if (vm.session.entityAspect.entityState.isDetached()) {
+                goBack();
+            }
+        }
+
         function getUsers(forceRemote) {
             return datacontext.user.getAll(vm.paging.currentPage,vm.paging.pageSize,vm.usersSearch,forceRemote).then(function(users) {
                 vm.users = vm.filteredUsers = users;
@@ -86,7 +93,26 @@
         }
 
         function deleteUser(user) {
-            
+            vm.workingUser= user;
+            return bsDialog.deleteDialog('User').then(confirmDelete);
+
+            function confirmDelete() {
+                datacontext.user.getById(user.id).then(function(userToDelete) {
+                datacontext.markDeleted(userToDelete);
+                datacontext.saveChanges().then(success, failed);
+
+                    function success() {
+                        logSuccess("The following user was deleted:" + user.firstName + ".");
+                        refresh();
+                    }
+
+                    function failed(error) {
+                        logError("Following errors ocurred:", error, true);
+                        cancel();
+                    }
+                });
+
+            }
         }
 
         function editRolesForUser(user) {
