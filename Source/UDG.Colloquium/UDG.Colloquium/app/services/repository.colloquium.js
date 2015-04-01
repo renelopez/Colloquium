@@ -39,24 +39,26 @@
 
         return RepoConstructor;
         
-        function create() { return this.manager.createEntity(entityName); }
+        function create() { return this.manager.createEntity(entityName, {isActive:1}); }
         
         function getAll(page,size,filter,forceRemote) {
             var colloquiums;
+            var mainPredicate = Predicate.create('isActive', 'eq', '1');
+            var selectFields = 'id,period,beginDate,endDate,isActive';
             var self = this;
             var take = size || 10;
             var skip = page ? (page - 1) * size:0;
 
 
             if (self._areItemsLoaded() && !forceRemote) {
-                colloquiums = self._getAllLocal('Colloquiums', orderBy);
+                colloquiums = self._getAllLocal('Colloquiums', orderBy,mainPredicate);
                 self.log('Retrieved '+ colloquiums.length +' elements from cache for entity type:' + entityName + '.',null,true);
                 return $q.when(getColloquiumsByPage());
             }
 
 
             return EntityQuery.from('Colloquiums')
-                .select('id,period,beginDate,endDate')
+                .select(selectFields)
                 .orderBy(orderBy)
                 .toType(entityName)
                 .using(self.manager)
@@ -76,10 +78,7 @@
             }
 
             function getColloquiumsByPage() {
-                var predicate;
-                if (filter) {
-                    predicate = _getColloquiumFilterPredicate(filter);
-                }
+                var predicate = filter ? _getColloquiumFilterPredicate(filter) : mainPredicate;
 
                 return EntityQuery.from('Colloquiums')
                     .where(predicate)
@@ -179,7 +178,7 @@
             var predicate = _getFilterPredicate(colloquiumId);
             var colloquium = manager.getEntityByKey(entityName, parseInt(colloquiumId));
             if (colloquium && !colloquium.isPartial) {
-                return $q.when(_getLocalEntityCount(colloquiumId,"Sessions"));
+                return $q.when(getLocalColloquiumSessionsCount(colloquiumId));
             }
 
             return EntityQuery.from('Sessions')
@@ -192,6 +191,19 @@
 
             function _getInlineCount(data) {
                 return data.inlineCount;
+            }
+
+            function getLocalColloquiumSessionsCount(colloquiumId) {
+                var self = this;
+                var manager = self.manager;
+                var predicate = _getFilterPredicate(colloquiumId);
+
+                var sessions = EntityQuery.from('Sessions')
+                    .expand('colloquium')
+                    .where(predicate)
+                    .using(manager)
+                    .executeLocally();
+                return sessions.length;
             }
         }
 
@@ -210,7 +222,7 @@
         function getEntityByName(period, forceRemote) {
             var self = this;
             var manager = self.manager;
-            var predicate = Predicate.create('period', 'eq', period);
+            var predicate = Predicate.create('period', 'eq', period).and('isActive','eq',1);
             var colloquium;
 
 
@@ -253,19 +265,23 @@
         function _getFilterPredicate(id, filter) {
             if (filter) {
                 return Predicate.create('colloquiumId', 'eq', id)
-                    .and('name', 'contains', filter);
+                    .and('name', 'contains', filter)
+                    .and('isActive', 'eq', 1);
             }
-            return Predicate.create('colloquiumId', 'eq', id);
+            return Predicate.create('colloquiumId', 'eq', id)
+                            .and('isActive', 'eq', 1);
         }
 
         function _getColloquiumFilterPredicate(filter) {
-                return Predicate.create('period', 'contains', filter);
+            return Predicate.create('period', 'contains', filter)
+                .and('isActive', 'eq', 1);
         }
 
         function getTypeAheadData(col) {
             var self = this;
             var users;
-            var predicate = Predicate.create('period', 'substringof', col);
+            var predicate = Predicate.create('period', 'substringof', col)
+                                        .and('isActive', 'eq', 1);
             return EntityQuery.from("Colloquiums")
                  .where(predicate)
                  .select('period')

@@ -74,6 +74,10 @@
     <Compile Include="Migrations\201501132317174_AddingRoleDescription.Designer.cs">
       <DependentUpon>201501132317174_AddingRoleDescription.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201503311716109_AddedModelIsDeleted.cs" />
+    <Compile Include="Migrations\201503311716109_AddedModelIsDeleted.Designer.cs">
+      <DependentUpon>201503311716109_AddedModelIsDeleted.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Colloquium.cs" />
     <Compile Include="Models\Company.cs" />
@@ -109,6 +113,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201501132317174_AddingRoleDescription.resx">
       <DependentUpon>201501132317174_AddingRoleDescription.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201503311716109_AddedModelIsDeleted.resx">
+      <DependentUpon>201503311716109_AddedModelIsDeleted.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

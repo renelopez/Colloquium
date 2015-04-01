@@ -34,7 +34,7 @@
 
         return RepoConstructor;
         
-        function create(colId) { return this.manager.createEntity(entityName, {colloquiumId:colId}); }
+        function create(colId) { return this.manager.createEntity(entityName, {colloquiumId:colId,isActive:1}); }
         
         function getById(id, forceRemote) {
             return this._getById(entityName, id, forceRemote);
@@ -121,7 +121,7 @@
         }
 
         function _getSessionFilterPredicate(filter) {
-            return Predicate.create('name', 'contains', filter);
+            return Predicate.create('name', 'contains', filter).and('isActive','eq',1);
         }
 
     }

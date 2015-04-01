@@ -99,6 +99,7 @@
         function save() {
             if (!canSave()) { return $q.when(null); } // Must return a promise
             vm.isSaving = true;
+            vm.colloquium.isActive = true;
             common.toggleBusyMessage(true);
             return datacontext.saveChanges()
                 .then(function (saveResult) {

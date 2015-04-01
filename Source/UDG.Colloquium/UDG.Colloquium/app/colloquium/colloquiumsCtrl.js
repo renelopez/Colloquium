@@ -76,7 +76,8 @@
             return bsDialog.deleteDialog('Colloquium').then(confirmDelete);
 
             function confirmDelete() {
-                datacontext.markDeleted(col);
+                //datacontext.markDeleted(col);
+                col.isActive = false;
                 save().then(success, failed);
 
                 function success() {
@@ -150,6 +151,7 @@
             } else {
                 applyFilter();
             }
+            getColloquiums();
         }
     }
 })();
