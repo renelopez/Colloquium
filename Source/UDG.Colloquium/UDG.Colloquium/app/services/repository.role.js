@@ -8,6 +8,7 @@
     function repository(breeze,common,model, AbstractRepository) {
         var EntityQuery = breeze.EntityQuery;
         var entityName = model.entityNames.role;
+        var Predicate = breeze.Predicate;
         var orderBy = 'id';
         var $q = common.$q;
         
@@ -36,15 +37,17 @@
         function getAll(forceRemote) {
             var roles;
             var self = this;
+            var activePredicate = Predicate.create('isActive', 'eq', 1);
 
             if (self._areItemsLoaded() && !forceRemote) {
-                roles = self._getAllLocal('Roles', orderBy);
+                roles = self._getAllLocal('Roles', orderBy,activePredicate);
                 return $q.when(roles);
             }
 
 
             return EntityQuery.from('Roles')
-                .select('id,name,description')
+                .select('id,name,description,isActive')
+                .where(activePredicate)
                 .toType(self.entityName)
                 .using(self.manager)
                 .execute()

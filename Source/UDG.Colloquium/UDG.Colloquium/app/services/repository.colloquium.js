@@ -120,7 +120,7 @@
 
             function getSessionsByPage() {
                 var predicate;
-                if (colloquiumId && sessionFilter) {
+                if (colloquiumId){
                     predicate = _getFilterPredicate(colloquiumId, sessionFilter);
                 }
                 var sessions = EntityQuery.from("Sessions")
