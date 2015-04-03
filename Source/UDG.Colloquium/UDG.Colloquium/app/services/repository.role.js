@@ -32,7 +32,7 @@
 
         return RepoConstructor;
 
-        function create() { return this.manager.createEntity(entityName); }
+        function create() { return this.manager.createEntity(entityName, {isActive:1}); }
 
         function getAll(forceRemote) {
             var roles;

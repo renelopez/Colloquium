@@ -10,6 +10,7 @@
         var entityName = model.entityNames.user;
         var orderBy = 'id';
         var Predicate = breeze.Predicate;
+        var isActivePredicate = Predicate.create('isActive', 'eq', 1);
         
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
@@ -37,7 +38,7 @@
 
         return RepoConstructor;
         
-        function create() { return this.manager.createEntity(entityName); }
+        function create() { return this.manager.createEntity(entityName, {isActive:1}); }
 
         function getAll(page, size, filter, forceRemote) {
             var users;
@@ -46,14 +47,14 @@
             var skip = page ? (page - 1) * size : 0;
 
             if (self._areItemsLoaded() && !forceRemote) {
-                users = self._getAllLocal('Users', orderBy);
+                users = self._getAllLocal('Users', orderBy,isActivePredicate);
                 self.log('Retrieved ' + users.length + ' elements from cache for entity type:' + entityName + '.', null, true);
                 return $q.when(getByPage());
             }
 
 
             return EntityQuery.from('Users')
-                .select('id,userName,firstName,lastName')
+                .select('id,userName,firstName,lastName,isActive')
                 .toType(entityName)
                 .using(self.manager)
                 .execute()
@@ -73,7 +74,8 @@
 
             function getByPage() {
                 return EntityQuery.from('Users')
-                    .select('id,userName,firstName,lastName')
+                    .select('id,userName,firstName,lastName,isActive')
+                    .where(isActivePredicate)
                     .take(take)
                     .skip(skip)
                     .toType(entityName)
@@ -99,6 +101,7 @@
             
             return EntityQuery.from("Users").where("id", "eq", id)
                  .expand("works.company,contacts")
+                 .where(isActivePredicate)
                  .using(self.manager)
                  .toType(self.entityName)
                  .execute()
@@ -125,7 +128,8 @@
             var firstName = splitFullName[0];
             var lastName = splitFullName[1];
             var predicate = Predicate.create('firstName', 'eq', firstName)
-                                     .and('lastName', 'eq', lastName);
+                .and('lastName', 'eq', lastName)
+                .and('isActive', 'eq', 1);
             var user;
 
 
@@ -162,7 +166,7 @@
         function getTypeaheadData(name) {
             var self = this;
             var users;
-            var predicate = Predicate.create('firstName', 'substringof', name);
+            var predicate = Predicate.create('firstName', 'substringof', name).and('isActive','eq',1);
             return EntityQuery.from("Users")
                  .where(predicate)
                  .select('firstName,lastName')
@@ -183,7 +187,7 @@
         function getUserRolesById(id) {
             var user;
             var self = this;
-            return EntityQuery.from("Users").where("id", "eq", id)
+            return EntityQuery.from("Users").where("id", "eq", id).and('isActive','eq',1)
                  .expand("roles")
                  .using(self.manager)
                  .execute()
@@ -209,6 +213,7 @@
 
             return EntityQuery.from("Users")
                  .using(self.manager)
+                 .where(isActivePredicate)
                  .execute()
                  .then(success)
                  .catch(this._fail);
@@ -231,7 +236,7 @@
 
 
         function _getFilterPredicate(filter) {
-            return Predicate.create('firstName', 'contains', filter);
+            return Predicate.create('firstName', 'contains', filter).and('isActive', 'eq', 1);
         }
 
        
