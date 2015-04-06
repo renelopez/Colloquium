@@ -20,5 +20,6 @@ namespace UDG.Colloquium.SL.ServiceRepositories
         IQueryable<Contact> GetContacts();
 
         IQueryable<Session> GetSessions();
+        IQueryable<Comment> GetComments();
     }
 }

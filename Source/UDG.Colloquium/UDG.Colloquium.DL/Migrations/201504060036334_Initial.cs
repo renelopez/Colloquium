@@ -15,8 +15,29 @@ namespace UDG.Colloquium.DL.Migrations
                         Period = c.String(nullable: false),
                         BeginDate = c.DateTime(nullable: false),
                         EndDate = c.DateTime(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                        ApplicationUser_Id = c.Int(),
                     })
-                .PrimaryKey(t => t.Id);
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Users", t => t.ApplicationUser_Id)
+                .Index(t => t.ApplicationUser_Id);
+            
+            CreateTable(
+                "dbo.Sessions",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(nullable: false),
+                        Name = c.String(nullable: false),
+                        ColloquiumId = c.Int(nullable: false),
+                        ApplicationUserId = c.Int(nullable: false),
+                        IsActive = c.Boolean(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Users", t => t.ApplicationUserId, cascadeDelete: true)
+                .ForeignKey("dbo.Colloquiums", t => t.ColloquiumId, cascadeDelete: true)
+                .Index(t => t.ColloquiumId)
+                .Index(t => t.ApplicationUserId);
             
             CreateTable(
                 "dbo.Users",
@@ -31,6 +52,7 @@ namespace UDG.Colloquium.DL.Migrations
                         Genre = c.Int(nullable: false),
                         Nacionality = c.String(nullable: false),
                         ColloquiumId = c.Int(),
+                        IsActive = c.Boolean(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
@@ -130,44 +152,48 @@ namespace UDG.Colloquium.DL.Migrations
                 .PrimaryKey(t => t.CompanyId);
             
             CreateTable(
+                "dbo.Comments",
+                c => new
+                    {
+                        CommentId = c.Int(nullable: false, identity: true),
+                        DateTime = c.DateTime(nullable: false),
+                        Text = c.String(),
+                        SessionId = c.Int(nullable: false),
+                        CommentAutor = c.String(),
+                    })
+                .PrimaryKey(t => t.CommentId)
+                .ForeignKey("dbo.Sessions", t => t.SessionId, cascadeDelete: true)
+                .Index(t => t.SessionId);
+            
+            CreateTable(
                 "dbo.Roles",
                 c => new
                     {
                         Id = c.Int(nullable: false, identity: true),
+                        Description = c.String(),
+                        IsActive = c.Boolean(nullable: false),
                         Name = c.String(nullable: false, maxLength: 256),
                     })
                 .PrimaryKey(t => t.Id)
                 .Index(t => t.Name, unique: true, name: "RoleNameIndex");
-            
-            CreateTable(
-                "dbo.ApplicationUserColloquiums",
-                c => new
-                    {
-                        ApplicationUser_Id = c.Int(nullable: false),
-                        Colloquium_Id = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => new { t.ApplicationUser_Id, t.Colloquium_Id })
-                .ForeignKey("dbo.Users", t => t.ApplicationUser_Id, cascadeDelete: true)
-                .ForeignKey("dbo.Colloquiums", t => t.Colloquium_Id, cascadeDelete: true)
-                .Index(t => t.ApplicationUser_Id)
-                .Index(t => t.Colloquium_Id);
             
         }
         
         public override void Down()
         {
             DropForeignKey("dbo.UserRoles", "RoleId", "dbo.Roles");
+            DropForeignKey("dbo.Comments", "SessionId", "dbo.Sessions");
+            DropForeignKey("dbo.Sessions", "ColloquiumId", "dbo.Colloquiums");
             DropForeignKey("dbo.Works", "CompanyId", "dbo.Companies");
             DropForeignKey("dbo.Works", "ApplicationUserId", "dbo.Users");
+            DropForeignKey("dbo.Sessions", "ApplicationUserId", "dbo.Users");
             DropForeignKey("dbo.UserRoles", "UserId", "dbo.Users");
             DropForeignKey("dbo.UserLogins", "UserId", "dbo.Users");
             DropForeignKey("dbo.Contacts", "ApplicationUserId", "dbo.Users");
-            DropForeignKey("dbo.ApplicationUserColloquiums", "Colloquium_Id", "dbo.Colloquiums");
-            DropForeignKey("dbo.ApplicationUserColloquiums", "ApplicationUser_Id", "dbo.Users");
+            DropForeignKey("dbo.Colloquiums", "ApplicationUser_Id", "dbo.Users");
             DropForeignKey("dbo.UserClaims", "UserId", "dbo.Users");
-            DropIndex("dbo.ApplicationUserColloquiums", new[] { "Colloquium_Id" });
-            DropIndex("dbo.ApplicationUserColloquiums", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Roles", "RoleNameIndex");
+            DropIndex("dbo.Comments", new[] { "SessionId" });
             DropIndex("dbo.Works", new[] { "CompanyId" });
             DropIndex("dbo.Works", new[] { "ApplicationUserId" });
             DropIndex("dbo.UserRoles", new[] { "RoleId" });
@@ -176,8 +202,11 @@ namespace UDG.Colloquium.DL.Migrations
             DropIndex("dbo.Contacts", new[] { "ApplicationUserId" });
             DropIndex("dbo.UserClaims", new[] { "UserId" });
             DropIndex("dbo.Users", "UserNameIndex");
-            DropTable("dbo.ApplicationUserColloquiums");
+            DropIndex("dbo.Sessions", new[] { "ApplicationUserId" });
+            DropIndex("dbo.Sessions", new[] { "ColloquiumId" });
+            DropIndex("dbo.Colloquiums", new[] { "ApplicationUser_Id" });
             DropTable("dbo.Roles");
+            DropTable("dbo.Comments");
             DropTable("dbo.Companies");
             DropTable("dbo.Works");
             DropTable("dbo.UserRoles");
@@ -185,6 +214,7 @@ namespace UDG.Colloquium.DL.Migrations
             DropTable("dbo.Contacts");
             DropTable("dbo.UserClaims");
             DropTable("dbo.Users");
+            DropTable("dbo.Sessions");
             DropTable("dbo.Colloquiums");
         }
     }

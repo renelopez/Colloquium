@@ -10,7 +10,7 @@
         var entityName = model.entityNames.user;
         var orderBy = 'id';
         var Predicate = breeze.Predicate;
-        var isActivePredicate = Predicate.create('isActive', 'eq', 1);
+        var isActivePredicate = Predicate.create('isActive', 'eq', true);
         
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(serviceId);
@@ -38,7 +38,7 @@
 
         return RepoConstructor;
         
-        function create() { return this.manager.createEntity(entityName, {isActive:1}); }
+        function create() { return this.manager.createEntity(entityName, {isActive:true}); }
 
         function getAll(page, size, filter, forceRemote) {
             var users;
@@ -99,7 +99,7 @@
                 }
             }
             
-            return EntityQuery.from("Users").where("id", "eq", id)
+            return EntityQuery.from("Users").where("id", "eq", true)
                  .expand("works.company,contacts")
                  .where(isActivePredicate)
                  .using(self.manager)
@@ -129,7 +129,7 @@
             var lastName = splitFullName[1];
             var predicate = Predicate.create('firstName', 'eq', firstName)
                 .and('lastName', 'eq', lastName)
-                .and('isActive', 'eq', 1);
+                .and('isActive', 'eq', true);
             var user;
 
 
@@ -166,7 +166,7 @@
         function getTypeaheadData(name) {
             var self = this;
             var users;
-            var predicate = Predicate.create('firstName', 'substringof', name).and('isActive','eq',1);
+            var predicate = Predicate.create('firstName', 'substringof', name).and('isActive','eq',true);
             return EntityQuery.from("Users")
                  .where(predicate)
                  .select('firstName,lastName')
@@ -187,7 +187,7 @@
         function getUserRolesById(id) {
             var user;
             var self = this;
-            return EntityQuery.from("Users").where("id", "eq", id).and('isActive','eq',1)
+            return EntityQuery.from("Users").where("id", "eq", id).and('isActive','eq',true)
                  .expand("roles")
                  .using(self.manager)
                  .execute()
@@ -236,7 +236,7 @@
 
 
         function _getFilterPredicate(filter) {
-            return Predicate.create('firstName', 'contains', filter).and('isActive', 'eq', 1);
+            return Predicate.create('firstName', 'contains', filter).and('isActive', 'eq', true);
         }
 
        

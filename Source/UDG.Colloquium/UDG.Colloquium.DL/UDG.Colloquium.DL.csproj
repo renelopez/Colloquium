@@ -62,24 +62,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
-    <Compile Include="Migrations\201409210755417_Initial.cs" />
-    <Compile Include="Migrations\201409210755417_Initial.Designer.cs">
-      <DependentUpon>201409210755417_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504060036334_Initial.cs" />
+    <Compile Include="Migrations\201504060036334_Initial.Designer.cs">
+      <DependentUpon>201504060036334_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201409250351443_Added Sessions.cs" />
-    <Compile Include="Migrations\201409250351443_Added Sessions.Designer.cs">
-      <DependentUpon>201409250351443_Added Sessions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201501132317174_AddingRoleDescription.cs" />
-    <Compile Include="Migrations\201501132317174_AddingRoleDescription.Designer.cs">
-      <DependentUpon>201501132317174_AddingRoleDescription.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201503311716109_AddedModelIsDeleted.cs" />
-    <Compile Include="Migrations\201503311716109_AddedModelIsDeleted.Designer.cs">
-      <DependentUpon>201503311716109_AddedModelIsDeleted.cs</DependentUpon>
+    <Compile Include="Migrations\201504060050512_Initial2.cs" />
+    <Compile Include="Migrations\201504060050512_Initial2.Designer.cs">
+      <DependentUpon>201504060050512_Initial2.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Colloquium.cs" />
+    <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Custom\Roles\ApplicationRoleStore.cs" />
     <Compile Include="Custom\Users\ApplicationUserStore.cs" />
@@ -105,17 +98,11 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201409210755417_Initial.resx">
-      <DependentUpon>201409210755417_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504060036334_Initial.resx">
+      <DependentUpon>201504060036334_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201409250351443_Added Sessions.resx">
-      <DependentUpon>201409250351443_Added Sessions.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201501132317174_AddingRoleDescription.resx">
-      <DependentUpon>201501132317174_AddingRoleDescription.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201503311716109_AddedModelIsDeleted.resx">
-      <DependentUpon>201503311716109_AddedModelIsDeleted.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504060050512_Initial2.resx">
+      <DependentUpon>201504060050512_Initial2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

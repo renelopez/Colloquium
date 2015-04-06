@@ -7,13 +7,13 @@ namespace UDG.Colloquium.DL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class AddedModelIsDeleted : IMigrationMetadata
+    public sealed partial class AddedFields : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedModelIsDeleted));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddedFields));
         
         string IMigrationMetadata.Id
         {
-            get { return "201503311716109_AddedModelIsDeleted"; }
+            get { return "201504020550184_AddedFields"; }
         }
         
         string IMigrationMetadata.Source

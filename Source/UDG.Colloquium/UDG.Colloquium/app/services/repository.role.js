@@ -32,12 +32,12 @@
 
         return RepoConstructor;
 
-        function create() { return this.manager.createEntity(entityName, {isActive:1}); }
+        function create() { return this.manager.createEntity(entityName, {isActive:true}); }
 
         function getAll(forceRemote) {
             var roles;
             var self = this;
-            var activePredicate = Predicate.create('isActive', 'eq', 1);
+            var activePredicate = Predicate.create('isActive', 'eq', true);
 
             if (self._areItemsLoaded() && !forceRemote) {
                 roles = self._getAllLocal('Roles', orderBy,activePredicate);

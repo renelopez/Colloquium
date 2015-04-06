@@ -98,7 +98,7 @@
 
             function confirmDelete() {
                 datacontext.user.getById(user.id).then(function(userToDelete) {
-                datacontext.markDeleted(userToDelete);
+                userToDelete.isActive = false;
                 datacontext.saveChanges().then(success, failed);
 
                     function success() {

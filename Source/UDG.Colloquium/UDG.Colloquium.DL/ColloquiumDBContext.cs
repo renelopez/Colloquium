@@ -36,6 +36,7 @@ namespace UDG.Colloquium.DL
         public DbSet<Company> Companies { get; set; }
         public DbSet <Contact> Contacts { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<Comment> Comments { get; set; }
         public DbSet<Models.Colloquium> Colloquiums { get; set; }
     }
 }

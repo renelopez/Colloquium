@@ -3,7 +3,7 @@ namespace UDG.Colloquium.DL.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class AddedModelIsDeleted : DbMigration
+    public partial class AddedFields : DbMigration
     {
         public override void Up()
         {

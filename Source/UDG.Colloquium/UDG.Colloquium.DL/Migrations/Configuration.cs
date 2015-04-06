@@ -29,16 +29,17 @@ namespace UDG.Colloquium.DL.Migrations
             if (role == null)
             {
                 role = new ApplicationRole(roleName);
+                role.IsActive = true;
                 var roleresult = roleManager.Create(role);
             }
 
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name, LastName = "Lopez", FirstName = "Robben", BirthDate = DateTime.Now, BirthPlace = "Mexico", Genre = ApplicationUser.UserGenre.Male, Nacionality = "Mexican",ColloquiumId = 1};
+                user = new ApplicationUser { UserName = name, Email = name, LastName = "Lopez", FirstName = "Robben", BirthDate = DateTime.Now, BirthPlace = "Mexico", Genre = ApplicationUser.UserGenre.Male, Nacionality = "Mexican", ColloquiumId = 1,IsActive = true};
 
                 // Registering to colloquium
-                var col = new Models.Colloquium { BeginDate = DateTime.Now, EndDate = DateTime.Now.AddDays(1), Period = "2014B", Id = 1 };
+                var col = new Models.Colloquium { BeginDate = DateTime.Now, EndDate = DateTime.Now.AddDays(1), Period = "2014B", Id = 1 ,IsActive = true};
                 context.Colloquiums.Add(col);
                 user.Colloquiums.Add(col);
 

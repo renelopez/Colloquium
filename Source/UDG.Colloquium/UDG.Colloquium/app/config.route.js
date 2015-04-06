@@ -41,6 +41,11 @@
                   templateUrl: '/app/sessions/sessionDetail.html',
                   controller: 'sessionDetailCtrl as vm'
               })
+            .state('sessionComments', {
+                url: '/sessions/:sessionId/comments',
+                templateUrl: '/app/comments/comments.html',
+                controller: 'commentsCtrl as vm'
+            })
 
             // Creation
             .state('register', {

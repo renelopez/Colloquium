@@ -44,6 +44,7 @@ namespace UDG.Colloquium.DL.Custom.Users
         public virtual ICollection<Work> Works { get; set; }
         public virtual ICollection<Contact> Contacts { get; set; }
         public virtual ICollection<Session> Sessions { get; set; }
+        //public virtual ICollection<Comment> Comments { get; set; }
 
         public bool IsActive { get; set; }
 
@@ -52,6 +53,7 @@ namespace UDG.Colloquium.DL.Custom.Users
             Works=new HashSet<Work>();
             Colloquiums=new HashSet<Models.Colloquium>();
             Sessions = new HashSet<Session>();
+            //Comments = new HashSet<Comment>();
         }
     }
 }

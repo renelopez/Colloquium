@@ -76,7 +76,6 @@
             return bsDialog.deleteDialog('Colloquium').then(confirmDelete);
 
             function confirmDelete() {
-                //datacontext.markDeleted(col);
                 col.isActive = false;
                 save().then(success, failed);
 

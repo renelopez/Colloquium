@@ -10,9 +10,13 @@
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
+        var logInfo = getLogFn(controllerId, "info");
+        var logSuccess = getLogFn(controllerId, 'success');
+        var logError = getLogFn(controllerId, 'error');
         var keyCodes = config.keyCodes;
 
         var applyFilter = function () { };
+        vm.checkComments=checkComments;
         vm.sessions = [];
         vm.sessionsCount = 0;
         vm.sessionsFilteredCount = 0;
@@ -52,12 +56,16 @@
             });
         }
 
+        function checkComments(session) {
+            $state.go('sessionComments', { sessionId: session.id });
+        }
+
         function deleteSession(session) {
             vm.workingSession = session;
             return bsDialog.deleteDialog('Session').then(confirmDelete);
 
             function confirmDelete() {
-                datacontext.markDeleted(session);
+                session.isActive = false;
                 save().then(success, failed);
 
                 function success() {
@@ -71,6 +79,18 @@
                 }
 
             }
+        }
+
+        function save() {
+            common.toggleBusyMessage(true);
+            return datacontext.saveChanges()
+               .then(function (saveResult) {
+                   common.toggleBusyMessage(false);
+                   refresh();
+               }, function (error) {
+                   common.toggleBusyMessage(false);
+                   refresh();
+               });
         }
         
         function editSession(session) {

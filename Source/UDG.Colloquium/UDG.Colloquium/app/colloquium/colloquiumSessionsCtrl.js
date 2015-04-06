@@ -58,7 +58,7 @@
             return bsDialog.deleteDialog('Session').then(confirmDelete);
 
             function confirmDelete() {
-                datacontext.markDeleted(session);
+                session.isActive = false;
                 save().then(success, failed);
 
                 function success() {

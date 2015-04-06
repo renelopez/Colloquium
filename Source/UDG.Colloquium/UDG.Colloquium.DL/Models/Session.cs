@@ -11,6 +11,11 @@ namespace UDG.Colloquium.DL.Models
 {
     public class Session
     {
+        public Session()
+        {
+            Comments=new HashSet<Comment>();
+        }
+
         [Required]
         public int Id { get; set; }
 
@@ -30,5 +35,7 @@ namespace UDG.Colloquium.DL.Models
 
         [Required]
         public bool IsActive { get; set; }
+
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 }

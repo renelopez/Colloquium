@@ -23,6 +23,7 @@ namespace UDG.Colloquium.DL.DBInitializers
                 var role = roleManager.FindByName(roleName);
                 if (role != null) return;
                 role = new ApplicationRole(roleName);
+                role.IsActive = true;
                 var roleresult = roleManager.Create(role);
             });
 
@@ -32,7 +33,7 @@ namespace UDG.Colloquium.DL.DBInitializers
             var user = userManager.FindByName(name);
             if (user == null)
             {
-                user = new ApplicationUser { UserName = name, Email = name,LastName = "Lopez" ,FirstName = "Robben",BirthDate = DateTime.Now ,BirthPlace = "Mexico",Genre = ApplicationUser.UserGenre.Male,Nacionality = "Mexican"};
+                user = new ApplicationUser { UserName = name, Email = name,LastName = "Lopez" ,FirstName = "Robben",BirthDate = DateTime.Now ,BirthPlace = "Mexico",Genre = ApplicationUser.UserGenre.Male,Nacionality = "Mexican",IsActive = true};
                 var result = userManager.Create(user, password);
                 result = userManager.SetLockoutEnabled(user.Id, false);
             }

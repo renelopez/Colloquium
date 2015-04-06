@@ -1,0 +1,52 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <div class="form-inline">
+            <div class="btn-group search-query">
+                <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
+                <usr-mgmt-cancel action="vm.cancel()" visibility="!vm.canSave"></usr-mgmt-cancel>
+                <usr-mgmt-save action="vm.save()" visibility="!vm.canSave"></usr-mgmt-save>
+                <span ng-show="vm.hasChanges" class="dissolve-animation"><i class="glyphicon glyphicon-asterisk"></i></span>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="panel panel-primary">
+            <div class="panel-heading">Current comments for {{vm.session.name}} </div>
+            <div class="panel-body">
+
+
+
+                <div ng-repeat="comment in vm.session.comments" class="row cmt">
+                    <div class="col-md-12">
+                        <p>{{ comment.text }}</p>
+                        <p class="author">
+                            posted by
+                            <a ng-href="#/users/{{ comment.commentId }}">
+                                {{ comment.author }}
+                            </a>
+                            <a ng-href=""
+                               ng-click="vm.deleteComment(comment)">
+                                (delete)
+                            </a>
+                        </p>
+                    </div>
+                </div>
+                <div class="cmt-form">
+                    <!--<div ng-hide="signedIn()">
+                        <p><a href="#/login">Sign in</a> to post a comment</p>
+                    </div>-->
+
+                    <form ng-submit="vm.addComment()">
+                        <input ng-model="vm.selectedUser" typeahead="user for user in vm.getUsers($viewValue)"
+                               typeahead-loading="loadingUsers" typeahead-wait-ms="1000" class="form-control col-md-10" />
+                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
+                        <textarea ng-model="vm.commentText"
+                                  placeholder="Post a Comment"
+                                  class="form-control"></textarea><br/>
+                        <input type="submit" value="Post Comment" class="btn btn-primary"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

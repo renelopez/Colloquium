@@ -39,11 +39,11 @@
 
         return RepoConstructor;
         
-        function create() { return this.manager.createEntity(entityName, {isActive:1}); }
+        function create() { return this.manager.createEntity(entityName, {isActive:true}); }
         
         function getAll(page,size,filter,forceRemote) {
             var colloquiums;
-            var mainPredicate = Predicate.create('isActive', 'eq', '1');
+            var mainPredicate = Predicate.create('isActive', 'eq', 'true');
             var selectFields = 'id,period,beginDate,endDate,isActive';
             var self = this;
             var take = size || 10;
@@ -222,7 +222,7 @@
         function getEntityByName(period, forceRemote) {
             var self = this;
             var manager = self.manager;
-            var predicate = Predicate.create('period', 'eq', period).and('isActive','eq',1);
+            var predicate = Predicate.create('period', 'eq', period).and('isActive','eq',true);
             var colloquium;
 
 
@@ -266,22 +266,22 @@
             if (filter) {
                 return Predicate.create('colloquiumId', 'eq', id)
                     .and('name', 'contains', filter)
-                    .and('isActive', 'eq', 1);
+                    .and('isActive', 'eq', true);
             }
             return Predicate.create('colloquiumId', 'eq', id)
-                            .and('isActive', 'eq', 1);
+                            .and('isActive', 'eq', true);
         }
 
         function _getColloquiumFilterPredicate(filter) {
             return Predicate.create('period', 'contains', filter)
-                .and('isActive', 'eq', 1);
+                .and('isActive', 'eq', true);
         }
 
         function getTypeAheadData(col) {
             var self = this;
             var users;
             var predicate = Predicate.create('period', 'substringof', col)
-                                        .and('isActive', 'eq', 1);
+                                        .and('isActive', 'eq', true);
             return EntityQuery.from("Colloquiums")
                  .where(predicate)
                  .select('period')

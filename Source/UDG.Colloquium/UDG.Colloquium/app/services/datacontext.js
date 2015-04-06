@@ -13,7 +13,7 @@
         var logError = getLogFn(serviceId, 'error');
         var logSuccess = getLogFn(serviceId, 'success');
         var entityNames = model.entityNames;
-        var repoNames = ['colloquium','session','user', 'role','company','contact','urole','work']; 
+        var repoNames = ['colloquium','session','user', 'role','company','contact','urole','work','comment']; 
         var manager = entityManagerFactory.newManager();
 
         var service = {

@@ -13,7 +13,8 @@
         var logError = getLogFn(factoryId, 'error');
 
         var entityNames = {
-            colloquium:'Colloquium',
+            colloquium: 'Colloquium',
+            comment:'Comment',
             company:'Company',
             contact:'Contact',
             role: 'ApplicationRole',

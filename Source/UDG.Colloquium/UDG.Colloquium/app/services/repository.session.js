@@ -27,6 +27,7 @@
             this.getAll = getAll;
             this.getById = getById;
             this.getSessionsFilteredCount = getSessionsFilteredCount;
+            this.getComments = getComments;
             this.getSessionsCount = getSessionsCount;
         };
 
@@ -34,7 +35,7 @@
 
         return RepoConstructor;
         
-        function create(colId) { return this.manager.createEntity(entityName, {colloquiumId:colId,isActive:1}); }
+        function create(colId) { return this.manager.createEntity(entityName, {colloquiumId:colId,isActive:true}); }
         
         function getById(id, forceRemote) {
             return this._getById(entityName, id, forceRemote);
@@ -83,6 +84,26 @@
 
         }
 
+        function getComments(sessionId) {
+            var self = this;
+            var manager = self.manager;
+            //if (self._areItemsLoaded()) {
+            //    return $q.when(_getLocalEntityCount("Sessions"));
+            //}
+
+            return EntityQuery.from('Sessions')
+                .expand('comments')
+                .where('id','eq',sessionId)
+                .using(manager)
+                .execute()
+                .then(success)
+                .catch(this._queryFailed);
+
+            function success(data) {
+                return data.results[0];
+            }
+        }
+
         function getSessionsCount() {
             var self = this;
             var manager = self.manager;
@@ -99,14 +120,16 @@
             function _getInlineCount(data) {
                 return data.inlineCount;
             }
+
+            function _getLocalEntityCount(entityName) {
+                var entities = EntityQuery.from(entityName)
+                    .using(manager)
+                    .executeLocally();
+                return entities.length;
+            }
         }
 
-        function _getLocalEntityCount(entityName) {
-            var entities = EntityQuery.from(entityName)
-                .using(this.manager)
-                .executeLocally();
-            return entities.length;
-        }
+        
 
         function getSessionsFilteredCount(filter) {
             var self = this;
@@ -121,7 +144,7 @@
         }
 
         function _getSessionFilterPredicate(filter) {
-            return Predicate.create('name', 'contains', filter).and('isActive','eq',1);
+            return Predicate.create('name', 'contains', filter).and('isActive','eq',true);
         }
 
     }

@@ -81,7 +81,7 @@
             return bsDialog.deleteDialog('Role').then(confirmDelete);
 
             function confirmDelete() {
-                datacontext.markDeleted(vm.workingRole);
+                vm.workingRole.isActive = false;
                 save().then(success, failed);
 
                 function success() {
