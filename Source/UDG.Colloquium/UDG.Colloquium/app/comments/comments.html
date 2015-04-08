@@ -15,20 +15,22 @@
             <div class="panel-body">
 
 
-
-                <div ng-repeat="comment in vm.session.comments" class="row cmt">
-                    <div class="col-md-12">
-                        <p>{{ comment.text }}</p>
-                        <p class="author">
-                            posted by
-                            <a ng-href="#/users/{{ comment.commentId }}">
-                                {{ comment.author }}
-                            </a>
-                            <a ng-href=""
-                               ng-click="vm.deleteComment(comment)">
-                                (delete)
-                            </a>
-                        </p>
+                <div infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.paging.busy" infinite-scroll-distance="1">
+                    <div ng-repeat="comment in vm.session.comments" class="row cmt">
+                        <div class="col-md-12">
+                            <p>{{ comment.text }}</p>
+                            <p class="author">
+                                posted by
+                                <a ng-href="#/users/{{ comment.commentId }}">
+                                    {{ comment.author }}
+                                </a>
+                                <a ng-href=""
+                                   ng-click="vm.deleteComment(comment)">
+                                    (delete)
+                                </a>
+                            </p>
+                        </div>
+                        <div ng-show='vm.paging.busy'>Loading data...</div>
                     </div>
                 </div>
                 <div class="cmt-form">

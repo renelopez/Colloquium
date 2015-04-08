@@ -15,11 +15,18 @@
         var logError = getLogFn(controllerId, 'error');
 
         vm.addComment = addComment;
+        vm.commentText = '';
         vm.cancel = cancel;
         vm.getUsers = getUsers;
         vm.goBack = goBack;
         vm.hasChanges = false;
         vm.isSaving = false;
+        vm.nextPage = nextPage;
+        vm.paging = {
+            busy:false,
+            maxRecordsToShow: 3,
+            currentPage:0
+        }
         vm.save = save;
         vm.selectedUser = '';
         vm.session = undefined;
@@ -52,6 +59,10 @@
             if (vm.session.entityAspect.entityState.isDetached()) {
                 goBack();
             }
+        }
+
+        function nextPage() {
+            
         }
         
         function getSessionComments() {
@@ -116,8 +127,9 @@
                      .then(function (saveResult) {
                          vm.isSaving = false;
                          common.toggleBusyMessage(false);
-                         //goBack();
-                     }, function (error) {
+                         vm.commentText = vm.selectedUser = '';
+                     //goBack();
+                 }, function (error) {
                          vm.isSaving = false;
                          common.toggleBusyMessage(false);
                          //goBack();

@@ -66,7 +66,8 @@ namespace UDG.Colloquium.App_Start
                //"~/Scripts/angular-ui/ui-bootstrap.js",
                "~/Scripts/angular-ui/ui-bootstrap-tpls.js",
                "~/Scripts/spin.js",
-               "~/Scripts/angular-ui-router.js"
+               "~/Scripts/angular-ui-router.js",
+               "~/Scripts/ng-infinite-scroll.js"
                ));
             bundles.Add(new ScriptBundle("~/bundles/bootstraping").Include(
                 "~/app/app.js",

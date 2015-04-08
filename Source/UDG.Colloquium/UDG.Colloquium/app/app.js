@@ -21,7 +21,8 @@
         'ui.bootstrap',
         'breeze.angular',
         'breeze.directives',
-        'kendo.directives'
+        'kendo.directives',
+        'infinite-scroll'
     ]);
 
     // Execute bootstrapping code and any dependencies.
