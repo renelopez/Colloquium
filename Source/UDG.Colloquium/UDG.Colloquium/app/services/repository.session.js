@@ -84,23 +84,47 @@
 
         }
 
-        function getComments(sessionId) {
+        function getComments(page,size,sessionId) {
             var self = this;
             var manager = self.manager;
-            //if (self._areItemsLoaded()) {
-            //    return $q.when(_getLocalEntityCount("Sessions"));
+            var take = size || 5;
+            var skip = page ? (page - 1) * size : 0;
+
+            //var workingSession = manager.getEntityByKey(entityName, sessionId);
+            //if (workingSession && workingSession.areCommentsLoaded){
+            //    return $q.when(getCommentsByPage());
             //}
 
-            return EntityQuery.from('Sessions')
-                .expand('comments')
-                .where('id','eq',sessionId)
+            return EntityQuery.from('Comments')
+                .expand('session')
+                .where('session.id', 'eq', sessionId)
+                .orderBy('commentId')
+                .take(take)
+                .skip(skip)
                 .using(manager)
                 .execute()
                 .then(success)
                 .catch(this._queryFailed);
 
             function success(data) {
-                return data.results[0];
+                if (!data.results) {
+                    self.log('Couldnt find [' + entityName + '] for SessionId:' + sessionId, null, true);
+                    return null;
+                }
+              //  data.results[0].session.areCommentsLoaded = true;
+                self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                //return getCommentsByPage();
+                return data.results;
+            }
+
+            function getCommentsByPage() {
+                return EntityQuery.from('Comments')
+                    .expand('session')
+                    .where('session.id', 'eq', sessionId)
+                    .take(take)
+                    .skip(skip)
+                    .using(manager)
+                    .executeLocally();
             }
         }
 

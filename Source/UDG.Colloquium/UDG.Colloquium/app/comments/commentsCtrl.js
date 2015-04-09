@@ -24,11 +24,12 @@
         vm.nextPage = nextPage;
         vm.paging = {
             busy:false,
-            maxRecordsToShow: 3,
+            pageSize: 30,
             currentPage:0
         }
         vm.save = save;
         vm.selectedUser = '';
+        vm.comments = [];
         vm.session = undefined;
         vm.sessionId = $stateParams.sessionId;
         vm.refresh = refresh;
@@ -62,12 +63,18 @@
         }
 
         function nextPage() {
-            
+            if (vm.paging.busy) return;
+            vm.paging.busy = true;
+            getSessionComments();
+
         }
         
         function getSessionComments() {
-            return datacontext.session.getComments(vm.sessionId).then(function (session) {
-                return vm.session = session;
+            return datacontext.session.getComments(vm.paging.currentPage,vm.paging.pageSize,vm.sessionId).then(function (comments) {
+                vm.comments = comments;
+                vm.session = vm.comments[0].session;
+                vm.paging.currentPage++;
+                vm.paging.busy = false;
             }, function (error) {
                 common.toggleBusyMessage(false);
                 logError('Unable to get session comments ' + error);
@@ -101,7 +108,8 @@
 
         function addComment() {
             var workingComment = datacontext.comment.create(vm.selectedUser,vm.commentText);
-                vm.session.comments.push(workingComment);
+            vm.session.comments.push(workingComment);
+            //workingComment.sessionId = vm.sessionId;
                 return save().then(success, failed);
 
                 function success() {

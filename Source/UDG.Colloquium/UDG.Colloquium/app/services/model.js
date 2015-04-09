@@ -33,6 +33,7 @@
         function configureMetadataStore(metadataStore) {
             registerColloquium(metadataStore);
             registerUser(metadataStore);
+            registerSession(metadataStore);
         }
         
         function registerColloquium(metadataStore) {
@@ -51,6 +52,15 @@
                }
                
             });
+        }
+
+        function registerSession(metadataStore) {
+            metadataStore.registerEntityTypeCtor(entityNames.session, Session);
+
+            function Session() {
+                this.isPartial = false;
+                this.areCommentsLoaded = false;
+            }
         }
 
         function registerUser(metadataStore) {
