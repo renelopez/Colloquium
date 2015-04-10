@@ -16,7 +16,7 @@
 
 
                 <div infinite-scroll="vm.nextPage()" infinite-scroll-disabled="vm.paging.busy" infinite-scroll-distance="1">
-                    <div ng-repeat="comment in vm.session.comments" class="row cmt">
+                    <div ng-repeat="comment in vm.comments" class="row cmt">
                         <div class="col-md-12">
                             <p>{{ comment.text }}</p>
                             <p class="author">

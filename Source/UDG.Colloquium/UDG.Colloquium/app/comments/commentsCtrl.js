@@ -65,10 +65,20 @@
 
         function deleteComment(comment) {
             comment.isActive = false;
+            save().then(success, failed);
+            function success() {
+                logSuccess("The following comment was deleted:" + comment.commentId + ".");
+                refresh();
+            }
+
+            function failed(error) {
+                logError("Following errors ocurred:", error, true);
+                cancel();
+            }
         }
 
         function getCurrentSessionData() {
-            return datacontext.session.getById(vm.sessionId).then(function(session) {
+            return datacontext.session.getById(vm.sessionId,true).then(function(session) {
                 vm.session = session;
             });
         }
@@ -87,6 +97,8 @@
                     //vm.session = vm.comments[0].session;
                     vm.paging.currentPage++;
                     vm.paging.busy = false;
+                } else {
+                    vm.comments = [];
                 }
             }, function (error) {
                 common.toggleBusyMessage(false);

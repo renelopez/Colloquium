@@ -13,7 +13,7 @@ namespace UDG.Colloquium.DL.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201504091652528_Initial"; }
+            get { return "201504100454012_Initial"; }
         }
         
         string IMigrationMetadata.Source

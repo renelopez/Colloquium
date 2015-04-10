@@ -62,9 +62,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DBInitializers\ColloquiumDBContextInitializer.cs" />
-    <Compile Include="Migrations\201504091652528_Initial.cs" />
-    <Compile Include="Migrations\201504091652528_Initial.Designer.cs">
-      <DependentUpon>201504091652528_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201504100454012_Initial.cs" />
+    <Compile Include="Migrations\201504100454012_Initial.Designer.cs">
+      <DependentUpon>201504100454012_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Colloquium.cs" />
@@ -94,8 +94,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201504091652528_Initial.resx">
-      <DependentUpon>201504091652528_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201504100454012_Initial.resx">
+      <DependentUpon>201504100454012_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

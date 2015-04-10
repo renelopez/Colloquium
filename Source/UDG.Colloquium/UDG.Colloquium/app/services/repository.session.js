@@ -85,6 +85,7 @@
             var manager = self.manager;
             var take = size || 5;
             var skip = page ? (page - 1) * size : 0;
+            var predicate = Predicate.create('session.id', 'eq', sessionId).and('isActive', 'eq', true);
 
             //var workingSession = manager.getEntityByKey(entityName, sessionId);
             //if (workingSession && workingSession.areCommentsLoaded){
@@ -93,7 +94,7 @@
 
             return EntityQuery.from('Comments')
                 .expand('session')
-                .where('session.id', 'eq', sessionId)
+                .where(predicate)
                 .orderBy('commentId')
                 .take(take)
                 .skip(skip)
