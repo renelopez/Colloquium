@@ -22,7 +22,7 @@
         return RepoConstructor;
         
         function create(author,text) {
-             return this.manager.createEntity(entityName, {author:author,text:text});
+             return this.manager.createEntity(entityName, {author:author,text:text,isActive:true});
         }
         
     }

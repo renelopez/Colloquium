@@ -17,6 +17,7 @@
         vm.addComment = addComment;
         vm.commentText = '';
         vm.cancel = cancel;
+        vm.deleteComment = deleteComment;
         vm.getUsers = getUsers;
         vm.goBack = goBack;
         vm.hasChanges = false;
@@ -46,8 +47,8 @@
             common.toggleBusyMessage(true);
             onDestroy();
             onHasChanges();
-            common.activateController([getSessionComments()], controllerId).then(function () {
-
+            common.activateController([getSessionComments(),getCurrentSessionData()], controllerId).then(function () {
+               
             });
         }
         
@@ -62,6 +63,16 @@
             }
         }
 
+        function deleteComment(comment) {
+            comment.isActive = false;
+        }
+
+        function getCurrentSessionData() {
+            return datacontext.session.getById(vm.sessionId).then(function(session) {
+                vm.session = session;
+            });
+        }
+
         function nextPage() {
             if (vm.paging.busy) return;
             vm.paging.busy = true;
@@ -70,11 +81,13 @@
         }
         
         function getSessionComments() {
-            return datacontext.session.getComments(vm.paging.currentPage,vm.paging.pageSize,vm.sessionId).then(function (comments) {
-                vm.comments = comments;
-                vm.session = vm.comments[0].session;
-                vm.paging.currentPage++;
-                vm.paging.busy = false;
+            return datacontext.session.getComments(vm.paging.currentPage, vm.paging.pageSize, vm.sessionId).then(function (comments) {
+                if (comments.length > 0) {
+                    vm.comments = comments;
+                    //vm.session = vm.comments[0].session;
+                    vm.paging.currentPage++;
+                    vm.paging.busy = false;
+                }
             }, function (error) {
                 common.toggleBusyMessage(false);
                 logError('Unable to get session comments ' + error);

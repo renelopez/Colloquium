@@ -159,7 +159,7 @@ namespace UDG.Colloquium.DL.Migrations
                         DateTime = c.DateTime(nullable: false),
                         Text = c.String(),
                         SessionId = c.Int(nullable: false),
-                        CommentAutor = c.String(),
+                        Author = c.String(),
                     })
                 .PrimaryKey(t => t.CommentId)
                 .ForeignKey("dbo.Sessions", t => t.SessionId, cascadeDelete: true)

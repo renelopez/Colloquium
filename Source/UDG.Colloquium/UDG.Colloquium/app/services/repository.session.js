@@ -37,10 +37,6 @@
         
         function create(colId) { return this.manager.createEntity(entityName, {colloquiumId:colId,isActive:true}); }
         
-        function getById(id, forceRemote) {
-            return this._getById(entityName, id, forceRemote);
-        }
-
         function getAll(page, size, filter, forceRemote) {
             var self = this;
             var take = size || 20;
@@ -126,6 +122,10 @@
                     .using(manager)
                     .executeLocally();
             }
+        }
+
+        function getById(id, forceRemote) {
+            return this._getById(entityName, id, forceRemote);
         }
 
         function getSessionsCount() {
