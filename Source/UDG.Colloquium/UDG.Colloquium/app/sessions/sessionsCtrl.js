@@ -16,17 +16,17 @@
         var keyCodes = config.keyCodes;
 
         var applyFilter = function () { };
-        vm.checkComments=checkComments;
-        vm.sessions = [];
-        vm.sessionsCount = 0;
-        vm.sessionsFilteredCount = 0;
-        vm.sessionsSearch = '';
-        vm.sessionsFilter = sessionsFilter;
+        vm.checkComments = checkComments;
         vm.currentSession = {};
         vm.deleteSession = deleteSession;
         vm.editSession = editSession;
         vm.filteredSessions = [];
         vm.goBack = goBack;
+        vm.sessions = [];
+        vm.sessionsCount = 0;
+        vm.sessionsFilteredCount = 0;
+        vm.sessionsSearch = '';
+        vm.sessionsFilter = sessionsFilter;
         vm.pageChanged = pageChanged;
         vm.paging = {
             currentPage: 1,

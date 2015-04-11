@@ -26,6 +26,7 @@
             this.create = create;
             this.getAll = getAll;
             this.getById = getById;
+            this.getNameById = getNameById;
             this.getSessionsFilteredCount = getSessionsFilteredCount;
             this.getComments = getComments;
             this.getSessionsCount = getSessionsCount;
@@ -85,7 +86,6 @@
             var manager = self.manager;
             var take = size || 5;
             var skip = page ? (page - 1) * size : 0;
-            var predicate = Predicate.create('session.id', 'eq', sessionId).and('isActive', 'eq', true);
 
             //var workingSession = manager.getEntityByKey(entityName, sessionId);
             //if (workingSession && workingSession.areCommentsLoaded){
@@ -94,7 +94,7 @@
 
             return EntityQuery.from('Comments')
                 .expand('session')
-                .where(predicate)
+                .where('session.id', 'eq', sessionId)
                 .orderBy('commentId')
                 .take(take)
                 .skip(skip)
@@ -127,6 +127,45 @@
 
         function getById(id, forceRemote) {
             return this._getById(entityName, id, forceRemote);
+        }
+
+        function getNameById(id, forceRemote) {
+            var self = this;
+            var manager = this.manager;
+            var predicate = Predicate.create('id', 'eq', id);
+
+            if (!forceRemote) {
+                var entity = manager.getEntityByKey(entityName, id);
+                if (entity) {
+                    self.log('Retrieved [' + entityName + '] id:' + entity.id + ' from cache.', entity, true);
+                    if (entity.entityAspect.entityState.isDeleted()) {
+                        entity = null; // hide session marked-for-delete
+                    }
+                    return $q.when(self._getAllLocal('Sessions', orderBy, predicate)[0]);
+                }
+            }
+
+            return EntityQuery.from('Sessions')
+                .where(predicate)
+                .select('name')
+                .toType(entityName)
+                .using(manager)
+                .execute()
+                .then(success)
+                .catch(this._queryFailed);
+
+            function success(data) {
+                if (!data.results) {
+                    self.log('Couldnt find [' + entityName + '] for SessionId:' + sessionId, null, true);
+                    return null;
+                }
+                //  data.results[0].session.areCommentsLoaded = true;
+                self.log('Retrieved ' + data.results.length + ' elements from server for entity type:' + entityName + '.', null, true);
+                //return getCommentsByPage();
+                return data.results;
+            }
+
+
         }
 
         function getSessionsCount() {
