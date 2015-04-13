@@ -21,8 +21,8 @@
 
         return RepoConstructor;
         
-        function create(author,text) {
-             return this.manager.createEntity(entityName, {author:author,text:text,isActive:true});
+        function create(author,text,sessionId) {
+             return this.manager.createEntity(entityName, {author:author,text:text,sessionId:sessionId,isActive:true});
         }
         
     }

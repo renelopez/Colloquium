@@ -3,9 +3,7 @@
         <div class="form-inline">
             <div class="btn-group search-query">
                 <usr-mgmt-back action="vm.goBack()"></usr-mgmt-back>
-                <usr-mgmt-cancel action="vm.cancel()" visibility="!vm.canSave"></usr-mgmt-cancel>
-                <usr-mgmt-save action="vm.save()" visibility="!vm.canSave"></usr-mgmt-save>
-                <span ng-show="vm.hasChanges" class="dissolve-animation"><i class="glyphicon glyphicon-asterisk"></i></span>
+                <usr-mgmt-refresh action="vm.refresh()" title="Refresh"></usr-mgmt-refresh>
             </div>
         </div>
     </div>
@@ -30,8 +28,9 @@
                                 </a>
                             </p>
                         </div>
-                        <div ng-show='vm.paging.busy'>Loading data...</div>
+                        <div style='clear: both;'></div>
                     </div>
+                    <div ng-show='vm.paging.busy'>Loading data...</div>
                 </div>
                 <div class="cmt-form">
                     <!--<div ng-hide="signedIn()">
@@ -46,6 +45,7 @@
                                   placeholder="Post a Comment"
                                   class="form-control"></textarea><br/>
                         <input type="submit" value="Post Comment" class="btn btn-primary"/>
+                        <input type="button" ng-click="vm.loadMoreData()"value="Load more data" class="btn btn-primary" />
                     </form>
                 </div>
             </div>

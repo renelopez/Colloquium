@@ -4,15 +4,17 @@
     var controllerId = 'commentsCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$q','$scope', '$stateParams', '$window', 'common', 'config', 'datacontext', colloquiumSessionDetailCtrl]);
+        ['$q','$scope', '$stateParams', '$window','lodash', 'common', 'config', 'datacontext', colloquiumSessionDetailCtrl]);
 
-    function colloquiumSessionDetailCtrl($q,$scope, $stateParams, $window, common, config, datacontext) {
+    function colloquiumSessionDetailCtrl($q,$scope, $stateParams, $window,lodash, common, config, datacontext) {
         var vm = this;
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
         var logSuccess = getLogFn(controllerId, 'success');
         var logError = getLogFn(controllerId, 'error');
+
+        var canScroll = true,canIncrement=true;
 
         vm.addComment = addComment;
         vm.commentText = '';
@@ -22,10 +24,11 @@
         vm.goBack = goBack;
         vm.hasChanges = false;
         vm.isSaving = false;
+        vm.loadMoreData = loadMoreData;
         vm.nextPage = nextPage;
         vm.paging = {
             busy:false,
-            pageSize: 30,
+            pageSize: 25,
             currentPage:0
         }
         vm.save = save;
@@ -47,7 +50,7 @@
             common.toggleBusyMessage(true);
             onDestroy();
             onHasChanges();
-            common.activateController([getSessionComments(),getCurrentSessionData()], controllerId).then(function () {
+            common.activateController([getFullSessionComments(),getCurrentSessionData()], controllerId).then(function () {
                
             });
         }
@@ -65,30 +68,63 @@
 
         function deleteComment(comment) {
             comment.isActive = false;
+            canScroll = false;
+            lodash.remove(vm.comments, function(currentArrayComment) {
+                return currentArrayComment.commentId === comment.commentId;
+            });
+            save().then(success, failed);
+
+            function success() {
+                logSuccess("The following comment was deleted:" + comment.commentId + ".");
+                //refresh();
+            }
+
+            function failed(error) {
+                logError("Following errors ocurred:", error, true);
+                cancel();
+            }
         }
 
-        function getCurrentSessionData() {
-            return datacontext.session.getNameById(vm.sessionId).then(function(session) {
+        function getCurrentSessionData(forceRefresh) {
+            return datacontext.session.getNameById(vm.sessionId,forceRefresh).then(function(session) {
                 vm.session = session;
             });
         }
 
         function nextPage() {
-            if (vm.paging.busy) return;
+            if (vm.paging.busy || !canScroll) return;
+            vm.paging.currentPage++;
             vm.paging.busy = true;
             getSessionComments();
-
         }
         
         function getSessionComments() {
             return datacontext.session.getComments(vm.paging.currentPage, vm.paging.pageSize, vm.sessionId).then(function (comments) {
                 if (comments.length > 0) {
-                    vm.comments = comments;
-                    //vm.session = vm.comments[0].session;
-                    vm.paging.currentPage++;
-                    vm.paging.busy = false;
+                    vm.comments = lodash.union(vm.comments, comments);
+                } else {
+                    canScroll = false;
                 }
+                vm.paging.busy = false;
             }, function (error) {
+                vm.paging.busy = false;
+                canScroll = false;
+                common.toggleBusyMessage(false);
+                logError('Unable to get session comments ' + error);
+                goBack();
+            });
+        }
+
+        function getFullSessionComments() {
+            return datacontext.session.getComments(vm.paging.currentPage, vm.paging.pageSize, vm.sessionId).then(function (comments) {
+                vm.comments = comments;
+                if (vm.comments.length < 0) {
+                    canScroll = false;
+                }
+                vm.paging.busy = false;
+            }, function (error) {
+                vm.paging.busy = false;
+                canScroll = false;
                 common.toggleBusyMessage(false);
                 logError('Unable to get session comments ' + error);
                 goBack();
@@ -120,9 +156,9 @@
         }
 
         function addComment() {
-            var workingComment = datacontext.comment.create(vm.selectedUser,vm.commentText);
-            vm.session.comments.push(workingComment);
-            //workingComment.sessionId = vm.sessionId;
+            canScroll = false;
+            var workingComment = datacontext.comment.create(vm.selectedUser, vm.commentText, vm.session.id);
+            vm.comments.push(workingComment);
                 return save().then(success, failed);
 
                 function success() {
@@ -131,12 +167,25 @@
                 }
 
                 function failed(error) {
-                    logError("Following errors ocurred:", error, true);
+                    logError("Following err" +
+                        "ors ocurred:", error, true);
                     cancel();
                 }
         }
 
         function refresh() {
+            canScroll = true;
+            vm.paging.busy = false;
+
+            vm.paging.currentPage = 0;
+            getFullSessionComments();
+        }
+
+        function loadMoreData() {
+            canScroll = true;
+            vm.paging.busy = false;
+
+            vm.paging.currentPage = Math.floor(vm.comments.length / vm.paging.pageSize) + 1;
             getSessionComments();
         }
         

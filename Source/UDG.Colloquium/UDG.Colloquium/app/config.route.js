@@ -46,7 +46,6 @@
                 templateUrl: '/app/comments/comments.html',
                 controller: 'commentsCtrl as vm'
             })
-
             // Creation
             .state('register', {
                 url: '/register',
@@ -116,9 +115,15 @@
                 controller:'colloquiumSessionsCtrl as vm'
             })
             .state('colloquiumSessionDetail', {
-                url: '/colloquiums/:colloquiumId/sessions/:sessionId',
-                templateUrl: '/app/colloquium/colloquiumSessionDetail.html',
-                controller: 'colloquiumSessionDetailCtrl as vm'
+            url: '/colloquiums/:colloquiumId/sessions/:sessionId',
+            templateUrl: '/app/colloquium/colloquiumSessionDetail.html',
+            controller: 'colloquiumSessionDetailCtrl as vm'
+            })
+           .state('colloquiumSessionComments', {
+               url: '/colloquiums/:colloquiumId/sessions/:sessionId/comments',
+                templateUrl: '/app/comments/comments.html',
+                controller: 'commentsCtrl as vm'
+        
     });
         
         $urlRouterProvider.otherwise('/');

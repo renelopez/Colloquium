@@ -193,10 +193,7 @@
                 return data.inlineCount;
             }
 
-            function getLocalColloquiumSessionsCount(colloquiumId) {
-                var self = this;
-                var manager = self.manager;
-                var predicate = _getFilterPredicate(colloquiumId);
+            function getLocalColloquiumSessionsCount() {
 
                 var sessions = EntityQuery.from('Sessions')
                     .expand('colloquium')

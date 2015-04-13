@@ -13,6 +13,7 @@
         var keyCodes = config.keyCodes;
 
         var applyFilter = function () { };
+        vm.checkComments = checkComments;
         vm.colloquiumId = $stateParams.colloquiumId;
         vm.colloquiumSessions = [];
         vm.colloquiumSessionsCount = 0;
@@ -51,6 +52,10 @@
                 }
                 log('Activated ColloquiumSessions View');
             });
+        }
+
+        function checkComments(session) {
+            $state.go('colloquiumSessionComments', { colloquiumId: vm.colloquiumId, sessionId: session.id });
         }
 
         function deleteColloquiumSession(session) {

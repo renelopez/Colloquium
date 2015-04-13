@@ -86,6 +86,7 @@
             var manager = self.manager;
             var take = size || 5;
             var skip = page ? (page - 1) * size : 0;
+            var predicate = Predicate.create('session.id', 'eq', sessionId).and('isActive', 'eq', 1);
 
             //var workingSession = manager.getEntityByKey(entityName, sessionId);
             //if (workingSession && workingSession.areCommentsLoaded){
@@ -94,7 +95,7 @@
 
             return EntityQuery.from('Comments')
                 .expand('session')
-                .where('session.id', 'eq', sessionId)
+                .where(predicate)
                 .orderBy('commentId')
                 .take(take)
                 .skip(skip)
@@ -132,7 +133,7 @@
         function getNameById(id, forceRemote) {
             var self = this;
             var manager = this.manager;
-            var predicate = Predicate.create('id', 'eq', id);
+            var predicate = Predicate.create('id', 'eq', id).and('isActive','eq',1);
 
             if (!forceRemote) {
                 var entity = manager.getEntityByKey(entityName, id);
