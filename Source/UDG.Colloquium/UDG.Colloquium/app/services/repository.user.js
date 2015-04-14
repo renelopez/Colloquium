@@ -99,7 +99,7 @@
                 }
             }
             
-            return EntityQuery.from("Users").where("id", "eq", true)
+            return EntityQuery.from("Users").where("id", "eq", id)
                  .expand("works.company,contacts")
                  .where(isActivePredicate)
                  .using(self.manager)
@@ -187,7 +187,8 @@
         function getUserRolesById(id) {
             var user;
             var self = this;
-            return EntityQuery.from("Users").where("id", "eq", id).and('isActive','eq',true)
+            var predicate = Predicate.create('id', 'eq', id).and('isActive', 'eq', true);
+            return EntityQuery.from("Users").where(predicate)
                  .expand("roles")
                  .using(self.manager)
                  .execute()

@@ -78,7 +78,7 @@
         function cancel() {
             datacontext.cancel();
             if (vm.user.entityAspect.entityState.isDetached()) {
-                goBack();
+                $location.url('/management/user');
             }
         }
 
