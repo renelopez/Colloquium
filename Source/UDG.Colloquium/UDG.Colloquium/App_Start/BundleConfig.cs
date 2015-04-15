@@ -37,8 +37,8 @@ namespace UDG.Colloquium.App_Start
                       "~/Content/site.css",
                       "~/Content/toastr.css",
                       "~/Content/breeze.directives.css",
-                      "~/Content/kendo/kendo.common.min.css",
-                      "~/Content/kendo/kendo.bootstrap.min.css"));
+                      "~/Content/kendo/2015.1.318/kendo.common.min.css",
+                      "~/Content/kendo/2015.1.318/kendo.material.min.css"));
 
             bundles.Add(new StyleBundle("~/Content/PageList").Include(
                 "~/Content/PagedList.css"));
@@ -50,8 +50,8 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-sanitize.js",
-                "~/Scripts/kendo.ui.core.min.js",
-                "~/Scripts/angular-kendo.js"));
+                "~/Scripts/kendo/2015.1.318/kendo.ui.core.min.js",
+                "~/Scripts/kendo/2015.1.318/kendo.angular.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularBreeze").Include(
                 "~/Scripts/breeze.min.js",
