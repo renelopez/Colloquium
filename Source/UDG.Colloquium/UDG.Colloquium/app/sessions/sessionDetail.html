@@ -24,18 +24,20 @@
                     <div class="row">
                         <div class="form-group">
                             <label class="control-label col-md-2">Student</label>
-                            <input ng-model="vm.selectedUser" typeahead="user for user in vm.getUsers($viewValue)"
-                                   typeahead-loading="loadingUsers" typeahead-wait-ms="1000" class="form-control col-md-10"/>
-                            <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
+                            <!--<input ng-model="vm.selectedUser" typeahead="user for user in vm.getUsers($viewValue)"
+                                       typeahead-loading="loadingUsers" typeahead-wait-ms="1000" class="form-control col-md-10"/>
+                            <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>-->
+                            <input ng-model="vm.selectedUser" kendo-auto-complete k-options="vm.userAutocompleteOptions" />
                         </div>
                     </div>
                     <div class="row">&nbsp;</div>
                     <div class="row">
                         <div class="form-group">
                             <label class="control-label col-md-2">Colloquium</label>
-                            <input ng-model="vm.selectedColloquium" typeahead="colloquium.period for colloquium in vm.getColloquiums($viewValue)"
-                                   typeahead-loading="loadingColloquiums" typeahead-wait-ms="1000" class="form-control col-md-10"/>
-                            <i ng-show="loadingColloquiums" class="glyphicon glyphicon-refresh"></i>
+                            <!--<input ng-model="vm.selectedColloquium" typeahead="colloquium.period for colloquium in vm.getColloquiums($viewValue)"
+                                       typeahead-loading="loadingColloquiums" typeahead-wait-ms="1000" class="form-control col-md-10"/>
+                            <i ng-show="loadingColloquiums" class="glyphicon glyphicon-refresh"></i>-->
+                            <input ng-model="vm.selectedColloquium" kendo-auto-complete k-options="vm.colloquiumAutocompleteOptions" />
                         </div>
                     </div>
                     <div class="row"></div>

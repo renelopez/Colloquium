@@ -38,7 +38,9 @@
 
         return RepoConstructor;
         
-        function create() { return this.manager.createEntity(entityName, {isActive:true}); }
+        function create() {
+             return this.manager.createEntity(entityName, {isActive:true,birthDate:new Date()});
+        }
 
         function getAll(page, size, filter, forceRemote) {
             var users;

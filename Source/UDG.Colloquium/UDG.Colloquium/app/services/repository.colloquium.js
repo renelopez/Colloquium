@@ -39,7 +39,7 @@
 
         return RepoConstructor;
         
-        function create() { return this.manager.createEntity(entityName, {isActive:true}); }
+        function create() { return this.manager.createEntity(entityName, {isActive:true,beginDate:new Date(),endDate:new Date()}); }
         
         function getAll(page,size,filter,forceRemote) {
             var colloquiums;

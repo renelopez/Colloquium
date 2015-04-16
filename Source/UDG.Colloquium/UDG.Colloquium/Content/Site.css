@@ -322,3 +322,19 @@ input[type="checkbox"].input-validation-error {
 	-moz-animation:bounceOut 0.5s;
 	animation:bounceOut 0.5s;*/   
 }
+
+
+/* Fixes to the Kendo Menu CSS */
+
+.k-menu {
+  border:0
+}
+.k-menu .k-item, .k-widget.k-menu-horizontal>.k-item {
+  border-left: 0;
+  border-right: 0
+}
+.k-menu .k-item> .k-link {
+  padding: 1.1em;
+  background: #f8f8f8;
+  border: 0;
+}

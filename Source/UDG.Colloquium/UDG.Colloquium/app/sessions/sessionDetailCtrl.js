@@ -9,6 +9,26 @@
     function colloquiumSessionDetailCtrl($q,$scope, $stateParams, $window, common, config, datacontext) {
         var vm = this;
 
+        vm.userAutocompleteOptions = ({
+            minLength: 1,
+            dataSource: new kendo.data.DataSource({
+                transport: {
+                    read: function (options) {
+                        return vm.getUsers(options, vm.selectedUser);
+                    }
+                }
+            })
+        });
+        vm.colloquiumAutocompleteOptions = ({
+            minLength: 1,
+            dataSource: new kendo.data.DataSource({
+                transport: {
+                    read: function (options) {
+                        return vm.getColloquiums(options, vm.selectedColloquium);
+                    }
+                }
+            })
+        });
         vm.cancel = cancel;
         vm.colloquiumId = $stateParams.colloquiumId;
         vm.getColloquiums = getColloquiums;
@@ -66,19 +86,21 @@
             });
         }
         
-        function getColloquiums(value) {
+        function getColloquiums(options,value) {
             return datacontext.colloquium.getTypeaheadData(value).then(function(colloquiums) {
-                return colloquiums.map(function(period) {
-                    return period;
+                var colloquiumsRetrieved=colloquiums.map(function(colloquium) {
+                    return colloquium.period;
                 });
+                options.success(colloquiumsRetrieved);
             });
         }
 
-        function getUsers(value) {
+        function getUsers(options, value) {
             return datacontext.user.getTypeaheadData(value).then(function (users) {
-                return users.map(function (user) {
+                var usersRetrieved = users.map(function (user) {
                     return user.firstName + " " + user.lastName;
                 });
+                options.success(usersRetrieved);
             });
         }
 

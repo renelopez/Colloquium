@@ -34,11 +34,11 @@ namespace UDG.Colloquium.App_Start
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/animate.css",
-                      "~/Content/site.css",
                       "~/Content/toastr.css",
                       "~/Content/breeze.directives.css",
                       "~/Content/kendo/2015.1.318/kendo.common.min.css",
-                      "~/Content/kendo/2015.1.318/kendo.material.min.css"));
+                      "~/Content/kendo/2015.1.318/kendo.material.min.css",
+                      "~/Content/site.css"));
 
             bundles.Add(new StyleBundle("~/Content/PageList").Include(
                 "~/Content/PagedList.css"));

@@ -16,7 +16,7 @@
             scope: {
                 action:'&'
             },
-            template: '<button kendo-button class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-hand-left"></i>Back</button>'
+            template: '<button kendo-button class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-hand-left"></i> Back</button>'
         };
         return directive;
 

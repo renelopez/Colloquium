@@ -18,7 +18,7 @@
                 link: '@',
                 title:'@'
             },
-            template: '<a class="btn btn-info btn-margin" href="{{link}}"><i class="glyphicon glyphicon-plus"></i><span> {{title}}</span></a>'
+            template: '<a kendo-button class="btn btn-info btn-margin" href="{{link}}"><i class="glyphicon glyphicon-plus"></i><span> {{title}}</span></a>'
 
         };
         return directive;

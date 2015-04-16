@@ -11,44 +11,44 @@
     <meta name="description" content="The description of my page" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar navbar-default">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div>
+            @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+            <div class="megastore">
+                <ul id="mainMenu" class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     @if (User.IsInRole("Administrator"))
                     {
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Users<b class="caret"></b></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/bootstrap#/management/user">Manage Users</a></li>
-                                    <li><a href="/bootstrap#/register/credentials">Register User</a></li>
-                                </ul>
-                            </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Roles<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Users</a>
+                            <ul class="">
+                                <li><a href="/bootstrap#/management/user">Manage Users</a></li>
+                                <li><a href="/bootstrap#/register/credentials">Register User</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Roles</a>
+                            <ul class="">
                                 <li><a href="/bootstrap#/management/role">Manage Roles</a></li>
                                 <li>@Html.ActionLink("Register Role", "CreateRole", "Account")</li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Colloquiums<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Colloquiums</a>
+                            <ul class="">
                                 <li><a href="/bootstrap#/colloquiums">Search a Colloquium</a></li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sessions<b class="caret"></b></a>
-                            <ul class="dropdown-menu">
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Sessions</a>
+                            <ul class="">
                                 <li><a href="/bootstrap#/sessions">Search a Session</a></li>
                             </ul>
                         </li>
@@ -60,8 +60,8 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
-    <div class="container body-content">
+    </nav>
+<div class="container body-content">
         @if (User.IsInRole("Administrator"))
         {
             <input id="accessToken" type="hidden" value="@TempData["AccessToken"]" />
@@ -86,7 +86,9 @@
     @Scripts.Render("~/bundles/services")
     @Html.Partial("_ToastrPartial")
     @RenderSection("scripts",required:false)
-
+<script type="text/javascript">
+    $('#mainMenu').kendoMenu();
+</script>
 </body>
 
 </html>
