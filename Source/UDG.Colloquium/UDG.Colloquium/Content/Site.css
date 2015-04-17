@@ -326,6 +326,10 @@ input[type="checkbox"].input-validation-error {
 
 /* Fixes to the Kendo Menu CSS */
 
+.k-textbox {
+    width: 23em
+}
+
 .k-menu {
   border:0
 }
@@ -337,4 +341,15 @@ input[type="checkbox"].input-validation-error {
   padding: 1.1em;
   background: #f8f8f8;
   border: 0;
+}
+
+.bs-example {
+  margin-right: 0;
+  margin-left: 0;
+  background-color: #fff;
+  border-color: #ddd;
+  border-width: 1px;
+  border-radius: 4px 4px 0 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
 }

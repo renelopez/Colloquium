@@ -18,7 +18,7 @@
                 action: '&',
                 title:'@'
             },
-            template: '<button kendo-button class="btn btn-info btn-margin" ng-click="action()"><i class="glyphicon glyphicon-refresh"></i><span> {{title}}</span></button>'
+            template: '<button kendo-button class="btn btn-info btn-margin" ng-click="action()"><span class="k-icon k-i-refresh"></span> {{title}}</button>'
         };
         return directive;
 
