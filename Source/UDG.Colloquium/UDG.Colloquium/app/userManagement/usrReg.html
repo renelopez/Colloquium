@@ -20,11 +20,11 @@
           </div>
           <div kendo-tab-strip>
               <ul>
-                  <li ng-class="vm.activeTab =='credentials' ? 'k-state-active' :''"><a ui-sref-active="active" ui-sref=".credentials" ng-click="vm.setActiveTab('credentials')">Credentials</a></li>
-                  <li ng-class="vm.activeTab =='personal'? 'k-state-active' :''"><a ui-sref-active="active" ui-sref=".personal" ng-click="vm.setActiveTab('personal')">Personal Information</a></li>
-                  <li ng-class="vm.activeTab =='work'? 'k-state-active' :''"><a ui-sref-active="active" ui-sref=".work" ng-click="vm.setActiveTab('work')">Work Information</a></li>
-                  <li ng-class="vm.activeTab =='contact'? 'k-state-active' :''"><a ui-sref-active="active" ui-sref=".contact" ng-click="vm.setActiveTab('contact')">Contact Information</a></li>
-                  <li ng-class="vm.activeTab =='submit'? 'k-state-active' :''"><a ui-sref-active="active" ui-sref=".submit" ng-click="vm.setActiveTab('submit')">Submit Information</a></li>
+                  <li ng-class="{'k-state-active':vm.activeTab === 'credentials'}"><a ui-sref=".credentials" ng-click="vm.setActiveTab('credentials')">Credentials</a></li>
+                  <li ng-class="{'k-state-active':vm.activeTab === 'personal'}"><a  ui-sref=".personal" ng-click="vm.setActiveTab('personal')">Personal Information</a></li>
+                  <li ng-class="{'k-state-active':vm.activeTab === 'work'}"><a  ui-sref=".work" ng-click="vm.setActiveTab('work')">Work Information</a></li>
+                  <li ng-class="{'k-state-active':vm.activeTab === 'contact'}"><a ui-sref=".contact" ng-click="vm.setActiveTab('contact')">Contact Information</a></li>
+                  <li ng-class="{'k-state-active':vm.activeTab === 'submit'}" ><a  ui-sref=".submit" ng-click="vm.setActiveTab('submit')">Submit Information</a></li>
               </ul>
           </div>
           <!-- use ng-submit to catch the form submission and use our Angular function -->

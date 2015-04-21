@@ -353,3 +353,7 @@ input[type="checkbox"].input-validation-error {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+.k-tabstrip .k-tabstrip-items {
+    padding: 0;
+}
