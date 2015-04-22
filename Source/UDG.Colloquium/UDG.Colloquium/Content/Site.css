@@ -354,6 +354,13 @@ input[type="checkbox"].input-validation-error {
   box-shadow: none;
 }
 
-.k-tabstrip .k-tabstrip-items {
+.k-tabstrip .k-tabstrip-items  {
     padding: 0;
+   
+}
+
+.k-item {
+    background: transparent;
+    border-style: solid;
+    border-width: 0
 }
