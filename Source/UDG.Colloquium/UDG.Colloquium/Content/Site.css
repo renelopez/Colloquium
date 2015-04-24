@@ -364,3 +364,8 @@ input[type="checkbox"].input-validation-error {
     border-style: solid;
     border-width: 0
 }
+
+#addNewWork {
+    border-color: #A4F493;
+    background-color: #A4F493;
+}
