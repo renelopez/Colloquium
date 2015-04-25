@@ -369,3 +369,13 @@ input[type="checkbox"].input-validation-error {
     border-color: #A4F493;
     background-color: #A4F493;
 }
+
+#removeWork {
+  background-color: #c9302c;
+  border-color: #ac2925;
+  color: #ffffff
+}
+
+.panel .panel-primary {
+    background-color: #3f51b5
+}
