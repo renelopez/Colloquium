@@ -3,20 +3,20 @@
               <h2>Account Registration</h2>
               <!-- the links to our nested states using relative paths -->
               <!-- add the active class if the state matches our ui-sref -->
-              <div id="status-buttons" class="text-center">
+              <!--<div id="status-buttons" class="text-center">
                   <div class="btn-group pull-right">
                       <usr-mgmt-cancel action="vm.cancel()" visibility="!vm.canSave"></usr-mgmt-cancel>
 
                   </div>
 
-                  <!--<ul class="nav nav-pills">
+                  <ul class="nav nav-pills">
                       <li ng-class="{active:vm.activeTab=='credentials'}"><a ui-sref-active="active" ui-sref=".credentials" ng-click="vm.setActiveTab('credentials')">Credentials</a></li>
                       <li ng-class="{active:vm.activeTab=='personal'}"><a ui-sref-active="active" ui-sref=".personal" ng-click="vm.setActiveTab('personal')">Personal Information</a></li>
                       <li ng-class="{active:vm.activeTab=='work'}"><a ui-sref-active="active" ui-sref=".work" ng-click="vm.setActiveTab('work')">Work Information</a></li>
                       <li ng-class="{active:vm.activeTab=='contact'}"><a ui-sref-active="active" ui-sref=".contact" ng-click="vm.setActiveTab('contact')">Contact Information</a></li>
                       <li ng-class="{active:vm.activeTab=='submit'}"><a ui-sref-active="active" ui-sref=".submit" ng-click="vm.setActiveTab('submit')">Submit Information</a></li>
-                  </ul>-->
-              </div>
+                  </ul>
+              </div>-->
           </div>
           <div kendo-tab-strip>
               <ul>
@@ -26,6 +26,8 @@
                   <li ng-class="vm.activeTab === 'work' ? 'k-item k-state-default k-state-focused':'k-item k-state-default'"><a ui-sref=".work" ng-click="vm.setActiveTab('work')">Work Information</a></li>
                   <li ng-class="vm.activeTab === 'contact' ? 'k-item k-state-default k-state-focused':'k-item k-state-default'"><a ui-sref=".contact" ng-click="vm.setActiveTab('contact')">Contact Information</a></li>
                   <li ng-class="vm.activeTab === 'submit' ? 'k-item k-state-default k-state-focused':'k-item k-state-default'"><a ui-sref=".submit" ng-click="vm.setActiveTab('submit')">Submit Information</a></li>
+                  <li id="cancelUserAdd"class="pull-right" ng-click="vm.cancel()"><span class="glyphicon glyphicon-remove-circle"></span> Cancel</li>
+                  
               </ul>
           </div>
           <!-- use ng-submit to catch the form submission and use our Angular function -->

@@ -11,18 +11,19 @@
     </div>
     <div class="row">
         <div class="panel panel-primary">
-            <div class="panel-heading">Select the roles that will be assigned to the user.</div>
+            <div class="panel-heading">Please enter the name and description for the new role.</div>
             <div class="panel-body">
                 <div class="row">
                     <div class="form-group">
                         <label class="col-md-2 control-label">Role Name</label>
-                        <input type="text" class="form-control col-md-10" ng-model="vm.role.name">
+                        <input type="text" class="form-control col-md-10 k-textbox" ng-model="vm.role.name">
                     </div>
                 </div>
+                <br/>
                 <div class="row">
                     <div class="form-group">
                         <label class="col-md-2 control-label">Role Description</label>
-                        <textarea class="form-control col-md-10" ng-model="vm.role.description"/>
+                        <textarea class="form-control col-md-10 k-textbox" ng-model="vm.role.description"/>
                     </div>
                 </div>
             </div>

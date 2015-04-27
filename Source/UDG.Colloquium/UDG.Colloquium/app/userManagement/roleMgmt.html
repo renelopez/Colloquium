@@ -2,16 +2,20 @@
 <div class="container-fluid">
     <div class="row">
         <div class="form-inline">
-            <input class="input-medium search-query"
-                   ng-model="vm.rolesSearch"
-                   ng-keyup="vm.search($event)"
-                   placeholder="Find a role..."/>
+            <span class="k-textbox k-space-right">
+                <input type="text"
+                       ng-model="vm.rolesSearch"
+                       ng-keyup="vm.search($event)"
+                       placeholder="Find a role..." />
+                <a href="#" class="k-icon k-i-search">&nbsp;</a>
+            </span>
             <div class="btn-group pull-right">
                 <usr-mgmt-add link="#/management/role/new" title="Add Role"></usr-mgmt-add>
-                <usr-mgmt-refresh action="vm.refresh()" title="Refresh"></usr-mgmt-refresh>
+                <usr-mgmt-refresh action="vm.refresh()" title="Refresh"></usr-mgmt-refresh>class="k-icon k-i-close"
             </div>
         </div>
     </div>
+    <br/>
     <div class="row">
         <div class="panel panel-primary">
             <div class="panel-heading">{{vm.title}}</div>
@@ -21,8 +25,8 @@
                         <!--<a class="pull-left" href="#">
                             <img class="media-object" src="..." alt="...">
                         </a>-->
-                        <button class="btn btn-danger pull-right" ng-click="vm.deleteRole(role)"><i class="glyphicon glyphicon-remove-sign"></i><span> Delete Role</span></button>
-                        <button class="btn btn-info pull-right" ng-click="vm.editRole(role)"><i class="glyphicon glyphicon-pencil"></i><span> Edit Role</span></button>
+                        <button kendo-button class="pull-right" ng-click="vm.deleteRole(role)"><span class="k-icon k-i-close"></span> Delete Role</button>
+                        <button kendo-button class="pull-right" ng-click="vm.editRole(role)"><span class="k-icon k-i-pencil"></span> Edit Role</button>
                         <div class="media-body">
                             <h4 class="media-heading">{{role.name}}</h4>
                             <p>{{role.description}}</p>

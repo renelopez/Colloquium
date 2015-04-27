@@ -15,15 +15,17 @@
             <div class="panel-body">
                 <div>
                     <label>Colloquium Period</label>
-                    <select ng-options="year for year in vm.years"
+                    <select kendo-drop-down-list
+                            ng-options="year for year in vm.years"
                             ng-change="vm.updatePeriod()"
-                            ng-model="vm.year">
-                    </select>
-                    <select ng-options="cycle for cycle in vm.cycles"
+                            ng-model="vm.year"></select>
+                    <select kendo-drop-down-list
+                            ng-options="cycle for cycle in vm.cycles"
                             ng-change="vm.updatePeriod()"
                             ng-model="vm.cycle">
                     </select>
                 </div>
+                <br/>
                 <div>
                     <label>Start Date</label>
                     <input type="text" k-ng-model="vm.colloquium.beginDate"

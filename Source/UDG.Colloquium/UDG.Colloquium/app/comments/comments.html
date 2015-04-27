@@ -32,20 +32,31 @@
                     </div>
                     <div ng-show='vm.paging.busy'>Loading data...</div>
                 </div>
-                <div class="cmt-form">
+                <div class="well">
                     <!--<div ng-hide="signedIn()">
                         <p><a href="#/login">Sign in</a> to post a comment</p>
                     </div>-->
 
                     <form ng-submit="vm.addComment()">
-                        <input ng-model="vm.selectedUser" typeahead="user for user in vm.getUsers($viewValue)"
-                               typeahead-loading="loadingUsers" typeahead-wait-ms="1000" class="form-control col-md-10" />
-                        <i ng-show="loadingUsers" class="glyphicon glyphicon-refresh"></i>
-                        <textarea ng-model="vm.commentText"
-                                  placeholder="Post a Comment"
-                                  class="form-control"></textarea><br/>
-                        <input type="submit" value="Post Comment" class="btn btn-primary"/>
-                        <input type="button" ng-click="vm.loadMoreData()"value="Load more data" class="btn btn-primary" />
+                        <div class="row">
+                            <div id="commentDiv">
+                                <textarea id="commentTxtArea" ng-model="vm.commentText"
+                                          placeholder="Enter your Comment..."
+                                          class="form-control k-textbox"></textarea><br />
+                            </div>
+                        </div>
+                        <br/>
+                        <div class="row">
+                            <div id="commentUserDiv">
+                                <span id="commentAsText">Comment as:&nbsp;</span><input id="commentAsDropdown" ng-model="vm.selectedUser" kendo-auto-complete k-options="vm.autocompleteOptions" style="border-color: #e5e5e5;" />
+                            </div>
+                        </div>
+                        <br/>
+                        <br />
+                        <div class="row">
+                            <input type="submit" kendo-button value="Post Comment" class="btn btn-primary" />
+                            <input type="button" kendo-button ng-click="vm.loadMoreData()" value="Load more data" class="btn btn-primary" />
+                        </div>
                     </form>
                 </div>
             </div>
