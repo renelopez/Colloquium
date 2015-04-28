@@ -20,7 +20,7 @@
                         <span class="icon-bar"></span>
                     </button>
                 </div>
-            @Html.ActionLink("Application name", "Index", "Home", null, new { @class = "navbar-brand" })
+            @Html.ActionLink("Colloquium Management", "Index", "Home", null, new { @class = "navbar-brand" })
             <div class="megastore">
                 <ul id="mainMenu" class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -62,17 +62,22 @@
         </div>
     </nav>
 <div class="container body-content">
-        @if (User.IsInRole("Administrator"))
-        {
-            <input id="accessToken" type="hidden" value="@TempData["AccessToken"]" />
-            <input id="accessUserName" type="hidden" value="@TempData["AccessUserName"]" />
-        }
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
+    @if (User.IsInRole("Administrator"))
+    {
+        <input id="accessToken" type="hidden" value="@TempData["AccessToken"]"/>
+        <input id="accessUserName" type="hidden" value="@TempData["AccessUserName"]"/>
+    }
+    @RenderBody()
+    <hr/>
+
+</div>
+<div class="footer">
+    <div class="container">
+        <p><img src="../../Content/images/bg_firm.gif" alt="UDG Gif" /></p>
+        <p><a id="linkRectoria" href="http://www.vicerrectoria.udg.mx"><strong>©2010 - 2013 Centro Universitario de Ciencias Económico Administrativas</strong></a></p>
     </div>
+</div>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")

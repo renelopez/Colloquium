@@ -306,6 +306,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\breeze.directives.css" />
+    <Content Include="Content\images\bg_firm.gif" />
+    <Content Include="Content\images\bg_pie.png" />
     <Content Include="Content\kendo\2015.1.318\Black\editor.png" />
     <Content Include="Content\kendo\2015.1.318\Black\imagebrowser.png" />
     <Content Include="Content\kendo\2015.1.318\Black\indeterminate.gif" />

@@ -413,3 +413,30 @@ input[type="checkbox"].input-validation-error {
 #commentUserDiv {
     margin-left:2.5%
 }
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+
+.container a {
+    color: rgb(102, 102, 102);
+  font-family: 'Lucida Grande', Geneva, Arial, Verdana, sans-serif;
+  font-size: 10.8000001907349px;
+  height: auto;
+
+}
