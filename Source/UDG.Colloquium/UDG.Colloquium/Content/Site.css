@@ -423,6 +423,7 @@ html {
 body {
   /* Margin bottom by footer height */
   margin-bottom: 60px;
+  padding-top: 0px
 }
 .footer {
   position: absolute;
@@ -446,3 +447,12 @@ body {
 
 }
 
+.offsetLogo {
+    margin-left: 4%;
+    color: rgb(102, 102, 102);
+  
+  font-family: 'Lucida Grande', Geneva, Arial, Verdana, sans-serif;
+  font-size: 10.8000001907349px;
+  line-height: 16.2000007629395px;
+  width: auto;
+}
