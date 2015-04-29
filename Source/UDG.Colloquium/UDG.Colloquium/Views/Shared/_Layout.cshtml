@@ -11,66 +11,7 @@
     <meta name="description" content="The description of my page" />
 </head>
 <body>
-    <nav class="navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-            </div>
-            @Html.ActionLink("Colloquium Management", "Index", "Home", null, new { @class = "navbar-brand" })
-            <div class="megastore">
-                <ul id="mainMenu" class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @if (User.IsInRole("Administrator"))
-                    {
-                        <li class="">
-                            <a href="#" class="" data-toggle="">Users</a>
-                            <ul class="">
-                                <li><a href="/bootstrap#/management/user">Manage Users</a></li>
-                                <li><a href="/bootstrap#/register/credentials">Register User</a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="#" class="" data-toggle="">Roles</a>
-                            <ul class="">
-                                <li><a href="/bootstrap#/management/role">Manage Roles</a></li>
-                                <li><a href="/bootstrap#/management/role/new">Register Role</a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="#" class="" data-toggle="">Colloquiums</a>
-                            <ul class="">
-                                <li><a href="/bootstrap#/colloquiums">Search a Colloquium</a></li>
-                            </ul>
-                        </li>
-                        <li class="">
-                            <a href="#" class="" data-toggle="">Sessions</a>
-                            <ul class="">
-                                <li><a href="/bootstrap#/sessions">Search a Session</a></li>
-                            </ul>
-                        </li>
-
-                    }
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @if (User.IsInRole("Administrator"))
-        {
-            <input id="accessToken" type="hidden" value="@TempData["AccessToken"]" />
-            <input id="accessUserName" type="hidden" value="@TempData["AccessUserName"]" />
-        }
-        @RenderBody()
-        <hr />
-
-    </div>
+   @RenderBody()
     <div class="footer">
         <div class="container">
             <div class="row">
@@ -80,7 +21,7 @@
                 <div class="offsetLogo">
                     <a id="linkRectoria" href="http://www.vicerrectoria.udg.mx"><strong>©2010 - 2013 Centro Universitario de Ciencias Económico Administrativas</strong></a>
                 </div>
-                </div>
+            </div>
             <div class="row">
                 <div class="offsetLogo">
                     COORDINACIÓN DE POSGRADOS CUCEA
@@ -88,10 +29,10 @@
             </div>
             <div class="row">
                 <div class="offsetLogo">
-                    Periférico Norte N° 799, Núcleo Universitario Los Belenes, C.P. 45100, Zapopan, Jalisco, México.<br/><strong>Teléfono: +52 (33) 3770 3300.</strong>
+                    Periférico Norte N° 799, Núcleo Universitario Los Belenes, C.P. 45100, Zapopan, Jalisco, México.<br /><strong>Teléfono: +52 (33) 3770 3300.</strong>
                 </div>
             </div>
-        </div><br/>
+        </div><br />
     </div>
 
 
@@ -107,9 +48,6 @@
     @Scripts.Render("~/bundles/services")
     @Html.Partial("_ToastrPartial")
     @RenderSection("scripts", required: false)
-    <script type="text/javascript">
-        $('#mainMenu').kendoMenu();
-    </script>
 </body>
 
 </html>

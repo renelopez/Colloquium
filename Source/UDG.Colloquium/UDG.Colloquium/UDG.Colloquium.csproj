@@ -237,6 +237,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="app\app.js" />
+    <Content Include="app\authentication\loginCtrl.js" />
+    <Content Include="app\others\about.html" />
+    <Content Include="app\others\contact.html" />
+    <Content Include="app\services\authService.js" />
+    <Content Include="app\authentication\login.html" />
     <Content Include="app\comments\comments.html" />
     <Content Include="app\comments\commentsCtrl.js" />
     <Content Include="app\index.html" />

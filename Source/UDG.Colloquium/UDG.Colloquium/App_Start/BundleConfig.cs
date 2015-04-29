@@ -51,7 +51,8 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/angular-animate.js",
                 "~/Scripts/angular-sanitize.js",
                 "~/Scripts/kendo/2015.1.318/kendo.ui.core.min.js",
-                "~/Scripts/kendo/2015.1.318/kendo.angular.min.js"));
+                "~/Scripts/kendo/2015.1.318/kendo.angular.min.js",
+                "~/node_modules/angular-local-storage/dist/angular-local-storage.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angularBreeze").Include(
                 "~/Scripts/breeze.min.js",
@@ -96,7 +97,9 @@ namespace UDG.Colloquium.App_Start
                 "~/app/colloquium/colloquiumSessionDetailCtrl.js",
                 "~/app/sessions/sessionsCtrl.js",
                 "~/app/sessions/sessionDetailCtrl.js",
-                "~/app/comments/commentsCtrl.js"
+                "~/app/comments/commentsCtrl.js",
+                 "~/app/authentication/loginCtrl.js",
+                 "~/app/authentication/signUpCtrl.js"
                 ));
 
             bundles.Add(new ScriptBundle("~/bundles/services").Include(
@@ -121,7 +124,8 @@ namespace UDG.Colloquium.App_Start
                 "~/app/userManagement/usr-mgmt-save.js",
                 "~/app/userManagement/usr-mgmt-add.js",
                 "~/app/services/directives.js",
-                "~/app/services/entityManagerFactory.js"
+                "~/app/services/entityManagerFactory.js",
+                "~/app/services/authService.js"
                 ));
         }
     }

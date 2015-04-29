@@ -1,31 +1,5 @@
-﻿@model UDG.Colloquium.BL.ViewModels.Account.Register.RegisterDTO
-@functions{
-
-    public string GetAntiForgeryToken()
-    {
-        string cookieToken, formToken;
-        AntiForgery.GetTokens(null, out cookieToken, out formToken);
-        return cookieToken + ":" + formToken;
-    }
-
-}
-
-@section styles
-{
-    <style>
-        /* This helps the ng-show/ng-hide animations start at the right place. */
-        /* Since Angular has this but needs to load, this gives us the class early. */
-        .ng-hide {
-            display: none !important;
-        }
-    </style>
-}
-@if (@User.Identity.IsAuthenticated)
-{
-    <div ng-app="app">
-    
-        <input id="antiForgeryToken" type="hidden" value="@GetAntiForgeryToken()" />
-        <div>
+﻿    <div ng-app="app">
+            <div>
             <div data-ng-include="'/app/shell/shell.html'"></div>
             <div id="splash-page" data-ng-show="false">
                 <div class="page-splash">
@@ -42,5 +16,4 @@
         <span data-cc-scroll-to-top></span>
     
     </div>
-}
 

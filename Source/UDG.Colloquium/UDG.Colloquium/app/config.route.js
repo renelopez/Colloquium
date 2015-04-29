@@ -11,6 +11,19 @@
                 templateUrl: '/app/index.html',
                 controller: 'indexCtrl as vm'
             })
+            .state('login', {
+                url: '/login',
+                templateUrl: '/app/authentication/login.html',
+                controller: 'loginCtrl as vm'
+            })
+            .state('about', {
+                url: '/about',
+                templateUrl: '/app/others/about.html'
+            })
+            .state('contact', {
+                url: '/contact',
+                templateUrl: '/app/others/contact.html'
+            })
             .state('userManagement', {
                 url: '/management/user',
                 templateUrl: '/app/userManagement/usrMgmt.html',

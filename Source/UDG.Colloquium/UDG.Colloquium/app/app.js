@@ -17,6 +17,7 @@
         'common.bootstrap',
 
         // 3rd Party Modules
+        'LocalStorageModule',
         'ui.router',
         'ui.bootstrap',
         'breeze.angular',
@@ -26,8 +27,8 @@
     ]);
 
     // Execute bootstrapping code and any dependencies.
-    app.run(['$q', '$rootScope','$state',
-        function ($q, $rootScope,$state) {
-
+    app.run(['$q', '$rootScope','$state','authService',
+        function ($q, $rootScope,$state,authService) {
+            authService.fillAuthData();
         }]);
 })();

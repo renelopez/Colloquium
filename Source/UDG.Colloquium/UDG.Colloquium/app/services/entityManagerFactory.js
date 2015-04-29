@@ -2,9 +2,9 @@
     'use strict';
 
     var serviceId = 'entityManagerFactory';
-    angular.module('app').factory(serviceId, ['breeze','$q', 'config','model', entityManagerFactory]);
+    angular.module('app').factory(serviceId, ['$location', '$q', 'breeze', 'config', 'localStorageService', 'model', entityManagerFactory]);
 
-    function entityManagerFactory(breeze, $q, config, model) {
+    function entityManagerFactory($location, $q, breeze, config, localStorageService, model) {
         
         breeze.config.initializeAdapterInstance('modelLibrary', 'backingStore', true);
         
@@ -19,12 +19,13 @@
         var metadataStore = createMetadataStore();
         
         var ajaxAdapter = breeze.config.getAdapterInstance('ajax');
-        var authorizationData = JSON.parse(localStorage.getItem("authorizationData"));
-        if (authorizationData) {
+        var authData = localStorageService.get('authorizationData');
+        if (authData) {
             ajaxAdapter.defaultSettings = {
                 headers: {
-                    'Authorization': 'Bearer ' + authorizationData.token
-                }
+                    'Authorization': 'Bearer ' + authData.token
+                },
+                onError:responseError
             };
         }
 
@@ -47,6 +48,13 @@
                 metadataStore: metadataStore
             });
             return mgr;
+        }
+
+        function responseError(rejection) {
+            if (rejection.status === 401) {
+                $location.path('/login');
+            }
+            return $q.reject(rejection);
         }
     }
 })();

@@ -3,13 +3,15 @@
 
     var controllerId = 'shell';
     angular.module('app').controller(controllerId,
-        ['$rootScope', 'common', 'config','$scope', shell]);
+        ['$location','$rootScope', 'authService','common', 'config','$scope', shell]);
 
-    function shell($rootScope, common, config,$scope) {
+    function shell($location,$rootScope, authService,common, config,$scope) {
         var vm = this;
         var logSuccess = common.logger.getLogFn(controllerId, 'success');
         var events = config.events;
 
+        vm.logOut = logOut;
+        vm.authentication = authService.authentication;
         vm.busyMessage = 'Please wait ...';
         vm.isBusy = true,
         vm.spinnerOptions = {
@@ -28,6 +30,11 @@
         function activate() {
             logSuccess('Colloquium Module loaded!', null, true);
             common.activateController([], controllerId);
+        }
+
+        function logOut() {
+            authService.logOut();
+            $location.path('/');
         }
 
         function toggleSpinner(on) {

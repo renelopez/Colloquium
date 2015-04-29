@@ -1,10 +1,75 @@
 ﻿<div data-ng-controller="shell as vm">
-    <section id="content">
-        <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation">
-            <div data-cc-spinner="vm.spinnerOptions"></div>
-            <div class="page-splash-message page-splash-message-subtle">{{vm.busyMessage}}</div>
-        </div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <a href="#/" class="navbar-brand" data-toggle="">Colloquium Management</a>
+            <div class="megastore">
+                <div ng-hide="!vm.authentication.isAuth">
+                    <ul id="mainMenu" class="nav navbar-nav" kendo-menu>
+                        <!--<li>@Html.ActionLink("Home", "Index", "Home")</li>*@-->
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Users</a>
+                            <ul class="">
+                                <li><a href="#/management/user">Manage Users</a></li>
+                                <li><a href="#/register/credentials">Register User</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Roles</a>
+                            <ul class="">
+                                <li><a href="#/management/role">Manage Roles</a></li>
+                                <li><a href="#/management/role/new">Register Role</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Colloquiums</a>
+                            <ul class="">
+                                <li><a href="#/colloquiums">Search a Colloquium</a></li>
+                            </ul>
+                        </li>
+                        <li class="">
+                            <a href="#" class="" data-toggle="">Sessions</a>
+                            <ul class="">
+                                <li><a href="#/sessions">Search a Session</a></li>
+                            </ul>
+                        </li>
 
-        <div ui-view class="content-animation"></div>
-    </section>
-</div>
+
+                        <li><a href="#/about">About</a></li>
+                        <li><a href="#/contact">Contact</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <!--@Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })-->
+                            <a href="">Welcome {{vm.authentication.username}}</a>
+                        </li>
+                        <li><a href="" ng-click="vm.logOut()">Log off</a></li>
+                    </ul>
+                </div>
+                <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.isAuth">
+                    <li><a href="#/login">Login</a></li>
+                    <li><a href="#/signup">Sign Up</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="container body-content">
+        <section id="content">
+            <div data-ng-show="vm.isBusy" class="page-splash dissolve-animation">
+                <div data-cc-spinner="vm.spinnerOptions"></div>
+                <div class="page-splash-message page-splash-message-subtle">{{vm.busyMessage}}</div>
+            </div>
+
+            <div ui-view class="content-animation"></div>
+        </section>
+    </div>
+    <span data-cc-scroll-to-top></span>
+
+    <hr />
+    </div>
