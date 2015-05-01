@@ -5,9 +5,9 @@
         .module('app')
         .factory('authService', authService);
 
-    authService.$inject = ['$http','$q','localStorageService'];
+    authService.$inject = ['$http','$q','datacontext','localStorageService'];
 
-    function authService($http, $q, localStorageService) {
+    function authService($http, $q,datacontext,localStorageService) {
 
         var serviceBase = 'http://localhost:9000/';
         var authentication= {
@@ -34,6 +34,7 @@
                 }
                 authentication.isAuth = true;
                 authentication.username = authData.username;
+                datacontext.getReady();
             }
         }
 
@@ -46,6 +47,7 @@
                 localStorageService.set('authorizationData', { token: response.access_token, username: loginData.username ,rememberMe:loginData.rememberMe});
                 authentication.isAuth = true;
                 authentication.username = loginData.username;
+                datacontext.getReady();
                 deferred.resolve(response);
             }).error(function(err, status) {
                 logOut();

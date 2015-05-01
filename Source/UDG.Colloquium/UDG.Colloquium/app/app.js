@@ -27,8 +27,8 @@
     ]);
 
     // Execute bootstrapping code and any dependencies.
-    app.run(['$q', '$rootScope','$state','authService',
-        function ($q, $rootScope,$state,authService) {
+    app.run(['$q', '$rootScope','$state','authService','datacontext',
+        function ($q, $rootScope,$state,authService,datacontext) {
             authService.fillAuthData();
         }]);
 })();

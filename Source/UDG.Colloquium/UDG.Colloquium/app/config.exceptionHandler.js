@@ -24,7 +24,7 @@
             var errorData = { exception: exception, cause: cause };
             var msg = appErrorPrefix + exception.message;
             logError(msg, errorData, true);
-            location.href = '/';
+            //location.href = '/';
         };
     }
 })();
