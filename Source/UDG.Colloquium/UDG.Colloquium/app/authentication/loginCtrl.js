@@ -5,16 +5,17 @@
         .module('app')
         .controller('loginCtrl', loginCtrl);
 
-    loginCtrl.$inject = ['$location','authService']; 
+    loginCtrl.$inject = ['$location','authService','common']; 
 
-    function loginCtrl($location,authService) {
+    function loginCtrl($location,authService,common) {
         /* jshint validthis:true */
         var vm = this;
         vm.login = login;
         vm.loginData = {
             username: "",
-            password: ""
-        };
+            password: "",
+            rememberMe:false
+    };
 
         vm.message = "";
 
@@ -24,9 +25,12 @@
         function activate() { }
 
         function login() {
-            authService.login(vm.loginData).then(function(response) {
+            common.toggleBusyMessage(true);
+            authService.login(vm.loginData).then(function (response) {
+                common.toggleBusyMessage(false);
                 $location.path('/');
-            },function(err) {
+            }, function (err) {
+                common.toggleBusyMessage(false);
                 vm.message = err.error_description;
             });
         }

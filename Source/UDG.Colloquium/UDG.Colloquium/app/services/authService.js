@@ -28,6 +28,10 @@
         function fillAuthData() {
             var authData = localStorageService.get('authorizationData');
             if (authData) {
+                if (!authData.rememberMe) {
+                    logOut();
+                    return;
+                }
                 authentication.isAuth = true;
                 authentication.username = authData.username;
             }
@@ -38,8 +42,8 @@
 
             var deferred = $q.defer();
 
-            $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded','Accept': 'application/json' } }).success(function(response) {
-                localStorageService.set('authorizationData', { token: response.access_token, username: loginData.username });
+            $http.post(serviceBase + 'token', data, { headers: { 'Content-Type': 'application/x-www-form-urlencoded', 'Accept': 'application/json' } }).success(function (response) {
+                localStorageService.set('authorizationData', { token: response.access_token, username: loginData.username ,rememberMe:loginData.rememberMe});
                 authentication.isAuth = true;
                 authentication.username = loginData.username;
                 deferred.resolve(response);

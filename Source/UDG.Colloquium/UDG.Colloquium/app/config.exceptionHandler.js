@@ -14,7 +14,7 @@
     }]);
 
     // Extend the $exceptionHandler service to also display a toast.
-    function extendExceptionHandler($delegate, config, logger) {
+    function extendExceptionHandler($delegate,config, logger) {
         var appErrorPrefix = config.appErrorPrefix;
         var logError = logger.getLogFn('app', 'error');
         return function (exception, cause) {
@@ -24,6 +24,7 @@
             var errorData = { exception: exception, cause: cause };
             var msg = appErrorPrefix + exception.message;
             logError(msg, errorData, true);
+            location.href = '/';
         };
     }
 })();

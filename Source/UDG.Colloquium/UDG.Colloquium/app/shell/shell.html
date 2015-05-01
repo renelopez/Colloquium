@@ -10,7 +10,7 @@
             </div>
             <a href="#/" class="navbar-brand" data-toggle="">Colloquium Management</a>
             <div class="megastore">
-                <div ng-hide="!vm.authentication.isAuth">
+                <div ng-show="vm.authentication.isAuth">
                     <ul id="mainMenu" class="nav navbar-nav" kendo-menu>
                         <!--<li>@Html.ActionLink("Home", "Index", "Home")</li>*@-->
                         <li class="">
@@ -52,7 +52,7 @@
                         <li><a href="" ng-click="vm.logOut()">Log off</a></li>
                     </ul>
                 </div>
-                <ul class="nav navbar-nav navbar-right" ng-hide="vm.authentication.isAuth">
+                <ul class="nav navbar-nav navbar-right" ng-show="!vm.authentication.isAuth">
                     <li><a href="#/login">Login</a></li>
                     <li><a href="#/signup">Sign Up</a></li>
                 </ul>

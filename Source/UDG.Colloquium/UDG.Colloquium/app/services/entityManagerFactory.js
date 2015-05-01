@@ -25,7 +25,6 @@
                 headers: {
                     'Authorization': 'Bearer ' + authData.token
                 },
-                onError:responseError
             };
         }
 
@@ -50,7 +49,7 @@
             return mgr;
         }
 
-        function responseError(rejection) {
+        function responseError(rejection,textStatus,errorThrown) {
             if (rejection.status === 401) {
                 $location.path('/login');
             }
