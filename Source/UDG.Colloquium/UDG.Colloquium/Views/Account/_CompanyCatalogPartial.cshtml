@@ -1,6 +1,0 @@
-﻿@model IEnumerable<UDG.Colloquium.BL.ViewModels.Account.Register.CompanyDTO>
-
-<label class="col-md-2 control-label">Choose Company:</label>
-    <div class="col-md-3" ng-click="work.hideCompanyForm($index)">
-    @Html.DropDownList("Works[{{$index}}].Company.CompanyId", new SelectList(Model, "CompanyId", "CompanyName"), string.Empty, new { @class = "form-control" ,id="Works[{{$index}}].Company.CompanyId" })
-</div>

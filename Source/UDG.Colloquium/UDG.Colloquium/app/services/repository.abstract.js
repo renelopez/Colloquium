@@ -4,9 +4,9 @@
     var serviceId = 'repository.abstract';
 
     
-    angular.module('app').factory(serviceId, ['breeze','common','config', repository]);
+    angular.module('app').factory(serviceId, ['$location', 'breeze', 'common', 'config', repository]);
 
-    function repository(breeze,common,config) {
+    function repository($location,breeze,common,config) {
         var EntityQuery = breeze.EntityQuery;
         var logError = common.logger.getLogFn(this.serviceId, 'error');
         var $q = common.$q;
@@ -90,9 +90,15 @@
         }
         
         function _queryFailed(error) {
+            common.toggleBusyMessage(false);
+            common.raiseAuthMessage(false);
+            if (error.status === 401) {
+                $location.path('/login');
+            }
             var msg = config.appErrorPrefix + 'Error retrieving data.' + error.message;
-            logError(msg, error);
-            throw error;
+            logError(msg);
+            //throw errorThrown;
+            return $q.reject(error);
         }
         
         function _setIsPartialIsTrue(entities) {

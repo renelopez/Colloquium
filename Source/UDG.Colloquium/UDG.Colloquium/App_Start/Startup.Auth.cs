@@ -4,8 +4,7 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Owin;
-using UDG.Colloquium.BL.Contracts.Identity;
-using UDG.Colloquium.BL.Managers.Identity;
+
 
 namespace UDG.Colloquium.App_Start
 {

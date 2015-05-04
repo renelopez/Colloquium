@@ -12,37 +12,21 @@ namespace UDG.Colloquium.App_Start
                 "~/Scripts/jquery.unobtrusive*",
                 "~/Scripts/toastr.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/custom/colloquiumList").Include(
-                        "~/Scripts/colloquiumList.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/custom/colloquiumCore").Include(
-                        "~/Scripts/colloquium.js"));
-
-            bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
-                        "~/Scripts/jquery.validate*"));
-
-            // Use the development version of Modernizr to develop with and learn from. Then, when you're
-            // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
-            bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
-                        "~/Scripts/modernizr-*"));
-
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/lodash.js",
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/animate.css",
-                      "~/Content/toastr.css",
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/animate.min.css",
+                      "~/Content/toastr.min.css",
                       "~/Content/breeze.directives.css",
                       "~/Content/kendo/2015.1.318/kendo.common.min.css",
                       "~/Content/kendo/2015.1.318/kendo.material.min.css",
                       "~/Content/site.css"));
 
-            bundles.Add(new StyleBundle("~/Content/PageList").Include(
-                "~/Content/PagedList.css"));
-
+           
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
                 "~/Scripts/angular.js",
                 "~/Scripts/angular-resource.js",

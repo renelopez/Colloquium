@@ -4,7 +4,6 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using UDG.Colloquium.App_Start;
-using UDG.Colloquium.BL;
 using System;
 
 namespace UDG.Colloquium

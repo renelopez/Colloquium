@@ -5,9 +5,9 @@
         .module('app')
         .factory('authService', authService);
 
-    authService.$inject = ['$http','$q','datacontext','localStorageService'];
+    authService.$inject = ['$http','$location','$q','entityManagerFactory','localStorageService'];
 
-    function authService($http, $q,datacontext,localStorageService) {
+    function authService($http,$location, $q,entityManagerFactory, localStorageService) {
 
         var serviceBase = 'http://localhost:9000/';
         var authentication= {
@@ -17,6 +17,7 @@
 
         var service = {
             authentication: authentication,
+            checkIsLogged: checkIsLogged,
             fillAuthData: fillAuthData,
             login: login,
             logOut: logOut,
@@ -24,6 +25,15 @@
         };
 
         return service;
+
+        function checkIsLogged() {
+            var authData = localStorageService.get('authorizationData');
+            if (!authData) {
+                logOut();
+                return;
+            }
+            entityManagerFactory.configureAdapterInstance();
+        }
 
         function fillAuthData() {
             var authData = localStorageService.get('authorizationData');
@@ -34,7 +44,7 @@
                 }
                 authentication.isAuth = true;
                 authentication.username = authData.username;
-                datacontext.getReady();
+                entityManagerFactory.configureAdapterInstance();
             }
         }
 
@@ -47,7 +57,7 @@
                 localStorageService.set('authorizationData', { token: response.access_token, username: loginData.username ,rememberMe:loginData.rememberMe});
                 authentication.isAuth = true;
                 authentication.username = loginData.username;
-                datacontext.getReady();
+                entityManagerFactory.configureAdapterInstance();
                 deferred.resolve(response);
             }).error(function(err, status) {
                 logOut();
@@ -60,6 +70,8 @@
             localStorageService.remove('authorizationData');
             authentication.isAuth = false;
             authentication.username = '';
+            $location.path('/');
+            entityManagerFactory.configureAdapterInstance();
         }
 
         // TODO Adapt this registration process to Breeze.

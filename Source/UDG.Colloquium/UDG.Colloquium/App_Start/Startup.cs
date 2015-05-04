@@ -1,7 +1,6 @@
 ﻿using Microsoft.Owin;
 using Owin;
 using UDG.Colloquium.App_Start;
-using UDG.Colloquium.BL.Contracts.Identity;
 
 [assembly: OwinStartup(typeof(Startup))]
 namespace UDG.Colloquium.App_Start

@@ -32,7 +32,8 @@
     var events = {
         controllerActivateSuccess: 'controller.activateSuccess',
         hasChangesChanged:'datacontext.hasChangesChanged',
-        spinnerToggle: 'spinner.toggle'
+        spinnerToggle: 'spinner.toggle',
+        authorization: 'col.authorization'
     };
 
     var config = {
@@ -58,6 +59,7 @@
 
     //#region Configure the common services via commonConfig
     app.config(['commonConfigProvider', function (cfg) {
+        cfg.config.authorizationEvent = config.events.authorization;
         cfg.config.controllerActivateSuccessEvent = config.events.controllerActivateSuccess;
         cfg.config.spinnerToggleEvent = config.events.spinnerToggle;
         cfg.config.hasChangesChangedEvent = config.events.hasChangesChanged;

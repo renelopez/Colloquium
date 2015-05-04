@@ -27,10 +27,11 @@
     "keywords": [
     ],
     "dependencies": {
+		"bower":"*",
+		"gulp":"*",
     },
     "analyze": false,
     "devDependencies": {
-        "gulp": "*",
         "gulp-clean": "*",
         "gulp-jshint": "*",
         "gulp-concat": "*",

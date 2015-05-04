@@ -136,16 +136,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PagedList">
-      <HintPath>..\packages\PagedList.1.17.0.0\lib\net40\PagedList.dll</HintPath>
-    </Reference>
-    <Reference Include="PagedList.Mvc">
-      <HintPath>..\packages\PagedList.Mvc.4.5.0.0\lib\net40\PagedList.Mvc.dll</HintPath>
-    </Reference>
-    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -223,16 +213,12 @@
     <Compile Include="App_Start\Startup.cs" />
     <Compile Include="Configuration\DI\WebDIModule.cs" />
     <Compile Include="Configuration\Mappings\Initializers\AutoMapperWebInitializer.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\BootstrapController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="GlimpseSecurityPolicy.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\BaseController.cs" />
-    <Compile Include="Helpers\Constants.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -304,154 +290,23 @@
     <Content Include="app\services\model.js" />
     <Content Include="app\services\datacontext.js" />
     <Content Include="app\userManagement\usrRoleDetailCtrl.js" />
-    <Content Include="Content\animate.css" />
     <Content Include="Content\animate.min.css" />
-    <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\breeze.directives.css" />
     <Content Include="Content\images\bg_firm.gif" />
     <Content Include="Content\images\bg_pie.png" />
-    <Content Include="Content\kendo\2015.1.318\Black\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Black\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Black\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Black\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Black\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Black\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Black\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Black\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Black\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Black\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Black\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Black\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\BlueOpal\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Bootstrap\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Default\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Default\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Default\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Default\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Default\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Default\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Default\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Default\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Default\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Default\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Default\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Default\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Fiori\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Flat\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Flat\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Flat\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Flat\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Flat\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Flat\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Flat\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Flat\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Flat\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Flat\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Flat\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Flat\sprite_kpi_2x.png" />
     <Content Include="Content\kendo\2015.1.318\fonts\DejaVu\LICENSE.txt" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\HighContrast\sprite_kpi_2x.png" />
     <Content Include="Content\kendo\2015.1.318\images\back.png" />
     <Content Include="Content\kendo\2015.1.318\images\kendoui.svg" />
     <Content Include="Content\kendo\2015.1.318\images\wp8_icons.png" />
     <Content Include="Content\kendo\2015.1.318\images\wp8_inverseicons.png" />
-    <Content Include="Content\kendo\2015.1.318\kendo.black.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.black.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.blueopal.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.blueopal.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.bootstrap.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.bootstrap.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.common-bootstrap.core.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.common-bootstrap.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.common-fiori.core.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.common-fiori.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.common-material.core.min.css" />
     <Content Include="Content\kendo\2015.1.318\kendo.common-material.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.common.core.min.css" />
     <Content Include="Content\kendo\2015.1.318\kendo.common.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.dataviz.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.default.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.default.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.fiori.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.fiori.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.flat.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.flat.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.highcontrast.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.highcontrast.mobile.min.css" />
     <Content Include="Content\kendo\2015.1.318\kendo.material.min.css" />
     <Content Include="Content\kendo\2015.1.318\kendo.material.mobile.min.css" />
     <Content Include="Content\kendo\2015.1.318\kendo.materialblack.min.css" />
     <Content Include="Content\kendo\2015.1.318\kendo.materialblack.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.metro.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.metro.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.metroblack.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.metroblack.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.all.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.android.dark.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.android.light.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.blackberry.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.common.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.fiori.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.flat.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.ios.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.material.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.meego.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.mobile.wp8.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.moonlight.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.moonlight.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.rtl.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.rtl.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.silver.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.silver.mobile.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.uniform.min.css" />
-    <Content Include="Content\kendo\2015.1.318\kendo.uniform.mobile.min.css" />
     <Content Include="Content\kendo\2015.1.318\MaterialBlack\editor.png" />
     <Content Include="Content\kendo\2015.1.318\MaterialBlack\imagebrowser.png" />
     <Content Include="Content\kendo\2015.1.318\MaterialBlack\indeterminate.gif" />
@@ -476,54 +331,6 @@
     <Content Include="Content\kendo\2015.1.318\Material\sprite_2x.png" />
     <Content Include="Content\kendo\2015.1.318\Material\sprite_kpi.png" />
     <Content Include="Content\kendo\2015.1.318\Material\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\MetroBlack\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Metro\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Metro\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Metro\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Metro\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Metro\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Metro\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Metro\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Metro\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Metro\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Metro\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Metro\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Metro\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Moonlight\sprite_kpi_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Silver\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Silver\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Silver\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Silver\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Silver\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Silver\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Silver\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Silver\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Silver\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Silver\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Silver\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Silver\sprite_kpi_2x.png" />
     <Content Include="Content\kendo\2015.1.318\textures\brushed-metal.png" />
     <Content Include="Content\kendo\2015.1.318\textures\dots1.png" />
     <Content Include="Content\kendo\2015.1.318\textures\dots10.png" />
@@ -554,20 +361,6 @@
     <Content Include="Content\kendo\2015.1.318\textures\stripe6.png" />
     <Content Include="Content\kendo\2015.1.318\textures\transparency.png" />
     <Content Include="Content\kendo\2015.1.318\textures\transtexture.png" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\editor.png" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\imagebrowser.png" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\indeterminate.gif" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\loading-image.gif" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\loading.gif" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\loading_2x.gif" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\slider-h.gif" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\slider-v.gif" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\sprite.png" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\sprite_2x.png" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\sprite_kpi.png" />
-    <Content Include="Content\kendo\2015.1.318\Uniform\sprite_kpi_2x.png" />
-    <Content Include="Content\PagedList.css" />
-    <Content Include="Content\toastr.css" />
     <Content Include="Content\toastr.min.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -575,7 +368,6 @@
     <Content Include="gulpfile.js" />
     <Content Include="Icon.png" />
     <Content Include="Icons\favicon.ico" />
-    <Content Include="App_Code\PageHelpers.cshtml" />
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-animate.min.js" />
     <Content Include="Scripts\angular-mocks.js" />
@@ -599,21 +391,15 @@
     <Content Include="Scripts\breeze.debug.js" />
     <Content Include="Scripts\breeze.directives.js" />
     <Content Include="Scripts\breeze.min.js" />
-    <Content Include="Scripts\colloquium.js" />
-    <Content Include="Scripts\colloquiumList.js" />
     <Content Include="Scripts\breeze.saveErrorExtensions.js" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
     <Content Include="Scripts\angular-resource.min.js.map" />
     <Content Include="Scripts\angular-route.min.js.map" />
     <Content Include="Scripts\angular-sanitize.min.js.map" />
-    <Content Include="Content\toastr.scss" />
-    <Content Include="Content\toastr.less" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="Content\bootstrap-theme.css.map" />
-    <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\kendo\2015.1.318\images\kendoui.woff" />
     <Content Include="Content\kendo\2015.1.318\images\kendoui.ttf" />
     <Content Include="Content\kendo\2015.1.318\fonts\DejaVu\DejaVuSerif-Italic.ttf" />
@@ -744,26 +530,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Account\_ChangePasswordPartial.cshtml" />
-    <Content Include="Views\Account\_SetPasswordPartial.cshtml" />
-    <Content Include="Views\Account\Login.cshtml" />
-    <Content Include="Views\Account\Manage.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Shared\_ToastrPartial.cshtml" />
-    <Content Include="Views\Account\ManageUsers.cshtml" />
-    <Content Include="Views\Account\EditUserRoles.cshtml" />
-    <Content Include="Views\Account\ManageRoles.cshtml" />
-    <Content Include="Views\Account\CreateRole.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\SelectedRolesVm.cshtml" />
-    <Content Include="Views\Account\_UsersListPartial.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Enum-radio.cshtml" />
-    <Content Include="Views\Shared\EditorTemplates\Enum.cshtml" />
-    <Content Include="Views\Shared\DisplayTemplates\Enum.cshtml" />
-    <Content Include="Views\Account\_CompanyCatalogPartial.cshtml" />
     <Content Include="Scripts\kendo\2015.1.318\kendo.window.min.js.map" />
     <Content Include="Scripts\kendo\2015.1.318\kendo.virtuallist.min.js.map" />
     <Content Include="Scripts\kendo\2015.1.318\kendo.view.min.js.map" />
@@ -832,11 +599,12 @@
     <Content Include="Scripts\kendo\2015.1.318\kendo.autocomplete.min.js.map" />
     <Content Include="Scripts\kendo\2015.1.318\kendo.angular.min.js.map" />
     <Content Include="Scripts\kendo\2015.1.318\jquery.min.map" />
-    <None Include="Views\Bootstrap\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="App_Code\" />
     <Folder Include="App_Data\" />
     <Folder Include="dist\" />
+    <Folder Include="Helpers\" />
     <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
@@ -844,7 +612,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UDG.Colloquium.BL\UDG.Colloquium.BL.csproj">
-      <Project>{23e7b49e-f7ba-4e8c-9bb6-85ca56d887d0}</Project>
+      <Project>{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}</Project>
       <Name>UDG.Colloquium.BL</Name>
     </ProjectReference>
   </ItemGroup>

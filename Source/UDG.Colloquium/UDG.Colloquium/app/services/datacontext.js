@@ -20,7 +20,6 @@
             cancel:cancel,
             markDeleted:markDeleted,
             saveChanges: saveChanges,
-            getReady:getReady
         };
 
         init();
@@ -56,17 +55,6 @@
                 manager.rejectChanges();
                 logSuccess('Canceled changes', null, true);
             }
-        }
-
-        function getReady() {
-            return manager.metadataStore.fetchMetadata(manager.dataService)
-                .then(function() {
-                logSuccess("Metadata Fetched");
-                    return true;
-                }).catch(function(error) {
-                    logError("Metadata Fetch Failed! We got " + error.message, error, true);
-                return $q.reject(error);
-            });
         }
         
         

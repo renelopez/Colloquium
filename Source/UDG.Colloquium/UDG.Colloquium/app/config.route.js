@@ -27,43 +27,83 @@
             .state('userManagement', {
                 url: '/management/user',
                 templateUrl: '/app/userManagement/usrMgmt.html',
-                controller:'usrMgmtCtrl as vm'
+                controller: 'usrMgmtCtrl as vm',
+                resolve: {
+                    checkMetadata:function(authService) {
+                        return authService.checkIsLogged();
+                    }   
+                }
             })
             .state('userRoles', {
                 url: '/management/userRoles/:userId',
                 templateUrl: '/app/userManagement/usrRoleDetail.html',
-                controller: 'usrRoleDetailCtrl as vm'
+                controller: 'usrRoleDetailCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('roleManagement', {
                 url: '/management/role',
                 templateUrl: '/app/userManagement/roleMgmt.html',
-                controller: 'roleMgmtCtrl as vm'
+                controller: 'roleMgmtCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('roleDetail', {
                 url: '/management/role/:roleId',
                 templateUrl: '/app/userManagement/roleDetail.html',
-                controller: 'roleDetailCtrl as vm'
+                controller: 'roleDetailCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
              .state('session', {
                  url: '/sessions',
                  templateUrl: '/app/sessions/sessions.html',
-                 controller: 'sessionsCtrl as vm'
+                 controller: 'sessionsCtrl as vm',
+                 resolve: {
+                     checkMetadata: function (authService) {
+                         return authService.checkIsLogged();
+                     }
+                 }
              })
               .state('sessionDetail', {
                   url: '/sessions/:sessionId',
                   templateUrl: '/app/sessions/sessionDetail.html',
-                  controller: 'sessionDetailCtrl as vm'
+                  controller: 'sessionDetailCtrl as vm',
+                  resolve: {
+                      checkMetadata: function (authService) {
+                          return authService.checkIsLogged();
+                      }
+                  }
               })
             .state('sessionComments', {
                 url: '/sessions/:sessionId/comments',
                 templateUrl: '/app/comments/comments.html',
-                controller: 'commentsCtrl as vm'
+                controller: 'commentsCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             // Creation
             .state('register', {
                 url: '/register',
                 templateUrl: '/app/userManagement/usrReg.html',
-                controller: 'usrRegCtrl as vm'
+                controller: 'usrRegCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('register.credentials', {
                 url: '/credentials',
@@ -90,7 +130,12 @@
             .state('edit', {
                 url: '/edit/:userId',
                 templateUrl: '/app/userManagement/usrReg.html',
-                controller: 'usrRegCtrl as vm'
+                controller: 'usrRegCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('edit.credentials', {
                 url: '/credentials',
@@ -115,27 +160,52 @@
             .state('colloquiumList', {
                 url: '/colloquiums',
                 templateUrl: '/app/colloquium/colloquiums.html',
-                controller: 'colloquiumsCtrl as vm'
+                controller: 'colloquiumsCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('colloquiumDetail', {
                 url: '/colloquiums/:colloquiumId',
                 templateUrl: '/app/colloquium/colloquiumDetail.html',
-                controller: 'colloquiumDetailCtrl as vm'
+                controller: 'colloquiumDetailCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('colloquiumSessions', {
                 url: '/colloquiums/:colloquiumId/sessions',
                 templateUrl: '/app/colloquium/colloquiumSessions.html',
-                controller:'colloquiumSessionsCtrl as vm'
+                controller: 'colloquiumSessionsCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
             })
             .state('colloquiumSessionDetail', {
             url: '/colloquiums/:colloquiumId/sessions/:sessionId',
             templateUrl: '/app/colloquium/colloquiumSessionDetail.html',
-            controller: 'colloquiumSessionDetailCtrl as vm'
+            controller: 'colloquiumSessionDetailCtrl as vm',
+            resolve: {
+                checkMetadata: function (authService) {
+                    return authService.checkIsLogged();
+                }
+            }
             })
            .state('colloquiumSessionComments', {
                url: '/colloquiums/:colloquiumId/sessions/:sessionId/comments',
                 templateUrl: '/app/comments/comments.html',
-                controller: 'commentsCtrl as vm'
+                controller: 'commentsCtrl as vm',
+                resolve: {
+                    checkMetadata: function (authService) {
+                        return authService.checkIsLogged();
+                    }
+                }
         
     });
         

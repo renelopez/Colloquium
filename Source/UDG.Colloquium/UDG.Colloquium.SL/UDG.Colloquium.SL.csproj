@@ -201,7 +201,7 @@
   <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\UDG.Colloquium.BL\UDG.Colloquium.BL.csproj">
-      <Project>{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}</Project>
+      <Project>{23e7b49e-f7ba-4e8c-9bb6-85ca56d887d0}</Project>
       <Name>UDG.Colloquium.BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">

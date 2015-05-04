@@ -58,5 +58,14 @@
                  toggleSpinner(data.show);
             }
         );
+
+        $rootScope.$on(events.authorization,
+            function (event, data) {
+                console.log('inside the autorization event');
+                if (!data.isAuthorized) {
+                    logOut();
+                }
+            }
+        );
     };
 })();

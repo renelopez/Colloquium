@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using AutoMapper;
-using UDG.Colloquium.BL.Entities.Account;
 using UDG.Colloquium.Configuration.Mappings.Initializers;
 
 [assembly: PreApplicationStartMethod(typeof(AutoMapperWebInitializer), "Init")]

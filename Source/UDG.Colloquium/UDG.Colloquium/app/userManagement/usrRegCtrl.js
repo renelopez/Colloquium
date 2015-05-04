@@ -4,9 +4,9 @@
     var controllerId = 'usrRegCtrl';
 
     angular.module('app').controller(controllerId,
-        ['$location','$scope', '$stateParams','$window', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
+        ['$location','$q','$scope', '$stateParams','$window', 'common', 'config', 'datacontext', 'lodash', usrRegCtrl]);
 
-    function usrRegCtrl($location, $scope,$stateParams,$window,common, config, datacontext, lodash) {
+    function usrRegCtrl($location,$q,$scope,$stateParams,$window,common, config, datacontext, lodash) {
         var getLogFn = common.logger.getLogFn;
         var log = getLogFn(controllerId);
         var logInfo = getLogFn(controllerId, "info");
@@ -149,11 +149,13 @@
             function success() {
                 common.toggleBusyMessage(false);
                 logSuccess("User " + vm.user.userName + " was succesfully created");
+                vm.isSaving = false;
                 $location.path('/');
             }
             
             function errorSave(error) {
                 common.toggleBusyMessage(false);
+                vm.isSaving = false;
                 logError("Following errors ocurred:", error, true);
             }
         }

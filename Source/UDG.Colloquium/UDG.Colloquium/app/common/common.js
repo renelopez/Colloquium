@@ -15,7 +15,8 @@
             // These are the properties we need to set
             controllerActivateSuccessEvent: '',
             spinnerToggleEvent: '',
-            hasChangesChangedEvent:''
+            hasChangesChangedEvent: '',
+            authorizationEvent:''
         };
 
         this.$get = function () {
@@ -42,6 +43,7 @@
             debouncedThrottle: debouncedThrottle,
             isNumber: isNumber,
             logger: logger, // for accessibility
+            raiseAuthMessage:raiseAuthMessage,
             textContains: textContains,
             toggleBusyMessage:toggleBusyMessage
 
@@ -124,6 +126,10 @@
 
         function toggleBusyMessage(state) {
             $broadcast(commonConfig.config.spinnerToggleEvent, { show: state });
+        }
+
+        function raiseAuthMessage(isAuthorized) {
+            $broadcast(commonConfig.config.authorizationEvent, { isAuthorized: isAuthorized });
         }
 
         function isNumber(val) {
