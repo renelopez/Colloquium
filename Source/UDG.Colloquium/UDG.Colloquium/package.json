@@ -1,47 +1,24 @@
-﻿{
-    "name": "gulp-colloquium",
-    "preferGlobal": true,
-    "version": "0.3.0",
-    "author": "Rene Lopez <rene.lopez.cano@gmail.com>",
-    "description": "¨Package for deploy the colloquium application",
-    "contributors": [
-        {
-            "name": "First Contributor",
-            "email": "email@domain.com"
-        }
-    ],
-    "bin": {
-        "package-name": "./bin/package-name"
-    },
-    "scripts": {
-        "start": "node ./bin/package-name",
-        "test": "vows --spec --isolate",
-        "predeploy": "echo This will be run before deploying the app",
-        "postdeploy": "echo This will be run after deploying the app"
-    },
-    "main": "./lib/package-name",
-    "repository": {
-        "type": "git",
-        "url": "the url of the package"
-    },
-    "keywords": [
-    ],
-    "dependencies": {
-		"bower":"*",
-		"gulp":"*",
-    },
-    "analyze": false,
-    "devDependencies": {
-        "gulp-clean": "*",
-        "gulp-jshint": "*",
-        "gulp-concat": "*",
-        "gulp-uglify": "*", 
-        "gulp-rename": "*"
-    },
-  "bundledDependencies": [
-  ],  
-  "license": "MIT",
-  "engines": {
-      "node": ">=0.6"
-  }
+{
+  "name": "UDG.Colloquium",
+  "version": "1.0.0",
+  "description": "An application to track a colloquium process",
+  "main": "index.js",
+  "dependencies": {
+    "bower": "^1.4.1",
+    "gulp": "^3.8.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/renelopez/Colloquium"
+  },
+  "author": "Rene Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renelopez/Colloquium/issues"
+  },
+  "homepage": "https://github.com/renelopez/Colloquium"
 }
