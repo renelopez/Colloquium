@@ -16,8 +16,8 @@ namespace UDG.Colloquium
             DIConfig.RegisterDependencies();
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
-            BundleConfig.RegisterBundles(BundleTable.Bundles);
+            //RouteConfig.RegisterRoutes(RouteTable.Routes);
+            //BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

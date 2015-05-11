@@ -8,25 +8,25 @@
         $stateProvider
             .state('index', {
                 url: '/',
-                templateUrl: '/app/index.html',
-                controller: 'indexCtrl as vm'
+                templateUrl: 'scripts/home.html',
+                controller: 'homeCtrl as vm'
             })
             .state('login', {
                 url: '/login',
-                templateUrl: '/app/authentication/login.html',
+                templateUrl: 'scripts/authentication/login.html',
                 controller: 'loginCtrl as vm'
             })
             .state('about', {
                 url: '/about',
-                templateUrl: '/app/others/about.html'
+                templateUrl: 'scripts/others/about.html'
             })
             .state('contact', {
                 url: '/contact',
-                templateUrl: '/app/others/contact.html'
+                templateUrl: 'scripts/others/contact.html'
             })
             .state('userManagement', {
                 url: '/management/user',
-                templateUrl: '/app/userManagement/usrMgmt.html',
+                templateUrl: 'scripts/userManagement/usrMgmt.html',
                 controller: 'usrMgmtCtrl as vm',
                 resolve: {
                     checkMetadata:function(authService) {
@@ -36,7 +36,7 @@
             })
             .state('userRoles', {
                 url: '/management/userRoles/:userId',
-                templateUrl: '/app/userManagement/usrRoleDetail.html',
+                templateUrl: 'scripts/userManagement/usrRoleDetail.html',
                 controller: 'usrRoleDetailCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -46,7 +46,7 @@
             })
             .state('roleManagement', {
                 url: '/management/role',
-                templateUrl: '/app/userManagement/roleMgmt.html',
+                templateUrl: 'scripts/userManagement/roleMgmt.html',
                 controller: 'roleMgmtCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -56,7 +56,7 @@
             })
             .state('roleDetail', {
                 url: '/management/role/:roleId',
-                templateUrl: '/app/userManagement/roleDetail.html',
+                templateUrl: 'scripts/userManagement/roleDetail.html',
                 controller: 'roleDetailCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -66,7 +66,7 @@
             })
              .state('session', {
                  url: '/sessions',
-                 templateUrl: '/app/sessions/sessions.html',
+                 templateUrl: 'scripts/sessions/sessions.html',
                  controller: 'sessionsCtrl as vm',
                  resolve: {
                      checkMetadata: function (authService) {
@@ -76,7 +76,7 @@
              })
               .state('sessionDetail', {
                   url: '/sessions/:sessionId',
-                  templateUrl: '/app/sessions/sessionDetail.html',
+                  templateUrl: 'scripts/sessions/sessionDetail.html',
                   controller: 'sessionDetailCtrl as vm',
                   resolve: {
                       checkMetadata: function (authService) {
@@ -86,7 +86,7 @@
               })
             .state('sessionComments', {
                 url: '/sessions/:sessionId/comments',
-                templateUrl: '/app/comments/comments.html',
+                templateUrl: 'scripts/comments/comments.html',
                 controller: 'commentsCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -97,7 +97,7 @@
             // Creation
             .state('register', {
                 url: '/register',
-                templateUrl: '/app/userManagement/usrReg.html',
+                templateUrl: 'scripts/userManagement/usrReg.html',
                 controller: 'usrRegCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -107,29 +107,29 @@
             })
             .state('register.credentials', {
                 url: '/credentials',
-                templateUrl: '/app/userManagement/usrRegCredentials.html'
+                templateUrl: 'scripts/userManagement/usrRegCredentials.html'
             })
             .state('register.personal', {
                 url: '/personal',
-                templateUrl: '/app/userManagement/usrRegPersonal.html'
+                templateUrl: 'scripts/userManagement/usrRegPersonal.html'
             })
             .state('register.work', {
                 url: '/work',
-                templateUrl: '/app/userManagement/usrRegWork.html'
+                templateUrl: 'scripts/userManagement/usrRegWork.html'
             })
             .state('register.contact', {
                 url: '/contact',
-                templateUrl: '/app/userManagement/usrRegContact.html'
+                templateUrl: 'scripts/userManagement/usrRegContact.html'
             })
             .state('register.submit', {
                 url: '/submit',
-                templateUrl: '/app/userManagement/usrRegSubmit.html'
+                templateUrl: 'scripts/userManagement/usrRegSubmit.html'
             })
         
             // Update
             .state('edit', {
                 url: '/edit/:userId',
-                templateUrl: '/app/userManagement/usrReg.html',
+                templateUrl: 'scripts/userManagement/usrReg.html',
                 controller: 'usrRegCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -139,27 +139,27 @@
             })
             .state('edit.credentials', {
                 url: '/credentials',
-                templateUrl: '/app/userManagement/usrRegCredentials.html'
+                templateUrl: 'scripts/userManagement/usrRegCredentials.html'
             })
             .state('edit.personal', {
                 url: '/personal',
-                templateUrl: '/app/userManagement/usrRegPersonal.html'
+                templateUrl: 'scripts/userManagement/usrRegPersonal.html'
             })
             .state('edit.work', {
                 url: '/work',
-                templateUrl: '/app/userManagement/usrRegWork.html'
+                templateUrl: 'scripts/userManagement/usrRegWork.html'
             })
             .state('edit.contact', {
                 url: '/contact',
-                templateUrl: '/app/userManagement/usrRegContact.html'
+                templateUrl: 'scripts/userManagement/usrRegContact.html'
             })
             .state('edit.submit', {
                 url: '/submit',
-                templateUrl: '/app/userManagement/usrRegSubmit.html'
+                templateUrl: 'scripts/userManagement/usrRegSubmit.html'
             })
             .state('colloquiumList', {
                 url: '/colloquiums',
-                templateUrl: '/app/colloquium/colloquiums.html',
+                templateUrl: 'scripts/colloquium/colloquiums.html',
                 controller: 'colloquiumsCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -169,7 +169,7 @@
             })
             .state('colloquiumDetail', {
                 url: '/colloquiums/:colloquiumId',
-                templateUrl: '/app/colloquium/colloquiumDetail.html',
+                templateUrl: 'scripts/colloquium/colloquiumDetail.html',
                 controller: 'colloquiumDetailCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -179,7 +179,7 @@
             })
             .state('colloquiumSessions', {
                 url: '/colloquiums/:colloquiumId/sessions',
-                templateUrl: '/app/colloquium/colloquiumSessions.html',
+                templateUrl: 'scripts/colloquium/colloquiumSessions.html',
                 controller: 'colloquiumSessionsCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {
@@ -189,7 +189,7 @@
             })
             .state('colloquiumSessionDetail', {
             url: '/colloquiums/:colloquiumId/sessions/:sessionId',
-            templateUrl: '/app/colloquium/colloquiumSessionDetail.html',
+            templateUrl: 'scripts/colloquium/colloquiumSessionDetail.html',
             controller: 'colloquiumSessionDetailCtrl as vm',
             resolve: {
                 checkMetadata: function (authService) {
@@ -199,7 +199,7 @@
             })
            .state('colloquiumSessionComments', {
                url: '/colloquiums/:colloquiumId/sessions/:sessionId/comments',
-                templateUrl: '/app/comments/comments.html',
+                templateUrl: 'scripts/comments/comments.html',
                 controller: 'commentsCtrl as vm',
                 resolve: {
                     checkMetadata: function (authService) {

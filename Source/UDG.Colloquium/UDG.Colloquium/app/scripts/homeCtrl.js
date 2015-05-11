@@ -3,12 +3,12 @@
 
     angular
         .module('app')
-        .controller('indexCtrl', indexCtrl);
+        .controller('homeCtrl', homeCtrl);
 
-    function indexCtrl() {
+    function homeCtrl() {
         /* jshint validthis:true */
         var vm = this;
-        vm.title = 'indexCtrl';
+        vm.title = 'homeCtrl';
 
         activate();
 

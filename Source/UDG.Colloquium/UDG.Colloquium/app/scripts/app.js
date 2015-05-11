@@ -9,7 +9,7 @@
         // Angular modules 
         'ngAnimate',        // animations
        // 'ngRoute',        // routing
-        'ngSanitize',
+       //'ngSanitize',
         
 
         // Custom modules 
