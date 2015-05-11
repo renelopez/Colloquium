@@ -10,6 +10,14 @@ var es = require('event-stream');
 var templateCache = require('gulp-angular-templatecache');
 var uglify = require('gulp-uglify');
 var ngAnnotate = require('gulp-ng-annotate');
+var del = require('del');
+
+
+gulp.task('build', ['clean:dist', 'htmlreplace', 'bundle:cssVendor', 'bundle:cssProp', 'bundle:scriptsVendor', 'bundle:scriptsProp']);
+
+
+
+
 
 gulp.task('bundle:cssVendor', function() {
     return gulp.src([
@@ -30,6 +38,15 @@ gulp.task('bundle:cssProp', function () {
         .pipe(csso())
         .pipe(gulp.dest('dist/styles'));
 });
+
+gulp.task('clean:dist', function(cb) {
+    del([
+        'dist/**/*'
+    ],cb);
+});
+
+
+
 
 gulp.task('bundle:scriptsVendor', function () {
     return gulp.src([
@@ -58,6 +75,11 @@ gulp.task('bundle:scriptsVendor', function () {
         .pipe(gulp.dest('dist/scripts'));
 });
 
+
+
+
+
+
 gulp.task('bundle:scriptsProp', function() {
     return es.merge(
             gulp.src('app/scripts/**/*.html')
@@ -75,7 +97,10 @@ gulp.task('bundle:scriptsProp', function() {
 });
 
 
-
+gulp.task('images', function() {
+    return gulp.src(['app/styles/images/**/*', 'app/bower_components/kendo-ui-core/styles/images/**/*'])
+        .pipe(gulp.dest('dist/styles/images'));
+});
 
 
 gulp.task('htmlreplace', function() {

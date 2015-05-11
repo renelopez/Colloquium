@@ -29,9 +29,9 @@
                 templateUrl: 'scripts/userManagement/usrMgmt.html',
                 controller: 'usrMgmtCtrl as vm',
                 resolve: {
-                    checkMetadata:function(authService) {
+                    checkMetadata:['authService',function(authService) {
                         return authService.checkIsLogged();
-                    }   
+                    }]   
                 }
             })
             .state('userRoles', {
@@ -39,9 +39,9 @@
                 templateUrl: 'scripts/userManagement/usrRoleDetail.html',
                 controller: 'usrRoleDetailCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('roleManagement', {
@@ -49,9 +49,9 @@
                 templateUrl: 'scripts/userManagement/roleMgmt.html',
                 controller: 'roleMgmtCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('roleDetail', {
@@ -59,9 +59,9 @@
                 templateUrl: 'scripts/userManagement/roleDetail.html',
                 controller: 'roleDetailCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
              .state('session', {
@@ -69,9 +69,9 @@
                  templateUrl: 'scripts/sessions/sessions.html',
                  controller: 'sessionsCtrl as vm',
                  resolve: {
-                     checkMetadata: function (authService) {
+                     checkMetadata: ['authService', function (authService) {
                          return authService.checkIsLogged();
-                     }
+                     }]
                  }
              })
               .state('sessionDetail', {
@@ -79,9 +79,9 @@
                   templateUrl: 'scripts/sessions/sessionDetail.html',
                   controller: 'sessionDetailCtrl as vm',
                   resolve: {
-                      checkMetadata: function (authService) {
+                      checkMetadata: ['authService', function (authService) {
                           return authService.checkIsLogged();
-                      }
+                      }]
                   }
               })
             .state('sessionComments', {
@@ -89,9 +89,9 @@
                 templateUrl: 'scripts/comments/comments.html',
                 controller: 'commentsCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             // Creation
@@ -100,9 +100,9 @@
                 templateUrl: 'scripts/userManagement/usrReg.html',
                 controller: 'usrRegCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('register.credentials', {
@@ -132,9 +132,9 @@
                 templateUrl: 'scripts/userManagement/usrReg.html',
                 controller: 'usrRegCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('edit.credentials', {
@@ -162,9 +162,9 @@
                 templateUrl: 'scripts/colloquium/colloquiums.html',
                 controller: 'colloquiumsCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('colloquiumDetail', {
@@ -172,9 +172,9 @@
                 templateUrl: 'scripts/colloquium/colloquiumDetail.html',
                 controller: 'colloquiumDetailCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('colloquiumSessions', {
@@ -182,9 +182,9 @@
                 templateUrl: 'scripts/colloquium/colloquiumSessions.html',
                 controller: 'colloquiumSessionsCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
             })
             .state('colloquiumSessionDetail', {
@@ -192,9 +192,9 @@
             templateUrl: 'scripts/colloquium/colloquiumSessionDetail.html',
             controller: 'colloquiumSessionDetailCtrl as vm',
             resolve: {
-                checkMetadata: function (authService) {
+                checkMetadata: ['authService', function (authService) {
                     return authService.checkIsLogged();
-                }
+                }]
             }
             })
            .state('colloquiumSessionComments', {
@@ -202,9 +202,9 @@
                 templateUrl: 'scripts/comments/comments.html',
                 controller: 'commentsCtrl as vm',
                 resolve: {
-                    checkMetadata: function (authService) {
+                    checkMetadata: ['authService', function (authService) {
                         return authService.checkIsLogged();
-                    }
+                    }]
                 }
         
     });
