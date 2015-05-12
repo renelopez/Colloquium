@@ -10,7 +10,6 @@ using UDG.Colloquium.SL.ServiceRepositories;
 
 namespace UDG.Colloquium.API.Controllers
 {
-    // Breeze Controller for simplicity??
     [BreezeController]
     [Authorize]
     public class ColloquiumController:ApiController
