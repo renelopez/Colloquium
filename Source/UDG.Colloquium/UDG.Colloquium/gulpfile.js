@@ -13,7 +13,7 @@ var ngAnnotate = require('gulp-ng-annotate');
 var del = require('del');
 
 
-gulp.task('build', ['clean:dist', 'htmlreplace', 'bundle:cssVendor', 'bundle:cssProp', 'bundle:scriptsVendor', 'bundle:scriptsProp']);
+gulp.task('build', ['htmlreplace', 'bundle:cssVendor', 'bundle:cssProp', 'bundle:scriptsVendor', 'bundle:scriptsProp','images','imagesMaterial','fonts']);
 
 
 
@@ -40,9 +40,7 @@ gulp.task('bundle:cssProp', function () {
 });
 
 gulp.task('clean:dist', function(cb) {
-    del([
-        'dist/**/*'
-    ],cb);
+    del(['dist'],cb);
 });
 
 
@@ -98,8 +96,21 @@ gulp.task('bundle:scriptsProp', function() {
 
 
 gulp.task('images', function() {
-    return gulp.src(['app/styles/images/**/*', 'app/bower_components/kendo-ui-core/styles/images/**/*'])
+    return gulp.src(['app/styles/images/**/*',
+        'app/bower_components/kendo-ui-core/styles/images/**/*'])
         .pipe(gulp.dest('dist/styles/images'));
+});
+
+
+
+gulp.task('imagesMaterial', function() {
+    return gulp.src('app/bower_components/kendo-ui-core/styles/Material/**/*')
+        .pipe(gulp.dest('dist/styles/Material'));
+});
+
+gulp.task('fonts', function () {
+    return gulp.src('app/bower_components/bootstrap/fonts/**/*')
+        .pipe(gulp.dest('dist/fonts'));
 });
 
 
