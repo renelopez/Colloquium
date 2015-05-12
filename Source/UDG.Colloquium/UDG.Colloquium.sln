@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDG.Colloquium.SL", "UDG.Co
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDG.Colloquium.BL", "UDG.Colloquium.BL\UDG.Colloquium.BL.csproj", "{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDG.Colloquium.API", "UDG.Colloquium.API\UDG.Colloquium.API.csproj", "{850D620E-BD49-431E-91E5-4BD8769E0AFF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -46,6 +48,10 @@ Global
 		{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{23E7B49E-F7BA-4E8C-9BB6-85CA56D887D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{850D620E-BD49-431E-91E5-4BD8769E0AFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{850D620E-BD49-431E-91E5-4BD8769E0AFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{850D620E-BD49-431E-91E5-4BD8769E0AFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{850D620E-BD49-431E-91E5-4BD8769E0AFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
