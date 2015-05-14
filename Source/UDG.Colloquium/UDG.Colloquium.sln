@@ -3,10 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDG.Colloquium", "UDG.Colloquium\UDG.Colloquium.csproj", "{98619CD7-F80F-44CA-8605-EE46FB764C7F}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDG.Colloquium.Tests", "UDG.Colloquium.Tests\UDG.Colloquium.Tests.csproj", "{DCB6212A-5AC4-4D43-A327-74EA7D0DA754}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UDG.Colloquium.DL", "UDG.Colloquium.DL\UDG.Colloquium.DL.csproj", "{7265B8A6-AD45-4174-BD20-8E65FD39D500}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{2C38CFF9-52FF-4E53-B5EC-AE08EFA231C2}"
@@ -28,14 +24,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{98619CD7-F80F-44CA-8605-EE46FB764C7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{98619CD7-F80F-44CA-8605-EE46FB764C7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{98619CD7-F80F-44CA-8605-EE46FB764C7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{98619CD7-F80F-44CA-8605-EE46FB764C7F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DCB6212A-5AC4-4D43-A327-74EA7D0DA754}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DCB6212A-5AC4-4D43-A327-74EA7D0DA754}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DCB6212A-5AC4-4D43-A327-74EA7D0DA754}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DCB6212A-5AC4-4D43-A327-74EA7D0DA754}.Release|Any CPU.Build.0 = Release|Any CPU
 		{7265B8A6-AD45-4174-BD20-8E65FD39D500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{7265B8A6-AD45-4174-BD20-8E65FD39D500}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7265B8A6-AD45-4174-BD20-8E65FD39D500}.Release|Any CPU.ActiveCfg = Release|Any CPU

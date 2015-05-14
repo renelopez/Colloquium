@@ -210,10 +210,6 @@
       <Project>{7265B8A6-AD45-4174-BD20-8E65FD39D500}</Project>
       <Name>UDG.Colloquium.DL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\UDG.Colloquium.SL\UDG.Colloquium.SL.csproj">
-      <Project>{8AF331EE-194A-4566-AA32-8E8E6AA5991B}</Project>
-      <Name>UDG.Colloquium.SL</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

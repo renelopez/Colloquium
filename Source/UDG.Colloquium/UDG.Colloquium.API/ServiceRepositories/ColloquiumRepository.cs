@@ -9,7 +9,6 @@ using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Models;
-using UDG.Colloquium.SL.ServiceRepositories;
 
 namespace UDG.Colloquium.API.ServiceRepositories
 {

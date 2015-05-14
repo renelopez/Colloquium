@@ -35,18 +35,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Autofac, Version=3.5.0.0, Culture=neutral, PublicKeyToken=17863af14b0044da, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Autofac.3.5.2\lib\net40\Autofac.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.dll</HintPath>
-    </Reference>
-    <Reference Include="AutoMapper.Net4, Version=3.3.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\AutoMapper.3.3.1\lib\net40\AutoMapper.Net4.dll</HintPath>
-    </Reference>
     <Reference Include="EntityFramework">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -85,10 +73,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Owin.Security.OAuth.3.0.1\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.Web.Infrastructure">
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -96,43 +80,14 @@
     <Reference Include="Owin">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
-    <Reference Include="RestSharp, Version=105.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\RestSharp.105.0.1\lib\net4\RestSharp.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="WebActivatorEx">
-      <HintPath>..\packages\WebActivatorEx.2.0.6\lib\net40\WebActivatorEx.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\DI\BusinessDIModule.cs" />
-    <Compile Include="Configuration\Mappings\Initializers\AutoMapperBusinessInitializer.cs" />
-    <Compile Include="Entities\Account\AccessDTO.cs" />
-    <Compile Include="Entities\Account\RoleNamesDTO.cs" />
-    <Compile Include="Entities\Account\UserNamesDTO.cs" />
-    <Compile Include="Entities\Account\UserRolesDTO.cs" />
-    <Compile Include="Entities\Account\WorkDTO.cs" />
-    <Compile Include="Contracts\Identity\ISecurityRoleManager.cs" />
     <Compile Include="Contracts\Identity\ISecurityUserManager.cs" />
-    <Compile Include="Managers\Identity\SecurityRoleManager.cs" />
     <Compile Include="Managers\Identity\SecurityUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\Account\DTO\ColloquiumDTOContext.cs" />
-    <Compile Include="ViewModels\Account\DTO\Company.cs" />
-    <Compile Include="ViewModels\Account\DTO\User.cs" />
-    <Compile Include="ViewModels\Account\DTO\Work.cs" />
-    <Compile Include="ViewModels\Account\Management\ManageUserDTO.cs" />
-    <Compile Include="ViewModels\Account\Management\SelectedRolesDTO.cs" />
-    <Compile Include="ViewModels\Account\Register\CompanyDTO.cs" />
-    <Compile Include="ViewModels\Account\Register\ContactDTO.cs" />
-    <Compile Include="ViewModels\Account\Register\GenreTypes.cs" />
-    <Compile Include="ViewModels\Account\Register\LoginDTO.cs" />
-    <Compile Include="ViewModels\Account\Register\RegisterDTO.cs" />
-    <Compile Include="ViewModels\Account\Register\SchemaTypeDTO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\UDG.Colloquium.DL\UDG.Colloquium.DL.csproj">
@@ -142,7 +97,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Start\" />
-    <Folder Include="Helpers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -156,7 +110,6 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
-  <Import Project="..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.3.1\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

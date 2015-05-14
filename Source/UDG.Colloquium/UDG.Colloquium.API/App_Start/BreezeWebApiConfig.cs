@@ -1,8 +1,9 @@
 using System.Web.Http;
+using UDG.Colloquium.API;
 
 [assembly: WebActivator.PreApplicationStartMethod(
-    typeof(UDG.Colloquium.API.App_Start.BreezeWebApiConfig), "RegisterBreezePreStart")]
-namespace UDG.Colloquium.API.App_Start {
+    typeof(BreezeWebApiConfig), "RegisterBreezePreStart")]
+namespace UDG.Colloquium.API {
   ///<summary>
   /// Inserts the Breeze Web API controller route at the front of all Web API routes
   ///</summary>

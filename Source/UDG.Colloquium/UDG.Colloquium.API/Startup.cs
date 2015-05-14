@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net.Http.Formatting;
 using System.Reflection;
-using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using Autofac;
@@ -14,17 +12,16 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.OAuth;
 using Newtonsoft.Json.Serialization;
 using Owin;
+using UDG.Colloquium.API;
 using UDG.Colloquium.API.Providers;
+using UDG.Colloquium.API.ServiceRepositories;
 using UDG.Colloquium.BL.Contracts.Identity;
 using UDG.Colloquium.BL.Managers.Identity;
 using UDG.Colloquium.DL;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Repositories;
-using UDG.Colloquium.SL.ServiceRepositories;
-using ColloquiumRepository = UDG.Colloquium.API.ServiceRepositories.ColloquiumRepository;
-using IColloquiumRepository = UDG.Colloquium.API.ServiceRepositories.IColloquiumRepository;
 
-[assembly:OwinStartup(typeof(UDG.Colloquium.API.Startup))]
+[assembly:OwinStartup(typeof(Startup))]
 namespace UDG.Colloquium.API
 {
     public class Startup
@@ -35,9 +32,10 @@ namespace UDG.Colloquium.API
             var config=new HttpConfiguration();
             config.Routes.MapHttpRoute(
                name: "BreezeApi",
-               routeTemplate: "breeze/{controller}/{action}"
+               routeTemplate: "api/{controller}/{action}"
            );
-            var cors = new EnableCorsAttribute("*", "*", "*");
+            var cors = new EnableCorsAttribute("http://colloquiumweb.azurewebsites.net", "*", "*");
+            config.EnableCors(cors);
             var jsonFormatter = config.Formatters.OfType<JsonMediaTypeFormatter>().First();
             jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 

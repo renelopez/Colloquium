@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Web.Http;
 using Breeze.ContextProvider;
 using Breeze.WebApi2;
@@ -6,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using UDG.Colloquium.DL.Custom.Roles;
 using UDG.Colloquium.DL.Custom.Users;
 using UDG.Colloquium.DL.Models;
-using UDG.Colloquium.SL.ServiceRepositories;
+using UDG.Colloquium.API.ServiceRepositories;
 
 namespace UDG.Colloquium.API.Controllers
 {
@@ -23,7 +24,7 @@ namespace UDG.Colloquium.API.Controllers
         [HttpGet]
         public string Metadata()
         {
-            return ColloquiumRepository.GetMetadata();
+           return ColloquiumRepository.GetMetadata();
         }
 
         [HttpPost]        
